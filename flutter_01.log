@@ -1,0 +1,100 @@
+Flutter crash report; please file at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter build apk --build-name=com.groovinchip.callmanager.flutter
+
+## exception
+
+String: Failed to change version properties. FileSystemException: Cannot rename file to 'android\app\build.gradle', path = 'android\app\build.gradle.tmp' (OS Error: The process cannot access the file because it is being used by another process.
+, errno = 32)
+
+```
+#0      buildGradleProject (package:flutter_tools/src/android/gradle.dart:306)
+<asynchronous suspension>
+#1      buildApk (package:flutter_tools/src/android/apk.dart:36)
+<asynchronous suspension>
+#2      BuildApkCommand.runCommand (package:flutter_tools/src/commands/build_apk.dart:47)
+<asynchronous suspension>
+#3      FlutterCommand.verifyThenRunCommand (package:flutter_tools/src/runner/flutter_command.dart:344)
+<asynchronous suspension>
+#4      FlutterCommand.run.<anonymous closure> (package:flutter_tools/src/runner/flutter_command.dart:279)
+<asynchronous suspension>
+#5      AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:142)
+<asynchronous suspension>
+#6      _rootRun (dart:async/zone.dart:1126)
+#7      _CustomZone.run (dart:async/zone.dart:1023)
+#8      runZoned (dart:async/zone.dart:1501)
+#9      AppContext.run (package:flutter_tools/src/base/context.dart:141)
+<asynchronous suspension>
+#10     FlutterCommand.run (package:flutter_tools/src/runner/flutter_command.dart:270)
+#11     CommandRunner.runCommand (package:args/command_runner.dart:194)
+<asynchronous suspension>
+#12     FlutterCommandRunner.runCommand.<anonymous closure> (package:flutter_tools/src/runner/flutter_command_runner.dart:309)
+<asynchronous suspension>
+#13     AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:142)
+<asynchronous suspension>
+#14     _rootRun (dart:async/zone.dart:1126)
+#15     _CustomZone.run (dart:async/zone.dart:1023)
+#16     runZoned (dart:async/zone.dart:1501)
+#17     AppContext.run (package:flutter_tools/src/base/context.dart:141)
+<asynchronous suspension>
+#18     FlutterCommandRunner.runCommand (package:flutter_tools/src/runner/flutter_command_runner.dart:265)
+<asynchronous suspension>
+#19     CommandRunner.run.<anonymous closure> (package:args/command_runner.dart:109)
+#20     new Future.sync (dart:async/future.dart:222)
+#21     CommandRunner.run (package:args/command_runner.dart:109)
+#22     FlutterCommandRunner.run (package:flutter_tools/src/runner/flutter_command_runner.dart:174)
+#23     run.<anonymous closure> (package:flutter_tools/runner.dart:59)
+<asynchronous suspension>
+#24     AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:142)
+<asynchronous suspension>
+#25     _rootRun (dart:async/zone.dart:1126)
+#26     _CustomZone.run (dart:async/zone.dart:1023)
+#27     runZoned (dart:async/zone.dart:1501)
+#28     AppContext.run (package:flutter_tools/src/base/context.dart:141)
+<asynchronous suspension>
+#29     runInContext (package:flutter_tools/src/context_runner.dart:43)
+<asynchronous suspension>
+#30     run (package:flutter_tools/runner.dart:50)
+#31     main (package:flutter_tools/executable.dart:49)
+<asynchronous suspension>
+#32     main (file:///C:/flutter/packages/flutter_tools/bin/flutter_tools.dart:8)
+#33     _startIsolate.<anonymous closure> (dart:isolate-patch/dart:isolate/isolate_patch.dart:277)
+#34     _RawReceivePortImpl._handleMessage (dart:isolate-patch/dart:isolate/isolate_patch.dart:165)
+```
+
+## flutter doctor
+
+```
+[✓] Flutter (Channel beta, v0.5.1, on Microsoft Windows [Version 10.0.17134.165], locale en-US)
+    • Flutter version 0.5.1 at C:\flutter
+    • Framework revision c7ea3ca377 (3 months ago), 2018-05-29 21:07:33 +0200
+    • Engine revision 1ed25ca7b7
+    • Dart version 2.0.0-dev.58.0.flutter-f981f09760
+
+[✓] Android toolchain - develop for Android devices (Android SDK 28.0.0)
+    • Android SDK at C:\Users\groov\AppData\Local\Android\sdk
+    • Android NDK location not configured (optional; useful for native profiling support)
+    • Platform android-28, build-tools 28.0.0
+    • Java binary at: C:\Program Files\Android\Android Studio Preview\android-studio\jre\bin\java
+    • Java version OpenJDK Runtime Environment (build 1.8.0_152-release-1136-b04)
+    • All Android licenses accepted.
+
+[✓] Android Studio (version 3.1)
+    • Android Studio at C:\Program Files\Android\Android Studio
+    • Flutter plugin version 27.1.1
+    • Dart plugin version 173.4700
+    • Java version OpenJDK Runtime Environment (build 1.8.0_152-release-1024-b02)
+
+[✓] Android Studio (version 3.2)
+    • Android Studio at C:\Program Files\Android\Android Studio Preview\android-studio
+    ✗ Flutter plugin not installed; this adds Flutter specific functionality.
+    ✗ Dart plugin not installed; this adds Dart specific functionality.
+    • Java version OpenJDK Runtime Environment (build 1.8.0_152-release-1136-b04)
+
+[✓] Connected devices (1 available)
+    • Pixel XL • HT74J0200552 • android-arm64 • Android 9 (API 28)
+
+• No issues found!
+```

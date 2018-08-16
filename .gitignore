@@ -1,0 +1,14 @@
+.DS_Store
+.dart_tool/
+
+.packages
+.pub/
+
+.idea/
+
+build/
+
+.flutter-plugins
+
+*android/app/google-services.json
+*android/app/call_manager_key.jks

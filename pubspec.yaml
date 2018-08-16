@@ -1,0 +1,79 @@
+name: call_manager
+description: Call Manager in Flutter
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^0.1.2
+  contact_picker: "^0.0.2"
+  groovin_material_icons: ^1.0.2
+  datetime_picker_formfield: ^0.1.2
+  call_number: ^0.0.1
+  url_launcher: ^3.0.3
+  flutter_local_notifications: ^0.3.6
+  firebase_auth: "0.5.18"
+  google_sign_in: "3.0.4"
+  cloud_firestore: "0.7.3"
+  intl: "^0.15.6"
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^0.8.0
+  flutter_launcher_icons: ^0.6.0
+
+flutter_icons:
+  android: true
+  image_path: "assets/icon/call_manager_app_icon.png"
+
+# For information on the generic Dart part of this file, see the
+# following page: https://www.dartlang.org/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  # assets:
+  #  - images/a_dot_burr.jpeg
+  #  - images/a_dot_ham.jpeg
+  assets:
+    - android/app/src/main/res/drawable-hdpi/ic_notification.png
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.io/assets-and-images/#resolution-aware.
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.io/assets-and-images/#from-packages
+  fonts:
+    - family: SourceSansPro
+      fonts:
+        - asset: fonts/SourceSansPro-Regular.ttf
+        - asset: fonts/SourceSansPro-Bold.ttf
+          weight: 500
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.io/custom-fonts/#from-packages
