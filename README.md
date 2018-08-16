@@ -5,11 +5,11 @@ Call Manager is an organizer for phone calls that you need to make. This app was
 Features:
 - Add a phone call with a name, number, and optional call description. Each call will be added to a chronological list of Call Cards on the main screen.
 - Options per Call Card:
-- Call
-- Send SMS
-- Edit Call
-- Set Notification Reminder
-- Delete Call
+	- Call
+	- Send SMS
+	- Edit Call
+	- Set Notification Reminder
+	- Delete Call
 - Add a contact from your own contact list. The name and number fields will autofill with
 
 Download the app:
