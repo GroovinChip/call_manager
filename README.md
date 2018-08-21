@@ -20,8 +20,9 @@ XDA Labs
 If you would like to contribute to this application:
 1. Fork the repository
 2. Clone the repository to your machine
-3. Make your changes
-4. Open a pull request
+3. Create an app in the Firebase console, add your SHA1 key, and add the google-services.json file to your android/app directory
+4. Make your changes
+5. Open a pull request
 
 ## Getting Started with Flutter
 
