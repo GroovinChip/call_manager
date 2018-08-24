@@ -14,7 +14,8 @@ Features:
 
 Download the app:
 Google Play: https://play.google.com/store/apps/details?id=com.groovinchip.flutter.callmanager
-XDA Labs
+
+XDA Labs: https://labs.xda-developers.com/store/app/com.groovinchip.flutter.callmanager
 
 ## Contribute
 If you would like to contribute to this application:
