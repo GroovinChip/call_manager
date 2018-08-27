@@ -128,7 +128,8 @@ class _HomeScreenState extends State<HomeScreen> {
       if (payload != null) {
         debugPrint('notification payload: ' + payload);
       }
-      await CallNumber().callNumber(numberToCallOnNotificationTap);
+      //await CallNumber().callNumber(numberToCallOnNotificationTap);
+      launch("tel:"+numberToCallOnNotificationTap);
     }
 
     return Scaffold(
@@ -140,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
             if(snapshot.hasData == false) {
               return Center(child: Text("Getting Calls..."));
             } else {
-              return ListView.builder(
+              return snapshot.data.documents.length > 0 ? ListView.builder(
                 itemCount: snapshot.data.documents.length,
                 itemBuilder: (context, index) {
                   DocumentSnapshot ds = snapshot.data.documents[index];
@@ -307,7 +308,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           await flutterLocalNotificationsPlugin.schedule(
                                                             0,
                                                             'Call Reminder',
-                                                            "Don't forget to call " + "${ds['PhoneNumber']}" + "!",
+                                                            "Don't forget to call " + "${ds['Name']}" + "!",
                                                             scheduledNotificationDateTime,
                                                             platformChannelSpecifics,
                                                           );
@@ -357,7 +358,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   );
                 },
-              );
+              )
+              : Center(child: Text("No Calls"));
             }
           },
         ),

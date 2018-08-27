@@ -10,6 +10,7 @@ import 'package:call_manager/globals.dart' as globals;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:call_number/call_number.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(new AddNewCallScreen());
@@ -43,7 +44,8 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
     if (payload != null) {
       debugPrint('notification payload: ' + payload);
     }
-    await CallNumber().callNumber(_phoneFieldController.text);
+    //await CallNumber().callNumber(_phoneFieldController.text);
+    launch("tel:"+_phoneFieldController.text);
   }
 
   @override
@@ -222,11 +224,11 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                       reminderTime.minute,
                     );
                     var androidPlatformChannelSpecifics =
-                    new AndroidNotificationDetails(
-                      '1',
-                      'Call Reminders',
-                      'Allow Call Manager to create and send notifications about Call Reminders',
-                    );
+                      new AndroidNotificationDetails(
+                        '1',
+                        'Call Reminders',
+                        'Allow Call Manager to create and send notifications about Call Reminders',
+                      );
                     var iOSPlatformChannelSpecifics =
                     new IOSNotificationDetails();
                     NotificationDetails platformChannelSpecifics = new NotificationDetails(

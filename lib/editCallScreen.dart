@@ -119,63 +119,11 @@ class _EditCallScreenState extends State<EditCallScreen> {
                             autofocus: false,
                             controller: _descriptionFieldController,
                             decoration: InputDecoration(
-                              labelText: description,
+                              hintText: description,
                             ),
                           ),
                           trailing: Material(child: SizedBox(width: 48.0,),),
                         ),
-                        /*Padding(
-                          padding:
-                          const EdgeInsets.only(right: 16.0, left: 16.0, top: 12.0),
-                          child: Divider(
-                            color: Colors.black,
-                          ),
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(left: 16.0, top: 8.0),
-                              child: Text(
-                                "Reminder",
-                                style: TextStyle(
-                                    fontSize: 20.0, fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ],
-                        ),
-                        ListTile(
-                          leading: Icon(Icons.today),
-                          title: DateTimePickerFormField(
-                            format: dateFormat,
-                            dateOnly: true,
-                            onChanged: (date) {
-                              reminderDate = date;
-                              //_dateFieldController.text = date.toString();
-                            },
-                            controller: _dateFieldController,
-                            decoration: InputDecoration(
-                              labelText: "Reminder Date",
-                            ),
-                          ),
-                          trailing: Material(child: SizedBox(width: 48.0,),),
-                        ),
-                        ListTile(
-                          leading: Icon(Icons.access_time),
-                          title: TimePickerFormField(
-                            format: timeFormat,
-                            enabled: true,
-                            onChanged: (timeOfDay) {
-                              reminderTime = timeOfDay;
-                              //String time = timeOfDay.toString();
-                              //_timeFieldController.text = timeOfDay.toString();
-                            },
-                            controller: _timeFieldController,
-                            decoration: InputDecoration(
-                              labelText: "Reminder Time",
-                            ),
-                          ),
-                          trailing: Material(child: SizedBox(width: 48.0,),),
-                        ),*/
                       ],
                     ),
                   ],
