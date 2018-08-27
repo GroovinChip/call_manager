@@ -127,7 +127,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                   ),
                   trailing: Material(child: SizedBox(width: 48.0,),),
                 ),
-                Padding(
+                /*Padding(
                   padding:
                       const EdgeInsets.only(right: 16.0, left: 16.0, top: 12.0),
                   child: Divider(
@@ -178,7 +178,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                     ),
                   ),
                   trailing: Material(child: SizedBox(width: 48.0,),),
-                ),
+                ),*/
               ],
             ),
           ],

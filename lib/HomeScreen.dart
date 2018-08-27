@@ -217,7 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   },
                                   tooltip: "Delete call",
                                 ),
-                                IconButton(
+                                /*IconButton(
                                   icon: Icon(Icons.notifications_none),
                                   onPressed: (){
                                     numberToCallOnNotificationTap = "${ds['PhoneNumber']}";
@@ -326,7 +326,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     );
                                   },
                                   tooltip: "Set reminder",
-                                ),
+                                ),*/
                                 IconButton(
                                   icon: Icon(Icons.edit),
                                   onPressed: (){
