@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:datetime_picker_formfield/time_picker_formfield.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:call_number/call_number.dart';
@@ -106,6 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 FlatButton(
                   onPressed: (){
+                    FirebaseAuth.instance.signOut();
                     Navigator.of(context).pushNamedAndRemoveUntil('/',(Route<dynamic> route) => false);
                   },
                   child: Text("Yes"),

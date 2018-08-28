@@ -1,5 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/animation.dart';
 import 'package:call_manager/api.dart';
 import 'dart:async';
 import 'package:groovin_material_icons/groovin_material_icons.dart';
@@ -13,36 +13,69 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<LoginPage> {
-  Future<bool> _loginUser() async {
+
+  // gets called on button press
+  Future _loginUser() async {
     final api = await FBApi.signInWithGoogle();
     if (api != null) {
       globals.loggedInUser = api.firebaseUser;
       CollectionReference dbForUser = Firestore.instance.collection("Users");
-      if(dbForUser.document(globals.loggedInUser.uid).path.isNotEmpty){
-
+      if (dbForUser.document(globals.loggedInUser.uid).path.isNotEmpty) {
+        setState(() {
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              '/HomeScreen', (Route<dynamic> route) => false);
+        });
       } else {
         dbForUser.document(globals.loggedInUser.uid).setData({});
       }
-      return true;
     } else {
-      return false;
+
     }
   }
 
+  // initial animation opacity
   double _opacity = 0.0;
+
+  // tracks whether the user is logged in
+  bool _loggedIn = false;
+
+  @override
+  void initState() {
+    super.initState();
+    verifyUser();
+  }
+
+  verifyUser() async {
+    final user = await FirebaseAuth.instance.currentUser();
+    if (user != null) {
+      globals.loggedInUser = user;
+      setState(() {
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          '/HomeScreen', (Route<dynamic> route) => false);
+      });
+      if (mounted) {
+        setState(() {
+          _loggedIn = true;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-        statusBarIconBrightness: Brightness.dark,
-        statusBarColor: Colors.white,
-        systemNavigationBarColor: Colors.white,
-        systemNavigationBarIconBrightness: Brightness.dark
-    ));
+      statusBarIconBrightness: Brightness.dark,
+      statusBarColor: Colors.white,
+      systemNavigationBarColor: Colors.white,
+      systemNavigationBarIconBrightness: Brightness.dark));
 
-    Future.delayed(Duration(milliseconds: 500),()=> setState((){
-      _opacity = 1.0;
-    }));
+    Future.delayed(
+      Duration(milliseconds: 500),
+          () => setState(() {
+        _opacity = 1.0;
+      }
+      )
+    );
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -57,37 +90,28 @@ class LoginPageState extends State<LoginPage> {
                 children: <Widget>[
                   Text(
                     "Call Manager",
-                    style: TextStyle(
-                      fontSize: 48.0,
-                      fontWeight: FontWeight.bold
-                    ),
+                    style:
+                    TextStyle(fontSize: 48.0, fontWeight: FontWeight.bold),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 150.0, top: 25.0),
                     child: Text(
                       "Your Phone Call Organizer",
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.0
-                      ),
+                          fontWeight: FontWeight.bold, fontSize: 16.0),
                     ),
                   ),
-                  RaisedButton.icon(
+                  _loggedIn
+                      ? const Center(child: CircularProgressIndicator())
+                      : RaisedButton.icon(
                     color: Colors.blue,
-                    icon: Icon(GroovinMaterialIcons.google, color: Colors.white,),
-                    label: Text("Sign in with Google", style: TextStyle(color: Colors.white)),
-                    onPressed: () async {
-                      bool b = await _loginUser();
-                      if(b){
-                        Navigator.of(context).pushNamedAndRemoveUntil('/HomeScreen',(Route<dynamic> route) => false);
-                      } else {
-                        Scaffold.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Wrong Email!'),
-                          ),
-                        );
-                      }
-                    },
+                    icon: Icon(
+                      GroovinMaterialIcons.google,
+                      color: Colors.white,
+                    ),
+                    label: Text("Sign in with Google",
+                        style: TextStyle(color: Colors.white)),
+                    onPressed: () async => await _loginUser(),
                   ),
                 ],
               ),
