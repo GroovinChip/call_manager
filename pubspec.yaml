@@ -18,6 +18,7 @@ dependencies:
   google_sign_in: "3.0.4"
   cloud_firestore: "0.7.3"
   intl: "^0.15.6"
+  package_info: ^0.3.2
 
 dev_dependencies:
   flutter_test:

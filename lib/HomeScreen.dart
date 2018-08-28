@@ -42,19 +42,19 @@ class _HomeScreenState extends State<HomeScreen> {
     ));
 
     List<PopupMenuItem> overflowAppBarItems = [
-      /*PopupMenuItem(
+      PopupMenuItem(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
-              child: Text("Settings"),
+              child: Text("About"),
             ),
-            Icon(Icons.settings),
+            Icon(Icons.info_outline),
           ],
         ),
-        value: "Settings",
-      ),*/
+        value: "About",
+      ),
       PopupMenuItem(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,7 +88,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     void _chooseAppBarOverflowAction(value){
       switch(value){
-        case "Settings":
+        case "About":
+          Navigator.of(context).pushNamed("/AboutScreen");
           break;
         case "Log Out":
           showDialog(

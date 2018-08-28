@@ -1,3 +1,4 @@
+import 'package:call_manager/aboutScreen.dart';
 import 'package:call_manager/editCallScreen.dart';
 import 'package:call_manager/loginPage.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,8 @@ class CallManagerApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         "/HomeScreen": (BuildContext context) => new HomeScreen(),
         "/AddNewCallScreen": (BuildContext context) => new AddNewCallScreen(),
-        "/EditCallScreen": (BuildContext context) => new EditCallScreen()
+        "/EditCallScreen": (BuildContext context) => new EditCallScreen(),
+        "/AboutScreen": (BuildContext context) => new AboutScreen()
       },
       debugShowCheckedModeBanner: false,
     );
