@@ -104,7 +104,7 @@ class _AboutScreenState extends State<AboutScreen> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 0.0),
+                      padding: const EdgeInsets.only(right: 8.0),
                       child: IconButton(
                         icon: Icon(GroovinMaterialIcons.gmail),
                         color: Colors.red,
@@ -113,16 +113,60 @@ class _AboutScreenState extends State<AboutScreen> {
                         },
                       ),
                     ),
-                    /*Padding(
+                    Padding(
                       padding: const EdgeInsets.only(right: 0.0),
                       child: IconButton(
-                        icon: Icon(GroovinMaterialIcons.google_play),
-                        color: Colors.green,
+                        icon: Icon(GroovinMaterialIcons.discord),
+                        color: Colors.deepPurple[300],
                         onPressed: (){
-                          launch("http:https://play.google.com/store/search?q=groovinchip&c=apps");
+                          launch("https://discord.gg/CFnBRue");
                         },
                       ),
-                    ),*/
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Text(
+                        "This application was created with Flutter",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.0
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "Get started at ",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold
+                            ),
+                          ),
+                          FlatButton(
+                            child: Text(
+                              "https://flutter.io",
+                              style: TextStyle(
+                                color: Colors.blue[700],
+                              ),
+                            ),
+                            //splashColor: Colors.white,
+                            //highlightColor: Colors.blue,
+                            onPressed: (){
+                              launch("https:flutter.io");
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
