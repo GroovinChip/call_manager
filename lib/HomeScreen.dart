@@ -11,6 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:groovin_material_icons/groovin_material_icons.dart';
 import 'package:call_manager/globals.dart' as globals;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() {
   runApp(HomeScreen());
@@ -31,6 +32,19 @@ class _HomeScreenState extends State<HomeScreen> {
   TimeOfDay reminderTime;
 
   String numberToCallOnNotificationTap;
+
+  PermissionStatus status;
+
+  @override
+  void initState() {
+    super.initState();
+    permissions();
+  }
+
+  void permissions() async {
+    Map<PermissionGroup, PermissionStatus> permissions = await PermissionHandler.requestPermissions([PermissionGroup.phone]);
+    PermissionStatus permission = await PermissionHandler.checkPermissionStatus(PermissionGroup.phone);
+  }
 
   @override
   Widget build(BuildContext context) {
