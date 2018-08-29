@@ -35,15 +35,34 @@ class _HomeScreenState extends State<HomeScreen> {
 
   PermissionStatus status;
 
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
   @override
   void initState() {
     super.initState();
     permissions();
+    flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+    var initializationSettingsAndroid =
+    new AndroidInitializationSettings('ic_notification');
+    var initializationSettingsIOS = new IOSInitializationSettings();
+    var initializationSettings = new InitializationSettings(
+        initializationSettingsAndroid, initializationSettingsIOS);
+    flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+    flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        selectNotification: onSelectNotification);
   }
 
   void permissions() async {
     Map<PermissionGroup, PermissionStatus> permissions = await PermissionHandler.requestPermissions([PermissionGroup.phone]);
     PermissionStatus permission = await PermissionHandler.checkPermissionStatus(PermissionGroup.phone);
+  }
+
+  Future onSelectNotification(String payload) async {
+    if (payload != null) {
+      debugPrint('notification payload: ' + payload);
+    }
+    //await CallNumber().callNumber(numberToCallOnNotificationTap);
+    launch("tel:"+numberToCallOnNotificationTap);
   }
 
   @override
@@ -141,14 +160,6 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     }
 
-    Future onSelectNotification(String payload) async {
-      if (payload != null) {
-        debugPrint('notification payload: ' + payload);
-      }
-      //await CallNumber().callNumber(numberToCallOnNotificationTap);
-      launch("tel:"+numberToCallOnNotificationTap);
-    }
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -234,7 +245,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   },
                                   tooltip: "Delete call",
                                 ),
-                                /*IconButton(
+                                IconButton(
                                   icon: Icon(Icons.notifications_none),
                                   onPressed: (){
                                     numberToCallOnNotificationTap = "${ds['PhoneNumber']}";
@@ -259,9 +270,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   title: DateTimePickerFormField(
                                                     format: dateFormat,
                                                     dateOnly: true,
+                                                    firstDate: DateTime.now(),
                                                     onChanged: (date) {
                                                       reminderDate = date;
-                                                      //_dateFieldController.text = date.toString();
                                                     },
                                                     decoration: InputDecoration(
                                                       labelText: "Reminder Date",
@@ -273,10 +284,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   title: TimePickerFormField(
                                                     format: timeFormat,
                                                     enabled: true,
+                                                    initialTime: TimeOfDay.now(),
                                                     onChanged: (timeOfDay) {
                                                       reminderTime = timeOfDay;
-                                                      //String time = timeOfDay.toString();
-                                                      //_timeFieldController.text = timeOfDay.toString();
                                                     },
                                                     decoration: InputDecoration(
                                                       labelText: "Reminder Time",
@@ -295,16 +305,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         icon: Icon(Icons.add_alert),
                                                         label: Text("Create Reminder"),
                                                         onPressed: () async {
-                                                          FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
-                                                          var initializationSettingsAndroid =
-                                                          new AndroidInitializationSettings('ic_notification');
-                                                          var initializationSettingsIOS = new IOSInitializationSettings();
-                                                          var initializationSettings = new InitializationSettings(
-                                                              initializationSettingsAndroid, initializationSettingsIOS);
-                                                          flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
-                                                          flutterLocalNotificationsPlugin.initialize(initializationSettings,
-                                                              selectNotification: onSelectNotification);
-
                                                           var scheduledNotificationDateTime = DateTime(
                                                             reminderDate.year,
                                                             reminderDate.month,
@@ -343,7 +343,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     );
                                   },
                                   tooltip: "Set reminder",
-                                ),*/
+                                ),
                                 IconButton(
                                   icon: Icon(Icons.edit),
                                   onPressed: (){
