@@ -65,6 +65,37 @@ class _HomeScreenState extends State<HomeScreen> {
     launch("tel:"+numberToCallOnNotificationTap);
   }
 
+  Future scheduleNotificationReminder(String name) async {
+    var scheduledNotificationDateTime = DateTime(
+      reminderDate.year,
+      reminderDate.month,
+      reminderDate.day,
+      reminderTime.hour,
+      reminderTime.minute,
+    );
+
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+      '1',
+      'Call Reminders',
+      'Allow Call Manager to create and send notifications about Call Reminders',
+    );
+
+    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+
+    var platformChannelSpecifics = new NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+
+    await flutterLocalNotificationsPlugin.schedule(
+      0,
+      'Call Reminder',
+      "Don't forget to call " + name + "!",
+      scheduledNotificationDateTime,
+      platformChannelSpecifics,
+    );
+
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -305,31 +336,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         icon: Icon(Icons.add_alert),
                                                         label: Text("Create Reminder"),
                                                         onPressed: () async {
-                                                          var scheduledNotificationDateTime = DateTime(
-                                                            reminderDate.year,
-                                                            reminderDate.month,
-                                                            reminderDate.day,
-                                                            reminderTime.hour,
-                                                            reminderTime.minute,
-                                                          );
-                                                          var androidPlatformChannelSpecifics =
-                                                          new AndroidNotificationDetails(
-                                                              '1',
-                                                              'Call Reminders',
-                                                              'Allow Call Manager to create and send notifications about Call Reminders',
-                                                          );
-                                                          var iOSPlatformChannelSpecifics =
-                                                          new IOSNotificationDetails();
-                                                          NotificationDetails platformChannelSpecifics = new NotificationDetails(
-                                                              androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-                                                          await flutterLocalNotificationsPlugin.schedule(
-                                                            0,
-                                                            'Call Reminder',
-                                                            "Don't forget to call " + "${ds['Name']}" + "!",
-                                                            scheduledNotificationDateTime,
-                                                            platformChannelSpecifics,
-                                                          );
-                                                          Navigator.pop(context);
+                                                          scheduleNotificationReminder("${ds['Name']}");
                                                         },
                                                       ),
                                                     )
