@@ -311,17 +311,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   height: 50.0,
                                                 ),
                                                 Row(
-                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                  mainAxisAlignment: MainAxisAlignment.center,
                                                   children: <Widget>[
-                                                    Padding(
-                                                      padding: const EdgeInsets.only(right: 8.0),
-                                                      child: FloatingActionButton.extended(
-                                                        icon: Icon(Icons.add_alert),
-                                                        label: Text("Create Reminder"),
-                                                        onPressed: () async {
-                                                          scheduleNotificationReminder("${ds['Name']}", "${ds['PhoneNumber']}");
-                                                        },
-                                                      ),
+                                                    FloatingActionButton.extended(
+                                                      backgroundColor: Colors.blue[700],
+                                                      icon: Icon(Icons.add_alert),
+                                                      label: Text("Create Reminder"),
+                                                      onPressed: () async {
+                                                        scheduleNotificationReminder("${ds['Name']}", "${ds['PhoneNumber']}");
+                                                      },
                                                     )
                                                   ],
                                                 )
@@ -373,6 +371,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.add),
+        backgroundColor: Colors.blue[700],
         label: Text("Add New Call"),
         onPressed: () {
           Navigator.of(context).pushNamed("/AddNewCallScreen");

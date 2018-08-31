@@ -136,6 +136,7 @@ class _EditCallScreenState extends State<EditCallScreen> {
       floatingActionButton: Builder(
           builder: (BuildContext fabContext) {
             return FloatingActionButton.extended(
+              backgroundColor: Colors.blue[700],
               onPressed: () {
                 if(name == "" || phoneNumber == "") {
                   final snackBar = SnackBar(

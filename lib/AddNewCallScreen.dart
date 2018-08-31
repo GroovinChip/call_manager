@@ -180,6 +180,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
       floatingActionButton: Builder(
         builder: (BuildContext fabContext) {
           return FloatingActionButton.extended(
+            backgroundColor: Colors.blue[700],
             onPressed: () async {
               if(_nameFieldController.text.toString() == "" || _phoneFieldController.text.toString() == "") {
                 final snackBar = SnackBar(

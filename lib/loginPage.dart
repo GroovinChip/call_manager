@@ -104,7 +104,7 @@ class LoginPageState extends State<LoginPage> {
                   _loggedIn
                       ? const Center(child: CircularProgressIndicator())
                       : RaisedButton.icon(
-                    color: Colors.blue,
+                    color: Colors.blue[700],
                     icon: Icon(
                       GroovinMaterialIcons.google,
                       color: Colors.white,
