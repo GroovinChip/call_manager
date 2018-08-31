@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:call_manager/lnp.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:datetime_picker_formfield/time_picker_formfield.dart';
@@ -35,21 +36,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   PermissionStatus status;
 
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-
   @override
   void initState() {
     super.initState();
     permissions();
-    flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
-    var initializationSettingsAndroid =
-    new AndroidInitializationSettings('ic_notification');
-    var initializationSettingsIOS = new IOSInitializationSettings();
-    var initializationSettings = new InitializationSettings(
-        initializationSettingsAndroid, initializationSettingsIOS);
-    flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
-    flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        selectNotification: onSelectNotification);
   }
 
   void permissions() async {
@@ -57,15 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
     PermissionStatus permission = await PermissionHandler.checkPermissionStatus(PermissionGroup.phone);
   }
 
-  Future onSelectNotification(String payload) async {
-    if (payload != null) {
-      debugPrint('notification payload: ' + payload);
-    }
-    //await CallNumber().callNumber(numberToCallOnNotificationTap);
-    launch("tel:"+numberToCallOnNotificationTap);
-  }
-
-  Future scheduleNotificationReminder(String name) async {
+  Future scheduleNotificationReminder(String name, String phoneNumber) async {
     var scheduledNotificationDateTime = DateTime(
       reminderDate.year,
       reminderDate.month,
@@ -85,12 +67,13 @@ class _HomeScreenState extends State<HomeScreen> {
     var platformChannelSpecifics = new NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
 
-    await flutterLocalNotificationsPlugin.schedule(
+    await LNP.of(context).schedule(
       0,
       'Call Reminder',
       "Don't forget to call " + name + "!",
       scheduledNotificationDateTime,
       platformChannelSpecifics,
+      payload: phoneNumber
     );
 
     Navigator.pop(context);
@@ -336,7 +319,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         icon: Icon(Icons.add_alert),
                                                         label: Text("Create Reminder"),
                                                         onPressed: () async {
-                                                          scheduleNotificationReminder("${ds['Name']}");
+                                                          scheduleNotificationReminder("${ds['Name']}", "${ds['PhoneNumber']}");
                                                         },
                                                       ),
                                                     )

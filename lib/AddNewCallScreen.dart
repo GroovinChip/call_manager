@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:call_manager/lnp.dart';
 import 'package:flutter/material.dart';
 import 'package:contact_picker/contact_picker.dart';
 import 'package:flutter/services.dart';
@@ -39,14 +40,6 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
 
   DateTime reminderDate;
   TimeOfDay reminderTime;
-
-  Future onSelectNotification(String payload) async {
-    if (payload != null) {
-      debugPrint('notification payload: ' + payload);
-    }
-    //await CallNumber().callNumber(_phoneFieldController.text);
-    launch("tel:"+_phoneFieldController.text);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +120,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                   ),
                   trailing: Material(child: SizedBox(width: 48.0,),),
                 ),
-                /*Padding(
+                Padding(
                   padding:
                       const EdgeInsets.only(right: 16.0, left: 16.0, top: 12.0),
                   child: Divider(
@@ -151,6 +144,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                   title: DateTimePickerFormField(
                     format: dateFormat,
                     dateOnly: true,
+                    firstDate: DateTime.now(),
                     onChanged: (date) {
                       reminderDate = date;
                       //_dateFieldController.text = date.toString();
@@ -167,10 +161,9 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                   title: TimePickerFormField(
                     format: timeFormat,
                     enabled: true,
+                    initialTime: TimeOfDay.now(),
                     onChanged: (timeOfDay) {
                       reminderTime = timeOfDay;
-                      //String time = timeOfDay.toString();
-                      //_timeFieldController.text = timeOfDay.toString();
                     },
                     controller: _timeFieldController,
                     decoration: InputDecoration(
@@ -178,7 +171,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                     ),
                   ),
                   trailing: Material(child: SizedBox(width: 48.0,),),
-                ),*/
+                ),
               ],
             ),
           ],
@@ -206,16 +199,6 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                   String date;
                   String time;
                   if(reminderDate != null && reminderTime != null){
-                    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
-                    var initializationSettingsAndroid =
-                    new AndroidInitializationSettings('ic_notification');
-                    var initializationSettingsIOS = new IOSInitializationSettings();
-                    var initializationSettings = new InitializationSettings(
-                        initializationSettingsAndroid, initializationSettingsIOS);
-                    flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
-                    flutterLocalNotificationsPlugin.initialize(initializationSettings,
-                        selectNotification: onSelectNotification);
-
                     var scheduledNotificationDateTime = DateTime(
                       reminderDate.year,
                       reminderDate.month,
@@ -229,17 +212,21 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                         'Call Reminders',
                         'Allow Call Manager to create and send notifications about Call Reminders',
                       );
-                    var iOSPlatformChannelSpecifics =
-                    new IOSNotificationDetails();
+
+                    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+
                     NotificationDetails platformChannelSpecifics = new NotificationDetails(
                         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-                    await flutterLocalNotificationsPlugin.schedule(
+
+                    await LNP.of(context).schedule(
                       0,
                       'Call Reminder',
                       "Don't forget to call " + _nameFieldController.text + "!",
                       scheduledNotificationDateTime,
                       platformChannelSpecifics,
+                      payload: _phoneFieldController.text
                     );
+
                     date = reminderDate.toString();
                     time = reminderTime.toString();
                   } else {
