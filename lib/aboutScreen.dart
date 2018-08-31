@@ -241,14 +241,9 @@ class _AboutScreenState extends State<AboutScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text(
-                            "Get started at ",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold
-                            ),
-                          ),
-                          FlatButton(
-                            child: Text(
+                          FlatButton.icon(
+                            icon: Icon(GroovinMaterialIcons.flutter, color: Colors.blue,),
+                            label: Text(
                               "https://flutter.io",
                               style: TextStyle(
                                 color: Colors.blue[700],
