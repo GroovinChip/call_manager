@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:call_manager/lnp.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:datetime_picker_formfield/time_picker_formfield.dart';
@@ -44,6 +45,38 @@ class _HomeScreenState extends State<HomeScreen> {
   void permissions() async {
     Map<PermissionGroup, PermissionStatus> permissions = await PermissionHandler.requestPermissions([PermissionGroup.phone]);
     PermissionStatus permission = await PermissionHandler.checkPermissionStatus(PermissionGroup.phone);
+  }
+
+  Future scheduleNotificationReminder(String name, String phoneNumber) async {
+    var scheduledNotificationDateTime = DateTime(
+      reminderDate.year,
+      reminderDate.month,
+      reminderDate.day,
+      reminderTime.hour,
+      reminderTime.minute,
+    );
+
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+      '1',
+      'Call Reminders',
+      'Allow Call Manager to create and send notifications about Call Reminders',
+    );
+
+    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+
+    var platformChannelSpecifics = new NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+
+    await LNP.of(context).schedule(
+      0,
+      'Call Reminder',
+      "Don't forget to call " + name + "!",
+      scheduledNotificationDateTime,
+      platformChannelSpecifics,
+      payload: phoneNumber
+    );
+
+    Navigator.pop(context);
   }
 
   @override
@@ -141,14 +174,6 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     }
 
-    Future onSelectNotification(String payload) async {
-      if (payload != null) {
-        debugPrint('notification payload: ' + payload);
-      }
-      //await CallNumber().callNumber(numberToCallOnNotificationTap);
-      launch("tel:"+numberToCallOnNotificationTap);
-    }
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -234,7 +259,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   },
                                   tooltip: "Delete call",
                                 ),
-                                /*IconButton(
+                                IconButton(
                                   icon: Icon(Icons.notifications_none),
                                   onPressed: (){
                                     numberToCallOnNotificationTap = "${ds['PhoneNumber']}";
@@ -259,9 +284,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   title: DateTimePickerFormField(
                                                     format: dateFormat,
                                                     dateOnly: true,
+                                                    firstDate: DateTime.now(),
                                                     onChanged: (date) {
                                                       reminderDate = date;
-                                                      //_dateFieldController.text = date.toString();
                                                     },
                                                     decoration: InputDecoration(
                                                       labelText: "Reminder Date",
@@ -273,10 +298,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   title: TimePickerFormField(
                                                     format: timeFormat,
                                                     enabled: true,
+                                                    initialTime: TimeOfDay.now(),
                                                     onChanged: (timeOfDay) {
                                                       reminderTime = timeOfDay;
-                                                      //String time = timeOfDay.toString();
-                                                      //_timeFieldController.text = timeOfDay.toString();
                                                     },
                                                     decoration: InputDecoration(
                                                       labelText: "Reminder Time",
@@ -295,41 +319,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         icon: Icon(Icons.add_alert),
                                                         label: Text("Create Reminder"),
                                                         onPressed: () async {
-                                                          FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
-                                                          var initializationSettingsAndroid =
-                                                          new AndroidInitializationSettings('ic_notification');
-                                                          var initializationSettingsIOS = new IOSInitializationSettings();
-                                                          var initializationSettings = new InitializationSettings(
-                                                              initializationSettingsAndroid, initializationSettingsIOS);
-                                                          flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
-                                                          flutterLocalNotificationsPlugin.initialize(initializationSettings,
-                                                              selectNotification: onSelectNotification);
-
-                                                          var scheduledNotificationDateTime = DateTime(
-                                                            reminderDate.year,
-                                                            reminderDate.month,
-                                                            reminderDate.day,
-                                                            reminderTime.hour,
-                                                            reminderTime.minute,
-                                                          );
-                                                          var androidPlatformChannelSpecifics =
-                                                          new AndroidNotificationDetails(
-                                                              '1',
-                                                              'Call Reminders',
-                                                              'Allow Call Manager to create and send notifications about Call Reminders',
-                                                          );
-                                                          var iOSPlatformChannelSpecifics =
-                                                          new IOSNotificationDetails();
-                                                          NotificationDetails platformChannelSpecifics = new NotificationDetails(
-                                                              androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-                                                          await flutterLocalNotificationsPlugin.schedule(
-                                                            0,
-                                                            'Call Reminder',
-                                                            "Don't forget to call " + "${ds['Name']}" + "!",
-                                                            scheduledNotificationDateTime,
-                                                            platformChannelSpecifics,
-                                                          );
-                                                          Navigator.pop(context);
+                                                          scheduleNotificationReminder("${ds['Name']}", "${ds['PhoneNumber']}");
                                                         },
                                                       ),
                                                     )
@@ -343,7 +333,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     );
                                   },
                                   tooltip: "Set reminder",
-                                ),*/
+                                ),
                                 IconButton(
                                   icon: Icon(Icons.edit),
                                   onPressed: (){
