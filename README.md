@@ -17,6 +17,10 @@ Google Play: https://play.google.com/store/apps/details?id=com.groovinchip.flutt
 
 XDA Labs: https://labs.xda-developers.com/store/app/com.groovinchip.flutter.callmanager
 
+GitHub: releases tab
+
+APKMirror: coming soon?
+
 ## Contribute
 If you would like to contribute to this application:
 1. Fork the repository
