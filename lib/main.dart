@@ -8,6 +8,7 @@ import 'package:call_manager/HomeScreen.dart';
 import 'package:call_manager/AddNewCallScreen.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   var initializationSettingsAndroid = new AndroidInitializationSettings('ic_notification');

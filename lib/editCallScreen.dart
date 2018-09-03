@@ -203,7 +203,7 @@ class _EditCallScreenState extends State<EditCallScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       bottomNavigationBar: BottomAppBar(
         elevation: 24.0,
-        hasNotch: false,
+       //hasNotch: false,
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
