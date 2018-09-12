@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:call_manager/api.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'dart:async';
 import 'package:groovin_material_icons/groovin_material_icons.dart';
 import 'package:flutter/services.dart';
@@ -111,7 +112,7 @@ class LoginPageState extends State<LoginPage> {
                     ),
                     label: Text("Sign in with Google",
                         style: TextStyle(color: Colors.white)),
-                    onPressed: () async => await _loginUser(),
+                    onPressed: () async => await _loginUser().catchError((e) => print(e)),
                   ),
                 ],
               ),

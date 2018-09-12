@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:call_number/call_number.dart';
+import 'package:google_sign_in/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:groovin_material_icons/groovin_material_icons.dart';
@@ -96,6 +97,19 @@ class _HomeScreenState extends State<HomeScreen> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
+              child: Text("Delete All Calls"),
+            ),
+            Icon(Icons.clear_all),
+          ],
+        ),
+        value: "Delete All Calls",
+      ),
+      PopupMenuItem(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
               child: Text("About"),
             ),
             Icon(Icons.info_outline),
@@ -136,6 +150,49 @@ class _HomeScreenState extends State<HomeScreen> {
 
     void _chooseAppBarOverflowAction(value){
       switch(value){
+        case "Delete All Calls":
+          showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+              title: Text("Delete All Calls"),
+              content: Text("Are you sure you want to delete all calls? This cannot be undone."),
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                  child: Text("No"),
+                ),
+                FlatButton(
+                  onPressed: () async {
+                    Navigator.pop(context);
+                    CollectionReference ref = Firestore.instance.collection("Users").document(globals.loggedInUser.uid).collection("Calls");
+                    QuerySnapshot s = await ref.getDocuments();
+                    if(s.documents.length == 0){
+                      final snackBar = SnackBar(
+                        content: Text("There are no calls to delete"),
+                        action: SnackBarAction(
+                            label: 'Dismiss',
+                            onPressed: () {
+
+                            }
+                        ),
+                        duration: Duration(seconds: 3),
+                      );
+                      Scaffold.of(context).showSnackBar(snackBar);
+                    } else {
+                      for(int i = 0; i < s.documents.length; i++) {
+                        DocumentReference d = s.documents[i].reference;
+                        d.delete();
+                      }
+                    }
+                  },
+                  child: Text("Yes"),
+                ),
+              ],
+            ),
+          );
+          break;
         case "About":
           Navigator.of(context).pushNamed("/AboutScreen");
           break;
@@ -190,7 +247,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Card(
-                      elevation: 4.0,
+                      elevation: 2.0,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -232,7 +289,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 IconButton(
-                                  icon: Icon(Icons.delete_forever),
+                                  icon: Icon(Icons.delete_outline),
                                   onPressed: (){
                                     showDialog(
                                       context: context,
@@ -385,7 +442,136 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(left: 16.0),
+              padding: const EdgeInsets.only(left: 8.0),
+              child: IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: (){
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (builder){
+                      return Container(
+                        height: 300.0,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              topLeft: const Radius.circular(10.0),
+                              topRight: const Radius.circular(10.0),
+                            )
+                        ),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: <Widget>[
+                              ListTile(
+                                leading: CircleAvatar(
+                                  child: Text(globals.loggedInUser.displayName[0]),
+                                  backgroundColor: Colors.blue[700],
+                                ),
+                                title: Text(globals.loggedInUser.displayName),
+                                subtitle: Text(globals.loggedInUser.email),
+                              ),
+                              Divider(
+                                color: Colors.grey,
+                              ),
+                              Material(
+                                child: ListTile(
+                                  title: Text("Delete All Calls"),
+                                  leading: Icon(Icons.clear_all),
+                                  onTap: (){
+                                    showDialog(
+                                      context: context,
+                                      builder: (_) => AlertDialog(
+                                        title: Text("Delete All Calls"),
+                                        content: Text("Are you sure you want to delete all calls? This cannot be undone."),
+                                        actions: <Widget>[
+                                          FlatButton(
+                                            onPressed: (){
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text("No"),
+                                          ),
+                                          FlatButton(
+                                            onPressed: () async {
+                                              Navigator.pop(context);
+                                              CollectionReference ref = Firestore.instance.collection("Users").document(globals.loggedInUser.uid).collection("Calls");
+                                              QuerySnapshot s = await ref.getDocuments();
+                                              if(s.documents.length == 0){
+                                                final snackBar = SnackBar(
+                                                  content: Text("There are no calls to delete"),
+                                                  action: SnackBarAction(
+                                                      label: 'Dismiss',
+                                                      onPressed: () {
+
+                                                      }
+                                                  ),
+                                                  duration: Duration(seconds: 3),
+                                                );
+                                                Scaffold.of(context).showSnackBar(snackBar);
+                                              } else {
+                                                for(int i = 0; i < s.documents.length; i++) {
+                                                  DocumentReference d = s.documents[i].reference;
+                                                  d.delete();
+                                                }
+                                              }
+                                            },
+                                            child: Text("Yes"),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              Material(
+                                child: ListTile(
+                                  title: Text("About"),
+                                  leading: Icon(Icons.info_outline),
+                                  onTap: (){
+                                    Navigator.pop(context);
+                                    Navigator.of(context).pushNamed("/AboutScreen");
+                                  },
+                                ),
+                              ),
+                              Material(
+                                child: ListTile(
+                                  title: Text("Log Out"),
+                                  leading: Icon(GroovinMaterialIcons.logout),
+                                  onTap: (){
+                                    showDialog(
+                                      context: context,
+                                      builder: (_) => AlertDialog(
+                                        title: Text("Log Out"),
+                                        content: Text("Are you sure you want to log out?"),
+                                        actions: <Widget>[
+                                          FlatButton(
+                                            onPressed: (){
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text("No"),
+                                          ),
+                                          FlatButton(
+                                            onPressed: (){
+                                              FirebaseAuth.instance.signOut();
+                                              Navigator.of(context).pushNamedAndRemoveUntil('/',(Route<dynamic> route) => false);
+                                            },
+                                            child: Text("Yes"),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+                  );
+                },
+              ),
+            ),
+            /*Padding(
+              padding: const EdgeInsets.only(right: 16.0),
               child: PopupMenuButton(
                 itemBuilder: (BuildContext context) {
                   return overflowAppBarItems;
@@ -395,62 +581,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   _chooseAppBarOverflowAction(value);
                 },
               ),
-            ),
-            Builder(
-              builder: (BuildContext newContext){
-                return Padding(
-                  padding: const EdgeInsets.only(right: 16.0),
-                  child: IconButton(
-                    icon: Icon(
-                        Icons.clear_all),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (_) => AlertDialog(
-                          title: Text("Delete All Calls"),
-                          content: Text("Are you sure you want to delete all calls? This cannot be undone."),
-                          actions: <Widget>[
-                            FlatButton(
-                              onPressed: (){
-                                Navigator.pop(context);
-                              },
-                              child: Text("No"),
-                            ),
-                            FlatButton(
-                              onPressed: () async {
-                                Navigator.pop(context);
-                                CollectionReference ref = Firestore.instance.collection("Users").document(globals.loggedInUser.uid).collection("Calls");
-                                QuerySnapshot s = await ref.getDocuments();
-                                if(s.documents.length == 0){
-                                  final snackBar = SnackBar(
-                                    content: Text("There are no calls to delete"),
-                                    action: SnackBarAction(
-                                      label: 'Dismiss',
-                                      onPressed: () {
-
-                                      }
-                                    ),
-                                    duration: Duration(seconds: 3),
-                                  );
-                                  Scaffold.of(newContext).showSnackBar(snackBar);
-                                } else {
-                                  for(int i = 0; i < s.documents.length; i++) {
-                                    DocumentReference d = s.documents[i].reference;
-                                    d.delete();
-                                  }
-                                }
-                              },
-                              child: Text("Yes"),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                    tooltip: "Delete All Calls",
-                  ),
-                );
-              },
-            ),
+            ),*/
           ],
         ),
       ),
