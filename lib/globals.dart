@@ -4,3 +4,4 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 FirebaseUser loggedInUser;
 DocumentReference callToEdit;
+String userLocale;

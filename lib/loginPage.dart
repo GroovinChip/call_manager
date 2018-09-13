@@ -7,6 +7,7 @@ import 'package:groovin_material_icons/groovin_material_icons.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:call_manager/globals.dart' as globals;
+import 'package:intl/intl.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -43,7 +44,12 @@ class LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+    getUserLocale();
     verifyUser();
+  }
+
+  void getUserLocale() {
+    globals.userLocale = Intl.getCurrentLocale();
   }
 
   verifyUser() async {

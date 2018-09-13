@@ -17,7 +17,6 @@ dependencies:
   firebase_auth: "0.5.18"
   google_sign_in: "3.0.4"
   cloud_firestore: "0.7.3"
-  intl: "^0.15.6"
   package_info: ^0.3.2
   permission_handler: '^1.0.1'
 
