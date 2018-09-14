@@ -44,12 +44,7 @@ class LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    getUserLocale();
     verifyUser();
-  }
-
-  void getUserLocale() {
-    globals.userLocale = Intl.getCurrentLocale();
   }
 
   verifyUser() async {

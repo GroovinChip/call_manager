@@ -279,7 +279,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   tooltip: "Set reminder",
                                 ),
                                 IconButton(
-                                  icon: Icon(Icons.edit),
+                                  icon: Icon(GroovinMaterialIcons.edit_outline),
                                   onPressed: (){
                                     globals.callToEdit = ds.reference;
                                     Navigator.of(context).pushNamed("/EditCallScreen");
@@ -295,7 +295,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   tooltip: "Text ${ds['Name']}",
                                 ),
                                 IconButton(
-                                  icon: Icon(Icons.phone),
+                                  icon: Icon(GroovinMaterialIcons.phone_outline),
                                   onPressed: () async {
                                     await CallNumber().callNumber("${ds['PhoneNumber']}");
                                   },
