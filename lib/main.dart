@@ -11,11 +11,12 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart';
 
 void main() {
-  var initializationSettingsAndroid = new AndroidInitializationSettings('ic_notification');
-  var initializationSettingsIOS = new IOSInitializationSettings();
-  var initializationSettings = new InitializationSettings(
+  // Initialize notification plugin
+  var initializationSettingsAndroid = AndroidInitializationSettings('ic_notification');
+  var initializationSettingsIOS = IOSInitializationSettings();
+  var initializationSettings = InitializationSettings(
       initializationSettingsAndroid, initializationSettingsIOS);
-  var flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+  var flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   flutterLocalNotificationsPlugin.initialize(
     initializationSettings,
       selectNotification: (String payload) async {
@@ -27,10 +28,9 @@ void main() {
       }
     );
 
-
-
+  // launch app
   runApp(
-    LNP(
+    LNP( // LNP is an inherited widget which passes on the notifications plugin
       flutterLocalNotificationsPlugin,
       child: CallManagerApp(),
     )
@@ -38,22 +38,21 @@ void main() {
 }
 
 class CallManagerApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Call Manager',
-      theme: new ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.blue,
         canvasColor: Colors.transparent,
         fontFamily: 'SourceSansPro-Bold',
       ),
-      home: new LoginPage(),
+      home: LoginPage(),
       routes: <String, WidgetBuilder>{
-        "/HomeScreen": (BuildContext context) => new HomeScreen(),
-        "/AddNewCallScreen": (BuildContext context) => new AddNewCallScreen(),
-        "/EditCallScreen": (BuildContext context) => new EditCallScreen(),
-        "/AboutScreen": (BuildContext context) => new AboutScreen()
+        "/HomeScreen": (BuildContext context) => HomeScreen(),
+        "/AddNewCallScreen": (BuildContext context) => AddNewCallScreen(),
+        "/EditCallScreen": (BuildContext context) => EditCallScreen(),
+        "/AboutScreen": (BuildContext context) => AboutScreen()
       },
       debugShowCheckedModeBanner: false,
     );

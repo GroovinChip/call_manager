@@ -19,22 +19,26 @@ void main() {
   runApp(HomeScreen());
 }
 
+/// This class represents the Home Screen of the app.
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-// Home Screen
 class _HomeScreenState extends State<HomeScreen> {
 
+  /// Date and Time formats to give the reminder date and reminder time fields
   final dateFormat = DateFormat("EEEE, MMMM d, yyyy");
   final timeFormat = DateFormat("h:mm a");
 
+  /// Holds the reminder date and time
   DateTime reminderDate;
   TimeOfDay reminderTime;
 
+  /// Holds the phone number to call from the notification reminder
   String numberToCallOnNotificationTap;
 
+  /// Represents the current permission status
   PermissionStatus status;
 
   @override
@@ -43,11 +47,13 @@ class _HomeScreenState extends State<HomeScreen> {
     permissions();
   }
 
+  /// Check current permissions. If phone permission not granted, prompt for it.
   void permissions() async {
     Map<PermissionGroup, PermissionStatus> permissions = await PermissionHandler.requestPermissions([PermissionGroup.phone]);
     PermissionStatus permission = await PermissionHandler.checkPermissionStatus(PermissionGroup.phone);
   }
 
+  /// Schedule a notification reminder
   Future scheduleNotificationReminder(String name, String phoneNumber) async {
     var scheduledNotificationDateTime = DateTime(
       reminderDate.year,
@@ -90,48 +96,6 @@ class _HomeScreenState extends State<HomeScreen> {
         systemNavigationBarIconBrightness: Brightness.dark
     ));
 
-    List<PopupMenuItem> overflowAppBarItems = [
-      PopupMenuItem(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Text("Delete All Calls"),
-            ),
-            Icon(Icons.clear_all),
-          ],
-        ),
-        value: "Delete All Calls",
-      ),
-      PopupMenuItem(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Text("About"),
-            ),
-            Icon(Icons.info_outline),
-          ],
-        ),
-        value: "About",
-      ),
-      PopupMenuItem(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Text("Log Out"),
-            ),
-            Icon(Icons.exit_to_app),
-          ],
-        ),
-        value: "Log Out",
-      ),
-    ];
-
     List<PopupMenuItem> overflowItemsCallCard = [
       PopupMenuItem(
         child: Row(
@@ -147,81 +111,6 @@ class _HomeScreenState extends State<HomeScreen> {
         value: "Send Email",
       ),
     ];
-
-    void _chooseAppBarOverflowAction(value){
-      switch(value){
-        case "Delete All Calls":
-          showDialog(
-            context: context,
-            builder: (_) => AlertDialog(
-              title: Text("Delete All Calls"),
-              content: Text("Are you sure you want to delete all calls? This cannot be undone."),
-              actions: <Widget>[
-                FlatButton(
-                  onPressed: (){
-                    Navigator.pop(context);
-                  },
-                  child: Text("No"),
-                ),
-                FlatButton(
-                  onPressed: () async {
-                    Navigator.pop(context);
-                    CollectionReference ref = Firestore.instance.collection("Users").document(globals.loggedInUser.uid).collection("Calls");
-                    QuerySnapshot s = await ref.getDocuments();
-                    if(s.documents.length == 0){
-                      final snackBar = SnackBar(
-                        content: Text("There are no calls to delete"),
-                        action: SnackBarAction(
-                            label: 'Dismiss',
-                            onPressed: () {
-
-                            }
-                        ),
-                        duration: Duration(seconds: 3),
-                      );
-                      Scaffold.of(context).showSnackBar(snackBar);
-                    } else {
-                      for(int i = 0; i < s.documents.length; i++) {
-                        DocumentReference d = s.documents[i].reference;
-                        d.delete();
-                      }
-                    }
-                  },
-                  child: Text("Yes"),
-                ),
-              ],
-            ),
-          );
-          break;
-        case "About":
-          Navigator.of(context).pushNamed("/AboutScreen");
-          break;
-        case "Log Out":
-          showDialog(
-            context: context,
-            builder: (_) => AlertDialog(
-              title: Text("Log Out"),
-              content: Text("Are you sure you want to log out?"),
-              actions: <Widget>[
-                FlatButton(
-                  onPressed: (){
-                    Navigator.pop(context);
-                  },
-                  child: Text("No"),
-                ),
-                FlatButton(
-                  onPressed: (){
-                    FirebaseAuth.instance.signOut();
-                    Navigator.of(context).pushNamedAndRemoveUntil('/',(Route<dynamic> route) => false);
-                  },
-                  child: Text("Yes"),
-                ),
-              ],
-            ),
-          );
-          break;
-      }
-    }
 
     void _chooseCallCardOverflowAction(value){
       switch(value){
@@ -439,10 +328,10 @@ class _HomeScreenState extends State<HomeScreen> {
         //hasNotch: false,
         child: Row(
           mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(left: 8.0),
+              padding: const EdgeInsets.only(right: 8.0),
               child: IconButton(
                 icon: Icon(Icons.menu),
                 onPressed: (){
@@ -463,11 +352,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: <Widget>[
                               ListTile(
                                 leading: CircleAvatar(
-                                  child: Text(globals.loggedInUser.displayName[0]),
+                                  child: Text(globals.loggedInUser.displayName[0], style: TextStyle(color: Colors.white),),
                                   backgroundColor: Colors.blue[700],
                                 ),
                                 title: Text(globals.loggedInUser.displayName),
                                 subtitle: Text(globals.loggedInUser.email),
+                                /*leading: Icon(Icons.account_circle, size: 45.0,),
+                                title: Text(globals.loggedInUser.displayName),
+                                subtitle: Text(globals.loggedInUser.email),*/
                               ),
                               Divider(
                                 color: Colors.grey,
@@ -523,16 +415,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               Material(
                                 child: ListTile(
-                                  title: Text("About"),
-                                  leading: Icon(Icons.info_outline),
-                                  onTap: (){
-                                    Navigator.pop(context);
-                                    Navigator.of(context).pushNamed("/AboutScreen");
-                                  },
-                                ),
-                              ),
-                              Material(
-                                child: ListTile(
                                   title: Text("Log Out"),
                                   leading: Icon(GroovinMaterialIcons.logout),
                                   onTap: (){
@@ -561,6 +443,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                   },
                                 ),
                               ),
+                              Divider(
+                                color: Colors.grey,
+                              ),
+                              Material(
+                                child: ListTile(
+                                  title: Text("About"),
+                                  leading: Icon(Icons.info_outline),
+                                  onTap: (){
+                                    Navigator.pop(context);
+                                    Navigator.of(context).pushNamed("/AboutScreen");
+                                  },
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -570,18 +465,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
             ),
-            /*Padding(
-              padding: const EdgeInsets.only(right: 16.0),
-              child: PopupMenuButton(
-                itemBuilder: (BuildContext context) {
-                  return overflowAppBarItems;
-                },
-                tooltip: "Menu",
-                onSelected: (value){
-                  _chooseAppBarOverflowAction(value);
-                },
-              ),
-            ),*/
           ],
         ),
       ),
