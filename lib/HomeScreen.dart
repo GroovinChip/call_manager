@@ -105,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.only(right: 8.0),
               child: Text("Send Email"),
             ),
-            Icon(Icons.send),
+            Icon(GroovinMaterialIcons.send_outline),
           ],
         ),
         value: "Send Email",
