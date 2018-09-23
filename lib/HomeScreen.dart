@@ -227,6 +227,27 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                             child: Column(
                                               children: <Widget>[
+                                                Padding(
+                                                  padding: const EdgeInsets.only(top: 8.0),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: <Widget>[
+                                                      Container(
+                                                        height: 5.0,
+                                                        width: 25.0,
+                                                        decoration: BoxDecoration(
+                                                            color: Colors.grey[300],
+                                                            borderRadius: BorderRadius.only(
+                                                              topLeft: const Radius.circular(10.0),
+                                                              topRight: const Radius.circular(10.0),
+                                                              bottomLeft: const Radius.circular(10.0),
+                                                              bottomRight: const Radius.circular(10.0),
+                                                            )
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
                                                 ListTile(
                                                   leading: Icon(Icons.today),
                                                   title: DateTimePickerFormField(
