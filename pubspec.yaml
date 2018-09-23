@@ -10,6 +10,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   contact_picker: "^0.0.2"
   groovin_material_icons: ^1.1.0
+  outline_material_icons: ^0.1.0
   datetime_picker_formfield: ^0.1.2
   call_number: ^0.0.1
   url_launcher: ^3.0.3

@@ -6,6 +6,7 @@ import 'package:datetime_picker_formfield/time_picker_formfield.dart';
 import 'package:intl/intl.dart';
 import 'package:call_manager/globals.dart' as globals;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 
 class EditCallScreen extends StatefulWidget {
   @override
@@ -68,7 +69,7 @@ class _EditCallScreenState extends State<EditCallScreen> {
                           ],
                         ),
                         ListTile(
-                          leading: Icon(Icons.person),
+                          leading: Icon(OMIcons.person),
                           title: TextField(
                             enabled: true,
                             controller: _nameFieldController,
@@ -97,7 +98,7 @@ class _EditCallScreenState extends State<EditCallScreen> {
                           ),
                         ),
                         ListTile(
-                          leading: Icon(Icons.phone),
+                          leading: Icon(OMIcons.phone),
                           title: TextField(
                             enabled: true,
                             keyboardType: TextInputType.phone,
@@ -111,7 +112,7 @@ class _EditCallScreenState extends State<EditCallScreen> {
                           trailing: Material(child: SizedBox(width: 48.0,),),
                         ),
                         ListTile(
-                          leading: Icon(Icons.comment),
+                          leading: Icon(OMIcons.comment),
                           title: TextField(
                             enabled: true,
                             keyboardType: TextInputType.multiline,
@@ -134,90 +135,100 @@ class _EditCallScreenState extends State<EditCallScreen> {
         ),
       ),
       floatingActionButton: Builder(
-          builder: (BuildContext fabContext) {
-            return FloatingActionButton.extended(
-              backgroundColor: Colors.blue[700],
-              onPressed: () {
-                if(name == "" || phoneNumber == "") {
-                  final snackBar = SnackBar(
-                    content: Text("Please enter required fields"),
-                    action: SnackBarAction(
-                        label: 'Dismiss',
-                        onPressed: () {
+        builder: (BuildContext fabContext) {
+          return FloatingActionButton.extended(
+            highlightElevation: 2.0,
+            backgroundColor: Colors.blue[700],
+            onPressed: () {
+              if(name == "" || phoneNumber == "") {
+                final snackBar = SnackBar(
+                  content: Text("Please enter required fields"),
+                  action: SnackBarAction(
+                      label: 'Dismiss',
+                      onPressed: () {
 
-                        }
-                    ),
-                    duration: Duration(seconds: 3),
-                  );
-                  Scaffold.of(fabContext).showSnackBar(snackBar);
-                } else {
-                  try {
-                    CollectionReference userCalls = Firestore.instance.collection("Users").document(globals.loggedInUser.uid).collection("Calls");
-                    String date;
-                    String time;
+                      }
+                  ),
+                  duration: Duration(seconds: 3),
+                );
+                Scaffold.of(fabContext).showSnackBar(snackBar);
+              } else {
+                try {
+                  CollectionReference userCalls = Firestore.instance.collection("Users").document(globals.loggedInUser.uid).collection("Calls");
+                  String date;
+                  String time;
 
-                    if(_nameFieldController.text.isNotEmpty){
-                      name = _nameFieldController.text;
-                    }
-                    if(_phoneFieldController.text.isNotEmpty){
-                      phoneNumber = _phoneFieldController.text;
-                    }
-                    if(_descriptionFieldController.text.isNotEmpty){
-                      description = _descriptionFieldController.text;
-                    }
-
-                    if(reminderDate == null) {
-                      date = "";
-                    } else {
-                      date = reminderDate.toString();
-                    }
-
-                    if(reminderTime == null) {
-                      time = "";
-                    } else {
-                      time = reminderTime.toString();
-                    }
-
-                    userCalls.document(globals.callToEdit.documentID).updateData({
-                      "Name":name,
-                      "PhoneNumber":phoneNumber,
-                      "Description":description,
-                      "ReminderDate":date,
-                      "ReminderTime":time
-                    });
-                  } catch (e) {
-                    print(e);
-                  } finally {
-                    Navigator.of(context)
-                        .pushNamedAndRemoveUntil('/HomeScreen', (Route<dynamic> route) => false);
+                  if(_nameFieldController.text.isNotEmpty){
+                    name = _nameFieldController.text;
                   }
+                  if(_phoneFieldController.text.isNotEmpty){
+                    phoneNumber = _phoneFieldController.text;
+                  }
+                  if(_descriptionFieldController.text.isNotEmpty){
+                    description = _descriptionFieldController.text;
+                  }
+
+                  if(reminderDate == null) {
+                    date = "";
+                  } else {
+                    date = reminderDate.toString();
+                  }
+
+                  if(reminderTime == null) {
+                    time = "";
+                  } else {
+                    time = reminderTime.toString();
+                  }
+
+                  userCalls.document(globals.callToEdit.documentID).updateData({
+                    "Name":name,
+                    "PhoneNumber":phoneNumber,
+                    "Description":description,
+                    "ReminderDate":date,
+                    "ReminderTime":time
+                  });
+                } catch (e) {
+                  print(e);
+                } finally {
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil('/HomeScreen', (Route<dynamic> route) => false);
                 }
-              },
-              tooltip: "Save",
-              elevation: 4.0,
-              icon: new Icon(Icons.save),
-              label: Text("Save"),
-            );
-          }
+              }
+            },
+            tooltip: "Save",
+            elevation: 2.0,
+            icon: new Icon(Icons.save),
+            label: Text("Save"),
+          );
+        }
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      bottomNavigationBar: BottomAppBar(
-        elevation: 24.0,
-       //hasNotch: false,
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: IconButton(
-                icon: Icon(Icons.clear),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                color: Colors.black,
-              ),
-            ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey[200],
+              spreadRadius: 3.0,
+            )
           ],
+        ),
+        child: BottomAppBar(
+         //hasNotch: false,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child: IconButton(
+                  icon: Icon(Icons.clear),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  color: Colors.black,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
