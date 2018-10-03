@@ -31,8 +31,8 @@ android {
         applicationId "com.groovinchip.flutter.callmanager"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 7
-        versionName "1.2"
+        versionCode 9
+        versionName "1.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
