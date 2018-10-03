@@ -373,11 +373,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       builder: (builder){
                         return Container(
                           decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                topLeft: const Radius.circular(10.0),
-                                topRight: const Radius.circular(10.0),
-                              )
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              topLeft: const Radius.circular(10.0),
+                              topRight: const Radius.circular(10.0),
+                            )
                           ),
                           child: SingleChildScrollView(
                             child: Column(
