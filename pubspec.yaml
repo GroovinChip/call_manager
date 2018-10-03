@@ -9,7 +9,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   contact_picker: "^0.0.2"
-  groovin_material_icons: ^1.0.5
+  groovin_material_icons: ^1.1.0
+  outline_material_icons: ^0.1.0
   datetime_picker_formfield: ^0.1.2
   call_number: ^0.0.1
   url_launcher: ^3.0.3
@@ -17,7 +18,6 @@ dependencies:
   firebase_auth: "0.5.18"
   google_sign_in: "3.0.4"
   cloud_firestore: "0.7.3"
-  intl: "^0.15.6"
   package_info: ^0.3.2
   permission_handler: '^1.0.1'
 

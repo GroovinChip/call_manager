@@ -12,6 +12,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:call_number/call_number.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 
 void main() {
   runApp(new AddNewCallScreen());
@@ -65,7 +66,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                   ],
                 ),
                 ListTile(
-                  leading: Icon(Icons.person),
+                  leading: Icon(OMIcons.person),
                   title: TextField(
                     enabled: true,
                     controller: _nameFieldController,
@@ -93,7 +94,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                   ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.phone),
+                  leading: Icon(OMIcons.phone),
                   title: TextField(
                     enabled: true,
                     keyboardType: TextInputType.phone,
@@ -107,7 +108,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                   trailing: Material(child: SizedBox(width: 48.0,),),
                 ),
                 ListTile(
-                  leading: Icon(Icons.comment),
+                  leading: Icon(OMIcons.comment),
                   title: TextField(
                     enabled: true,
                     keyboardType: TextInputType.multiline,
@@ -252,30 +253,39 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
               }
             },
             tooltip: "Save",
-            elevation: 4.0,
+            elevation: 2.0,
             icon: new Icon(Icons.save),
             label: Text("Save"),
           );
         }
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      bottomNavigationBar: BottomAppBar(
-        elevation: 24.0,
-        //hasNotch: false,
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: IconButton(
-                icon: Icon(Icons.clear),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                color: Colors.black,
-              ),
-            ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey[200],
+              spreadRadius: 3.0,
+            )
           ],
+        ),
+        child: BottomAppBar(
+          //hasNotch: false,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child: IconButton(
+                  icon: Icon(Icons.clear),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  color: Colors.black,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
