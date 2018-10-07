@@ -1,5 +1,9 @@
 import 'dart:async';
+import 'package:call_manager/AddNewCallScreen.dart';
+import 'package:call_manager/aboutScreen.dart';
+import 'package:call_manager/editCallScreen.dart';
 import 'package:call_manager/lnp.dart';
+import 'package:call_manager/utils/page_transitions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:datetime_picker_formfield/time_picker_formfield.dart';
@@ -305,7 +309,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   icon: Icon(GroovinMaterialIcons.edit_outline),
                                   onPressed: (){
                                     globals.callToEdit = ds.reference;
-                                    Navigator.of(context).pushNamed("/EditCallScreen");
+                                    //Navigator.of(context).pushNamed("/EditCallScreen");
+                                    Navigator.push(
+                                        context,
+                                        SlideLeftRoute(widget: EditCallScreen())
+                                    );
                                   },
                                   tooltip: "Edit this call",
                                 ),
@@ -344,7 +352,11 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.blue[700],
         label: Text("Add New Call"),
         onPressed: () {
-          Navigator.of(context).pushNamed("/AddNewCallScreen");
+          //Navigator.of(context).pushNamed("/AddNewCallScreen");
+          Navigator.push(
+              context,
+              SlideLeftRoute(widget: AddNewCallScreen())
+          );
         }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Container(
@@ -510,7 +522,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                     leading: Icon(Icons.info_outline),
                                     onTap: (){
                                       Navigator.pop(context);
-                                      Navigator.of(context).pushNamed("/AboutScreen");
+                                      //Navigator.of(context).pushNamed("/AboutScreen");
+                                      Navigator.push(
+                                        context,
+                                        SlideLeftRoute(widget: AboutScreen())
+                                      );
                                     },
                                   ),
                                 ),
