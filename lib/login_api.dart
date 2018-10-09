@@ -2,17 +2,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'dart:async';
 
-class FBApi {
+class FirebaseAPI {
   static FirebaseAuth _auth = FirebaseAuth.instance;
   static GoogleSignIn _googleSignIn = GoogleSignIn();
 
   FirebaseUser firebaseUser;
 
-  FBApi(FirebaseUser user) {
+  FirebaseAPI(FirebaseUser user) {
     this.firebaseUser = user;
   }
 
-  static Future<FBApi> signInWithGoogle() async {
+  static Future<FirebaseAPI> signInWithGoogle() async {
     final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth =
     await googleUser.authentication;
@@ -30,6 +30,6 @@ class FBApi {
     final FirebaseUser currentUser = await _auth.currentUser();
     assert(user.uid == currentUser.uid);
 
-    return FBApi(user);
+    return FirebaseAPI(user);
   }
 }

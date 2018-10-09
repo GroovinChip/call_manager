@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:call_manager/AddNewCallScreen.dart';
-import 'package:call_manager/aboutScreen.dart';
-import 'package:call_manager/editCallScreen.dart';
-import 'package:call_manager/lnp.dart';
+import 'package:call_manager/add_new_call_screen.dart';
+import 'package:call_manager/about_screen.dart';
+import 'package:call_manager/edit_call_screen.dart';
+import 'package:call_manager/pass_notification.dart';
 import 'package:call_manager/utils/page_transitions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
     var platformChannelSpecifics = new NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
 
-    await LNP.of(context).schedule(
+    await PassNotification.of(context).schedule(
       0,
       'Call Reminder',
       "Don't forget to call " + name + "!",
@@ -354,8 +354,8 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: () {
           //Navigator.of(context).pushNamed("/AddNewCallScreen");
           Navigator.push(
-              context,
-              SlideLeftRoute(widget: AddNewCallScreen())
+            context,
+            SlideLeftRoute(widget: AddNewCallScreen()),
           );
         }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

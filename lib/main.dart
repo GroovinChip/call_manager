@@ -1,11 +1,11 @@
-import 'package:call_manager/aboutScreen.dart';
-import 'package:call_manager/editCallScreen.dart';
-import 'package:call_manager/lnp.dart';
+import 'package:call_manager/about_screen.dart';
+import 'package:call_manager/edit_call_screen.dart';
+import 'package:call_manager/pass_notification.dart';
 import 'package:call_manager/loginPage.dart';
 import 'package:call_number/call_number.dart';
 import 'package:flutter/material.dart';
-import 'package:call_manager/HomeScreen.dart';
-import 'package:call_manager/AddNewCallScreen.dart';
+import 'package:call_manager/home_screen.dart';
+import 'package:call_manager/add_new_call_screen.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart';
@@ -30,7 +30,7 @@ void main() {
 
   // launch app
   runApp(
-    LNP( // LNP is an inherited widget which passes on the notifications plugin
+    PassNotification( // LNP is an inherited widget which passes on the notifications plugin
       flutterLocalNotificationsPlugin,
       child: CallManagerApp(),
     )

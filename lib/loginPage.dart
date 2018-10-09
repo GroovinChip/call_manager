@@ -1,13 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:call_manager/api.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:call_manager/login_api.dart';
 import 'dart:async';
 import 'package:groovin_material_icons/groovin_material_icons.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:call_manager/globals.dart' as globals;
-import 'package:intl/intl.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -18,7 +16,7 @@ class LoginPageState extends State<LoginPage> {
 
   // gets called on button press
   Future _loginUser() async {
-    final api = await FBApi.signInWithGoogle();
+    final api = await FirebaseAPI.signInWithGoogle();
     if (api != null) {
       globals.loggedInUser = api.firebaseUser;
       CollectionReference dbForUser = Firestore.instance.collection("Users");
@@ -47,13 +45,15 @@ class LoginPageState extends State<LoginPage> {
     verifyUser();
   }
 
+  // Gets called from initState to check whether there is a cached user
   verifyUser() async {
     final user = await FirebaseAuth.instance.currentUser();
     if (user != null) {
       globals.loggedInUser = user;
       setState(() {
         Navigator.of(context).pushNamedAndRemoveUntil(
-          '/HomeScreen', (Route<dynamic> route) => false);
+          '/HomeScreen', (Route<dynamic> route) => false
+        );
       });
       if (mounted) {
         setState(() {

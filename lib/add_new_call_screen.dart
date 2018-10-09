@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:call_manager/lnp.dart';
+import 'package:call_manager/pass_notification.dart';
 import 'package:flutter/material.dart';
 import 'package:contact_picker/contact_picker.dart';
 import 'package:flutter/services.dart';
@@ -220,7 +220,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                     NotificationDetails platformChannelSpecifics = new NotificationDetails(
                         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
 
-                    await LNP.of(context).schedule(
+                    await PassNotification.of(context).schedule(
                       0,
                       'Call Reminder',
                       "Don't forget to call " + _nameFieldController.text + "!",

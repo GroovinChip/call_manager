@@ -34,6 +34,7 @@ android {
         versionCode 10
         versionName "1.5 Beta 1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        setProperty("archivesBaseName", applicationId + "_" + versionName)
     }
 
     signingConfigs {
