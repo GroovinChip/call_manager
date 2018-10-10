@@ -100,7 +100,9 @@ class LoginPageState extends State<LoginPage> {
                     child: Text(
                       "Your Phone Call Organizer",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 16.0),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16.0,
+                      ),
                     ),
                   ),
                   _loggedIn

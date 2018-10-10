@@ -1,7 +1,7 @@
 import 'package:call_manager/about_screen.dart';
 import 'package:call_manager/edit_call_screen.dart';
 import 'package:call_manager/pass_notification.dart';
-import 'package:call_manager/loginPage.dart';
+import 'package:call_manager/login_screen.dart';
 import 'package:call_number/call_number.dart';
 import 'package:flutter/material.dart';
 import 'package:call_manager/home_screen.dart';
