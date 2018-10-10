@@ -96,7 +96,7 @@ class LoginPageState extends State<LoginPage> {
                     TextStyle(fontSize: 48.0, fontWeight: FontWeight.bold),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 150.0, top: 25.0),
+                    padding: const EdgeInsets.only(bottom: 50.0, top: 25.0),
                     child: Text(
                       "Your Phone Call Organizer",
                       style: TextStyle(
@@ -105,14 +105,19 @@ class LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 50.0),
+                    child: Image.asset("assets/icon/call_manager_app_icon.png", width: 92.0, height: 92.0,),
+                  ),
                   _loggedIn
-                      ? const Center(child: CircularProgressIndicator())
-                      : RaisedButton.icon(
+                    ? const Center(child: CircularProgressIndicator())
+                    : RaisedButton.icon(
                     color: Colors.blue[700],
-                    icon: Icon(
+                    /*icon: Icon(
                       GroovinMaterialIcons.google,
                       color: Colors.white,
-                    ),
+                    ),*/
+                    icon: Image.asset("assets/glogo.png", width: 32.0, height: 32.0,),
                     label: Text("Sign in with Google",
                         style: TextStyle(color: Colors.white)),
                     onPressed: () async => await _loginUser().catchError((e) => print(e)),

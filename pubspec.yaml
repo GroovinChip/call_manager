@@ -48,6 +48,8 @@ flutter:
   #  - images/a_dot_ham.jpeg
   assets:
     - android/app/src/main/res/drawable-hdpi/ic_notification.png
+    - assets/icon/call_manager_app_icon.png
+    - assets/glogo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
