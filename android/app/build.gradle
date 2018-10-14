@@ -31,7 +31,7 @@ android {
         applicationId "com.groovinchip.flutter.callmanager"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 10
+        versionCode 11
         versionName "1.5 Beta 2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         setProperty("archivesBaseName", applicationId + "_" + versionName)

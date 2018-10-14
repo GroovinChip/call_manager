@@ -112,14 +112,15 @@ class LoginPageState extends State<LoginPage> {
                   _loggedIn
                     ? const Center(child: CircularProgressIndicator())
                     : RaisedButton.icon(
-                    color: Colors.blue[700],
+                    color: Colors.white,
                     /*icon: Icon(
                       GroovinMaterialIcons.google,
                       color: Colors.white,
                     ),*/
+                    elevation: 2.0,
                     icon: Image.asset("assets/glogo.png", width: 32.0, height: 32.0,),
                     label: Text("Sign in with Google",
-                        style: TextStyle(color: Colors.white)),
+                        style: TextStyle(color: Colors.black)),
                     onPressed: () async => await _loginUser().catchError((e) => print(e)),
                   ),
                 ],
