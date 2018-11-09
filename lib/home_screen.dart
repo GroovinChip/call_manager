@@ -18,6 +18,8 @@ import 'package:call_manager/globals.dart' as globals;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
+import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:rounded_modal/rounded_modal.dart';
 
 void main() {
   runApp(HomeScreen());
@@ -44,6 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   /// Represents the current permission status
   PermissionStatus status;
+
+  /// Represents the Brightness of the statusbar and navigation bar
+  Brightness barBrightness;
 
   @override
   void initState() {
@@ -93,11 +98,17 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
 
+    if(Theme.of(context).brightness == Brightness.light){
+      barBrightness = Brightness.dark;
+    } else {
+      barBrightness = Brightness.light;
+    }
+
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-        statusBarIconBrightness: Brightness.dark,
-        statusBarColor: Colors.white,
-        systemNavigationBarColor: Colors.white,
-        systemNavigationBarIconBrightness: Brightness.dark
+        statusBarIconBrightness: barBrightness,
+        statusBarColor: Theme.of(context).canvasColor,
+        systemNavigationBarColor: Theme.of(context).canvasColor,
+        systemNavigationBarIconBrightness: barBrightness
     ));
 
     List<PopupMenuItem> overflowItemsCallCard = [
@@ -124,8 +135,11 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     }
 
+    void changeBrightness() {
+      DynamicTheme.of(context).setBrightness(Theme.of(context).brightness == Brightness.dark? Brightness.light: Brightness.dark);
+    }
+
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: StreamBuilder <QuerySnapshot>(
           stream: Firestore.instance.collection("Users").document(globals.loggedInUser.uid).collection("Calls").snapshots(),
@@ -214,20 +228,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                   icon: Icon(Icons.notifications_none),
                                   onPressed: (){
                                     numberToCallOnNotificationTap = "${ds['PhoneNumber']}";
-                                    showModalBottomSheet(
+                                    showRoundedModalBottomSheet(
+                                      color: Theme.of(context).canvasColor,
                                       context: context,
                                       builder: (builder){
                                         return Container(
                                           height: 250.0,
                                           color: Colors.transparent,
                                           child: Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: const Radius.circular(10.0),
-                                                topRight: const Radius.circular(10.0),
-                                              )
-                                            ),
                                             child: Column(
                                               children: <Widget>[
                                                 Padding(
@@ -347,6 +355,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.add),
+        heroTag: "ANC",
         elevation: 2.0,
         backgroundColor: Colors.blue[700],
         label: Text("Add New Call"),
@@ -359,14 +368,14 @@ class _HomeScreenState extends State<HomeScreen> {
         }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
+        /*decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
               color: Colors.grey[200],
               spreadRadius: 3.0,
             )
           ],
-        ),
+        ),*/
         child: BottomAppBar(
           //elevation: 4.0,
           //hasNotch: false,
@@ -379,17 +388,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: IconButton(
                   icon: Icon(Icons.more_vert),
                   onPressed: (){
-                    showModalBottomSheet(
+                    showRoundedModalBottomSheet(
+                      color: Theme.of(context).canvasColor,
                       context: context,
                       builder: (builder){
                         return Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                              topLeft: const Radius.circular(10.0),
-                              topRight: const Radius.circular(10.0),
-                            )
-                          ),
                           child: SingleChildScrollView(
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
@@ -477,6 +480,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ],
                                         ),
                                       );
+                                    },
+                                  ),
+                                ),
+                                Material(
+                                  child: ListTile(
+                                    leading: Icon(Icons.brightness_6),
+                                    title: Text("Toggle Dark Theme"),
+                                    onTap: () {
+                                      changeBrightness();
+                                      Navigator.pop(context);
                                     },
                                   ),
                                 ),

@@ -45,7 +45,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).canvasColor,
       body: SafeArea(
         child: ListView(
           children: <Widget>[
@@ -76,21 +76,17 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                       labelText: 'Name (Required)',
                     ),
                   ),
-                  trailing: Material(
-                    child: IconButton(
-                      icon: Icon(Icons.contacts),
-                      onPressed: () async {
-                        Contact contact = await _contactPicker.selectContact();
-                        setState(() {
-                          _contact = contact;
-                          _nameFieldController.text = _contact.fullName;
-                          _phoneFieldController.text = _contact.phoneNumber.number;
-                        });
-                      },
-                    ),
-                    color: Color(0xFFE0E0E0),
-                    elevation: 2.0,
-                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  trailing: IconButton(
+                    icon: Icon(Icons.contacts),
+                    onPressed: () async {
+                      Contact contact = await _contactPicker.selectContact();
+                      setState(() {
+                        _contact = contact;
+                        _nameFieldController.text = _contact.fullName;
+                        _phoneFieldController.text = _contact.phoneNumber.number;
+                      });
+                    },
+                    tooltip: "Choose from Contacts",
                   ),
                 ),
                 ListTile(
@@ -124,9 +120,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                 Padding(
                   padding:
                       const EdgeInsets.only(right: 16.0, left: 16.0, top: 12.0),
-                  child: Divider(
-                    color: Colors.black,
-                  ),
+                  child: Divider(),
                 ),
                 Row(
                   children: <Widget>[
@@ -261,14 +255,6 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey[200],
-              spreadRadius: 3.0,
-            )
-          ],
-        ),
         child: BottomAppBar(
           //hasNotch: false,
           child: Row(
@@ -281,7 +267,6 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  color: Colors.black,
                 ),
               ),
             ],

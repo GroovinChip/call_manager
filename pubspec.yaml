@@ -20,6 +20,8 @@ dependencies:
   cloud_firestore: "0.7.3"
   package_info: ^0.3.2
   permission_handler: '^1.0.1'
+  dynamic_theme: ^1.0.0
+  rounded_modal: ^1.0.0
 
 dev_dependencies:
   flutter_test:
