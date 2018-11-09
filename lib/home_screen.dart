@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:call_manager/add_new_call_screen.dart';
 import 'package:call_manager/about_screen.dart';
+import 'package:call_manager/call_card.dart';
 import 'package:call_manager/edit_call_screen.dart';
 import 'package:call_manager/pass_notification.dart';
 import 'package:call_manager/utils/page_transitions.dart';
@@ -20,6 +21,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:rounded_modal/rounded_modal.dart';
+import 'package:modal_drawer_handle/modal_drawer_handle.dart';
 
 void main() {
   runApp(HomeScreen());
@@ -33,21 +35,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  /// Date and Time formats to give the reminder date and reminder time fields
-  final dateFormat = DateFormat("EEEE, MMMM d, yyyy");
-  final timeFormat = DateFormat("h:mm a");
-
-  /// Holds the reminder date and time
-  DateTime reminderDate;
-  TimeOfDay reminderTime;
-
-  /// Holds the phone number to call from the notification reminder
-  String numberToCallOnNotificationTap;
-
-  /// Represents the current permission status
+  // Represents the current permission status
   PermissionStatus status;
 
-  /// Represents the Brightness of the statusbar and navigation bar
+  // Represents the Brightness of the statusbar and navigation bar
   Brightness barBrightness;
 
   @override
@@ -56,43 +47,10 @@ class _HomeScreenState extends State<HomeScreen> {
     permissions();
   }
 
-  /// Check current permissions. If phone permission not granted, prompt for it.
+  // Check current permissions. If phone permission not granted, prompt for it.
   void permissions() async {
     Map<PermissionGroup, PermissionStatus> permissions = await PermissionHandler.requestPermissions([PermissionGroup.phone]);
     PermissionStatus permission = await PermissionHandler.checkPermissionStatus(PermissionGroup.phone);
-  }
-
-  /// Schedule a notification reminder
-  Future scheduleNotificationReminder(String name, String phoneNumber) async {
-    var scheduledNotificationDateTime = DateTime(
-      reminderDate.year,
-      reminderDate.month,
-      reminderDate.day,
-      reminderTime.hour,
-      reminderTime.minute,
-    );
-
-    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-      '1',
-      'Call Reminders',
-      'Allow Call Manager to create and send notifications about Call Reminders',
-    );
-
-    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-
-    var platformChannelSpecifics = new NotificationDetails(
-        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-
-    await PassNotification.of(context).schedule(
-      0,
-      'Call Reminder',
-      "Don't forget to call " + name + "!",
-      scheduledNotificationDateTime,
-      platformChannelSpecifics,
-      payload: phoneNumber
-    );
-
-    Navigator.pop(context);
   }
 
   @override
@@ -110,30 +68,6 @@ class _HomeScreenState extends State<HomeScreen> {
         systemNavigationBarColor: Theme.of(context).canvasColor,
         systemNavigationBarIconBrightness: barBrightness
     ));
-
-    List<PopupMenuItem> overflowItemsCallCard = [
-      PopupMenuItem(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Text("Send Email"),
-            ),
-            Icon(GroovinMaterialIcons.send_outline),
-          ],
-        ),
-        value: "Send Email",
-      ),
-    ];
-
-    void _chooseCallCardOverflowAction(value){
-      switch(value){
-        case "Send Email":
-          launch("mailto:");
-          break;
-      }
-    }
 
     void changeBrightness() {
       DynamicTheme.of(context).setBrightness(Theme.of(context).brightness == Brightness.dark? Brightness.light: Brightness.dark);
@@ -153,198 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   DocumentSnapshot ds = snapshot.data.documents[index];
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Card(
-                      elevation: 2.0,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0, left: 16.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  "${ds['Name']}",
-                                  style: TextStyle(
-                                    fontSize: 24.0,
-                                    fontWeight: FontWeight.bold
-                                  ),
-                                ),
-                                PopupMenuButton(
-                                  icon: Icon(Icons.expand_more),
-                                  itemBuilder: (BuildContext context) {
-                                    return overflowItemsCallCard;
-                                  },
-                                  tooltip: "More",
-                                  onSelected: (value){
-                                    _chooseCallCardOverflowAction(value);
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 16.0, bottom: 8.0),
-                            child: Text("${ds['PhoneNumber']}"),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 16.0, bottom: 8.0),
-                            child: Text("${ds['Description']}"),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                IconButton(
-                                  icon: Icon(Icons.delete_outline),
-                                  onPressed: (){
-                                    showDialog(
-                                      context: context,
-                                      builder: (_) => AlertDialog(
-                                        title: Text("Delete Call"),
-                                        content: Text("Are you sure you want to delete this call?"),
-                                        actions: <Widget>[
-                                          FlatButton(
-                                            child: Text("No"),
-                                            onPressed: (){
-                                              Navigator.pop(context);
-                                            },
-                                          ),
-                                          FlatButton(
-                                            child: Text("Yes"),
-                                            onPressed: (){
-                                              Firestore.instance.collection("Users").document(globals.loggedInUser.uid).collection("Calls").document(ds.documentID).delete();
-                                              Navigator.pop(context);
-                                            },
-                                          ),
-                                        ],
-                                      )
-                                    );
-                                  },
-                                  tooltip: "Delete call",
-                                ),
-                                IconButton(
-                                  icon: Icon(Icons.notifications_none),
-                                  onPressed: (){
-                                    numberToCallOnNotificationTap = "${ds['PhoneNumber']}";
-                                    showRoundedModalBottomSheet(
-                                      color: Theme.of(context).canvasColor,
-                                      context: context,
-                                      builder: (builder){
-                                        return Container(
-                                          height: 250.0,
-                                          color: Colors.transparent,
-                                          child: Container(
-                                            child: Column(
-                                              children: <Widget>[
-                                                Padding(
-                                                  padding: const EdgeInsets.only(top: 8.0),
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: <Widget>[
-                                                      Container(
-                                                        height: 5.0,
-                                                        width: 25.0,
-                                                        decoration: BoxDecoration(
-                                                            color: Colors.grey[300],
-                                                            borderRadius: BorderRadius.only(
-                                                              topLeft: const Radius.circular(10.0),
-                                                              topRight: const Radius.circular(10.0),
-                                                              bottomLeft: const Radius.circular(10.0),
-                                                              bottomRight: const Radius.circular(10.0),
-                                                            )
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                ListTile(
-                                                  leading: Icon(Icons.today),
-                                                  title: DateTimePickerFormField(
-                                                    format: dateFormat,
-                                                    dateOnly: true,
-                                                    firstDate: DateTime.now(),
-                                                    onChanged: (date) {
-                                                      reminderDate = date;
-                                                    },
-                                                    decoration: InputDecoration(
-                                                      labelText: "Reminder Date",
-                                                    ),
-                                                  ),
-                                                ),
-                                                ListTile(
-                                                  leading: Icon(Icons.access_time),
-                                                  title: TimePickerFormField(
-                                                    format: timeFormat,
-                                                    enabled: true,
-                                                    initialTime: TimeOfDay.now(),
-                                                    onChanged: (timeOfDay) {
-                                                      reminderTime = timeOfDay;
-                                                    },
-                                                    decoration: InputDecoration(
-                                                      labelText: "Reminder Time",
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: 50.0,
-                                                ),
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    FloatingActionButton.extended(
-                                                      backgroundColor: Colors.blue[700],
-                                                      icon: Icon(Icons.add_alert),
-                                                      label: Text("Create Reminder"),
-                                                      onPressed: () async {
-                                                        scheduleNotificationReminder("${ds['Name']}", "${ds['PhoneNumber']}");
-                                                      },
-                                                    )
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  },
-                                  tooltip: "Set reminder",
-                                ),
-                                IconButton(
-                                  icon: Icon(GroovinMaterialIcons.edit_outline),
-                                  onPressed: (){
-                                    globals.callToEdit = ds.reference;
-                                    //Navigator.of(context).pushNamed("/EditCallScreen");
-                                    Navigator.push(
-                                        context,
-                                        SlideLeftRoute(widget: EditCallScreen())
-                                    );
-                                  },
-                                  tooltip: "Edit this call",
-                                ),
-                                IconButton(
-                                  icon: Icon(GroovinMaterialIcons.comment_text_outline),
-                                  onPressed: (){
-                                    globals.callToEdit = ds.reference;
-                                    launch("sms:${ds['PhoneNumber']}");
-                                  },
-                                  tooltip: "Text ${ds['Name']}",
-                                ),
-                                IconButton(
-                                  icon: Icon(GroovinMaterialIcons.phone_outline),
-                                  onPressed: () async {
-                                    await CallNumber().callNumber("${ds['PhoneNumber']}");
-                                  },
-                                  tooltip: "Call ${ds['Name']}",
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    child: CallCard(callSnapshot: ds),
                   );
                 },
               )
@@ -368,17 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
         }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Container(
-        /*decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey[200],
-              spreadRadius: 3.0,
-            )
-          ],
-        ),*/
         child: BottomAppBar(
-          //elevation: 4.0,
-          //hasNotch: false,
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.end,
@@ -399,24 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: <Widget>[
                                 Padding(
                                   padding: const EdgeInsets.only(top: 8.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Container(
-                                        height: 5.0,
-                                        width: 25.0,
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey[300],
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: const Radius.circular(10.0),
-                                            topRight: const Radius.circular(10.0),
-                                            bottomLeft: const Radius.circular(10.0),
-                                            bottomRight: const Radius.circular(10.0),
-                                          )
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  child: ModalDrawerHandle(),
                                 ),
                                 ListTile(
                                   leading: CircleAvatar(
