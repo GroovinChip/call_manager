@@ -18,7 +18,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   PermissionStatus status;
   Brightness barBrightness;
 
@@ -30,45 +29,59 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // Check current permissions. If phone permission not granted, prompt for it.
   void checkPermissions() async {
-    Map<PermissionGroup, PermissionStatus> permissions = await PermissionHandler.requestPermissions([PermissionGroup.phone]);
-    PermissionStatus permission = await PermissionHandler.checkPermissionStatus(PermissionGroup.phone);
+    Map<PermissionGroup, PermissionStatus> permissions =
+        await PermissionHandler.requestPermissions([PermissionGroup.phone]);
+    PermissionStatus permission =
+        await PermissionHandler.checkPermissionStatus(PermissionGroup.phone);
   }
 
   @override
   Widget build(BuildContext context) {
-
-    if(Theme.of(context).brightness == Brightness.light){
+    if (Theme.of(context).brightness == Brightness.light) {
       barBrightness = Brightness.dark;
     } else {
       barBrightness = Brightness.light;
     }
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-      statusBarIconBrightness: barBrightness,
-      statusBarColor: Theme.of(context).canvasColor,
-      systemNavigationBarColor: Theme.of(context).canvasColor,
-      systemNavigationBarIconBrightness: barBrightness
-    ));
+        statusBarIconBrightness: barBrightness,
+        statusBarColor: Theme.of(context).canvasColor,
+        systemNavigationBarColor: Theme.of(context).canvasColor,
+        systemNavigationBarIconBrightness: barBrightness),
+    );
 
     return Scaffold(
+      /*appBar: AppBar(
+        backgroundColor: Theme.of(context).canvasColor,
+        elevation: 0.0,
+        centerTitle: true,
+        title: Text(
+          "Call Manager",
+          style: TextStyle(
+            color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),*/
       body: SafeArea(
-        child: StreamBuilder <QuerySnapshot>(
+        child: StreamBuilder<QuerySnapshot>(
           stream: Firestore.instance.collection("Users").document(globals.loggedInUser.uid).collection("Calls").snapshots(),
           builder: (context, snapshot) {
-            if(snapshot.hasData == false) {
+            if (snapshot.hasData == false) {
               return Center(child: Text("Getting Calls..."));
             } else {
-              return snapshot.data.documents.length > 0 ? ListView.builder(
-                itemCount: snapshot.data.documents.length,
-                itemBuilder: (context, index) {
-                  DocumentSnapshot ds = snapshot.data.documents[index];
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CallCard(callSnapshot: ds),
-                  );
-                },
-              )
-              : Center(child: Text("No Calls"));
+              return snapshot.data.documents.length > 0
+                ? ListView.builder(
+                  itemCount: snapshot.data.documents.length,
+                  itemBuilder: (context, index) {
+                    DocumentSnapshot ds = snapshot.data.documents[index];
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CallCard(callSnapshot: ds),
+                    );
+                  },
+                )
+                : Center(child: Text("No Calls"));
             }
           },
         ),

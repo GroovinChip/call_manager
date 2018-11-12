@@ -15,7 +15,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:call_manager/globals.dart' as globals;
 
 class CallCard extends StatefulWidget {
-  DocumentSnapshot callSnapshot;
+  final DocumentSnapshot callSnapshot;
 
   CallCard({
     this.callSnapshot,
@@ -71,15 +71,15 @@ class CallCardState extends State<CallCard> {
       reminderTime.minute,
     );
 
-    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+    var androidPlatformChannelSpecifics =  AndroidNotificationDetails(
       '1',
       'Call Reminders',
       'Allow Call Manager to create and send notifications about Call Reminders',
     );
 
-    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+    var iOSPlatformChannelSpecifics =  IOSNotificationDetails();
 
-    var platformChannelSpecifics = new NotificationDetails(
+    var platformChannelSpecifics =  NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
 
     await PassNotification.of(context).schedule(

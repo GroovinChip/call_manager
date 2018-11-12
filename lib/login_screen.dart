@@ -70,17 +70,22 @@ class LoginPageState extends State<LoginPage> {
       barBrightness = Brightness.light;
     }
 
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-        statusBarIconBrightness: barBrightness,
-        statusBarColor: Theme.of(context).canvasColor,
-        systemNavigationBarColor: Theme.of(context).canvasColor,
-        systemNavigationBarIconBrightness: barBrightness));
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle.dark.copyWith(
+          statusBarIconBrightness: barBrightness,
+          statusBarColor: Theme.of(context).canvasColor,
+          systemNavigationBarColor: Theme.of(context).canvasColor,
+          systemNavigationBarIconBrightness: barBrightness),
+    );
 
     Future.delayed(
-        Duration(milliseconds: 500),
-        () => setState(() {
+      Duration(milliseconds: 500),
+      () => setState(
+            () {
               _opacity = 1.0;
-            }));
+            },
+          ),
+    );
 
     return Scaffold(
       backgroundColor: Theme.of(context).canvasColor,
