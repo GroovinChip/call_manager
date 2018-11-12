@@ -253,7 +253,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
           );
         }
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Container(
         child: BottomAppBar(
           //hasNotch: false,

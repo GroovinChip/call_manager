@@ -51,18 +51,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
 
     return Scaffold(
-      /*appBar: AppBar(
-        backgroundColor: Theme.of(context).canvasColor,
-        elevation: 0.0,
-        centerTitle: true,
-        title: Text(
-          "Call Manager",
-          style: TextStyle(
-            color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),*/
       body: SafeArea(
         child: StreamBuilder<QuerySnapshot>(
           stream: Firestore.instance.collection("Users").document(globals.loggedInUser.uid).collection("Calls").snapshots(),
@@ -71,15 +59,37 @@ class _HomeScreenState extends State<HomeScreen> {
               return Center(child: Text("Getting Calls..."));
             } else {
               return snapshot.data.documents.length > 0
-                ? ListView.builder(
-                  itemCount: snapshot.data.documents.length,
-                  itemBuilder: (context, index) {
-                    DocumentSnapshot ds = snapshot.data.documents[index];
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CallCard(callSnapshot: ds),
-                    );
-                  },
+                ? Column(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 1,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "Call Manager",
+                            style: TextStyle(
+                              fontSize: 22.0,
+                              fontWeight: FontWeight.bold
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 15,
+                      child: ListView.builder(
+                        itemCount: snapshot.data.documents.length,
+                        itemBuilder: (context, index) {
+                          DocumentSnapshot ds = snapshot.data.documents[index];
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CallCard(callSnapshot: ds),
+                          );
+                        },
+                      ),
+                    )
+                  ],
                 )
                 : Center(child: Text("No Calls"));
             }
@@ -88,7 +98,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.add),
-        heroTag: "ANC",
         elevation: 2.0,
         backgroundColor: Colors.blue[700],
         label: Text("Add New Call"),

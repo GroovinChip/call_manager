@@ -195,11 +195,10 @@ class _EditCallScreenState extends State<EditCallScreen> {
             elevation: 2.0,
             icon: new Icon(Icons.save),
             label: Text("Save"),
-            heroTag: "EC",
           );
         }
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Container(
         child: BottomAppBar(
          //hasNotch: false,

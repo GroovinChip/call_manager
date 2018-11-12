@@ -109,7 +109,7 @@ class CallCardState extends State<CallCard> {
                 Text(
                   "${widget.callSnapshot['Name']}",
                   style: TextStyle(
-                      fontSize: 24.0,
+                      fontSize: 22.0,
                       fontWeight: FontWeight.bold
                   ),
                 ),
