@@ -32,7 +32,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 13
-        versionName "1.6 Beta 3"
+        versionName "1.6 Beta 4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         //setProperty("archivesBaseName", applicationId + "_" + versionName)
     }
