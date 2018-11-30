@@ -38,7 +38,7 @@ class _EditCallScreenState extends State<EditCallScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).canvasColor,
       body: SafeArea(
         child: StreamBuilder<QuerySnapshot>(
           stream: Firestore.instance.collection("Users").document(globals.loggedInUser.uid).collection("Calls").snapshots(),
@@ -80,21 +80,17 @@ class _EditCallScreenState extends State<EditCallScreen> {
                               labelText: name,
                             ),
                           ),
-                          trailing: Material(
-                            child: IconButton(
-                              icon: Icon(Icons.contacts),
-                              onPressed: () async {
-                                Contact contact = await _contactPicker.selectContact();
-                                setState(() {
-                                  _contact = contact;
-                                  _nameFieldController.text = _contact.fullName;
-                                  _phoneFieldController.text = _contact.phoneNumber.number;
-                                });
-                              },
-                            ),
-                            color: Color(0xFFE0E0E0),
-                            elevation: 2.0,
-                            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                          trailing: IconButton(
+                            icon: Icon(Icons.contacts),
+                            onPressed: () async {
+                              Contact contact = await _contactPicker.selectContact();
+                              setState(() {
+                                _contact = contact;
+                                _nameFieldController.text = _contact.fullName;
+                                _phoneFieldController.text = _contact.phoneNumber.number;
+                              });
+                            },
+                            tooltip: "Choose from Contacts",
                           ),
                         ),
                         ListTile(
@@ -202,16 +198,8 @@ class _EditCallScreenState extends State<EditCallScreen> {
           );
         }
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey[200],
-              spreadRadius: 3.0,
-            )
-          ],
-        ),
         child: BottomAppBar(
          //hasNotch: false,
           child: Row(
@@ -224,7 +212,6 @@ class _EditCallScreenState extends State<EditCallScreen> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  color: Colors.black,
                 ),
               ),
             ],

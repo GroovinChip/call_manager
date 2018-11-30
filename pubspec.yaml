@@ -20,6 +20,9 @@ dependencies:
   cloud_firestore: "0.7.3"
   package_info: ^0.3.2
   permission_handler: '^1.0.1'
+  dynamic_theme: ^1.0.0
+  rounded_modal: ^1.0.0
+  modal_drawer_handle: ^1.0.1
 
 dev_dependencies:
   flutter_test:
@@ -48,6 +51,8 @@ flutter:
   #  - images/a_dot_ham.jpeg
   assets:
     - android/app/src/main/res/drawable-hdpi/ic_notification.png
+    - assets/icon/call_manager_app_icon.png
+    - assets/glogo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
