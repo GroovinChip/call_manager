@@ -22,7 +22,7 @@ dependencies:
   permission_handler: '^1.0.1'
   dynamic_theme: ^1.0.0
   rounded_modal: ^1.0.0
-  modal_drawer_handle: ^1.0.1
+  groovin_widgets: ^1.1.0
 
 dev_dependencies:
   flutter_test:

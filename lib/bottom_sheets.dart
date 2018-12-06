@@ -5,7 +5,7 @@ import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:groovin_material_icons/groovin_material_icons.dart';
-import 'package:modal_drawer_handle/modal_drawer_handle.dart';
+import 'package:groovin_widgets/groovin_widgets.dart';
 import 'package:rounded_modal/rounded_modal.dart';
 import 'package:call_manager/globals.dart' as globals;
 
