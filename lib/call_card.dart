@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:groovin_material_icons/groovin_material_icons.dart';
 import 'package:intl/intl.dart';
-import 'package:modal_drawer_handle/modal_drawer_handle.dart';
+import 'package:groovin_widgets/groovin_widgets.dart';
 import 'package:rounded_modal/rounded_modal.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:call_manager/globals.dart' as globals;
