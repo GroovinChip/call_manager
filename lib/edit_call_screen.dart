@@ -68,58 +68,87 @@ class _EditCallScreenState extends State<EditCallScreen> {
                             ),
                           ],
                         ),
-                        ListTile(
-                          leading: Icon(OMIcons.person),
-                          title: TextField(
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: TextField(
                             enabled: true,
                             controller: _nameFieldController,
                             keyboardType: TextInputType.text,
                             maxLines: 1,
-                            autofocus: false,
                             decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              prefixIcon: Icon(
+                                OMIcons.person,
+                                color: Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.grey,
+                              ),
+                              suffixIcon: Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: IconButton(
+                                  icon: Icon(
+                                    Icons.contacts,
+                                    color:
+                                    Theme.of(context).brightness == Brightness.dark
+                                        ? Colors.white
+                                        : Colors.grey,
+                                  ),
+                                  onPressed: () async {
+                                    Contact contact =
+                                    await _contactPicker.selectContact();
+                                    setState(() {
+                                      _contact = contact;
+                                      _nameFieldController.text = _contact.fullName;
+                                      _phoneFieldController.text =
+                                          _contact.phoneNumber.number;
+                                    });
+                                  },
+                                  tooltip: "Choose from Contacts",
+                                ),
+                              ),
                               labelText: name,
                             ),
                           ),
-                          trailing: IconButton(
-                            icon: Icon(Icons.contacts),
-                            onPressed: () async {
-                              Contact contact = await _contactPicker.selectContact();
-                              setState(() {
-                                _contact = contact;
-                                _nameFieldController.text = _contact.fullName;
-                                _phoneFieldController.text = _contact.phoneNumber.number;
-                              });
-                            },
-                            tooltip: "Choose from Contacts",
-                          ),
                         ),
-                        ListTile(
-                          leading: Icon(OMIcons.phone),
-                          title: TextField(
+                        Padding(
+                          padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0, bottom: 16.0),
+                          child: TextField(
                             enabled: true,
                             keyboardType: TextInputType.phone,
                             maxLines: 1,
                             autofocus: false,
                             controller: _phoneFieldController,
                             decoration: InputDecoration(
+                              prefixIcon: Icon(
+                                OMIcons.phone,
+                                color: Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.grey,
+                              ),
                               labelText: phoneNumber,
+                              border: OutlineInputBorder(),
                             ),
                           ),
-                          trailing: Material(child: SizedBox(width: 48.0,),),
                         ),
-                        ListTile(
-                          leading: Icon(OMIcons.comment),
-                          title: TextField(
+                        Padding(
+                          padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0),
+                          child: TextFormField(
                             enabled: true,
                             keyboardType: TextInputType.multiline,
                             maxLines: 2,
                             autofocus: false,
                             controller: _descriptionFieldController,
                             decoration: InputDecoration(
-                              hintText: description,
+                              labelText: description,
+                              prefixIcon: Icon(
+                                OMIcons.comment,
+                                color: Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.grey,
+                              ),
+                              border: OutlineInputBorder(),
                             ),
                           ),
-                          trailing: Material(child: SizedBox(width: 48.0,),),
                         ),
                       ],
                     ),

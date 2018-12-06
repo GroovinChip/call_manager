@@ -43,7 +43,6 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
   TimeOfDay reminderTime;
 
   final formKey = GlobalKey<FormState>();
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   void saveCall() async {
     if(formKey.currentState.validate()){
@@ -289,74 +288,6 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
           backgroundColor: Colors.blue[700],
           onPressed: () async {
             saveCall();
-            /*if (_nameFieldController.text.toString() == "" ||
-                _phoneFieldController.text.toString() == "") {
-              final snackBar = SnackBar(
-                content: Text("Please enter required fields"),
-                action: SnackBarAction(label: 'Dismiss', onPressed: () {}),
-                duration: Duration(seconds: 3),
-              );
-              Scaffold.of(fabContext).showSnackBar(snackBar);
-            } else {
-              try {
-                CollectionReference userCalls = Firestore.instance
-                  .collection("Users")
-                  .document(globals.loggedInUser.uid)
-                  .collection("Calls");
-                String date;
-                String time;
-                if (reminderDate != null && reminderTime != null) {
-                  var scheduledNotificationDateTime = DateTime(
-                    reminderDate.year,
-                    reminderDate.month,
-                    reminderDate.day,
-                    reminderTime.hour,
-                    reminderTime.minute,
-                  );
-                  var androidPlatformChannelSpecifics =
-                      new AndroidNotificationDetails(
-                    '1',
-                    'Call Reminders',
-                    'Allow Call Manager to create and send notifications about Call Reminders',
-                  );
-
-                  var iOSPlatformChannelSpecifics =
-                      new IOSNotificationDetails();
-
-                  NotificationDetails platformChannelSpecifics =
-                      new NotificationDetails(androidPlatformChannelSpecifics,
-                          iOSPlatformChannelSpecifics);
-
-                  await PassNotification.of(context).schedule(
-                      0,
-                      'Call Reminder',
-                      "Don't forget to call " + _nameFieldController.text + "!",
-                      scheduledNotificationDateTime,
-                      platformChannelSpecifics,
-                      payload: _phoneFieldController.text);
-
-                  date = reminderDate.toString();
-                  time = reminderTime.toString();
-                } else {
-                  date = "";
-                  time = "";
-                }
-
-                userCalls.add({
-                  "Name": _nameFieldController.text,
-                  "PhoneNumber": _phoneFieldController.text,
-                  "Description": _descriptionFieldController.text,
-                  "ReminderDate": date,
-                  "ReminderTime": time
-                });
-              } catch (e) {
-                print(e);
-              } finally {
-                //Navigator.pushNamed(context, "/");
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    '/HomeScreen', (Route<dynamic> route) => false);
-              }
-            }*/
           },
           tooltip: "Save",
           elevation: 2.0,
