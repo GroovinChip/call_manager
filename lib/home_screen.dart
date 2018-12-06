@@ -100,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
         icon: Icon(Icons.add),
         elevation: 2.0,
         backgroundColor: Colors.blue[700],
-        label: Text("Add New Call"),
+        label: Text("New Call"),
         onPressed: () {
           //Navigator.of(context).pushNamed("/AddNewCallScreen");
           Navigator.push(
