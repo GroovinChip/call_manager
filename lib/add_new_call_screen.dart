@@ -102,7 +102,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
       Navigator.of(context).pushNamedAndRemoveUntil(
           '/HomeScreen', (Route<dynamic> route) => false);
     }
-  } 
+  }
 
   @override
   Widget build(BuildContext context) {
