@@ -160,6 +160,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.1"
+  groovin_widgets:
+    dependency: "direct main"
+    description:
+      name: groovin_widgets
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   image:
     dependency: transitive
     description:
@@ -188,13 +195,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.6"
-  modal_drawer_handle:
-    dependency: "direct main"
-    description:
-      name: modal_drawer_handle
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
   outline_material_icons:
     dependency: "direct main"
     description:

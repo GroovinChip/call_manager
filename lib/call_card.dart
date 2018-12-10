@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:groovin_material_icons/groovin_material_icons.dart';
 import 'package:intl/intl.dart';
-import 'package:modal_drawer_handle/modal_drawer_handle.dart';
+import 'package:groovin_widgets/groovin_widgets.dart';
 import 'package:rounded_modal/rounded_modal.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:call_manager/globals.dart' as globals;
@@ -174,62 +174,76 @@ class CallCardState extends State<CallCard> {
                     showRoundedModalBottomSheet(
                       color: Theme.of(context).canvasColor,
                       context: context,
+                      dismissOnTap: false,
                       builder: (builder){
                         return Container(
                           height: 250.0,
                           color: Colors.transparent,
-                          child: Container(
-                            child: Column(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
-                                  child: ModalDrawerHandle(),
-                                ),
-                                ListTile(
-                                  leading: Icon(Icons.today),
-                                  title: DateTimePickerFormField(
-                                    format: dateFormat,
-                                    dateOnly: true,
-                                    firstDate: DateTime.now(),
-                                    onChanged: (date) {
-                                      reminderDate = date;
-                                    },
-                                    decoration: InputDecoration(
-                                      labelText: "Reminder Date",
-                                    ),
-                                  ),
-                                ),
-                                ListTile(
-                                  leading: Icon(Icons.access_time),
-                                  title: TimePickerFormField(
-                                    format: timeFormat,
-                                    enabled: true,
-                                    initialTime: TimeOfDay.now(),
-                                    onChanged: (timeOfDay) {
-                                      reminderTime = timeOfDay;
-                                    },
-                                    decoration: InputDecoration(
-                                      labelText: "Reminder Time",
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 50.0,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Scaffold(
+                              body: Container(
+                                child: Column(
                                   children: <Widget>[
-                                    FloatingActionButton.extended(
-                                      backgroundColor: Colors.blue[700],
-                                      icon: Icon(Icons.add_alert),
-                                      label: Text("Create Reminder"),
-                                      onPressed: () async {
-                                        scheduleNotificationReminder("${widget.callSnapshot['Name']}", "${widget.callSnapshot['PhoneNumber']}");
-                                      },
-                                    )
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: ModalDrawerHandle(),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: DateTimePickerFormField(
+                                        format: dateFormat,
+                                        dateOnly: true,
+                                        firstDate: DateTime.now(),
+                                        onChanged: (date) {
+                                          reminderDate = date;
+                                        },
+                                        decoration: InputDecoration(
+                                          prefixIcon: Icon(
+                                            Icons.today,
+                                            color: Theme.of(context).brightness == Brightness.dark
+                                                ? Colors.white
+                                                : Colors.grey,
+                                          ),
+                                          labelText: "Reminder Date",
+                                          border: OutlineInputBorder(),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                                      child: TimePickerFormField(
+                                        format: timeFormat,
+                                        enabled: true,
+                                        initialTime: TimeOfDay.now(),
+                                        onChanged: (timeOfDay) {
+                                          reminderTime = timeOfDay;
+                                        },
+                                        decoration: InputDecoration(
+                                          labelText: "Reminder Time",
+                                          border: OutlineInputBorder(),
+                                          prefixIcon: Icon(
+                                            Icons.access_time,
+                                            color: Theme.of(context).brightness == Brightness.dark
+                                                ? Colors.white
+                                                : Colors.grey,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ],
-                                )
-                              ],
+                                ),
+                              ),
+                              floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+                              floatingActionButton: FloatingActionButton.extended(
+                                backgroundColor: Colors.blue[700],
+                                elevation: 0.0,
+                                icon: Icon(Icons.add_alert),
+                                label: Text("Set Reminder"),
+                                onPressed: () async {
+                                  scheduleNotificationReminder("${widget.callSnapshot['Name']}", "${widget.callSnapshot['PhoneNumber']}");
+                                },
+                              ),
                             ),
                           ),
                         );
