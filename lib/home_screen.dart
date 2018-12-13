@@ -20,6 +20,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   PermissionStatus status;
   Brightness barBrightness;
+  PermissionStatus phonePerm;
+  PermissionStatus contactsPerm;
 
   @override
   void initState() {
@@ -30,9 +32,11 @@ class _HomeScreenState extends State<HomeScreen> {
   // Check current permissions. If phone permission not granted, prompt for it.
   void checkPermissions() async {
     Map<PermissionGroup, PermissionStatus> permissions =
-        await PermissionHandler.requestPermissions([PermissionGroup.phone]);
-    PermissionStatus permission =
-        await PermissionHandler.checkPermissionStatus(PermissionGroup.phone);
+      await PermissionHandler.requestPermissions([PermissionGroup.phone, PermissionGroup.contacts]);
+    phonePerm =
+      await PermissionHandler.checkPermissionStatus(PermissionGroup.phone);
+    contactsPerm =
+      await PermissionHandler.checkPermissionStatus(PermissionGroup.contacts);
   }
 
   @override
@@ -96,18 +100,42 @@ class _HomeScreenState extends State<HomeScreen> {
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(Icons.add),
-        elevation: 2.0,
-        backgroundColor: Colors.blue[700],
-        label: Text("New Call"),
-        onPressed: () {
-          //Navigator.of(context).pushNamed("/AddNewCallScreen");
-          Navigator.push(
-            context,
-            SlideLeftRoute(widget: AddNewCallScreen()),
-          );
-        }),
+      floatingActionButton: Builder(
+        builder: (context) => FloatingActionButton.extended(
+          icon: Icon(Icons.add),
+          elevation: 2.0,
+          backgroundColor: Colors.blue[700],
+          label: Text("New Call"),
+          onPressed: () {
+            //Navigator.of(context).pushNamed("/AddNewCallScreen");
+            if(contactsPerm == PermissionStatus.granted) {
+              Navigator.push(
+                context,
+                SlideLeftRoute(widget: AddNewCallScreen()),
+              );
+            } else {
+              Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  content: Wrap(
+                    children: <Widget>[
+                      Text("Please grant the Contacts permission to use this page."),
+                    ],
+                  ),
+                  duration: Duration(seconds: 2),
+                  action: SnackBarAction(
+                    label: "Grant",
+                    textColor: Colors.white,
+                    onPressed: (){
+                      checkPermissions();
+                    },
+                  ),
+                ),
+              );
+            }
+          },
+        ),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: CMBottomAppBar(),
     );

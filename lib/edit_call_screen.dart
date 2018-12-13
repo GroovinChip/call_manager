@@ -1,8 +1,7 @@
+import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
-import 'package:contact_picker/contact_picker.dart';
 import 'package:flutter/services.dart';
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
-import 'package:datetime_picker_formfield/time_picker_formfield.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:intl/intl.dart';
 import 'package:call_manager/globals.dart' as globals;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,16 +13,11 @@ class EditCallScreen extends StatefulWidget {
 }
 
 class _EditCallScreenState extends State<EditCallScreen> {
-  // Contact Picker stuff
-  final ContactPicker _contactPicker = new ContactPicker();
-  Contact _contact;
 
   //TextField controllers
   TextEditingController _nameFieldController = TextEditingController();
   TextEditingController _phoneFieldController = TextEditingController();
   TextEditingController _descriptionFieldController = TextEditingController();
-  TextEditingController _dateFieldController = TextEditingController();
-  TextEditingController _timeFieldController = TextEditingController();
 
   String name;
   String phoneNumber;
@@ -34,6 +28,19 @@ class _EditCallScreenState extends State<EditCallScreen> {
 
   DateTime reminderDate;
   TimeOfDay reminderTime;
+
+  Iterable<Contact> contacts;
+  Contact selectedContact;
+
+  @override
+  void initState() {
+    super.initState();
+    getContacts();
+  }
+
+  void getContacts() async {
+    contacts = await ContactsService.getContacts();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,43 +77,67 @@ class _EditCallScreenState extends State<EditCallScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(16.0),
-                          child: TextField(
-                            enabled: true,
-                            controller: _nameFieldController,
-                            keyboardType: TextInputType.text,
-                            maxLines: 1,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              prefixIcon: Icon(
-                                OMIcons.person,
-                                color: Theme.of(context).brightness == Brightness.dark
-                                    ? Colors.white
-                                    : Colors.grey,
-                              ),
-                              suffixIcon: Padding(
-                                padding: const EdgeInsets.only(right: 8.0),
-                                child: IconButton(
-                                  icon: Icon(
-                                    Icons.contacts,
-                                    color:
-                                    Theme.of(context).brightness == Brightness.dark
-                                        ? Colors.white
-                                        : Colors.grey,
+                          child: TypeAheadFormField(
+                            suggestionsCallback: (query) {
+                              return contacts.where((contact)=> contact.displayName.toLowerCase().contains(query.toLowerCase())).toList();
+                            },
+                            itemBuilder: (context, contact) {
+                              return ListTile(
+                                leading: contact.avatar.length == 0 ?
+                                CircleAvatar(
+                                  child: Icon(Icons.person_outline),
+                                ) :
+                                ClipRRect(
+                                  borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                                  child: CircleAvatar(
+                                    child: Image.memory(
+                                      contact.avatar,
+                                    ),
                                   ),
-                                  onPressed: () async {
-                                    Contact contact =
-                                    await _contactPicker.selectContact();
-                                    setState(() {
-                                      _contact = contact;
-                                      _nameFieldController.text = _contact.fullName;
-                                      _phoneFieldController.text =
-                                          _contact.phoneNumber.number;
-                                    });
-                                  },
-                                  tooltip: "Choose from Contacts",
                                 ),
+                                title: Text(contact.displayName),
+                              );
+                            },
+                            transitionBuilder: (context, suggestionsBox, controller) {
+                              return suggestionsBox;
+                            },
+                            onSuggestionSelected: (contact) {
+                              this._nameFieldController.text = contact.givenName;
+                              this._phoneFieldController.text = contact.phones.first.value;
+                              selectedContact = contact;
+                            },
+                            onSaved: (contactName) => _nameFieldController.text = contactName,
+                            textFieldConfiguration: TextFieldConfiguration(
+                              enabled: true,
+                              controller: _nameFieldController,
+                              keyboardType: TextInputType.text,
+                              maxLines: 1,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                prefixIcon: Icon(
+                                  OMIcons.person,
+                                  color: Theme.of(context).brightness == Brightness.dark
+                                      ? Colors.white
+                                      : Colors.grey,
+                                ),
+                                suffixIcon: Padding(
+                                  padding: const EdgeInsets.only(right: 8.0),
+                                  child: IconButton(
+                                    icon: Icon(
+                                      Icons.close,
+                                      color:
+                                      Theme.of(context).brightness == Brightness.dark
+                                          ? Colors.white
+                                          : Colors.grey,
+                                    ),
+                                    onPressed: () async {
+                                      _nameFieldController.text = "";
+                                    },
+                                    tooltip: "Choose from Contacts",
+                                  ),
+                                ),
+                                labelText: name,
                               ),
-                              labelText: name,
                             ),
                           ),
                         ),
@@ -205,13 +236,24 @@ class _EditCallScreenState extends State<EditCallScreen> {
                     time = reminderTime.toString();
                   }
 
-                  userCalls.document(globals.callToEdit.documentID).updateData({
-                    "Name":name,
-                    "PhoneNumber":phoneNumber,
-                    "Description":description,
-                    "ReminderDate":date,
-                    "ReminderTime":time
-                  });
+                  if(selectedContact == null) {
+                    userCalls.document(globals.callToEdit.documentID).updateData({
+                      "Name":name,
+                      "PhoneNumber":phoneNumber,
+                      "Description":description,
+                      "ReminderDate":date,
+                      "ReminderTime":time
+                    });
+                  } else {
+                    userCalls.document(globals.callToEdit.documentID).updateData({
+                      "Avatar":String.fromCharCodes(selectedContact.avatar),
+                      "Name":name,
+                      "PhoneNumber":phoneNumber,
+                      "Description":description,
+                      "ReminderDate":date,
+                      "ReminderTime":time
+                    });
+                  }
                 } catch (e) {
                   print(e);
                 } finally {

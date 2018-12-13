@@ -31,10 +31,9 @@ android {
         applicationId "com.groovinchip.flutter.callmanager"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 16
-        versionName "1.8"
+        versionCode 17
+        versionName "2.0 beta 1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        //setProperty("archivesBaseName", applicationId + "_" + versionName)
     }
 
     signingConfigs {
