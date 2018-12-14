@@ -10,7 +10,7 @@ Features:
 	- Edit Call
 	- Set Notification Reminder
 	- Delete Call
-- Add a contact from your own contact list. The name and number fields will autofill with
+- Add a contact from your own contact list. The name and number fields will autofill with those details.
 
 Download the app:
 Google Play: https://play.google.com/store/apps/details?id=com.groovinchip.flutter.callmanager
