@@ -29,7 +29,7 @@ void main() {
 
   // launch app
   runApp(
-    PassNotification( // LNP is an inherited widget which passes on the notifications plugin
+    PassNotification( // PassNotification is an inherited widget which passes on the notifications plugin
       flutterLocalNotificationsPlugin,
       child: CallManagerApp(),
     )
