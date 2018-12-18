@@ -29,8 +29,6 @@ class AddNewCallScreen extends StatefulWidget {
 
 class _AddNewCallScreenState extends State<AddNewCallScreen> {
   // Contact Picker stuff
-  /*final ContactPicker _contactPicker = ContactPicker();
-  Contact _contact;*/
   Iterable<Contact> contacts;
   Contact selectedContact;
 
@@ -133,7 +131,6 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
   void checkContactsPermission() async {
     PermissionStatus contactsPerm =
       await PermissionHandler.checkPermissionStatus(PermissionGroup.contacts);
-
   }
 
   @override

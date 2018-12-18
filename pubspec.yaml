@@ -22,7 +22,7 @@ dependencies:
   permission_handler: '^1.0.1'
   dynamic_theme: ^1.0.0
   rounded_modal: ^1.0.0
-  groovin_widgets: ^1.2.0
+  groovin_widgets: ^1.2.1
   contacts_service: ^0.0.9
   flutter_typeahead: ^0.4.1
 
