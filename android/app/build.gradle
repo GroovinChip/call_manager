@@ -14,8 +14,8 @@ if (flutterRoot == null) {
 apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
-def keystorePropertiesFile = rootProject.file("C:\\Users\\groov\\Flutter_Projects\\call_manager\\key.properties")
-//def keystorePropertiesFile = rootProject.file("C:\\Users\\Reuvain\\Flutter Projects\\CallManager\\key.properties")
+//def keystorePropertiesFile = rootProject.file("C:\\Users\\groov\\Flutter_Projects\\call_manager\\key.properties")
+def keystorePropertiesFile = rootProject.file("C:\\Users\\Reuvain\\Flutter Projects\\CallManager\\key.properties")
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
@@ -31,8 +31,8 @@ android {
         applicationId "com.groovinchip.flutter.callmanager"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 18
-        versionName "2.0 beta 2"
+        versionCode 19
+        versionName "2.0 beta 3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 

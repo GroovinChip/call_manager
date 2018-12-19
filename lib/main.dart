@@ -1,4 +1,3 @@
-import 'package:call_manager/about_screen.dart';
 import 'package:call_manager/edit_call_screen.dart';
 import 'package:call_manager/pass_notification.dart';
 import 'package:call_manager/login_screen.dart';
@@ -56,7 +55,6 @@ class CallManagerApp extends StatelessWidget {
             "/HomeScreen": (BuildContext context) => HomeScreen(),
             "/AddNewCallScreen": (BuildContext context) => AddNewCallScreen(),
             "/EditCallScreen": (BuildContext context) => EditCallScreen(),
-            "/AboutScreen": (BuildContext context) => AboutScreen()
           },
           debugShowCheckedModeBanner: false,
         );
