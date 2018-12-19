@@ -92,6 +92,14 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> with SingleTicker
                 ? Colors.grey[600]
                 : Colors.grey[400],
               indicatorColor: Theme.of(context).primaryColor,
+              //indicatorPadding: EdgeInsets.only(left: 75.0, right: 75.0),
+              /*indicator: UnderlineTabIndicator(
+                borderSide: BorderSide(
+                  color: Theme.of(context).primaryColor,
+                  width: 2.0,
+                ),
+              ),
+              indicatorSize: TabBarIndicatorSize.label,*/
               tabs: <Widget>[
                 Tab(
                   child: Text("Options"),

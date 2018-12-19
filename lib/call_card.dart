@@ -127,13 +127,13 @@ class CallCardState extends State<CallCard> {
       elevation: 2.0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
       child: GroovinExpansionTile(
-        leading: "${widget.callSnapshot['Avatar']}" != "null" ? CircleAvatar(
-          child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(25.0)),
-            child: CircleAvatar(
-              child: Image.memory(
-                Uint8List.fromList("${widget.callSnapshot['Avatar']}".codeUnits),
-              ),
+        leading: "${widget.callSnapshot['Avatar']}" != "null" ? ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(25.0)),
+          child: CircleAvatar(
+            backgroundColor: Colors.transparent,
+            child: Image.memory(
+              Uint8List.fromList("${widget.callSnapshot['Avatar']}".codeUnits),
+              gaplessPlayback: true,
             ),
           ),
         ) : CircleAvatar(

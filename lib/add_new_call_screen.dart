@@ -1,17 +1,15 @@
-import 'dart:async';
 import 'package:call_manager/pass_notification.dart';
 import 'package:flutter/material.dart';
-//import 'package:contact_picker/contact_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:datetime_picker_formfield/time_picker_formfield.dart';
+import 'package:groovin_widgets/groovin_widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:call_manager/globals.dart' as globals;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:call_number/call_number.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:rounded_modal/rounded_modal.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -146,11 +144,12 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.only(left: 16.0, top: 16.0, bottom: 8.0),
                         child: Text(
-                          "Basic Info",
+                          "New Call",
                           style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
@@ -186,9 +185,72 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                         return suggestionsBox;
                       },
                       onSuggestionSelected: (contact) {
-                        this._nameFieldController.text = contact.givenName;
-                        this._phoneFieldController.text = contact.phones.first.value;
                         selectedContact = contact;
+                        if(selectedContact.familyName != null)
+                          this._nameFieldController.text = contact.givenName + " " + contact.familyName;
+                        else
+                          this._nameFieldController.text = contact.givenName;
+                        if(selectedContact.phones.length > 1) {
+                          showRoundedModalBottomSheet(
+                            context: context,
+                            builder: (builder) {
+                              return Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ModalDrawerHandle(),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        "Choose phone number",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Container(
+                                    height: 150.0,
+                                    child: ListView.builder(
+                                      itemCount: selectedContact.phones.length,
+                                      itemBuilder: (context, index) {
+                                        List<Item> phoneNums = [];
+                                        Icon phoneType;
+                                        phoneNums = selectedContact.phones.toList();
+                                        switch(phoneNums[index].label){
+                                          case "mobile":
+                                            phoneType = Icon(OMIcons.smartphone);
+                                            break;
+                                          case "work":
+                                            phoneType = Icon(OMIcons.business);
+                                            break;
+                                          case "home":
+                                            phoneType = Icon(OMIcons.home);
+                                            break;
+                                          default:
+                                            phoneType = Icon(OMIcons.phone);
+                                        }
+                                        return ListTile(
+                                          leading: phoneType,
+                                          title: Text(phoneNums[index].value),
+                                          subtitle: Text(phoneNums[index].label),
+                                          onTap: () {
+                                            this._phoneFieldController.text = phoneNums[index].value;
+                                            Navigator.pop(context);
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }
+                          );
+                        }
                       },
                       validator: (input) => input == null || input == "" ? 'This field is required' : null,
                       onSaved: (contactName) => _nameFieldController.text = contactName,
@@ -245,11 +307,27 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                         ),
                         labelText: 'Phone Number (Required)',
                         border: OutlineInputBorder(),
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.close,
+                              color:
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.white
+                                  : Colors.grey,
+                            ),
+                            onPressed: () async {
+                              _phoneFieldController.text = "";
+                            },
+                            tooltip: "Choose from Contacts",
+                          ),
+                        ),
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0),
+                    padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0, bottom: 8.0),
                     child: TextFormField(
                       enabled: true,
                       keyboardType: TextInputType.multiline,
@@ -264,11 +342,27 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                             ? Colors.white
                             : Colors.grey,
                         ),
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.close,
+                              color:
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.white
+                                  : Colors.grey,
+                            ),
+                            onPressed: () async {
+                              _descriptionFieldController.text = "";
+                            },
+                            tooltip: "Choose from Contacts",
+                          ),
+                        ),
                         border: OutlineInputBorder(),
                       ),
                     ),
                   ),
-                  Padding(
+                  /*Padding(
                     padding:
                         const EdgeInsets.only(right: 16.0, left: 16.0, top: 12.0),
                     child: Divider(),
@@ -284,7 +378,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                         ),
                       ),
                     ],
-                  ),
+                  ),*/
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: DateTimePickerFormField(

@@ -63,14 +63,16 @@ class _EditCallScreenState extends State<EditCallScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 16.0, top: 16.0, bottom: 8.0),
+                              padding: const EdgeInsets.only(left: 16.0, top: 6.0, bottom: 8.0),
                               child: Text(
-                                "Basic Info",
+                                "Edit Call",
                                 style: TextStyle(
-                                    fontSize: 20.0, fontWeight: FontWeight.bold),
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ],
@@ -156,6 +158,22 @@ class _EditCallScreenState extends State<EditCallScreen> {
                                     ? Colors.white
                                     : Colors.grey,
                               ),
+                              suffixIcon: Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: IconButton(
+                                  icon: Icon(
+                                    Icons.close,
+                                    color:
+                                    Theme.of(context).brightness == Brightness.dark
+                                        ? Colors.white
+                                        : Colors.grey,
+                                  ),
+                                  onPressed: () async {
+                                    _phoneFieldController.text = "";
+                                  },
+                                  tooltip: "Choose from Contacts",
+                                ),
+                              ),
                               labelText: phoneNumber,
                               border: OutlineInputBorder(),
                             ),
@@ -176,6 +194,22 @@ class _EditCallScreenState extends State<EditCallScreen> {
                                 color: Theme.of(context).brightness == Brightness.dark
                                     ? Colors.white
                                     : Colors.grey,
+                              ),
+                              suffixIcon: Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: IconButton(
+                                  icon: Icon(
+                                    Icons.close,
+                                    color:
+                                    Theme.of(context).brightness == Brightness.dark
+                                        ? Colors.white
+                                        : Colors.grey,
+                                  ),
+                                  onPressed: () async {
+                                    _descriptionFieldController.text = "";
+                                  },
+                                  tooltip: "Choose from Contacts",
+                                ),
                               ),
                               border: OutlineInputBorder(),
                             ),
