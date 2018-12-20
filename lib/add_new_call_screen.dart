@@ -158,7 +158,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.only(left: 16.0, top: 16.0, bottom: 8.0),
+                        padding: const EdgeInsets.only(left: 16.0, top: 6.0, bottom: 8.0),
                         child: Text(
                           "New Call",
                           style: TextStyle(

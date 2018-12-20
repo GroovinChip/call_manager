@@ -95,7 +95,31 @@ class _HomeScreenState extends State<HomeScreen> {
                     )
                   ],
                 )
-                : Center(child: Text("No Calls"));
+                : Column(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 1,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              "Call Manager",
+                              style: TextStyle(
+                                fontSize: 22.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 15,
+                        child: Center(
+                          child: Text("No calls"),
+                        ),
+                      ),
+                    ],
+                  );
             }
           },
         ),
