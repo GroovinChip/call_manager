@@ -8,6 +8,7 @@ import 'package:rounded_modal/rounded_modal.dart';
 import 'package:call_manager/globals.dart' as globals;
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 
 class BottomSheets {
   BuildContext context;
@@ -87,19 +88,18 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> with SingleTicker
             height: 50.0,
             child: TabBar(
               controller: _tabController,
-              labelColor: Theme.of(context).primaryColor,
+              labelColor: Colors.white,
               unselectedLabelColor: Theme.of(context).brightness == Brightness.light
                 ? Colors.grey[600]
                 : Colors.grey[400],
               indicatorColor: Theme.of(context).primaryColor,
-              //indicatorPadding: EdgeInsets.only(left: 75.0, right: 75.0),
-              /*indicator: UnderlineTabIndicator(
-                borderSide: BorderSide(
-                  color: Theme.of(context).primaryColor,
-                  width: 2.0,
-                ),
+              indicatorSize: TabBarIndicatorSize.tab,
+              indicator: BubbleTabIndicator(
+                indicatorHeight: 25.0,
+                indicatorColor: Theme.of(context).primaryColor,
+                tabBarIndicatorSize: TabBarIndicatorSize.tab,
+                insets: EdgeInsets.only(left: 40.0, right: 40.0)
               ),
-              indicatorSize: TabBarIndicatorSize.label,*/
               tabs: <Widget>[
                 Tab(
                   child: Text("Options"),
@@ -127,7 +127,6 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> with SingleTicker
                               : Colors.white,
                         ),
                         onTap: () {
-                          Navigator.pop(context);
                           showDialog(
                             context: context,
                             builder: (_) => AlertDialog(
@@ -195,7 +194,6 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> with SingleTicker
                             ? Colors.black
                             : Colors.white,),
                         onTap: (){
-                          Navigator.pop(context);
                           showDialog(
                             context: context,
                             builder: (_) => AlertDialog(

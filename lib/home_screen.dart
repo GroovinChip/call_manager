@@ -109,10 +109,11 @@ class _HomeScreenState extends State<HomeScreen> {
           onPressed: () {
             //Navigator.of(context).pushNamed("/AddNewCallScreen");
             if(contactsPerm == PermissionStatus.granted) {
-              Navigator.push(
+              /*Navigator.push(
                 context,
                 SlideLeftRoute(widget: AddNewCallScreen()),
-              );
+              );*/
+              Navigator.of(context).pushNamed("/AddNewCallScreen");
             } else {
               Scaffold.of(context).showSnackBar(
                 SnackBar(

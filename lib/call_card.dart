@@ -1,8 +1,5 @@
 import 'dart:typed_data';
-
-import 'package:call_manager/edit_call_screen.dart';
 import 'package:call_manager/pass_notification.dart';
-import 'package:call_manager/utils/page_transitions.dart';
 import 'package:call_number/call_number.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
@@ -79,8 +76,8 @@ class CallCardState extends State<CallCard> {
 
     await PassNotification.of(context).schedule(
         0,
-        'Call Reminder',
-        "Don't forget to call " + name + "!",
+        'Reminder: call ' + name,
+        "Tap to call " + name,
         scheduledNotificationDateTime,
         platformChannelSpecifics,
         payload: phoneNumber
@@ -281,11 +278,11 @@ class CallCardState extends State<CallCard> {
                 icon: Icon(GroovinMaterialIcons.edit_outline),
                 onPressed: (){
                   globals.callToEdit = widget.callSnapshot.reference;
-                  //Navigator.of(context).pushNamed("/EditCallScreen");
-                  Navigator.push(
+                  Navigator.of(context).pushNamed("/EditCallScreen");
+                  /*Navigator.push(
                       context,
                       SlideLeftRoute(widget: EditCallScreen())
-                  );
+                  );*/
                 },
                 tooltip: "Edit this call",
               ),

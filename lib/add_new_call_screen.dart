@@ -78,8 +78,8 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
 
         await PassNotification.of(context).schedule(
             0,
-            'Call Reminder',
-            "Don't forget to call " + _nameFieldController.text + "!",
+            'Reminder: call ' + _nameFieldController.text,
+            "Tap to call " + _nameFieldController.text,
             scheduledNotificationDateTime,
             platformChannelSpecifics,
             payload: _phoneFieldController.text);
@@ -280,7 +280,6 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                               onPressed: () async {
                                 _nameFieldController.text = "";
                               },
-                              tooltip: "Choose from Contacts",
                             ),
                           ),
                           labelText: 'Name (Required)',
@@ -320,7 +319,6 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                             onPressed: () async {
                               _phoneFieldController.text = "";
                             },
-                            tooltip: "Choose from Contacts",
                           ),
                         ),
                       ),
@@ -355,7 +353,6 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                             onPressed: () async {
                               _descriptionFieldController.text = "";
                             },
-                            tooltip: "Choose from Contacts",
                           ),
                         ),
                         border: OutlineInputBorder(),

@@ -2,10 +2,12 @@ import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:groovin_widgets/modal_drawer_handle.dart';
 import 'package:intl/intl.dart';
 import 'package:call_manager/globals.dart' as globals;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
+import 'package:rounded_modal/rounded_modal.dart';
 
 class EditCallScreen extends StatefulWidget {
   @override
@@ -104,9 +106,72 @@ class _EditCallScreenState extends State<EditCallScreen> {
                               return suggestionsBox;
                             },
                             onSuggestionSelected: (contact) {
-                              this._nameFieldController.text = contact.givenName;
-                              this._phoneFieldController.text = contact.phones.first.value;
                               selectedContact = contact;
+                              if(selectedContact.familyName != null)
+                                this._nameFieldController.text = contact.givenName + " " + contact.familyName;
+                              else
+                                this._nameFieldController.text = contact.givenName;
+                              if(selectedContact.phones.length > 1) {
+                                showRoundedModalBottomSheet(
+                                  context: context,
+                                  builder: (builder) {
+                                    return Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: ModalDrawerHandle(),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Text(
+                                              "Choose phone number",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16.0,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Container(
+                                          height: 150.0,
+                                          child: ListView.builder(
+                                            itemCount: selectedContact.phones.length,
+                                            itemBuilder: (context, index) {
+                                              List<Item> phoneNums = [];
+                                              Icon phoneType;
+                                              phoneNums = selectedContact.phones.toList();
+                                              switch(phoneNums[index].label){
+                                                case "mobile":
+                                                  phoneType = Icon(OMIcons.smartphone);
+                                                  break;
+                                                case "work":
+                                                  phoneType = Icon(OMIcons.business);
+                                                  break;
+                                                case "home":
+                                                  phoneType = Icon(OMIcons.home);
+                                                  break;
+                                                default:
+                                                  phoneType = Icon(OMIcons.phone);
+                                              }
+                                              return ListTile(
+                                                leading: phoneType,
+                                                title: Text(phoneNums[index].value),
+                                                subtitle: Text(phoneNums[index].label),
+                                                onTap: () {
+                                                  this._phoneFieldController.text = phoneNums[index].value;
+                                                  Navigator.pop(context);
+                                                },
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
                             },
                             onSaved: (contactName) => _nameFieldController.text = contactName,
                             textFieldConfiguration: TextFieldConfiguration(
@@ -135,7 +200,6 @@ class _EditCallScreenState extends State<EditCallScreen> {
                                     onPressed: () async {
                                       _nameFieldController.text = "";
                                     },
-                                    tooltip: "Choose from Contacts",
                                   ),
                                 ),
                                 labelText: name,
@@ -171,7 +235,6 @@ class _EditCallScreenState extends State<EditCallScreen> {
                                   onPressed: () async {
                                     _phoneFieldController.text = "";
                                   },
-                                  tooltip: "Choose from Contacts",
                                 ),
                               ),
                               labelText: phoneNumber,
@@ -208,7 +271,6 @@ class _EditCallScreenState extends State<EditCallScreen> {
                                   onPressed: () async {
                                     _descriptionFieldController.text = "";
                                   },
-                                  tooltip: "Choose from Contacts",
                                 ),
                               ),
                               border: OutlineInputBorder(),
