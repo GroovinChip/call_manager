@@ -252,56 +252,35 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> with SingleTicker
                       ),
                     ),*/
                     Material(
-                      child: GroovinExpansionTile(
-                        //defaultTrailingIconColor: Theme.of(context).primaryColor,
-                        title: Text(
-                          "Social",
-                          style: TextStyle(
-                            color: Theme.of(context).brightness == Brightness.light
-                                ? Colors.black
-                                : Colors.white,
-                          ),
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Material(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: IconButton(
-                                    icon: Icon(GroovinMaterialIcons.xda),
-                                    color: Colors.orange,
-                                    onPressed: (){
-                                      launch("https://forum.xda-developers.com/member.php?u=7646108");
-                                    },
-                                  ),
-                                ),
-                                IconButton(
-                                  icon: Icon(GroovinMaterialIcons.twitter),
-                                  color: Colors.blue,
-                                  onPressed: (){
-                                    launch("https:twitter.com/GroovinChipDev");
-                                  },
-                                ),
-                                IconButton(
-                                  icon: Icon(GroovinMaterialIcons.discord),
-                                  color: Colors.deepPurple[300],
-                                  onPressed: (){
-                                    launch("https://discord.gg/CFnBRue");
-                                  },
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 8.0),
-                                  child: IconButton(
-                                    icon: Icon(GroovinMaterialIcons.gmail),
-                                    color: Colors.red,
-                                    onPressed: (){
-                                      launch("mailto:groovinchip@gmail.com");
-                                    },
-                                  ),
-                                ),
-                              ],
+                          Padding(
+                            padding: const EdgeInsets.only(left: 16.0),
+                            child: Text("Contact: "),
+                          ),
+                          IconButton(
+                            icon: Icon(GroovinMaterialIcons.twitter),
+                            color: Colors.blue,
+                            onPressed: (){
+                              launch("https:twitter.com/GroovinChipDev");
+                            },
+                          ),
+                          IconButton(
+                            icon: Icon(GroovinMaterialIcons.discord),
+                            color: Colors.deepPurple[300],
+                            onPressed: (){
+                              launch("https://discord.gg/CFnBRue");
+                            },
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 16.0),
+                            child: IconButton(
+                              icon: Icon(GroovinMaterialIcons.gmail),
+                              color: Colors.red,
+                              onPressed: (){
+                                launch("mailto:groovinchip@gmail.com");
+                              },
                             ),
                           ),
                         ],
@@ -324,7 +303,7 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> with SingleTicker
                       ),
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),
