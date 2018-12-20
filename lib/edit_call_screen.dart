@@ -34,6 +34,8 @@ class _EditCallScreenState extends State<EditCallScreen> {
   Iterable<Contact> contacts;
   Contact selectedContact;
 
+  bool retrievedContacts = false;
+
   @override
   void initState() {
     super.initState();
@@ -42,6 +44,15 @@ class _EditCallScreenState extends State<EditCallScreen> {
 
   void getContacts() async {
     contacts = await ContactsService.getContacts();
+    if(contacts != null) {
+      setState(() {
+        retrievedContacts = true;
+      });
+    } else {
+      setState(() {
+        retrievedContacts = false;
+      });
+    }
   }
 
   @override
@@ -113,64 +124,66 @@ class _EditCallScreenState extends State<EditCallScreen> {
                                 this._nameFieldController.text = contact.givenName;
                               if(selectedContact.phones.length > 1) {
                                 showRoundedModalBottomSheet(
-                                  context: context,
-                                  builder: (builder) {
-                                    return Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: ModalDrawerHandle(),
-                                        ),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Text(
-                                              "Choose phone number",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16.0,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Container(
-                                          height: 150.0,
-                                          child: ListView.builder(
-                                            itemCount: selectedContact.phones.length,
-                                            itemBuilder: (context, index) {
-                                              List<Item> phoneNums = [];
-                                              Icon phoneType;
-                                              phoneNums = selectedContact.phones.toList();
-                                              switch(phoneNums[index].label){
-                                                case "mobile":
-                                                  phoneType = Icon(OMIcons.smartphone);
-                                                  break;
-                                                case "work":
-                                                  phoneType = Icon(OMIcons.business);
-                                                  break;
-                                                case "home":
-                                                  phoneType = Icon(OMIcons.home);
-                                                  break;
-                                                default:
-                                                  phoneType = Icon(OMIcons.phone);
-                                              }
-                                              return ListTile(
-                                                leading: phoneType,
-                                                title: Text(phoneNums[index].value),
-                                                subtitle: Text(phoneNums[index].label),
-                                                onTap: () {
-                                                  this._phoneFieldController.text = phoneNums[index].value;
-                                                  Navigator.pop(context);
-                                                },
-                                              );
-                                            },
+                                    context: context,
+                                    builder: (builder) {
+                                      return Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: ModalDrawerHandle(),
                                           ),
-                                        ),
-                                      ],
-                                    );
-                                  },
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Text(
+                                                "Choose phone number",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16.0,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Container(
+                                            height: 150.0,
+                                            child: ListView.builder(
+                                              itemCount: selectedContact.phones.length,
+                                              itemBuilder: (context, index) {
+                                                List<Item> phoneNums = [];
+                                                Icon phoneType;
+                                                phoneNums = selectedContact.phones.toList();
+                                                switch(phoneNums[index].label){
+                                                  case "mobile":
+                                                    phoneType = Icon(OMIcons.smartphone);
+                                                    break;
+                                                  case "work":
+                                                    phoneType = Icon(OMIcons.business);
+                                                    break;
+                                                  case "home":
+                                                    phoneType = Icon(OMIcons.home);
+                                                    break;
+                                                  default:
+                                                    phoneType = Icon(OMIcons.phone);
+                                                }
+                                                return ListTile(
+                                                  leading: phoneType,
+                                                  title: Text(phoneNums[index].value),
+                                                  subtitle: Text(phoneNums[index].label),
+                                                  onTap: () {
+                                                    this._phoneFieldController.text = phoneNums[index].value;
+                                                    Navigator.pop(context);
+                                                  },
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    }
                                 );
+                              } else {
+                                this._phoneFieldController.text = selectedContact.phones.first.value;
                               }
                             },
                             onSaved: (contactName) => _nameFieldController.text = contactName,

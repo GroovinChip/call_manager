@@ -115,6 +115,8 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
     }
   }
 
+  bool retrievedContacts = false;
+
   @override
   void initState() {
     super.initState();
@@ -124,6 +126,15 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
 
   void getContacts() async {
     contacts = await ContactsService.getContacts();
+    if(contacts != null) {
+      setState(() {
+        retrievedContacts = true;
+      });
+    } else {
+      setState(() {
+        retrievedContacts = false;
+      });
+    }
   }
 
   void checkContactsPermission() async {
@@ -162,7 +173,9 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                     padding: const EdgeInsets.all(16.0),
                     child: TypeAheadFormField(
                       suggestionsCallback: (query) {
-                        return contacts.where((contact)=> contact.displayName.toLowerCase().contains(query.toLowerCase())).toList();
+                        if(contacts != null){
+                          return contacts.where((contact)=> contact.displayName.toLowerCase().contains(query.toLowerCase())).toList();
+                        }
                       },
                       itemBuilder: (context, contact) {
                         return ListTile(
@@ -250,6 +263,8 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                               );
                             }
                           );
+                        } else {
+                          this._phoneFieldController.text = selectedContact.phones.first.value;
                         }
                       },
                       validator: (input) => input == null || input == "" ? 'This field is required' : null,
