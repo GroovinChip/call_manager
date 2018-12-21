@@ -199,13 +199,11 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                       },
                       onSuggestionSelected: (contact) {
                         selectedContact = contact;
-                        if(selectedContact.familyName != null)
-                          this._nameFieldController.text = contact.givenName + " " + contact.familyName;
-                        else
-                          this._nameFieldController.text = contact.givenName;
+                        this._nameFieldController.text = selectedContact.displayName;
                         if(selectedContact.phones.length > 1) {
                           showRoundedModalBottomSheet(
                             context: context,
+                            color: Theme.of(context).canvasColor,
                             builder: (builder) {
                               return Column(
                                 mainAxisSize: MainAxisSize.min,
