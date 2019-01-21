@@ -1,10 +1,10 @@
-import 'package:call_manager/edit_call_screen.dart';
-import 'package:call_manager/pass_notification.dart';
-import 'package:call_manager/login_screen.dart';
+import 'package:call_manager/EditCall/edit_call_screen.dart';
+import 'package:call_manager/Login/pass_notification.dart';
+import 'package:call_manager/Login/login_screen.dart';
 import 'package:call_number/call_number.dart';
 import 'package:flutter/material.dart';
-import 'package:call_manager/home_screen.dart';
-import 'package:call_manager/add_new_call_screen.dart';
+import 'package:call_manager/HomeScreen/home_screen.dart';
+import 'package:call_manager/NewCall/add_new_call_screen.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 

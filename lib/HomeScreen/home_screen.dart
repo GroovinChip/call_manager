@@ -1,6 +1,6 @@
-import 'package:call_manager/add_new_call_screen.dart';
-import 'package:call_manager/cm_bottom_app_bar.dart';
-import 'package:call_manager/call_card.dart';
+import 'package:call_manager/NewCall/add_new_call_screen.dart';
+import 'package:call_manager/HomeScreen/cm_bottom_app_bar.dart';
+import 'package:call_manager/HomeScreen/call_card.dart';
 import 'package:call_manager/utils/page_transitions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
