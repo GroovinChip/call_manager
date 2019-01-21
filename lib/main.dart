@@ -1,5 +1,5 @@
 import 'package:call_manager/EditCall/edit_call_screen.dart';
-import 'package:call_manager/Login/pass_notification.dart';
+import 'package:call_manager/utils/pass_notification.dart';
 import 'package:call_manager/Login/login_screen.dart';
 import 'package:call_number/call_number.dart';
 import 'package:flutter/material.dart';
