@@ -21,14 +21,13 @@ void main() {
         if (payload != null) {
           debugPrint('notification payload: ' + payload);
         }
-        //launch("tel:"+payload);
         await CallNumber().callNumber(payload);
       }
     );
 
   // launch app
   runApp(
-    PassNotification( // PassNotification is an inherited widget which passes on the notifications plugin
+    PassNotification(
       flutterLocalNotificationsPlugin,
       child: CallManagerApp(),
     )

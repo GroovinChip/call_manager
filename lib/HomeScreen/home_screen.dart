@@ -1,8 +1,5 @@
-import 'package:call_manager/NewCall/add_new_call_screen.dart';
+import 'package:call_manager/HomeScreen/CallCardList.dart';
 import 'package:call_manager/HomeScreen/cm_bottom_app_bar.dart';
-import 'package:call_manager/HomeScreen/call_card.dart';
-import 'package:call_manager/utils/page_transitions.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:call_manager/globals.dart' as globals;
@@ -55,75 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
 
     return Scaffold(
-      body: SafeArea(
-        child: StreamBuilder<QuerySnapshot>(
-          stream: Firestore.instance.collection("Users").document(globals.loggedInUser.uid).collection("Calls").snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData == false) {
-              return Center(child: Text("Getting Calls..."));
-            } else {
-              return snapshot.data.documents.length > 0
-                ? Column(
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "Call Manager",
-                            style: TextStyle(
-                              fontSize: 22.0,
-                              fontWeight: FontWeight.bold
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      flex: 15,
-                      child: ListView.builder(
-                        itemCount: snapshot.data.documents.length,
-                        itemBuilder: (context, index) {
-                          DocumentSnapshot ds = snapshot.data.documents[index];
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: CallCard(callSnapshot: ds),
-                          );
-                        },
-                      ),
-                    )
-                  ],
-                )
-                : Column(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 1,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              "Call Manager",
-                              style: TextStyle(
-                                fontSize: 22.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        flex: 15,
-                        child: Center(
-                          child: Text("No calls"),
-                        ),
-                      ),
-                    ],
-                  );
-            }
-          },
-        ),
-      ),
+      body: CallCardList(),
       floatingActionButton: Builder(
         builder: (context) => FloatingActionButton.extended(
           icon: Icon(Icons.add),
@@ -131,12 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: Colors.blue[700],
           label: Text("New Call"),
           onPressed: () {
-            //Navigator.of(context).pushNamed("/AddNewCallScreen");
             if(contactsPerm == PermissionStatus.granted) {
-              /*Navigator.push(
-                context,
-                SlideLeftRoute(widget: AddNewCallScreen()),
-              );*/
               Navigator.of(context).pushNamed("/AddNewCallScreen");
             } else {
               Scaffold.of(context).showSnackBar(

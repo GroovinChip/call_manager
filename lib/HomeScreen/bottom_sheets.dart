@@ -10,11 +10,14 @@ import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 
+/// This class launches BottomSheets used by the app.
 class BottomSheets {
   BuildContext context;
 
   BottomSheets(this.context);
 
+  /// Show the BottomSheet launched from the BottomAppBar
+  /// on the HomeScreen widget
   void showBottomAppBarSheet() {
     showRoundedModalBottomSheet(
       color: Theme.of(context).canvasColor,
@@ -27,6 +30,8 @@ class BottomSheets {
   }
 }
 
+/// Represents the BottomSheet launched from the BottomAppBar
+/// on the HomeScreen widget
 class BottomAppBarSheet extends StatefulWidget {
   @override
   _BottomAppBarSheetState createState() => _BottomAppBarSheetState();

@@ -186,6 +186,7 @@ class _EditCallScreenState extends State<EditCallScreen> {
                             onSaved: (contactName) => _nameFieldController.text = contactName,
                             textFieldConfiguration: TextFieldConfiguration(
                               enabled: true,
+                              textCapitalization: TextCapitalization.words,
                               controller: _nameFieldController,
                               keyboardType: TextInputType.text,
                               maxLines: 1,
