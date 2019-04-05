@@ -4,6 +4,7 @@ import 'package:call_number/call_number.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:datetime_picker_formfield/time_picker_formfield.dart';
+import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:groovin_material_icons/groovin_material_icons.dart';
@@ -75,12 +76,12 @@ class CallCardState extends State<CallCard> {
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
 
     await PassNotification.of(context).schedule(
-        0,
-        'Reminder: call ' + name,
-        "Tap to call " + name,
-        scheduledNotificationDateTime,
-        platformChannelSpecifics,
-        payload: phoneNumber
+      0,
+      'Reminder: call ' + name,
+      "Tap to call " + name,
+      scheduledNotificationDateTime,
+      platformChannelSpecifics,
+      payload: phoneNumber,
     );
 
     Navigator.pop(context);
@@ -134,7 +135,12 @@ class CallCardState extends State<CallCard> {
             ),
           ),
         ) : CircleAvatar(
-          child: Icon(Icons.person_outline, color: Colors.white,),
+          child: Icon(
+            DynamicTheme.of(context).brightness ==  Brightness.light
+              ? Icons.person_outline
+              : Icons.person,
+            color: Colors.white,
+          ),
           backgroundColor: Theme.of(context).primaryColor,
         ),
         title: Text(
@@ -162,35 +168,39 @@ class CallCardState extends State<CallCard> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               IconButton(
-                icon: Icon(Icons.delete_outline),
+                icon: DynamicTheme.of(context).brightness == Brightness.light
+                  ? Icon(Icons.delete_outline)
+                  : Icon(Icons.delete),
                 onPressed: (){
                   showDialog(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                        title: Text("Delete Call"),
-                        content: Text("Are you sure you want to delete this call?"),
-                        actions: <Widget>[
-                          FlatButton(
-                            child: Text("No"),
-                            onPressed: (){
-                              Navigator.pop(context);
-                            },
-                          ),
-                          FlatButton(
-                            child: Text("Yes"),
-                            onPressed: (){
-                              Firestore.instance.collection("Users").document(globals.loggedInUser.uid).collection("Calls").document(widget.callSnapshot.documentID).delete();
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ],
-                      )
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      title: Text("Delete Call"),
+                      content: Text("Are you sure you want to delete this call?"),
+                      actions: <Widget>[
+                        FlatButton(
+                          child: Text("No"),
+                          onPressed: (){
+                            Navigator.pop(context);
+                          },
+                        ),
+                        FlatButton(
+                          child: Text("Yes"),
+                          onPressed: (){
+                            Firestore.instance.collection("Users").document(globals.loggedInUser.uid).collection("Calls").document(widget.callSnapshot.documentID).delete();
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
                   );
                 },
                 tooltip: "Delete call",
               ),
               IconButton(
-                icon: Icon(Icons.notifications_none),
+                icon: DynamicTheme.of(context).brightness == Brightness.light
+                  ? Icon(Icons.notifications_none)
+                  : Icon(Icons.notifications),
                 onPressed: (){
                   numberToCallOnNotificationTap = "${widget.callSnapshot['PhoneNumber']}";
                   showRoundedModalBottomSheet(
@@ -275,7 +285,9 @@ class CallCardState extends State<CallCard> {
                 tooltip: "Set reminder",
               ),
               IconButton(
-                icon: Icon(GroovinMaterialIcons.edit_outline),
+                icon: DynamicTheme.of(context).brightness == Brightness.light
+                  ? Icon(GroovinMaterialIcons.edit_outline)
+                  : Icon(Icons.edit),
                 onPressed: (){
                   globals.callToEdit = widget.callSnapshot.reference;
                   Navigator.of(context).pushNamed("/EditCallScreen");
@@ -287,7 +299,9 @@ class CallCardState extends State<CallCard> {
                 tooltip: "Edit this call",
               ),
               IconButton(
-                icon: Icon(GroovinMaterialIcons.comment_text_outline),
+                icon: DynamicTheme.of(context).brightness == Brightness.light
+                  ? Icon(GroovinMaterialIcons.comment_text_outline)
+                  : Icon(GroovinMaterialIcons.comment_text),
                 onPressed: (){
                   globals.callToEdit = widget.callSnapshot.reference;
                   launch("sms:${widget.callSnapshot['PhoneNumber']}");
@@ -295,7 +309,9 @@ class CallCardState extends State<CallCard> {
                 tooltip: "Text ${widget.callSnapshot['Name']}",
               ),
               IconButton(
-                icon: Icon(GroovinMaterialIcons.phone_outline),
+                icon: DynamicTheme.of(context).brightness == Brightness.light
+                  ? Icon(GroovinMaterialIcons.phone_outline)
+                  : Icon(Icons.phone),
                 onPressed: () async {
                   await CallNumber().callNumber("${widget.callSnapshot['PhoneNumber']}");
                 },

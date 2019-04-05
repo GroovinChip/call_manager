@@ -179,11 +179,15 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> with SingleTicker
                     Material(
                       child: ListTile(
                         leading: Icon(
-                          Icons.brightness_6,
+                          DynamicTheme.of(context).brightness == Brightness.light
+                              ? Icons.brightness_2
+                              : Icons.brightness_7,
                           color: Theme.of(context).brightness == Brightness.light
                             ? Colors.black
                             : Colors.white,),
-                        title: Text("Toggle Dark Theme"),
+                        title: DynamicTheme.of(context).brightness == Brightness.light
+                            ? Text("Toggle Dark Theme")
+                            : Text("Toggle Light Theme"),
                         onTap: () {
                           changeBrightness();
                           Navigator.pop(context);

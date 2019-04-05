@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "1053316160376",
+    "firebase_url": "https://call-manager-flutter-db.firebaseio.com",
+    "project_id": "call-manager-flutter-db",
+    "storage_bucket": "call-manager-flutter-db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1053316160376:android:9e3c10e86de5057f",
+        "android_client_info": {
+          "package_name": "com.groovinchip.flutter.callmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1053316160376-5juugktuaas98do08thao9iplqmr5fn9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.groovinchip.flutter.callmanager",
+            "certificate_hash": "11743c6d989da7c5fc95a69f9f8851ef57c3c40b"
+          }
+        },
+        {
+          "client_id": "1053316160376-lta90e93askpe441ela6neshdl352j2k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.groovinchip.flutter.callmanager",
+            "certificate_hash": "3583c159206c49e1c0499a37c83a15ec3df645a1"
+          }
+        },
+        {
+          "client_id": "1053316160376-oe9l5ae2aigre7b7i4a5uqbsbn3scmgg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDs2Vch4b2plINC3gqZ3Ksf1GAtquIlvnA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1053316160376-oe9l5ae2aigre7b7i4a5uqbsbn3scmgg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

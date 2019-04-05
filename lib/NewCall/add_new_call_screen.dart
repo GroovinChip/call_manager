@@ -343,6 +343,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                     child: TextFormField(
                       enabled: true,
                       keyboardType: TextInputType.multiline,
+                      textCapitalization: TextCapitalization.sentences,
                       maxLines: 2,
                       autofocus: false,
                       controller: _descriptionFieldController,
