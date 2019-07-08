@@ -14,10 +14,10 @@ if (flutterRoot == null) {
 apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
-//def keystorePropertiesFile = rootProject.file("C:\\Users\\groov\\Flutter_Projects\\call_manager\\key.properties")
+def keystorePropertiesFile = rootProject.file("C:\\Users\\groov\\Flutter_Projects\\call_manager\\key.properties")
 //def keystorePropertiesFile = rootProject.file("C:\\Users\\Reuvain\\Flutter Projects\\CallManager\\key.properties")
-/*def keystoreProperties = new Properties()
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))*/
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
     compileSdkVersion 28
@@ -44,10 +44,10 @@ android {
                 keyAlias System.getenv()["FCI_KEY_ALIAS"]
                 keyPassword System.getenv()["FCI_KEY_PASSWORD"]
             } else {
-                storeFile file("/path/to/local/myreleasekey.keystore")
-                storePassword "password"
-                keyAlias "MyReleaseKey"
-                keyPassword "password"
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
             }
         }
     }
@@ -68,7 +68,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
-    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-core:17.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
