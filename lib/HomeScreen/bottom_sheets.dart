@@ -295,7 +295,7 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> with SingleTicker
                         ],
                       ),
                     ),
-                    Material(
+                    /*Material(
                       child: ListTile(
                         leading: Icon(
                           GroovinMaterialIcons.flutter,
@@ -310,7 +310,7 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> with SingleTicker
                           },
                         ),
                       ),
-                    ),
+                    ),*/
                   ],
                 ),
               ],

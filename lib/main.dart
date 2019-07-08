@@ -17,7 +17,7 @@ void main() {
   var flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   flutterLocalNotificationsPlugin.initialize(
     initializationSettings,
-      selectNotification: (String payload) async {
+      onSelectNotification: (String payload) async {
         if (payload != null) {
           debugPrint('notification payload: ' + payload);
         }
@@ -43,6 +43,7 @@ class CallManagerApp extends StatelessWidget {
         brightness: brightness,
         primaryColor: Colors.blue[700],
         accentColor: Colors.blue[700],
+        textSelectionHandleColor: Colors.blue[600],
         fontFamily: 'SourceSansPro-Bold',
       ),
       themedWidgetBuilder: (context, theme) {

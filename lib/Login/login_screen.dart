@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:call_manager/Login/login_api.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'dart:async';
 import 'package:groovin_material_icons/groovin_material_icons.dart';
 import 'package:flutter/services.dart';
@@ -16,11 +16,23 @@ class LoginPageState extends State<LoginPage> {
   /// Represents the Brightness of the statusbar and navigation bar
   Brightness barBrightness;
 
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   // gets called on button press
   Future _loginUser() async {
-    final api = await FirebaseAPI.signInWithGoogle();
-    if (api != null) {
-      globals.loggedInUser = api.firebaseUser;
+    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    final FirebaseUser user = await _auth.signInWithCredential(credential);
+
+    if (user != null) {
+      globals.loggedInUser = user;
       CollectionReference dbForUser = Firestore.instance.collection("Users");
       if (dbForUser.document(globals.loggedInUser.uid).path.isNotEmpty) {
         setState(() {

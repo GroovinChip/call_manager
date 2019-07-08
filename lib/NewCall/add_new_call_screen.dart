@@ -139,7 +139,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
 
   void checkContactsPermission() async {
     PermissionStatus contactsPerm =
-      await PermissionHandler.checkPermissionStatus(PermissionGroup.contacts);
+      await PermissionHandler().checkPermissionStatus(PermissionGroup.contacts);
   }
 
   @override

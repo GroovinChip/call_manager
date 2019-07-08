@@ -29,11 +29,11 @@ class _HomeScreenState extends State<HomeScreen> {
   // Check current permissions. If phone permission not granted, prompt for it.
   void checkPermissions() async {
     Map<PermissionGroup, PermissionStatus> permissions =
-      await PermissionHandler.requestPermissions([PermissionGroup.phone, PermissionGroup.contacts]);
+      await PermissionHandler().requestPermissions([PermissionGroup.phone, PermissionGroup.contacts]);
     phonePerm =
-      await PermissionHandler.checkPermissionStatus(PermissionGroup.phone);
+      await PermissionHandler().checkPermissionStatus(PermissionGroup.phone);
     contactsPerm =
-      await PermissionHandler.checkPermissionStatus(PermissionGroup.contacts);
+      await PermissionHandler().checkPermissionStatus(PermissionGroup.contacts);
   }
 
   @override

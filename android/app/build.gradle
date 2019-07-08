@@ -20,7 +20,7 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))*/
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
 
     lintOptions {
         disable 'InvalidPackage'
@@ -29,11 +29,11 @@ android {
     defaultConfig {
         // ALWAYS increment the versionCode and the versionName when preparing a release!
         applicationId "com.groovinchip.flutter.callmanager"
-        minSdkVersion 16
-        targetSdkVersion 27
+        minSdkVersion 21
+        targetSdkVersion 28
         versionCode 32
         versionName "2.1"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
@@ -66,9 +66,9 @@ flutter {
 
 dependencies {
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    compile 'com.google.firebase:firebase-core:16.0.1'
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    implementation 'com.google.firebase:firebase-core:16.0.1'
 }
 
 apply plugin: 'com.google.gms.google-services'
