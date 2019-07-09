@@ -2,7 +2,7 @@ name: call_manager
 description: Call Manager in Flutter
 
 environment:
-  sdk: ">=2.3.0 <3.0.0"
+  sdk: ">=2.3.0-dev.0.5.flutter-a1668566e5 <3.0.0"
 
 dependencies:
   flutter:
