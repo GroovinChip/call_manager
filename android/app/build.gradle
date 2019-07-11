@@ -14,10 +14,17 @@ if (flutterRoot == null) {
 apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
-def keystorePropertiesFile = rootProject.file("C:\\Users\\groov\\Flutter_Projects\\call_manager\\key.properties")
+def keystorePropertiesFile
+def keystoreProperties
+
+if (System.getenv()["CI"]) {
+    // do nothing
+} else {
+    keystorePropertiesFile = rootProject.file("C:\\Users\\groov\\Flutter_Projects\\call_manager\\key.properties")
+    keystoreProperties = new Properties()
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
 //def keystorePropertiesFile = rootProject.file("C:\\Users\\Reuvain\\Flutter Projects\\CallManager\\key.properties")
-def keystoreProperties = new Properties()
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
     compileSdkVersion 28
