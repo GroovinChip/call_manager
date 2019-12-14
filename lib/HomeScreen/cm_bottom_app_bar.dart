@@ -29,10 +29,9 @@ class _CMBottomAppBarState extends State<CMBottomAppBar> {
         child: BottomAppBar(
           child: Row(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(right: 8.0),
+                padding: const EdgeInsets.only(left: 8.0),
                 child: IconButton(
                   icon: Icon(Icons.more_vert),
                   onPressed: (){
