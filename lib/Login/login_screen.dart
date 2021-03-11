@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:call_manager/globals.dart' as globals;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -151,7 +152,10 @@ class LoginPageState extends State<LoginPage> {
                         'Sign in with Google',
                       ),
                       onPressed: () async {
-                        return await _loginUser().catchError((e) => print(e));
+                        return await _loginUser().catchError((e) {
+                          log('Error signing in with Google: $e',
+                              name: 'Call Manager');
+                        });
                       },
                     ),
                 ],
