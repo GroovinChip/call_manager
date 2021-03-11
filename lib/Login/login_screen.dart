@@ -132,25 +132,27 @@ class LoginPageState extends State<LoginPage> {
                       height: 92.0,
                     ),
                   ),
-                  _loggedIn
-                      ? const Center(child: CircularProgressIndicator())
-                      : ElevatedButton.icon(
-                          style: ElevatedButton.styleFrom(
-                            primary: Theme.of(context).colorScheme.surface,
-                            onPrimary: Theme.of(context).colorScheme.onSurface,
-                            elevation: 2.0,
-                          ),
-                          icon: Image.asset(
-                            'assets/glogo.png',
-                            width: 32.0,
-                            height: 32.0,
-                          ),
-                          label: Text(
-                            'Sign in with Google',
-                          ),
-                          onPressed: () async =>
-                              await _loginUser().catchError((e) => print(e)),
-                        ),
+                  if (_loggedIn)
+                    const Center(child: CircularProgressIndicator())
+                  else
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        primary: Theme.of(context).colorScheme.surface,
+                        onPrimary: Theme.of(context).colorScheme.onSurface,
+                        elevation: 2.0,
+                      ),
+                      icon: Image.asset(
+                        'assets/glogo.png',
+                        width: 32.0,
+                        height: 32.0,
+                      ),
+                      label: Text(
+                        'Sign in with Google',
+                      ),
+                      onPressed: () async {
+                        return await _loginUser().catchError((e) => print(e));
+                      },
+                    ),
                 ],
               ),
             ),
