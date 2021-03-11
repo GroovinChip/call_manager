@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
@@ -30,7 +31,8 @@ class LoginPageState extends State<LoginPage> {
 
     if (userCredential.user != null) {
       globals.loggedInUser = userCredential.user;
-      CollectionReference dbForUser = FirebaseFirestore.instance.collection("Users");
+      CollectionReference dbForUser =
+          FirebaseFirestore.instance.collection("Users");
       if (dbForUser.doc(globals.loggedInUser.uid).path.isNotEmpty) {
         setState(() {
           Navigator.of(context).pushNamedAndRemoveUntil(
@@ -49,24 +51,23 @@ class LoginPageState extends State<LoginPage> {
   bool _loggedIn = false;
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     verifyUser();
   }
 
   // Gets called from initState to check whether there is a cached user
-  verifyUser() async {
+  Future<void> verifyUser() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       globals.loggedInUser = user;
-      setState(() {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
         Navigator.of(context).pushNamedAndRemoveUntil(
             '/HomeScreen', (Route<dynamic> route) => false);
       });
+
       if (mounted) {
-        setState(() {
-          _loggedIn = true;
-        });
+        setState(() => _loggedIn = true);
       }
     }
   }

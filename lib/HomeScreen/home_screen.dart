@@ -1,5 +1,5 @@
 import 'package:call_manager/HomeScreen/CallCardList.dart';
-import 'package:call_manager/HomeScreen/cm_bottom_app_bar.dart';
+import 'package:call_manager/HomeScreen/bottom_sheets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:call_manager/globals.dart' as globals;
@@ -86,7 +86,31 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: CMBottomAppBar(),
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          //mainAxisSize: MainAxisSize.max,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: (){
+                  showModalBottomSheet(
+                    backgroundColor: Theme.of(context).canvasColor,
+                    context: context,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(8.0),
+                      ),
+                    ),
+                    builder: (_) => BottomAppBarSheet(),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
