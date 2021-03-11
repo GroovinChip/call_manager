@@ -7,12 +7,12 @@ import 'package:url_launcher/url_launcher.dart';
 
 /// Represents the BottomSheet launched from the BottomAppBar
 /// on the HomeScreen widget
-class BottomAppBarSheet extends StatefulWidget {
+class MenuBottomSheet extends StatefulWidget {
   @override
-  _BottomAppBarSheetState createState() => _BottomAppBarSheetState();
+  _MenuBottomSheetState createState() => _MenuBottomSheetState();
 }
 
-class _BottomAppBarSheetState extends State<BottomAppBarSheet>
+class _MenuBottomSheetState extends State<MenuBottomSheet>
     with FirebaseMixin {
   // Set initial package info
   PackageInfo _packageInfo = PackageInfo(
