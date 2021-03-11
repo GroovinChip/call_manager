@@ -8,6 +8,8 @@ import 'package:call_manager/NewCall/add_new_call_screen.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   // Initialize notification plugin
   var initializationSettingsAndroid = AndroidInitializationSettings('ic_notification');
   var initializationSettingsIOS = IOSInitializationSettings();
