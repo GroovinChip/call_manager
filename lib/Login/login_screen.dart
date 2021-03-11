@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:call_manager/globals.dart' as globals;
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:call_manager/firebase/firebase_mixin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -14,7 +13,7 @@ class LoginPage extends StatefulWidget {
   LoginPageState createState() => LoginPageState();
 }
 
-class LoginPageState extends State<LoginPage> {
+class LoginPageState extends State<LoginPage> with FirebaseMixin {
   /// Represents the Brightness of the statusbar and navigation bar
   Brightness barBrightness;
 
@@ -28,29 +27,23 @@ class LoginPageState extends State<LoginPage> {
       idToken: googleAuth.idToken,
     );
 
-    final userCredential =
-        await FirebaseAuth.instance.signInWithCredential(googleAuthCredential);
+    await auth.signInWithCredential(googleAuthCredential);
 
-    if (userCredential.user != null) {
-      globals.loggedInUser = userCredential.user;
-      CollectionReference dbForUser =
-          FirebaseFirestore.instance.collection("Users");
-      if (dbForUser.doc(globals.loggedInUser.uid).path.isNotEmpty) {
+    if (currentUser != null) {
+      final dbForUser = firestore.collection('Users');
+      if (dbForUser.doc(currentUser.uid).path.isNotEmpty) {
         setState(() {
           Navigator.of(context).pushNamedAndRemoveUntil(
               '/HomeScreen', (Route<dynamic> route) => false);
         });
       } else {
-        dbForUser.doc(globals.loggedInUser.uid).set({});
+        dbForUser.doc(currentUser.uid).set({});
       }
     } else {}
   }
 
   // initial animation opacity
   double _opacity = 0.0;
-
-  // tracks whether the user is logged in
-  bool _loggedIn = false;
 
   @override
   void didChangeDependencies() {
@@ -62,15 +55,10 @@ class LoginPageState extends State<LoginPage> {
   Future<void> verifyUser() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      globals.loggedInUser = user;
       SchedulerBinding.instance.addPostFrameCallback((_) {
         Navigator.of(context).pushNamedAndRemoveUntil(
             '/HomeScreen', (Route<dynamic> route) => false);
       });
-
-      if (mounted) {
-        setState(() => _loggedIn = true);
-      }
     } else {
       await Future.delayed(
         Duration(milliseconds: 500),
@@ -134,7 +122,7 @@ class LoginPageState extends State<LoginPage> {
                       height: 92.0,
                     ),
                   ),
-                  if (_loggedIn)
+                  if (currentUser != null)
                     const Center(child: CircularProgressIndicator())
                   else
                     ElevatedButton.icon(

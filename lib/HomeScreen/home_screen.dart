@@ -38,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     if (Theme.of(context).brightness == Brightness.light) {
       barBrightness = Brightness.dark;
     } else {
@@ -52,6 +53,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
 
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: theme.canvasColor,
+        elevation: 0,
+        title: Text('Call Manager'),
+      ),
       body: CallCardList(),
       floatingActionButton: Builder(
         builder: (context) => FloatingActionButton.extended(

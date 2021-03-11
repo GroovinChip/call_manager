@@ -1,22 +1,16 @@
+import 'package:call_manager/firebase/firebase_mixin.dart';
 import 'package:call_manager/utils/pass_notification.dart';
+import 'package:contacts_service/contacts_service.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:groovin_widgets/groovin_widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
-import 'package:call_manager/globals.dart' as globals;
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:rounded_modal/rounded_modal.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
-import 'package:contacts_service/contacts_service.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:permission_handler/permission_handler.dart';
-
-void main() {
-  runApp(AddNewCallScreen());
-}
+import 'package:rounded_modal/rounded_modal.dart';
 
 // Add New Call Screen
 class AddNewCallScreen extends StatefulWidget {
@@ -24,7 +18,8 @@ class AddNewCallScreen extends StatefulWidget {
   _AddNewCallScreenState createState() => _AddNewCallScreenState();
 }
 
-class _AddNewCallScreenState extends State<AddNewCallScreen> {
+class _AddNewCallScreenState extends State<AddNewCallScreen>
+    with FirebaseMixin {
   // Contact Picker stuff
   Iterable<Contact> contacts;
   Contact selectedContact;
@@ -36,21 +31,48 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
   TextEditingController _dateFieldController = TextEditingController();
   TextEditingController _timeFieldController = TextEditingController();
 
-  final dateFormat = DateFormat("EEEE, MMMM d, yyyy");
-  final timeFormat = DateFormat("h:mm a");
+  final dateFormat = DateFormat('EEEE, MMMM d, yyyy');
+  final timeFormat = DateFormat('h:mm a');
 
   DateTime reminderDate;
   TimeOfDay reminderTime;
 
   final formKey = GlobalKey<FormState>();
 
-  void saveCall() async {
+  bool retrievedContacts = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getContacts();
+    checkContactsPermission();
+  }
+
+  Future<void> getContacts() async {
+    contacts = await ContactsService.getContacts();
+    if (contacts != null) {
+      setState(() {
+        retrievedContacts = true;
+      });
+    } else {
+      setState(() {
+        retrievedContacts = false;
+      });
+    }
+  }
+
+  Future<void> checkContactsPermission() async {
+    PermissionStatus contactsPerm = await PermissionHandler()
+        .checkPermissionStatus(PermissionGroup.contacts);
+  }
+
+  Future<void> saveCall() async {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
-      CollectionReference userCalls = FirebaseFirestore.instance
-          .collection("Users")
-          .doc(globals.loggedInUser.uid)
-          .collection("Calls");
+      final userCalls = firestore
+          .collection('Users')
+          .doc(currentUser.uid)
+          .collection('Calls');
       String date;
       String time;
       if (reminderDate != null && reminderTime != null) {
@@ -69,13 +91,13 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
 
         var iOSPlatformChannelSpecifics = IOSNotificationDetails();
 
-        NotificationDetails platformChannelSpecifics = NotificationDetails(
+        final platformChannelSpecifics = NotificationDetails(
             androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
 
         await PassNotification.of(context).schedule(
             0,
             'Reminder: call ' + _nameFieldController.text,
-            "Tap to call " + _nameFieldController.text,
+            'Tap to call ' + _nameFieldController.text,
             scheduledNotificationDateTime,
             platformChannelSpecifics,
             payload: _phoneFieldController.text);
@@ -83,26 +105,26 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
         date = reminderDate.toString();
         time = reminderTime.toString();
       } else {
-        date = "";
-        time = "";
+        date = '';
+        time = '';
       }
 
       if (selectedContact == null || selectedContact.avatar.length == 0) {
         userCalls.add({
-          "Name": _nameFieldController.text,
-          "PhoneNumber": _phoneFieldController.text,
-          "Description": _descriptionFieldController.text,
-          "ReminderDate": date,
-          "ReminderTime": time
+          'Name': _nameFieldController.text,
+          'PhoneNumber': _phoneFieldController.text,
+          'Description': _descriptionFieldController.text,
+          'ReminderDate': date,
+          'ReminderTime': time
         });
       } else if (selectedContact.avatar.length > 0) {
         userCalls.add({
-          "Avatar": String.fromCharCodes(selectedContact.avatar),
-          "Name": _nameFieldController.text,
-          "PhoneNumber": _phoneFieldController.text,
-          "Description": _descriptionFieldController.text,
-          "ReminderDate": date,
-          "ReminderTime": time
+          'Avatar': String.fromCharCodes(selectedContact.avatar),
+          'Name': _nameFieldController.text,
+          'PhoneNumber': _phoneFieldController.text,
+          'Description': _descriptionFieldController.text,
+          'ReminderDate': date,
+          'ReminderTime': time
         });
       }
 
@@ -111,61 +133,26 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
     }
   }
 
-  bool retrievedContacts = false;
-
-  @override
-  void initState() {
-    super.initState();
-    getContacts();
-    checkContactsPermission();
-  }
-
-  void getContacts() async {
-    contacts = await ContactsService.getContacts();
-    if (contacts != null) {
-      setState(() {
-        retrievedContacts = true;
-      });
-    } else {
-      setState(() {
-        retrievedContacts = false;
-      });
-    }
-  }
-
-  void checkContactsPermission() async {
-    PermissionStatus contactsPerm = await PermissionHandler()
-        .checkPermissionStatus(PermissionGroup.contacts);
-  }
-
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Theme.of(context).canvasColor,
+      backgroundColor: theme.canvasColor,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: theme.canvasColor,
+        title: Text('New Call'),
+      ),
       body: SafeArea(
         child: ListView(
-          children: <Widget>[
+          children: [
             Form(
               key: formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 16.0, top: 6.0, bottom: 8.0),
-                        child: Text(
-                          "New Call",
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                children: [
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: TypeAheadFormField(
@@ -220,7 +207,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                                           MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Choose phone number",
+                                          'Choose phone number',
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 16.0,
@@ -239,15 +226,15 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                                           phoneNums =
                                               selectedContact.phones.toList();
                                           switch (phoneNums[index].label) {
-                                            case "mobile":
+                                            case 'mobile':
                                               phoneType =
                                                   Icon(OMIcons.smartphone);
                                               break;
-                                            case "work":
+                                            case 'work':
                                               phoneType =
                                                   Icon(OMIcons.business);
                                               break;
-                                            case "home":
+                                            case 'home':
                                               phoneType = Icon(OMIcons.home);
                                               break;
                                             default:
@@ -275,7 +262,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                               selectedContact.phones.first.value;
                         }
                       },
-                      validator: (input) => input == null || input == ""
+                      validator: (input) => input == null || input == ''
                           ? 'This field is required'
                           : null,
                       onSaved: (contactName) =>
@@ -306,7 +293,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                                     : Colors.grey,
                               ),
                               onPressed: () async {
-                                _nameFieldController.text = "";
+                                _nameFieldController.text = '';
                               },
                             ),
                           ),
@@ -319,7 +306,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                     padding: EdgeInsets.only(
                         left: 16.0, right: 16.0, top: 8.0, bottom: 16.0),
                     child: TextFormField(
-                      validator: (input) => input == null || input == ""
+                      validator: (input) => input == null || input == ''
                           ? 'This field is required'
                           : null,
                       onSaved: (input) => _phoneFieldController.text = input,
@@ -348,7 +335,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                                   : Colors.grey,
                             ),
                             onPressed: () async {
-                              _phoneFieldController.text = "";
+                              _phoneFieldController.text = '';
                             },
                           ),
                         ),
@@ -384,7 +371,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                                   : Colors.grey,
                             ),
                             onPressed: () async {
-                              _descriptionFieldController.text = "";
+                              _descriptionFieldController.text = '';
                             },
                           ),
                         ),
@@ -433,7 +420,7 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                               ? Colors.white
                               : Colors.grey,
                         ),
-                        labelText: "Reminder Date",
+                        labelText: 'Reminder Date',
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -450,13 +437,14 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
                       onShowPicker: (context, currentValue) async {
                         final time = await showTimePicker(
                           context: context,
-                          initialTime: TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+                          initialTime: TimeOfDay.fromDateTime(
+                              currentValue ?? DateTime.now()),
                         );
                         return DateTimeField.convert(time);
                       },
                       controller: _timeFieldController,
                       decoration: InputDecoration(
-                        labelText: "Reminder Time",
+                        labelText: 'Reminder Time',
                         prefixIcon: Icon(
                           Icons.access_time,
                           color: Theme.of(context).brightness == Brightness.dark
@@ -479,10 +467,10 @@ class _AddNewCallScreenState extends State<AddNewCallScreen> {
           onPressed: () async {
             saveCall();
           },
-          tooltip: "Save",
+          tooltip: 'Save',
           elevation: 2.0,
           icon: Icon(Icons.save),
-          label: Text("Save"),
+          label: Text('Save'),
         );
       }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
