@@ -1,5 +1,4 @@
 import 'package:call_manager/firebase/firebase_mixin.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:groovin_material_icons/groovin_material_icons.dart';
 import 'package:groovin_widgets/groovin_widgets.dart';
