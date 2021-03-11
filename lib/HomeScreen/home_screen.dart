@@ -1,4 +1,4 @@
-import 'package:call_manager/HomeScreen/CallCardList.dart';
+import 'package:call_manager/widgets/call_card_list.dart';
 import 'package:call_manager/widgets/menu_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
