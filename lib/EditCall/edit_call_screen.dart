@@ -44,7 +44,7 @@ class _EditCallScreenState extends State<EditCallScreen> {
 
   void getContacts() async {
     contacts = await ContactsService.getContacts();
-    if(contacts != null) {
+    if(contacts != null && mounted) {
       setState(() {
         retrievedContacts = true;
       });
