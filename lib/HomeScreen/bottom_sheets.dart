@@ -1,6 +1,5 @@
-import 'package:call_manager/globals.dart' as globals;
+import 'package:call_manager/firebase/firebase_mixin.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:groovin_material_icons/groovin_material_icons.dart';
 import 'package:groovin_widgets/groovin_widgets.dart';
@@ -14,7 +13,8 @@ class BottomAppBarSheet extends StatefulWidget {
   _BottomAppBarSheetState createState() => _BottomAppBarSheetState();
 }
 
-class _BottomAppBarSheetState extends State<BottomAppBarSheet> {
+class _BottomAppBarSheetState extends State<BottomAppBarSheet>
+    with FirebaseMixin {
   // Set initial package info
   PackageInfo _packageInfo = PackageInfo(
     appName: 'Unknown',
@@ -42,6 +42,7 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -52,13 +53,13 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> {
         ListTile(
           leading: CircleAvatar(
             child: Text(
-              globals.loggedInUser.displayName[0],
+              currentUser.displayName[0],
               style: TextStyle(color: Colors.white),
             ),
             backgroundColor: Colors.blue[700],
           ),
-          title: Text(globals.loggedInUser.displayName),
-          subtitle: Text(globals.loggedInUser.email),
+          title: Text(currentUser.displayName),
+          subtitle: Text(currentUser.email),
           trailing: TextButton(
             child: Text('LOG OUT'),
             onPressed: () {
@@ -74,7 +75,7 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> {
                     ),
                     TextButton(
                       onPressed: () async {
-                        await FirebaseAuth.instance.signOut();
+                        await auth.signOut();
                         Navigator.of(context).pushNamedAndRemoveUntil(
                             '/', (Route<dynamic> route) => false);
                       },
@@ -94,7 +95,7 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> {
           title: Text('Delete All Calls'),
           leading: Icon(
             Icons.clear_all,
-            color: Theme.of(context).brightness == Brightness.light
+            color: theme.brightness == Brightness.light
                 ? Colors.black
                 : Colors.white,
           ),
@@ -102,25 +103,22 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> {
             showDialog(
               context: context,
               builder: (_) => AlertDialog(
-                //title: Text('Delete All Calls'),
                 content: Text(
                     'Are you sure you want to delete all calls? This cannot be undone.'),
                 actions: [
                   TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+                    onPressed: () => Navigator.pop(context),
                     child: Text('CANCEL'),
                   ),
                   TextButton(
                     onPressed: () async {
                       Navigator.pop(context);
-                      CollectionReference ref = FirebaseFirestore.instance
+                      final callsRef = firestore
                           .collection('Users')
-                          .doc(globals.loggedInUser.uid)
+                          .doc(currentUser.uid)
                           .collection('Calls');
-                      final snapshot = await ref.get();
-                      if (snapshot.docs.length == 0) {
+                      final callSnapshots = await callsRef.get();
+                      if (callSnapshots.docs.length == 0) {
                         final snackBar = SnackBar(
                           content: Text('There are no calls to delete'),
                           action: SnackBarAction(
@@ -131,9 +129,8 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> {
                         );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       } else {
-                        for (int i = 0; i < snapshot.docs.length; i++) {
-                          DocumentReference d = snapshot.docs[i].reference;
-                          d.delete();
+                        for (int i = 0; i < callSnapshots.docs.length; i++) {
+                          callSnapshots.docs[i].reference.delete();
                         }
                       }
                     },
@@ -146,14 +143,14 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> {
         ),
         ListTile(
           leading: Icon(
-            Theme.of(context).brightness == Brightness.light
+            theme.brightness == Brightness.light
                 ? Icons.brightness_2
                 : Icons.brightness_7,
-            color: Theme.of(context).brightness == Brightness.light
+            color: theme.brightness == Brightness.light
                 ? Colors.black
                 : Colors.white,
           ),
-          title: Theme.of(context).brightness == Brightness.light
+          title: theme.brightness == Brightness.light
               ? Text('Toggle Dark Theme')
               : Text('Toggle Light Theme'),
           onTap: changeBrightness,
@@ -165,7 +162,7 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> {
         ListTile(
           leading: Icon(
             GroovinMaterialIcons.github_circle,
-            color: Theme.of(context).brightness == Brightness.light
+            color: theme.brightness == Brightness.light
                 ? Colors.black
                 : Colors.white,
           ),
