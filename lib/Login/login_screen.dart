@@ -81,7 +81,8 @@ class LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (Theme.of(context).brightness == Brightness.light) {
+    final theme = Theme.of(context);
+    if (theme.brightness == Brightness.light) {
       barBrightness = Brightness.dark;
     } else {
       barBrightness = Brightness.light;
@@ -90,14 +91,14 @@ class LoginPageState extends State<LoginPage> {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle.dark.copyWith(
         statusBarIconBrightness: barBrightness,
-        statusBarColor: Theme.of(context).canvasColor,
-        systemNavigationBarColor: Theme.of(context).canvasColor,
+        statusBarColor: theme.canvasColor,
+        systemNavigationBarColor: theme.canvasColor,
         systemNavigationBarIconBrightness: barBrightness,
       ),
     );
 
     return Scaffold(
-      backgroundColor: Theme.of(context).canvasColor,
+      backgroundColor: theme.canvasColor,
       body: SafeArea(
         child: Center(
           child: AnimatedOpacity(
@@ -137,8 +138,8 @@ class LoginPageState extends State<LoginPage> {
                   else
                     ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
-                        primary: Theme.of(context).colorScheme.surface,
-                        onPrimary: Theme.of(context).colorScheme.onSurface,
+                        primary: theme.colorScheme.surface,
+                        onPrimary: theme.colorScheme.onSurface,
                         elevation: 2.0,
                       ),
                       icon: Image.asset(
