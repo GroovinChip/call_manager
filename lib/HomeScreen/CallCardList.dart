@@ -14,14 +14,14 @@ class _CallCardListState extends State<CallCardList> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: StreamBuilder<QuerySnapshot>(
-        stream: Firestore.instance.collection("Users")
-            .document(globals.loggedInUser.uid)
+        stream: FirebaseFirestore.instance.collection("Users")
+            .doc(globals.loggedInUser.uid)
             .collection("Calls").snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData == false) {
             return Center(child: Text("Getting Calls..."));
           } else {
-            return snapshot.data.documents.length > 0
+            return snapshot.data.docs.length > 0
                 ? Column(
               children: <Widget>[
                 Expanded(
@@ -42,9 +42,9 @@ class _CallCardListState extends State<CallCardList> {
                 Expanded(
                   flex: 15,
                   child: ListView.builder(
-                    itemCount: snapshot.data.documents.length,
+                    itemCount: snapshot.data.docs.length,
                     itemBuilder: (context, index) {
-                      DocumentSnapshot ds = snapshot.data.documents[index];
+                      DocumentSnapshot ds = snapshot.data.docs[index];
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: CallCard(callSnapshot: ds),

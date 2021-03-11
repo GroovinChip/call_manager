@@ -146,9 +146,9 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> with SingleTicker
                                 TextButton(
                                   onPressed: () async {
                                     Navigator.pop(context);
-                                    CollectionReference ref = Firestore.instance.collection("Users").document(globals.loggedInUser.uid).collection("Calls");
-                                    QuerySnapshot s = await ref.getDocuments();
-                                    if(s.documents.length == 0){
+                                    CollectionReference ref = FirebaseFirestore.instance.collection("Users").doc(globals.loggedInUser.uid).collection("Calls");
+                                    QuerySnapshot s = await ref.get();
+                                    if(s.docs.length == 0){
                                       final snackBar = SnackBar(
                                         content: Text("There are no calls to delete"),
                                         action: SnackBarAction(
@@ -161,8 +161,8 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> with SingleTicker
                                       );
                                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                     } else {
-                                      for(int i = 0; i < s.documents.length; i++) {
-                                        DocumentReference d = s.documents[i].reference;
+                                      for(int i = 0; i < s.docs.length; i++) {
+                                        DocumentReference d = s.docs[i].reference;
                                         d.delete();
                                       }
                                     }

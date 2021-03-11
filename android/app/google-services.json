@@ -23,11 +23,35 @@
           }
         },
         {
+          "client_id": "1053316160376-e77pbuh7scqba2fgae9fi0r5dt0nerkv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.groovinchip.flutter.callmanager",
+            "certificate_hash": "902c3abbcc1f45630ea31837eb0492c17f730b4c"
+          }
+        },
+        {
+          "client_id": "1053316160376-llj2t9oec98dl6mfs7rfdc3ll3hqravv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.groovinchip.flutter.callmanager",
+            "certificate_hash": "2428f1f3f6060ea4c36607835d31be2c9429b2c1"
+          }
+        },
+        {
           "client_id": "1053316160376-lta90e93askpe441ela6neshdl352j2k.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.groovinchip.flutter.callmanager",
             "certificate_hash": "3583c159206c49e1c0499a37c83a15ec3df645a1"
+          }
+        },
+        {
+          "client_id": "1053316160376-uc75rivms55uvv7pa54eb4qgp6vpcr07.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.groovinchip.flutter.callmanager",
+            "certificate_hash": "ffae666c77cb4019976e48a903cc3c235875f9f6"
           }
         },
         {
@@ -41,20 +65,64 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "1053316160376-oe9l5ae2aigre7b7i4a5uqbsbn3scmgg.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1053316160376-2u844ic0oji05csq3e8fg86vnfsnshvv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.groovinchip.callManager"
+              }
             }
           ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1053316160376:android:7047f2dc18aa4377a4868d",
+        "android_client_info": {
+          "package_name": "dev.groovinchip.call_manager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1053316160376-6a63npaesb27fh2lp9tk88vq620lrt2s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.groovinchip.call_manager",
+            "certificate_hash": "ffae666c77cb4019976e48a903cc3c235875f9f6"
+          }
         },
-        "ads_service": {
-          "status": 2
+        {
+          "client_id": "1053316160376-oe9l5ae2aigre7b7i4a5uqbsbn3scmgg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDs2Vch4b2plINC3gqZ3Ksf1GAtquIlvnA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1053316160376-oe9l5ae2aigre7b7i4a5uqbsbn3scmgg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1053316160376-2u844ic0oji05csq3e8fg86vnfsnshvv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.groovinchip.callManager"
+              }
+            }
+          ]
         }
       }
     }

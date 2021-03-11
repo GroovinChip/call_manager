@@ -15,32 +15,29 @@ class LoginPageState extends State<LoginPage> {
   /// Represents the Brightness of the statusbar and navigation bar
   Brightness barBrightness;
 
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
   // gets called on button press
   Future _loginUser() async {
-    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
+    final googleUser = await GoogleSignIn().signIn();
+    final googleAuth = await googleUser.authentication;
 
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
+    final googleAuthCredential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
 
-    final FirebaseUser user = await _auth.signInWithCredential(credential);
+    final userCredential =
+        await FirebaseAuth.instance.signInWithCredential(googleAuthCredential);
 
-    if (user != null) {
-      globals.loggedInUser = user;
-      CollectionReference dbForUser = Firestore.instance.collection("Users");
-      if (dbForUser.document(globals.loggedInUser.uid).path.isNotEmpty) {
+    if (userCredential.user != null) {
+      globals.loggedInUser = userCredential.user;
+      CollectionReference dbForUser = FirebaseFirestore.instance.collection("Users");
+      if (dbForUser.doc(globals.loggedInUser.uid).path.isNotEmpty) {
         setState(() {
           Navigator.of(context).pushNamedAndRemoveUntil(
               '/HomeScreen', (Route<dynamic> route) => false);
         });
       } else {
-        dbForUser.document(globals.loggedInUser.uid).setData({});
+        dbForUser.doc(globals.loggedInUser.uid).set({});
       }
     } else {}
   }
@@ -59,7 +56,7 @@ class LoginPageState extends State<LoginPage> {
 
   // Gets called from initState to check whether there is a cached user
   verifyUser() async {
-    final user = await FirebaseAuth.instance.currentUser();
+    final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       globals.loggedInUser = user;
       setState(() {

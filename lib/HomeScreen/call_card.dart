@@ -3,13 +3,11 @@ import 'package:call_manager/utils/pass_notification.dart';
 import 'package:call_number/call_number.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
-import 'package:datetime_picker_formfield/time_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:groovin_material_icons/groovin_material_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:groovin_widgets/groovin_widgets.dart';
-import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:rounded_modal/rounded_modal.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:call_manager/globals.dart' as globals;
@@ -186,7 +184,7 @@ class CallCardState extends State<CallCard> {
                         TextButton(
                           child: Text("Yes"),
                           onPressed: (){
-                            Firestore.instance.collection("Users").document(globals.loggedInUser.uid).collection("Calls").document(widget.callSnapshot.documentID).delete();
+                            FirebaseFirestore.instance.collection("Users").doc(globals.loggedInUser.uid).collection("Calls").doc(widget.callSnapshot.id).delete();
                             Navigator.pop(context);
                           },
                         ),
@@ -222,10 +220,16 @@ class CallCardState extends State<CallCard> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(16.0),
-                                    child: DateTimePickerFormField(
+                                    child: DateTimeField(
                                       format: dateFormat,
-                                      dateOnly: true,
-                                      firstDate: DateTime.now(),
+                                      onShowPicker: (context, currentValue) {
+                                        return showDatePicker(
+                                          context: context,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime.now(),
+                                          lastDate: DateTime(DateTime.now().year + 1),
+                                        );
+                                      },
                                       onChanged: (date) {
                                         reminderDate = date;
                                       },
@@ -243,12 +247,18 @@ class CallCardState extends State<CallCard> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-                                    child: TimePickerFormField(
+                                    child: DateTimeField(
                                       format: timeFormat,
                                       enabled: true,
-                                      initialTime: TimeOfDay.now(),
                                       onChanged: (timeOfDay) {
-                                        reminderTime = timeOfDay;
+                                        reminderTime = TimeOfDay.fromDateTime(timeOfDay);
+                                      },
+                                      onShowPicker: (context, currentValue) async {
+                                        final time = await showTimePicker(
+                                          context: context,
+                                          initialTime: TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+                                        );
+                                        return DateTimeField.convert(time);
                                       },
                                       decoration: InputDecoration(
                                         labelText: "Reminder Time",

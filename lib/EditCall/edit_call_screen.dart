@@ -61,11 +61,11 @@ class _EditCallScreenState extends State<EditCallScreen> {
       backgroundColor: Theme.of(context).canvasColor,
       body: SafeArea(
         child: StreamBuilder<QuerySnapshot>(
-          stream: Firestore.instance.collection("Users").document(globals.loggedInUser.uid).collection("Calls").snapshots(),
+          stream: FirebaseFirestore.instance.collection("Users").doc(globals.loggedInUser.uid).collection("Calls").snapshots(),
           builder: (context, snapshot) {
-            for(int i = 0; i < snapshot.data.documents.length; i++){
-              DocumentSnapshot ds = snapshot.data.documents[i];
-              if(ds.documentID == globals.callToEdit.documentID){
+            for(int i = 0; i < snapshot.data.docs.length; i++){
+              DocumentSnapshot ds = snapshot.data.docs[i];
+              if(ds.id == globals.callToEdit.id){
                 name = "${ds['Name']}";
                 phoneNumber = "${ds['PhoneNumber']}";
                 description = "${ds['Description']}";
@@ -318,7 +318,7 @@ class _EditCallScreenState extends State<EditCallScreen> {
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               } else {
                 try {
-                  CollectionReference userCalls = Firestore.instance.collection("Users").document(globals.loggedInUser.uid).collection("Calls");
+                  CollectionReference userCalls = FirebaseFirestore.instance.collection("Users").doc(globals.loggedInUser.uid).collection("Calls");
                   String date;
                   String time;
 
@@ -345,7 +345,7 @@ class _EditCallScreenState extends State<EditCallScreen> {
                   }
 
                   if(selectedContact == null) {
-                    userCalls.document(globals.callToEdit.documentID).updateData({
+                    userCalls.doc(globals.callToEdit.id).update({
                       "Name":name,
                       "PhoneNumber":phoneNumber,
                       "Description":description,
@@ -353,7 +353,7 @@ class _EditCallScreenState extends State<EditCallScreen> {
                       "ReminderTime":time
                     });
                   } else {
-                    userCalls.document(globals.callToEdit.documentID).updateData({
+                    userCalls.doc(globals.callToEdit.id).update({
                       "Avatar":String.fromCharCodes(selectedContact.avatar),
                       "Name":name,
                       "PhoneNumber":phoneNumber,
