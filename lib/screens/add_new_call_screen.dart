@@ -13,12 +13,12 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:rounded_modal/rounded_modal.dart';
 
 // Add New Call Screen
-class AddNewCallScreen extends StatefulWidget {
+class NewCallScreen extends StatefulWidget {
   @override
-  _AddNewCallScreenState createState() => _AddNewCallScreenState();
+  _NewCallScreenState createState() => _NewCallScreenState();
 }
 
-class _AddNewCallScreenState extends State<AddNewCallScreen>
+class _NewCallScreenState extends State<NewCallScreen>
     with FirebaseMixin {
   // Contact Picker stuff
   Iterable<Contact> contacts;

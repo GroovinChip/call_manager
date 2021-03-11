@@ -1,5 +1,5 @@
 import 'dart:typed_data';
-import 'package:call_manager/EditCall/edit_call_screen.dart';
+import 'package:call_manager/screens/edit_call_screen.dart';
 import 'package:call_manager/firebase/firebase_mixin.dart';
 import 'package:call_manager/utils/pass_notification.dart';
 import 'package:call_number/call_number.dart';

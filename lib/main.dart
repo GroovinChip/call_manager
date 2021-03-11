@@ -1,6 +1,6 @@
-import 'package:call_manager/HomeScreen/home_screen.dart';
-import 'package:call_manager/Login/login_screen.dart';
-import 'package:call_manager/NewCall/add_new_call_screen.dart';
+import 'package:call_manager/screens/home_screen.dart';
+import 'package:call_manager/screens/login_screen.dart';
+import 'package:call_manager/screens/add_new_call_screen.dart';
 import 'package:call_manager/utils/pass_notification.dart';
 import 'package:call_number/call_number.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -69,7 +69,7 @@ class CallManagerApp extends StatelessWidget {
       home: LoginPage(),
       routes: <String, WidgetBuilder>{
         '/HomeScreen': (BuildContext context) => HomeScreen(),
-        '/AddNewCallScreen': (BuildContext context) => AddNewCallScreen(),
+        '/AddNewCallScreen': (BuildContext context) => NewCallScreen(),
         //'/EditCallScreen': (BuildContext context) => EditCallScreen(),
       },
       debugShowCheckedModeBanner: false,
