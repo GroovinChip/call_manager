@@ -27,7 +27,7 @@ if (System.getenv()["CI"]) {
 //def keystorePropertiesFile = rootProject.file("C:\\Users\\Reuvain\\Flutter Projects\\CallManager\\key.properties")
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
 
     lintOptions {
         disable 'InvalidPackage'
@@ -37,7 +37,7 @@ android {
         // ALWAYS increment the versionCode and the versionName when preparing a release!
         applicationId "com.groovinchip.flutter.callmanager"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 33
         versionName "2.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
