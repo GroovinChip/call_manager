@@ -47,7 +47,9 @@ class CallManagerApp extends StatelessWidget {
         brightness: Brightness.light,
         primaryColor: Colors.blue[700],
         accentColor: Colors.blue[700],
-        textSelectionHandleColor: Colors.blue[600],
+        textSelectionTheme: TextSelectionThemeData(
+          selectionHandleColor: Colors.blue[600],
+        ),
         fontFamily: 'SourceSansPro-Bold',
       ),
       themeMode: ThemeMode.light,

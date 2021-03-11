@@ -315,7 +315,7 @@ class _EditCallScreenState extends State<EditCallScreen> {
                   ),
                   duration: Duration(seconds: 3),
                 );
-                Scaffold.of(fabContext).showSnackBar(snackBar);
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
               } else {
                 try {
                   CollectionReference userCalls = Firestore.instance.collection("Users").document(globals.loggedInUser.uid).collection("Calls");

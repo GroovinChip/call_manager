@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
             if(contactsPerm == PermissionStatus.granted) {
               Navigator.of(context).pushNamed("/AddNewCallScreen");
             } else {
-              Scaffold.of(context).showSnackBar(
+              ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: Theme.of(context).primaryColor,
                   content: Wrap(

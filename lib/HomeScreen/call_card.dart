@@ -177,13 +177,13 @@ class CallCardState extends State<CallCard> {
                       title: Text("Delete Call"),
                       content: Text("Are you sure you want to delete this call?"),
                       actions: <Widget>[
-                        FlatButton(
+                        TextButton(
                           child: Text("No"),
                           onPressed: (){
                             Navigator.pop(context);
                           },
                         ),
-                        FlatButton(
+                        TextButton(
                           child: Text("Yes"),
                           onPressed: (){
                             Firestore.instance.collection("Users").document(globals.loggedInUser.uid).collection("Calls").document(widget.callSnapshot.documentID).delete();

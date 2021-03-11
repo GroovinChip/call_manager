@@ -137,13 +137,13 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> with SingleTicker
                               title: Text("Delete All Calls"),
                               content: Text("Are you sure you want to delete all calls? This cannot be undone."),
                               actions: <Widget>[
-                                FlatButton(
+                                TextButton(
                                   onPressed: (){
                                     Navigator.pop(context);
                                   },
                                   child: Text("No"),
                                 ),
-                                FlatButton(
+                                TextButton(
                                   onPressed: () async {
                                     Navigator.pop(context);
                                     CollectionReference ref = Firestore.instance.collection("Users").document(globals.loggedInUser.uid).collection("Calls");
@@ -159,7 +159,7 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> with SingleTicker
                                         ),
                                         duration: Duration(seconds: 3),
                                       );
-                                      Scaffold.of(context).showSnackBar(snackBar);
+                                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                     } else {
                                       for(int i = 0; i < s.documents.length; i++) {
                                         DocumentReference d = s.documents[i].reference;
@@ -208,13 +208,13 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> with SingleTicker
                               title: Text("Log Out"),
                               content: Text("Are you sure you want to log out?"),
                               actions: <Widget>[
-                                FlatButton(
+                                TextButton(
                                   onPressed: (){
                                     Navigator.pop(context);
                                   },
                                   child: Text("No"),
                                 ),
-                                FlatButton(
+                                TextButton(
                                   onPressed: (){
                                     FirebaseAuth.instance.signOut();
                                     Navigator.of(context).pushNamedAndRemoveUntil('/',(Route<dynamic> route) => false);
@@ -241,8 +241,8 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> with SingleTicker
                         ),
                         title: Text(_packageInfo.appName),
                         subtitle: Text("Version " + _packageInfo.version),
-                        trailing: FlatButton(
-                          textColor: Theme.of(context).primaryColor,
+                        trailing: TextButton(
+                          //textColor: Theme.of(context).primaryColor,
                           child: Text("Source Code"),
                           onPressed: () {
                             launch("https:github.com/GroovinChip/CallManager");

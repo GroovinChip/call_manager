@@ -22,7 +22,8 @@ class LoginPageState extends State<LoginPage> {
   // gets called on button press
   Future _loginUser() async {
     final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
 
     final AuthCredential credential = GoogleAuthProvider.getCredential(
       accessToken: googleAuth.accessToken,
@@ -93,10 +94,10 @@ class LoginPageState extends State<LoginPage> {
     Future.delayed(
       Duration(milliseconds: 500),
       () => setState(
-            () {
-              _opacity = 1.0;
-            },
-          ),
+        () {
+          _opacity = 1.0;
+        },
+      ),
     );
 
     return Scaffold(
@@ -135,9 +136,11 @@ class LoginPageState extends State<LoginPage> {
                   ),
                   _loggedIn
                       ? const Center(child: CircularProgressIndicator())
-                      : RaisedButton.icon(
-                          color: Theme.of(context).canvasColor,
-                          elevation: 2.0,
+                      : ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            primary: Theme.of(context).canvasColor,
+                            elevation: 2.0,
+                          ),
                           icon: Image.asset(
                             "assets/glogo.png",
                             width: 32.0,
