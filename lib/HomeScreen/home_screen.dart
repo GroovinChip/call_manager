@@ -64,22 +64,22 @@ class _HomeScreenState extends State<HomeScreen> {
           icon: Icon(Icons.add),
           elevation: 2.0,
           backgroundColor: Colors.blue[700],
-          label: Text("New Call"),
+          label: Text('New Call'),
           onPressed: () {
             if(contactsPerm == PermissionStatus.granted) {
-              Navigator.of(context).pushNamed("/AddNewCallScreen");
+              Navigator.of(context).pushNamed('/AddNewCallScreen');
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: Theme.of(context).primaryColor,
                   content: Wrap(
                     children: <Widget>[
-                      Text("Please grant the Contacts permission to use this page."),
+                      Text('Please grant the Contacts permission to use this page.'),
                     ],
                   ),
                   duration: Duration(seconds: 2),
                   action: SnackBarAction(
-                    label: "Grant",
+                    label: 'Grant',
                     textColor: Colors.white,
                     onPressed: (){
                       checkPermissions();

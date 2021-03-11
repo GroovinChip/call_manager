@@ -31,8 +31,8 @@ class _EditCallScreenState extends State<EditCallScreen> with FirebaseMixin {
   String phoneNumber;
   String description;
 
-  final dateFormat = DateFormat("EEEE, MMMM d, yyyy");
-  final timeFormat = DateFormat("h:mm a");
+  final dateFormat = DateFormat('EEEE, MMMM d, yyyy');
+  final timeFormat = DateFormat('h:mm a');
 
   DateTime reminderDate;
   TimeOfDay reminderTime;

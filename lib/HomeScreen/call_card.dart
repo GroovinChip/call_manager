@@ -29,9 +29,9 @@ class CallCard extends StatefulWidget {
 class CallCardState extends State<CallCard> with FirebaseMixin {
   String numberToCallOnNotificationTap;
 
-  final dateFormat = DateFormat("EEEE, MMMM d, yyyy");
+  final dateFormat = DateFormat('EEEE, MMMM d, yyyy');
 
-  final timeFormat = DateFormat("h:mm a");
+  final timeFormat = DateFormat('h:mm a');
 
   DateTime reminderDate;
 
@@ -44,12 +44,12 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
-            child: Text("Send Email"),
+            child: Text('Send Email'),
           ),
           Icon(GroovinMaterialIcons.send_outline),
         ],
       ),
-      value: "Send Email",
+      value: 'Send Email',
     ),
   ];
 
@@ -76,7 +76,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
     await PassNotification.of(context).schedule(
       0,
       'Reminder: call ' + name,
-      "Tap to call " + name,
+      'Tap to call ' + name,
       scheduledNotificationDateTime,
       platformChannelSpecifics,
       payload: phoneNumber,
@@ -110,7 +110,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(left: 16.0),
-            child: Text("No description"),
+            child: Text('No description'),
           ),
         ],
       );
@@ -124,7 +124,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(5.0))),
       child: GroovinExpansionTile(
-        leading: "${widget.callSnapshot.data()['Avatar']}" != "null"
+        leading: '${widget.callSnapshot.data()['Avatar']}' != 'null'
             ? ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(25.0)),
                 child: CircleAvatar(
@@ -179,23 +179,23 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
                   showDialog(
                     context: context,
                     builder: (_) => AlertDialog(
-                      title: Text("Delete Call"),
+                      title: Text('Delete Call'),
                       content:
-                          Text("Are you sure you want to delete this call?"),
+                          Text('Are you sure you want to delete this call?'),
                       actions: <Widget>[
                         TextButton(
-                          child: Text("No"),
+                          child: Text('No'),
                           onPressed: () {
                             Navigator.pop(context);
                           },
                         ),
                         TextButton(
-                          child: Text("Yes"),
+                          child: Text('Yes'),
                           onPressed: () {
                             FirebaseFirestore.instance
-                                .collection("Users")
+                                .collection('Users')
                                 .doc(currentUser.uid)
-                                .collection("Calls")
+                                .collection('Calls')
                                 .doc(widget.callSnapshot.id)
                                 .delete();
                             Navigator.pop(context);
@@ -205,7 +205,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
                     ),
                   );
                 },
-                tooltip: "Delete call",
+                tooltip: 'Delete call',
               ),
               IconButton(
                 icon: Theme.of(context).brightness == Brightness.light
@@ -213,7 +213,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
                     : Icon(Icons.notifications),
                 onPressed: () {
                   numberToCallOnNotificationTap =
-                      "${widget.callSnapshot.data()['PhoneNumber']}";
+                      '${widget.callSnapshot.data()['PhoneNumber']}';
                   showRoundedModalBottomSheet(
                     color: Theme.of(context).canvasColor,
                     context: context,
@@ -256,7 +256,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
                                               ? Colors.white
                                               : Colors.grey,
                                         ),
-                                        labelText: "Reminder Date",
+                                        labelText: 'Reminder Date',
                                         border: OutlineInputBorder(),
                                       ),
                                     ),
@@ -281,7 +281,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
                                         return DateTimeField.convert(time);
                                       },
                                       decoration: InputDecoration(
-                                        labelText: "Reminder Time",
+                                        labelText: 'Reminder Time',
                                         border: OutlineInputBorder(),
                                         prefixIcon: Icon(
                                           Icons.access_time,
@@ -302,11 +302,11 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
                               backgroundColor: Colors.blue[700],
                               elevation: 0.0,
                               icon: Icon(Icons.add_alert),
-                              label: Text("Set Reminder"),
+                              label: Text('Set Reminder'),
                               onPressed: () async {
                                 scheduleNotificationReminder(
-                                    "${widget.callSnapshot.data()['Name']}",
-                                    "${widget.callSnapshot.data()['PhoneNumber']}");
+                                    '${widget.callSnapshot.data()['Name']}',
+                                    '${widget.callSnapshot.data()['PhoneNumber']}');
                               },
                             ),
                           ),
@@ -315,7 +315,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
                     },
                   );
                 },
-                tooltip: "Set reminder",
+                tooltip: 'Set reminder',
               ),
               IconButton(
                 icon: Theme.of(context).brightness == Brightness.light
@@ -333,16 +333,16 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
                       SlideLeftRoute(widget: EditCallScreen())
                   );*/
                 },
-                tooltip: "Edit this call",
+                tooltip: 'Edit this call',
               ),
               IconButton(
                 icon: Theme.of(context).brightness == Brightness.light
                     ? Icon(GroovinMaterialIcons.comment_text_outline)
                     : Icon(GroovinMaterialIcons.comment_text),
                 onPressed: () {
-                  launch("sms:${widget.callSnapshot['PhoneNumber']}");
+                  launch('sms:${widget.callSnapshot['PhoneNumber']}');
                 },
-                tooltip: "Text ${widget.callSnapshot['Name']}",
+                tooltip: 'Text ${widget.callSnapshot['Name']}',
               ),
               IconButton(
                 icon: Theme.of(context).brightness == Brightness.light
@@ -350,9 +350,9 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
                     : Icon(Icons.phone),
                 onPressed: () async {
                   await CallNumber()
-                      .callNumber("${widget.callSnapshot['PhoneNumber']}");
+                      .callNumber('${widget.callSnapshot['PhoneNumber']}');
                 },
-                tooltip: "Call ${widget.callSnapshot['Name']}",
+                tooltip: 'Call ${widget.callSnapshot['Name']}',
               ),
             ],
           ),
