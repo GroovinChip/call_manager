@@ -10,7 +10,8 @@ class PassNotification extends InheritedWidget {
   PassNotification(this.instance, {Widget child}) : super(child: child);
 
   static FlutterLocalNotificationsPlugin of(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(PassNotification) as PassNotification).instance;
+    return (context.dependOnInheritedWidgetOfExactType<PassNotification>())
+        .instance;
   }
 
   @override
