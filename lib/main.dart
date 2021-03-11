@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:call_manager/HomeScreen/home_screen.dart';
 import 'package:call_manager/NewCall/add_new_call_screen.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:dynamic_theme/dynamic_theme.dart';
 
 void main() {
   // Initialize notification plugin
@@ -37,28 +36,23 @@ void main() {
 class CallManagerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return DynamicTheme(
-      defaultBrightness: Brightness.light,
-      data: (brightness) => ThemeData(
-        brightness: brightness,
+    return MaterialApp(
+      title: 'Call Manager',
+      theme: ThemeData(
+        brightness: Brightness.light,
         primaryColor: Colors.blue[700],
         accentColor: Colors.blue[700],
         textSelectionHandleColor: Colors.blue[600],
         fontFamily: 'SourceSansPro-Bold',
       ),
-      themedWidgetBuilder: (context, theme) {
-        return MaterialApp(
-          title: 'Call Manager',
-          theme: theme,
-          home: LoginPage(),
-          routes: <String, WidgetBuilder>{
-            "/HomeScreen": (BuildContext context) => HomeScreen(),
-            "/AddNewCallScreen": (BuildContext context) => AddNewCallScreen(),
-            "/EditCallScreen": (BuildContext context) => EditCallScreen(),
-          },
-          debugShowCheckedModeBanner: false,
-        );
+      themeMode: ThemeMode.light,
+      home: LoginPage(),
+      routes: <String, WidgetBuilder>{
+        "/HomeScreen": (BuildContext context) => HomeScreen(),
+        "/AddNewCallScreen": (BuildContext context) => AddNewCallScreen(),
+        "/EditCallScreen": (BuildContext context) => EditCallScreen(),
       },
+      debugShowCheckedModeBanner: false,
     );
   }
 }

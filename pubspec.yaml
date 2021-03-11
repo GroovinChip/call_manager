@@ -23,7 +23,6 @@ dependencies:
   cloud_firestore: ^0.12.10
   package_info: ^0.4.0+10
   permission_handler: ^4.0.0
-  dynamic_theme: ^1.0.1
   rounded_modal: ^1.0.1
   groovin_widgets: ^1.4.2
   contacts_service: ^0.3.9

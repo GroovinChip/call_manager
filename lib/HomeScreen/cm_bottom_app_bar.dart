@@ -1,5 +1,4 @@
 import 'package:call_manager/HomeScreen/bottom_sheets.dart';
-import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 
 /// This class represents the BottomAppBar on the
@@ -12,11 +11,11 @@ class CMBottomAppBar extends StatefulWidget {
 class _CMBottomAppBarState extends State<CMBottomAppBar> {
 
   void changeBrightness() {
-    DynamicTheme.of(context).setBrightness(
+    /*Theme.of(context).setBrightness(
       Theme.of(context).brightness == Brightness.dark
         ? Brightness.light
         : Brightness.dark,
-    );
+    );*/
   }
 
   @override

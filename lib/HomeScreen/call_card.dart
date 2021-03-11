@@ -4,7 +4,6 @@ import 'package:call_number/call_number.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:datetime_picker_formfield/time_picker_formfield.dart';
-import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:groovin_material_icons/groovin_material_icons.dart';
@@ -136,7 +135,7 @@ class CallCardState extends State<CallCard> {
           ),
         ) : CircleAvatar(
           child: Icon(
-            DynamicTheme.of(context).brightness ==  Brightness.light
+            Theme.of(context).brightness ==  Brightness.light
               ? Icons.person_outline
               : Icons.person,
             color: Colors.white,
@@ -168,7 +167,7 @@ class CallCardState extends State<CallCard> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               IconButton(
-                icon: DynamicTheme.of(context).brightness == Brightness.light
+                icon: Theme.of(context).brightness == Brightness.light
                   ? Icon(Icons.delete_outline)
                   : Icon(Icons.delete),
                 onPressed: (){
@@ -198,7 +197,7 @@ class CallCardState extends State<CallCard> {
                 tooltip: "Delete call",
               ),
               IconButton(
-                icon: DynamicTheme.of(context).brightness == Brightness.light
+                icon: Theme.of(context).brightness == Brightness.light
                   ? Icon(Icons.notifications_none)
                   : Icon(Icons.notifications),
                 onPressed: (){
@@ -285,7 +284,7 @@ class CallCardState extends State<CallCard> {
                 tooltip: "Set reminder",
               ),
               IconButton(
-                icon: DynamicTheme.of(context).brightness == Brightness.light
+                icon: Theme.of(context).brightness == Brightness.light
                   ? Icon(GroovinMaterialIcons.edit_outline)
                   : Icon(Icons.edit),
                 onPressed: (){
@@ -299,7 +298,7 @@ class CallCardState extends State<CallCard> {
                 tooltip: "Edit this call",
               ),
               IconButton(
-                icon: DynamicTheme.of(context).brightness == Brightness.light
+                icon: Theme.of(context).brightness == Brightness.light
                   ? Icon(GroovinMaterialIcons.comment_text_outline)
                   : Icon(GroovinMaterialIcons.comment_text),
                 onPressed: (){
@@ -309,7 +308,7 @@ class CallCardState extends State<CallCard> {
                 tooltip: "Text ${widget.callSnapshot['Name']}",
               ),
               IconButton(
-                icon: DynamicTheme.of(context).brightness == Brightness.light
+                icon: Theme.of(context).brightness == Brightness.light
                   ? Icon(GroovinMaterialIcons.phone_outline)
                   : Icon(Icons.phone),
                 onPressed: () async {

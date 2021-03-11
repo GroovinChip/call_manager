@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:groovin_material_icons/groovin_material_icons.dart';
@@ -57,7 +56,7 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> with SingleTicker
   TabController _tabController;
 
   void changeBrightness() {
-    DynamicTheme.of(context).setBrightness(Theme.of(context).brightness == Brightness.dark? Brightness.light: Brightness.dark);
+    //DynamicTheme.of(context).setBrightness(Theme.of(context).brightness == Brightness.dark? Brightness.light: Brightness.dark);
   }
 
   @override
@@ -179,13 +178,13 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> with SingleTicker
                     Material(
                       child: ListTile(
                         leading: Icon(
-                          DynamicTheme.of(context).brightness == Brightness.light
+                          Theme.of(context).brightness == Brightness.light
                               ? Icons.brightness_2
                               : Icons.brightness_7,
                           color: Theme.of(context).brightness == Brightness.light
                             ? Colors.black
                             : Colors.white,),
-                        title: DynamicTheme.of(context).brightness == Brightness.light
+                        title: Theme.of(context).brightness == Brightness.light
                             ? Text("Toggle Dark Theme")
                             : Text("Toggle Light Theme"),
                         onTap: () {
