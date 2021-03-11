@@ -13,3 +13,4 @@ build/
 *key.properties
 pubspec.lock
 *.iml
+/metrics

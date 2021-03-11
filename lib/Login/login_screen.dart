@@ -14,8 +14,51 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<LoginPage> with FirebaseMixin {
-  /// Represents the Brightness of the statusbar and navigation bar
+  ThemeData theme;
   Brightness barBrightness;
+  double _opacity = 0.0;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _setBarBrightness();
+    _verifyUser();
+  }
+
+  void _setBarBrightness() {
+    theme = Theme.of(context);
+    if (theme.brightness == Brightness.light) {
+      barBrightness = Brightness.dark;
+    } else {
+      barBrightness = Brightness.light;
+    }
+
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle.dark.copyWith(
+        statusBarIconBrightness: barBrightness,
+        statusBarColor: theme.canvasColor,
+        systemNavigationBarColor: theme.canvasColor,
+        systemNavigationBarIconBrightness: barBrightness,
+      ),
+    );
+  }
+
+  // Gets called from initState to check whether there is a cached user
+  Future<void> _verifyUser() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            '/HomeScreen', (Route<dynamic> route) => false);
+      });
+    } else {
+      await Future.delayed(
+        Duration(milliseconds: 500),
+      ).then((_) {
+        setState(() => _opacity = 1.0);
+      });
+    }
+  }
 
   // gets called on button press
   Future _loginUser() async {
@@ -39,53 +82,11 @@ class LoginPageState extends State<LoginPage> with FirebaseMixin {
       } else {
         dbForUser.doc(currentUser.uid).set({});
       }
-    } else {}
-  }
-
-  // initial animation opacity
-  double _opacity = 0.0;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    verifyUser();
-  }
-
-  // Gets called from initState to check whether there is a cached user
-  Future<void> verifyUser() async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        Navigator.of(context).pushNamedAndRemoveUntil(
-            '/HomeScreen', (Route<dynamic> route) => false);
-      });
-    } else {
-      await Future.delayed(
-        Duration(milliseconds: 500),
-      ).then((_) {
-        setState(() => _opacity = 1.0);
-      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    if (theme.brightness == Brightness.light) {
-      barBrightness = Brightness.dark;
-    } else {
-      barBrightness = Brightness.light;
-    }
-
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle.dark.copyWith(
-        statusBarIconBrightness: barBrightness,
-        statusBarColor: theme.canvasColor,
-        systemNavigationBarColor: theme.canvasColor,
-        systemNavigationBarIconBrightness: barBrightness,
-      ),
-    );
-
     return Scaffold(
       backgroundColor: theme.canvasColor,
       body: SafeArea(
@@ -96,7 +97,7 @@ class LoginPageState extends State<LoginPage> with FirebaseMixin {
             child: Container(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
+                children: [
                   Text(
                     'Call Manager',
                     style: TextStyle(
@@ -104,24 +105,21 @@ class LoginPageState extends State<LoginPage> with FirebaseMixin {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 50.0, top: 25.0),
-                    child: Text(
-                      'Your Phone Call Organizer',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.0,
-                      ),
+                  const SizedBox(height: 25.0),
+                  Text(
+                    'Your Phone Call Organizer',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.0,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 50.0),
-                    child: Image.asset(
-                      'assets/icon/call_manager_app_icon.png',
-                      width: 92.0,
-                      height: 92.0,
-                    ),
+                  const SizedBox(height: 50.0),
+                  Image.asset(
+                    'assets/icon/call_manager_app_icon.png',
+                    width: 92.0,
+                    height: 92.0,
                   ),
+                  const SizedBox(height: 50.0),
                   if (currentUser != null)
                     const Center(child: CircularProgressIndicator())
                   else
@@ -140,7 +138,7 @@ class LoginPageState extends State<LoginPage> with FirebaseMixin {
                         'Sign in with Google',
                       ),
                       onPressed: () async {
-                        return await _loginUser().catchError((e) {
+                        await _loginUser().catchError((e) {
                           log('Error signing in with Google: $e',
                               name: 'Call Manager');
                         });
