@@ -14,12 +14,12 @@ class _CallCardListState extends State<CallCardList> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection("Users")
+        stream: FirebaseFirestore.instance.collection('Users')
             .doc(globals.loggedInUser.uid)
-            .collection("Calls").snapshots(),
+            .collection('Calls').snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData == false) {
-            return Center(child: Text("Getting Calls..."));
+            return Center(child: Text('Getting Calls...'));
           } else {
             return snapshot.data.docs.length > 0
                 ? Column(
@@ -30,10 +30,10 @@ class _CallCardListState extends State<CallCardList> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        "Call Manager",
+                        'Call Manager',
                         style: TextStyle(
-                            fontSize: 22.0,
-                            fontWeight: FontWeight.bold
+                          fontSize: 22.0,
+                          fontWeight: FontWeight.bold,
                         ),
                       )
                     ],
@@ -62,7 +62,7 @@ class _CallCardListState extends State<CallCardList> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        "Call Manager",
+                        'Call Manager',
                         style: TextStyle(
                           fontSize: 22.0,
                           fontWeight: FontWeight.bold,
@@ -74,7 +74,7 @@ class _CallCardListState extends State<CallCardList> {
                 Expanded(
                   flex: 15,
                   child: Center(
-                    child: Text("No calls"),
+                    child: Text('No calls'),
                   ),
                 ),
               ],
