@@ -70,6 +70,12 @@ class LoginPageState extends State<LoginPage> {
       if (mounted) {
         setState(() => _loggedIn = true);
       }
+    } else {
+      await Future.delayed(
+        Duration(milliseconds: 500),
+      ).then((_) {
+        setState(() => _opacity = 1.0);
+      });
     }
   }
 
@@ -90,22 +96,13 @@ class LoginPageState extends State<LoginPage> {
       ),
     );
 
-    Future.delayed(
-      Duration(milliseconds: 500),
-      () => setState(
-        () {
-          _opacity = 1.0;
-        },
-      ),
-    );
-
     return Scaffold(
       backgroundColor: Theme.of(context).canvasColor,
       body: SafeArea(
         child: Center(
           child: AnimatedOpacity(
             opacity: _opacity,
-            duration: Duration(seconds: 2),
+            duration: Duration(seconds: 1),
             child: Container(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
