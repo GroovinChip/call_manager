@@ -13,7 +13,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:call_manager/globals.dart' as globals;
 
 class CallCard extends StatefulWidget {
-  final DocumentSnapshot callSnapshot;
+  final QueryDocumentSnapshot callSnapshot;
 
   CallCard({
     this.callSnapshot,
@@ -122,12 +122,12 @@ class CallCardState extends State<CallCard> {
       elevation: 2.0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
       child: GroovinExpansionTile(
-        leading: "${widget.callSnapshot['Avatar']}" != "null" ? ClipRRect(
+        leading: "${widget.callSnapshot.data()['Avatar']}" != "null" ? ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(25.0)),
           child: CircleAvatar(
             backgroundColor: Colors.transparent,
             child: Image.memory(
-              Uint8List.fromList("${widget.callSnapshot['Avatar']}".codeUnits),
+              Uint8List.fromList("${widget.callSnapshot.data()['Avatar']}".codeUnits),
               gaplessPlayback: true,
             ),
           ),
@@ -141,13 +141,13 @@ class CallCardState extends State<CallCard> {
           backgroundColor: Theme.of(context).primaryColor,
         ),
         title: Text(
-          "${widget.callSnapshot['Name']}",
+          "${widget.callSnapshot.data()['Name']}",
           style: TextStyle(
             color: Theme.of(context).brightness == Brightness.light ? Colors.black : Colors.white,
             fontWeight: FontWeight.bold,
           ),
         ),
-        subtitle: Text("${widget.callSnapshot['PhoneNumber']}"),
+        subtitle: Text("${widget.callSnapshot.data()['PhoneNumber']}"),
         onExpansionChanged: (value) {
           setState(() {
             isExpanded = value;
@@ -199,7 +199,7 @@ class CallCardState extends State<CallCard> {
                   ? Icon(Icons.notifications_none)
                   : Icon(Icons.notifications),
                 onPressed: (){
-                  numberToCallOnNotificationTap = "${widget.callSnapshot['PhoneNumber']}";
+                  numberToCallOnNotificationTap = "${widget.callSnapshot.data()['PhoneNumber']}";
                   showRoundedModalBottomSheet(
                     color: Theme.of(context).canvasColor,
                     context: context,
@@ -282,7 +282,7 @@ class CallCardState extends State<CallCard> {
                               icon: Icon(Icons.add_alert),
                               label: Text("Set Reminder"),
                               onPressed: () async {
-                                scheduleNotificationReminder("${widget.callSnapshot['Name']}", "${widget.callSnapshot['PhoneNumber']}");
+                                scheduleNotificationReminder("${widget.callSnapshot.data()['Name']}", "${widget.callSnapshot.data()['PhoneNumber']}");
                               },
                             ),
                           ),

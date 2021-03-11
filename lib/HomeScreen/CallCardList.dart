@@ -44,7 +44,7 @@ class _CallCardListState extends State<CallCardList> {
                   child: ListView.builder(
                     itemCount: snapshot.data.docs.length,
                     itemBuilder: (context, index) {
-                      DocumentSnapshot ds = snapshot.data.docs[index];
+                      final ds = snapshot.data.docs[index];
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: CallCard(callSnapshot: ds),
