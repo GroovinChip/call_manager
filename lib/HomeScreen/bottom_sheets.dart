@@ -215,8 +215,8 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> with SingleTicker
                                   child: Text("No"),
                                 ),
                                 TextButton(
-                                  onPressed: (){
-                                    FirebaseAuth.instance.signOut();
+                                  onPressed: () async {
+                                    await FirebaseAuth.instance.signOut();
                                     Navigator.of(context).pushNamedAndRemoveUntil('/',(Route<dynamic> route) => false);
                                   },
                                   child: Text("Yes"),
