@@ -54,6 +54,7 @@ class CallManagerApp extends StatelessWidget {
           selectionHandleColor: Colors.blue[600],
         ),
         fontFamily: 'SourceSansPro-Bold',
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
@@ -63,6 +64,7 @@ class CallManagerApp extends StatelessWidget {
           selectionHandleColor: Colors.blue[600],
         ),
         fontFamily: 'SourceSansPro-Bold',
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       themeMode: ThemeMode.system,
       home: LoginPage(),
