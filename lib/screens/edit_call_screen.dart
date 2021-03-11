@@ -1,11 +1,12 @@
 import 'package:call_manager/firebase/firebase_mixin.dart';
+import 'package:call_manager/utils/extensions.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:groovin_widgets/groovin_widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:rounded_modal/rounded_modal.dart';
 
@@ -296,81 +297,81 @@ class _EditCallScreenState extends State<EditCallScreen> with FirebaseMixin {
           },
         ),
       ),
-      floatingActionButton: Builder(builder: (BuildContext fabContext) {
-        return FloatingActionButton.extended(
-          highlightElevation: 2.0,
-          backgroundColor: Colors.blue[700],
-          onPressed: () {
-            if (name.isEmpty || phoneNumber.isEmpty) {
-              final snackBar = SnackBar(
-                content: Text('Please enter required fields'),
-                action: SnackBarAction(label: 'Dismiss', onPressed: () {}),
-                duration: Duration(seconds: 3),
-              );
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            } else {
-              try {
-                final userCalls = firestore
-                    .collection('Users')
-                    .doc(currentUser.uid)
-                    .collection('Calls');
-                String date;
-                String time;
-
-                if (_nameFieldController.text.isNotEmpty) {
-                  name = _nameFieldController.text;
-                }
-                if (_phoneFieldController.text.isNotEmpty) {
-                  phoneNumber = _phoneFieldController.text;
-                }
-                if (_descriptionFieldController.text.isNotEmpty) {
-                  description = _descriptionFieldController.text;
-                }
-
-                if (reminderDate == null) {
-                  date = '';
+      floatingActionButton: !MediaQuery.of(context).keyboardOpen
+          ? FloatingActionButton.extended(
+              highlightElevation: 2.0,
+              backgroundColor: Colors.blue[700],
+              onPressed: () {
+                if (name.isEmpty || phoneNumber.isEmpty) {
+                  final snackBar = SnackBar(
+                    content: Text('Please enter required fields'),
+                    action: SnackBarAction(label: 'Dismiss', onPressed: () {}),
+                    duration: Duration(seconds: 3),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 } else {
-                  date = reminderDate.toString();
-                }
+                  try {
+                    final userCalls = firestore
+                        .collection('Users')
+                        .doc(currentUser.uid)
+                        .collection('Calls');
+                    String date;
+                    String time;
 
-                if (reminderTime == null) {
-                  time = '';
-                } else {
-                  time = reminderTime.toString();
-                }
+                    if (_nameFieldController.text.isNotEmpty) {
+                      name = _nameFieldController.text;
+                    }
+                    if (_phoneFieldController.text.isNotEmpty) {
+                      phoneNumber = _phoneFieldController.text;
+                    }
+                    if (_descriptionFieldController.text.isNotEmpty) {
+                      description = _descriptionFieldController.text;
+                    }
 
-                if (selectedContact == null) {
-                  userCalls.doc(widget.callId).update({
-                    'Name': name,
-                    'PhoneNumber': phoneNumber,
-                    'Description': description,
-                    'ReminderDate': date,
-                    'ReminderTime': time
-                  });
-                } else {
-                  userCalls.doc(widget.callId).update({
-                    'Avatar': String.fromCharCodes(selectedContact.avatar),
-                    'Name': name,
-                    'PhoneNumber': phoneNumber,
-                    'Description': description,
-                    'ReminderDate': date,
-                    'ReminderTime': time
-                  });
+                    if (reminderDate == null) {
+                      date = '';
+                    } else {
+                      date = reminderDate.toString();
+                    }
+
+                    if (reminderTime == null) {
+                      time = '';
+                    } else {
+                      time = reminderTime.toString();
+                    }
+
+                    if (selectedContact == null) {
+                      userCalls.doc(widget.callId).update({
+                        'Name': name,
+                        'PhoneNumber': phoneNumber,
+                        'Description': description,
+                        'ReminderDate': date,
+                        'ReminderTime': time
+                      });
+                    } else {
+                      userCalls.doc(widget.callId).update({
+                        'Avatar': String.fromCharCodes(selectedContact.avatar),
+                        'Name': name,
+                        'PhoneNumber': phoneNumber,
+                        'Description': description,
+                        'ReminderDate': date,
+                        'ReminderTime': time
+                      });
+                    }
+                  } catch (e) {
+                    print(e);
+                  } finally {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/HomeScreen', (Route<dynamic> route) => false);
+                  }
                 }
-              } catch (e) {
-                print(e);
-              } finally {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    '/HomeScreen', (Route<dynamic> route) => false);
-              }
-            }
-          },
-          tooltip: 'Save',
-          elevation: 2.0,
-          icon: Icon(Icons.save),
-          label: Text('Save'),
-        );
-      }),
+              },
+              tooltip: 'Save',
+              elevation: 2.0,
+              icon: Icon(Icons.save),
+              label: Text('Save'),
+            )
+          : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         //hasNotch: false,

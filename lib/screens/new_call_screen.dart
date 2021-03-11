@@ -1,4 +1,5 @@
 import 'package:call_manager/firebase/firebase_mixin.dart';
+import 'package:call_manager/utils/extensions.dart';
 import 'package:call_manager/utils/pass_notification.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
@@ -139,219 +140,139 @@ class _NewCallScreenState extends State<NewCallScreen> with FirebaseMixin {
         title: Text('New Call'),
       ),
       body: SafeArea(
-        child: ListView(
-          children: [
-            Form(
-              key: formKey,
+        child: Form(
+          key: formKey,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: TypeAheadFormField(
-                      suggestionsCallback: (query) {
-                        if (contacts != null) {
-                          return contacts
-                              .where((contact) => contact.displayName
-                                  .toLowerCase()
-                                  .contains(query.toLowerCase()))
-                              .toList();
-                        }
-                      },
-                      itemBuilder: (context, contact) {
-                        return ListTile(
-                          leading: contact.avatar.length == 0
-                              ? CircleAvatar(
-                                  child: Icon(Icons.person_outline),
-                                )
-                              : ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(25.0)),
-                                  child: CircleAvatar(
-                                    child: Image.memory(
-                                      contact.avatar,
-                                    ),
+                  TypeAheadFormField(
+                    suggestionsCallback: (query) {
+                      if (contacts != null) {
+                        return contacts
+                            .where((contact) => contact.displayName
+                                .toLowerCase()
+                                .contains(query.toLowerCase()))
+                            .toList();
+                      }
+                    },
+                    itemBuilder: (context, contact) {
+                      return ListTile(
+                        leading: contact.avatar.length == 0
+                            ? CircleAvatar(
+                                child: Icon(Icons.person_outline),
+                              )
+                            : ClipRRect(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(25.0)),
+                                child: CircleAvatar(
+                                  child: Image.memory(
+                                    contact.avatar,
                                   ),
                                 ),
-                          title: Text(contact.displayName),
-                        );
-                      },
-                      transitionBuilder: (context, suggestionsBox, controller) {
-                        return suggestionsBox;
-                      },
-                      onSuggestionSelected: (contact) {
-                        selectedContact = contact;
-                        this._nameFieldController.text =
-                            selectedContact.displayName;
-                        if (selectedContact.phones.length > 1) {
-                          showRoundedModalBottomSheet(
-                              context: context,
-                              color: Theme.of(context).canvasColor,
-                              builder: (builder) {
-                                return Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: ModalDrawerHandle(),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          'Choose phone number',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16.0,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Container(
-                                      height: 150.0,
-                                      child: ListView.builder(
-                                        itemCount:
-                                            selectedContact.phones.length,
-                                        itemBuilder: (context, index) {
-                                          List<Item> phoneNums = [];
-                                          Icon phoneType;
-                                          phoneNums =
-                                              selectedContact.phones.toList();
-                                          switch (phoneNums[index].label) {
-                                            case 'mobile':
-                                              phoneType =
-                                                  Icon(OMIcons.smartphone);
-                                              break;
-                                            case 'work':
-                                              phoneType =
-                                                  Icon(OMIcons.business);
-                                              break;
-                                            case 'home':
-                                              phoneType = Icon(OMIcons.home);
-                                              break;
-                                            default:
-                                              phoneType = Icon(OMIcons.phone);
-                                          }
-                                          return ListTile(
-                                            leading: phoneType,
-                                            title: Text(phoneNums[index].value),
-                                            subtitle:
-                                                Text(phoneNums[index].label),
-                                            onTap: () {
-                                              this._phoneFieldController.text =
-                                                  phoneNums[index].value;
-                                              Navigator.pop(context);
-                                            },
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              });
-                        } else {
-                          this._phoneFieldController.text =
-                              selectedContact.phones.first.value;
-                        }
-                      },
-                      validator: (input) => input == null || input == ''
-                          ? 'This field is required'
-                          : null,
-                      onSaved: (contactName) =>
-                          _nameFieldController.text = contactName,
-                      textFieldConfiguration: TextFieldConfiguration(
-                        enabled: true,
-                        textCapitalization: TextCapitalization.words,
-                        controller: _nameFieldController,
-                        keyboardType: TextInputType.text,
-                        maxLines: 1,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          prefixIcon: Icon(
-                            OMIcons.person,
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? Colors.white
-                                    : Colors.grey,
-                          ),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.close,
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? Colors.white
-                                    : Colors.grey,
                               ),
-                              onPressed: () async {
-                                _nameFieldController.text = '';
-                              },
-                            ),
-                          ),
-                          labelText: 'Name (Required)',
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: 16.0, right: 16.0, top: 8.0, bottom: 16.0),
-                    child: TextFormField(
-                      validator: (input) => input == null || input == ''
-                          ? 'This field is required'
-                          : null,
-                      onSaved: (input) => _phoneFieldController.text = input,
+                        title: Text(contact.displayName),
+                      );
+                    },
+                    transitionBuilder: (context, suggestionsBox, controller) {
+                      return suggestionsBox;
+                    },
+                    onSuggestionSelected: (contact) {
+                      selectedContact = contact;
+                      this._nameFieldController.text =
+                          selectedContact.displayName;
+                      if (selectedContact.phones.length > 1) {
+                        showRoundedModalBottomSheet(
+                            context: context,
+                            color: Theme.of(context).canvasColor,
+                            builder: (builder) {
+                              return Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ModalDrawerHandle(),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        'Choose phone number',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Container(
+                                    height: 150.0,
+                                    child: ListView.builder(
+                                      itemCount:
+                                          selectedContact.phones.length,
+                                      itemBuilder: (context, index) {
+                                        List<Item> phoneNums = [];
+                                        Icon phoneType;
+                                        phoneNums =
+                                            selectedContact.phones.toList();
+                                        switch (phoneNums[index].label) {
+                                          case 'mobile':
+                                            phoneType =
+                                                Icon(OMIcons.smartphone);
+                                            break;
+                                          case 'work':
+                                            phoneType =
+                                                Icon(OMIcons.business);
+                                            break;
+                                          case 'home':
+                                            phoneType = Icon(OMIcons.home);
+                                            break;
+                                          default:
+                                            phoneType = Icon(OMIcons.phone);
+                                        }
+                                        return ListTile(
+                                          leading: phoneType,
+                                          title: Text(phoneNums[index].value),
+                                          subtitle:
+                                              Text(phoneNums[index].label),
+                                          onTap: () {
+                                            this._phoneFieldController.text =
+                                                phoneNums[index].value;
+                                            Navigator.pop(context);
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              );
+                            });
+                      } else {
+                        this._phoneFieldController.text =
+                            selectedContact.phones.first.value;
+                      }
+                    },
+                    validator: (input) => input == null || input == ''
+                        ? 'This field is required'
+                        : null,
+                    onSaved: (contactName) =>
+                        _nameFieldController.text = contactName,
+                    textFieldConfiguration: TextFieldConfiguration(
                       enabled: true,
-                      keyboardType: TextInputType.phone,
+                      textCapitalization: TextCapitalization.words,
+                      controller: _nameFieldController,
+                      keyboardType: TextInputType.text,
                       maxLines: 1,
-                      autofocus: false,
-                      controller: _phoneFieldController,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          OMIcons.phone,
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.grey,
-                        ),
-                        labelText: 'Phone Number (Required)',
                         border: OutlineInputBorder(),
-                        suffixIcon: Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.close,
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
+                        prefixIcon: Icon(
+                          OMIcons.person,
+                          color:
+                              Theme.of(context).brightness == Brightness.dark
                                   ? Colors.white
                                   : Colors.grey,
-                            ),
-                            onPressed: () async {
-                              _phoneFieldController.text = '';
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: 16.0, right: 16.0, top: 8.0, bottom: 8.0),
-                    child: TextFormField(
-                      enabled: true,
-                      keyboardType: TextInputType.multiline,
-                      textCapitalization: TextCapitalization.sentences,
-                      maxLines: 2,
-                      autofocus: false,
-                      controller: _descriptionFieldController,
-                      decoration: InputDecoration(
-                        labelText: 'Description',
-                        prefixIcon: Icon(
-                          OMIcons.comment,
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.grey,
                         ),
                         suffixIcon: Padding(
                           padding: const EdgeInsets.only(right: 8.0),
@@ -364,104 +285,155 @@ class _NewCallScreenState extends State<NewCallScreen> with FirebaseMixin {
                                   : Colors.grey,
                             ),
                             onPressed: () async {
-                              _descriptionFieldController.text = '';
+                              _nameFieldController.text = '';
                             },
                           ),
                         ),
-                        border: OutlineInputBorder(),
+                        labelText: 'Name (Required)',
                       ),
                     ),
                   ),
-                  /*Padding(
-                    padding:
-                        const EdgeInsets.only(right: 16.0, left: 16.0, top: 12.0),
-                    child: Divider(),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16.0, top: 8.0),
-                        child: Text(
-                          "Reminder",
-                          style: TextStyle(
-                              fontSize: 20.0, fontWeight: FontWeight.bold),
-                        ),
+                  const SizedBox(height: 16.0),
+                  TextFormField(
+                    validator: (input) => input == null || input == ''
+                        ? 'This field is required'
+                        : null,
+                    onSaved: (input) => _phoneFieldController.text = input,
+                    enabled: true,
+                    keyboardType: TextInputType.phone,
+                    maxLines: 1,
+                    autofocus: false,
+                    controller: _phoneFieldController,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        OMIcons.phone,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.grey,
                       ),
-                    ],
-                  ),*/
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: DateTimeField(
-                      format: dateFormat,
-                      onShowPicker: (context, currentValue) {
-                        return showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime.now(),
-                          lastDate: DateTime(DateTime.now().year + 1),
-                        );
-                      },
-                      onChanged: (date) {
-                        reminderDate = date;
-                        //_dateFieldController.text = date.toString();
-                      },
-                      controller: _dateFieldController,
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.today,
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.grey,
+                      labelText: 'Phone Number (Required)',
+                      border: OutlineInputBorder(),
+                      suffixIcon: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.close,
+                            color: Theme.of(context).brightness ==
+                                    Brightness.dark
+                                ? Colors.white
+                                : Colors.grey,
+                          ),
+                          onPressed: () async {
+                            _phoneFieldController.text = '';
+                          },
                         ),
-                        labelText: 'Reminder Date',
-                        border: OutlineInputBorder(),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 16.0, right: 16.0, top: 8.0),
-                    child: DateTimeField(
-                      format: timeFormat,
-                      enabled: true,
-                      onChanged: (timeOfDay) {
-                        reminderTime = TimeOfDay.fromDateTime(timeOfDay);
-                      },
-                      onShowPicker: (context, currentValue) async {
-                        final time = await showTimePicker(
-                          context: context,
-                          initialTime: TimeOfDay.fromDateTime(
-                              currentValue ?? DateTime.now()),
-                        );
-                        return DateTimeField.convert(time);
-                      },
-                      controller: _timeFieldController,
-                      decoration: InputDecoration(
-                        labelText: 'Reminder Time',
-                        prefixIcon: Icon(
-                          Icons.access_time,
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.grey,
-                        ),
-                        border: OutlineInputBorder(),
+                  const SizedBox(height: 16.0),
+                  TextFormField(
+                    enabled: true,
+                    keyboardType: TextInputType.multiline,
+                    textCapitalization: TextCapitalization.sentences,
+                    maxLines: 2,
+                    autofocus: false,
+                    controller: _descriptionFieldController,
+                    decoration: InputDecoration(
+                      labelText: 'Description',
+                      prefixIcon: Icon(
+                        OMIcons.comment,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.grey,
                       ),
+                      suffixIcon: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.close,
+                            color: Theme.of(context).brightness ==
+                                    Brightness.dark
+                                ? Colors.white
+                                : Colors.grey,
+                          ),
+                          onPressed: () async {
+                            _descriptionFieldController.text = '';
+                          },
+                        ),
+                      ),
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  DateTimeField(
+                    format: dateFormat,
+                    onShowPicker: (context, currentValue) {
+                      return showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime.now(),
+                        lastDate: DateTime(DateTime.now().year + 1),
+                      );
+                    },
+                    onChanged: (date) {
+                      reminderDate = date;
+                      //_dateFieldController.text = date.toString();
+                    },
+                    controller: _dateFieldController,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.today,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.grey,
+                      ),
+                      labelText: 'Reminder Date',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  DateTimeField(
+                    format: timeFormat,
+                    enabled: true,
+                    onChanged: (timeOfDay) {
+                      reminderTime = TimeOfDay.fromDateTime(timeOfDay);
+                    },
+                    onShowPicker: (context, currentValue) async {
+                      final time = await showTimePicker(
+                        context: context,
+                        initialTime: TimeOfDay.fromDateTime(
+                            currentValue ?? DateTime.now()),
+                      );
+                      return DateTimeField.convert(time);
+                    },
+                    controller: _timeFieldController,
+                    decoration: InputDecoration(
+                      labelText: 'Reminder Time',
+                      prefixIcon: Icon(
+                        Icons.access_time,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.grey,
+                      ),
+                      border: OutlineInputBorder(),
                     ),
                   ),
                 ],
               ),
             ),
-          ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Colors.blue[700],
-        onPressed: saveCall,
-        tooltip: 'Save',
-        elevation: 2.0,
-        icon: Icon(Icons.save),
-        label: Text('Save'),
-      ),
+      floatingActionButton: !MediaQuery.of(context).keyboardOpen
+          ? FloatingActionButton.extended(
+              backgroundColor: Colors.blue[700],
+              onPressed: saveCall,
+              tooltip: 'Save',
+              elevation: 2.0,
+              icon: Icon(Icons.save),
+              label: Text('Save'),
+            )
+          : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         //hasNotch: false,
