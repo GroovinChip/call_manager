@@ -55,7 +55,16 @@ class CallManagerApp extends StatelessWidget {
         ),
         fontFamily: 'SourceSansPro-Bold',
       ),
-      themeMode: ThemeMode.light,
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: Colors.blue[700],
+        accentColor: Colors.blue[700],
+        textSelectionTheme: TextSelectionThemeData(
+          selectionHandleColor: Colors.blue[600],
+        ),
+        fontFamily: 'SourceSansPro-Bold',
+      ),
+      themeMode: ThemeMode.system,
       home: LoginPage(),
       routes: <String, WidgetBuilder>{
         '/HomeScreen': (BuildContext context) => HomeScreen(),
