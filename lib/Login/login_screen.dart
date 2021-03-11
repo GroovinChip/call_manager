@@ -111,14 +111,16 @@ class LoginPageState extends State<LoginPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Text(
-                    "Call Manager",
-                    style:
-                        TextStyle(fontSize: 48.0, fontWeight: FontWeight.bold),
+                    'Call Manager',
+                    style: TextStyle(
+                      fontSize: 48.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 50.0, top: 25.0),
                     child: Text(
-                      "Your Phone Call Organizer",
+                      'Your Phone Call Organizer',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16.0,
@@ -128,7 +130,7 @@ class LoginPageState extends State<LoginPage> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 50.0),
                     child: Image.asset(
-                      "assets/icon/call_manager_app_icon.png",
+                      'assets/icon/call_manager_app_icon.png',
                       width: 92.0,
                       height: 92.0,
                     ),
@@ -137,16 +139,17 @@ class LoginPageState extends State<LoginPage> {
                       ? const Center(child: CircularProgressIndicator())
                       : ElevatedButton.icon(
                           style: ElevatedButton.styleFrom(
-                            primary: Theme.of(context).canvasColor,
+                            primary: Theme.of(context).colorScheme.surface,
+                            onPrimary: Theme.of(context).colorScheme.onSurface,
                             elevation: 2.0,
                           ),
                           icon: Image.asset(
-                            "assets/glogo.png",
+                            'assets/glogo.png',
                             width: 32.0,
                             height: 32.0,
                           ),
                           label: Text(
-                            "Sign in with Google",
+                            'Sign in with Google',
                           ),
                           onPressed: () async =>
                               await _loginUser().catchError((e) => print(e)),
