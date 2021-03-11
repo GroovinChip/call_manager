@@ -21,7 +21,9 @@ class _CallCardListState extends State<CallCardList> with FirebaseMixin {
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData == false) {
-            return Center(child: Text('Getting Calls...'));
+            return Center(
+              child: const CircularProgressIndicator(),
+            );
           } else {
             if (snapshot.data.docs.length > 0) {
               return ListView.builder(
