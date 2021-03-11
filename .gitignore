@@ -12,3 +12,4 @@ build/
 *android/app/call_manager_key.jks
 *key.properties
 pubspec.lock
+*.iml
