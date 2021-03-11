@@ -1,4 +1,6 @@
 import 'package:call_manager/firebase/firebase_mixin.dart';
+import 'package:call_manager/widgets/delete_calls_dialog.dart';
+import 'package:call_manager/widgets/log_out_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:groovin_material_icons/groovin_material_icons.dart';
 import 'package:groovin_widgets/groovin_widgets.dart';
@@ -12,8 +14,7 @@ class MenuBottomSheet extends StatefulWidget {
   _MenuBottomSheetState createState() => _MenuBottomSheetState();
 }
 
-class _MenuBottomSheetState extends State<MenuBottomSheet>
-    with FirebaseMixin {
+class _MenuBottomSheetState extends State<MenuBottomSheet> with FirebaseMixin {
   // Set initial package info
   PackageInfo _packageInfo = PackageInfo(
     appName: 'Unknown',
@@ -64,24 +65,7 @@ class _MenuBottomSheetState extends State<MenuBottomSheet>
             onPressed: () {
               showDialog(
                 context: context,
-                builder: (_) => AlertDialog(
-                  //title: Text('Log Out'),
-                  content: Text('Are you sure you want to log out?'),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: Text('NO'),
-                    ),
-                    TextButton(
-                      onPressed: () async {
-                        await auth.signOut();
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                            '/', (Route<dynamic> route) => false);
-                      },
-                      child: Text('YES'),
-                    ),
-                  ],
-                ),
+                builder: (_) => LogOutDialog(),
               );
             },
           ),
@@ -101,42 +85,7 @@ class _MenuBottomSheetState extends State<MenuBottomSheet>
           onTap: () {
             showDialog(
               context: context,
-              builder: (_) => AlertDialog(
-                content: Text(
-                    'Are you sure you want to delete all calls? This cannot be undone.'),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: Text('CANCEL'),
-                  ),
-                  TextButton(
-                    onPressed: () async {
-                      Navigator.pop(context);
-                      final callsRef = firestore
-                          .collection('Users')
-                          .doc(currentUser.uid)
-                          .collection('Calls');
-                      final callSnapshots = await callsRef.get();
-                      if (callSnapshots.docs.length == 0) {
-                        final snackBar = SnackBar(
-                          content: Text('There are no calls to delete'),
-                          action: SnackBarAction(
-                            label: 'Dismiss',
-                            onPressed: () {},
-                          ),
-                          duration: Duration(seconds: 3),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      } else {
-                        for (int i = 0; i < callSnapshots.docs.length; i++) {
-                          callSnapshots.docs[i].reference.delete();
-                        }
-                      }
-                    },
-                    child: Text('DELETE'),
-                  ),
-                ],
-              ),
+              builder: (_) => DeleteCallsDialog(),
             );
           },
         ),
@@ -170,13 +119,6 @@ class _MenuBottomSheetState extends State<MenuBottomSheet>
           onTap: () {
             launch('https:github.com/GroovinChip/CallManager');
           },
-          /*trailing: TextButton(
-            //textColor: Theme.of(context).primaryColor,
-            child: Text('SOURCE CODE'),
-            onPressed: () {
-              launch('https:github.com/GroovinChip/CallManager');
-            },
-          ),*/
         ),
       ],
     );
