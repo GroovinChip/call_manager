@@ -71,7 +71,7 @@ class CallManagerApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/HomeScreen': (BuildContext context) => HomeScreen(),
         '/AddNewCallScreen': (BuildContext context) => AddNewCallScreen(),
-        '/EditCallScreen': (BuildContext context) => EditCallScreen(),
+        //'/EditCallScreen': (BuildContext context) => EditCallScreen(),
       },
       debugShowCheckedModeBanner: false,
     );

@@ -2,7 +2,6 @@ import 'package:call_manager/HomeScreen/call_card.dart';
 import 'package:call_manager/firebase/firebase_mixin.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:call_manager/globals.dart' as globals;
 
 /// This widget represents the content on the main screen of the app
 class CallCardList extends StatefulWidget {

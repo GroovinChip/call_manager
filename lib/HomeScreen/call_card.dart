@@ -1,4 +1,6 @@
 import 'dart:typed_data';
+import 'package:call_manager/EditCall/edit_call_screen.dart';
+import 'package:call_manager/firebase/firebase_mixin.dart';
 import 'package:call_manager/utils/pass_notification.dart';
 import 'package:call_number/call_number.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,7 +12,6 @@ import 'package:intl/intl.dart';
 import 'package:groovin_widgets/groovin_widgets.dart';
 import 'package:rounded_modal/rounded_modal.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:call_manager/globals.dart' as globals;
 
 class CallCard extends StatefulWidget {
   final QueryDocumentSnapshot callSnapshot;
@@ -25,7 +26,7 @@ class CallCard extends StatefulWidget {
   }
 }
 
-class CallCardState extends State<CallCard> {
+class CallCardState extends State<CallCard> with FirebaseMixin {
   String numberToCallOnNotificationTap;
 
   final dateFormat = DateFormat("EEEE, MMMM d, yyyy");
@@ -61,15 +62,15 @@ class CallCardState extends State<CallCard> {
       reminderTime.minute,
     );
 
-    var androidPlatformChannelSpecifics =  AndroidNotificationDetails(
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
       '1',
       'Call Reminders',
       'Allow Call Manager to create and send notifications about Call Reminders',
     );
 
-    var iOSPlatformChannelSpecifics =  IOSNotificationDetails();
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
 
-    var platformChannelSpecifics =  NotificationDetails(
+    var platformChannelSpecifics = NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
 
     await PassNotification.of(context).schedule(
@@ -95,7 +96,7 @@ class CallCardState extends State<CallCard> {
   }
 
   void initDescription() {
-    if("${widget.callSnapshot['Description']}".isNotEmpty) {
+    if ("${widget.callSnapshot['Description']}".isNotEmpty) {
       descriptionRow = Row(
         children: <Widget>[
           Padding(
@@ -120,30 +121,36 @@ class CallCardState extends State<CallCard> {
   Widget build(BuildContext context) {
     return Material(
       elevation: 2.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(5.0))),
       child: GroovinExpansionTile(
-        leading: "${widget.callSnapshot.data()['Avatar']}" != "null" ? ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(25.0)),
-          child: CircleAvatar(
-            backgroundColor: Colors.transparent,
-            child: Image.memory(
-              Uint8List.fromList("${widget.callSnapshot.data()['Avatar']}".codeUnits),
-              gaplessPlayback: true,
-            ),
-          ),
-        ) : CircleAvatar(
-          child: Icon(
-            Theme.of(context).brightness ==  Brightness.light
-              ? Icons.person_outline
-              : Icons.person,
-            color: Colors.white,
-          ),
-          backgroundColor: Theme.of(context).primaryColor,
-        ),
+        leading: "${widget.callSnapshot.data()['Avatar']}" != "null"
+            ? ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                child: CircleAvatar(
+                  backgroundColor: Colors.transparent,
+                  child: Image.memory(
+                    Uint8List.fromList(
+                        "${widget.callSnapshot.data()['Avatar']}".codeUnits),
+                    gaplessPlayback: true,
+                  ),
+                ),
+              )
+            : CircleAvatar(
+                child: Icon(
+                  Theme.of(context).brightness == Brightness.light
+                      ? Icons.person_outline
+                      : Icons.person,
+                  color: Colors.white,
+                ),
+                backgroundColor: Theme.of(context).primaryColor,
+              ),
         title: Text(
           "${widget.callSnapshot.data()['Name']}",
           style: TextStyle(
-            color: Theme.of(context).brightness == Brightness.light ? Colors.black : Colors.white,
+            color: Theme.of(context).brightness == Brightness.light
+                ? Colors.black
+                : Colors.white,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -156,9 +163,9 @@ class CallCardState extends State<CallCard> {
         inkwellRadius: !isExpanded
             ? BorderRadius.all(Radius.circular(5.0))
             : BorderRadius.only(
-          topRight: Radius.circular(5.0),
-          topLeft: Radius.circular(5.0),
-        ),
+                topRight: Radius.circular(5.0),
+                topLeft: Radius.circular(5.0),
+              ),
         children: <Widget>[
           descriptionRow,
           Row(
@@ -166,25 +173,31 @@ class CallCardState extends State<CallCard> {
             children: <Widget>[
               IconButton(
                 icon: Theme.of(context).brightness == Brightness.light
-                  ? Icon(Icons.delete_outline)
-                  : Icon(Icons.delete),
-                onPressed: (){
+                    ? Icon(Icons.delete_outline)
+                    : Icon(Icons.delete),
+                onPressed: () {
                   showDialog(
                     context: context,
                     builder: (_) => AlertDialog(
                       title: Text("Delete Call"),
-                      content: Text("Are you sure you want to delete this call?"),
+                      content:
+                          Text("Are you sure you want to delete this call?"),
                       actions: <Widget>[
                         TextButton(
                           child: Text("No"),
-                          onPressed: (){
+                          onPressed: () {
                             Navigator.pop(context);
                           },
                         ),
                         TextButton(
                           child: Text("Yes"),
-                          onPressed: (){
-                            FirebaseFirestore.instance.collection("Users").doc(globals.loggedInUser.uid).collection("Calls").doc(widget.callSnapshot.id).delete();
+                          onPressed: () {
+                            FirebaseFirestore.instance
+                                .collection("Users")
+                                .doc(currentUser.uid)
+                                .collection("Calls")
+                                .doc(widget.callSnapshot.id)
+                                .delete();
                             Navigator.pop(context);
                           },
                         ),
@@ -196,15 +209,16 @@ class CallCardState extends State<CallCard> {
               ),
               IconButton(
                 icon: Theme.of(context).brightness == Brightness.light
-                  ? Icon(Icons.notifications_none)
-                  : Icon(Icons.notifications),
-                onPressed: (){
-                  numberToCallOnNotificationTap = "${widget.callSnapshot.data()['PhoneNumber']}";
+                    ? Icon(Icons.notifications_none)
+                    : Icon(Icons.notifications),
+                onPressed: () {
+                  numberToCallOnNotificationTap =
+                      "${widget.callSnapshot.data()['PhoneNumber']}";
                   showRoundedModalBottomSheet(
                     color: Theme.of(context).canvasColor,
                     context: context,
                     dismissOnTap: false,
-                    builder: (builder){
+                    builder: (builder) {
                       return Container(
                         height: 250.0,
                         color: Colors.transparent,
@@ -227,7 +241,8 @@ class CallCardState extends State<CallCard> {
                                           context: context,
                                           initialDate: DateTime.now(),
                                           firstDate: DateTime.now(),
-                                          lastDate: DateTime(DateTime.now().year + 1),
+                                          lastDate:
+                                              DateTime(DateTime.now().year + 1),
                                         );
                                       },
                                       onChanged: (date) {
@@ -236,7 +251,8 @@ class CallCardState extends State<CallCard> {
                                       decoration: InputDecoration(
                                         prefixIcon: Icon(
                                           Icons.today,
-                                          color: Theme.of(context).brightness == Brightness.dark
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
                                               ? Colors.white
                                               : Colors.grey,
                                         ),
@@ -246,17 +262,21 @@ class CallCardState extends State<CallCard> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                                    padding: const EdgeInsets.only(
+                                        left: 16.0, right: 16.0),
                                     child: DateTimeField(
                                       format: timeFormat,
                                       enabled: true,
                                       onChanged: (timeOfDay) {
-                                        reminderTime = TimeOfDay.fromDateTime(timeOfDay);
+                                        reminderTime =
+                                            TimeOfDay.fromDateTime(timeOfDay);
                                       },
-                                      onShowPicker: (context, currentValue) async {
+                                      onShowPicker:
+                                          (context, currentValue) async {
                                         final time = await showTimePicker(
                                           context: context,
-                                          initialTime: TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+                                          initialTime: TimeOfDay.fromDateTime(
+                                              currentValue ?? DateTime.now()),
                                         );
                                         return DateTimeField.convert(time);
                                       },
@@ -265,7 +285,8 @@ class CallCardState extends State<CallCard> {
                                         border: OutlineInputBorder(),
                                         prefixIcon: Icon(
                                           Icons.access_time,
-                                          color: Theme.of(context).brightness == Brightness.dark
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
                                               ? Colors.white
                                               : Colors.grey,
                                         ),
@@ -275,14 +296,17 @@ class CallCardState extends State<CallCard> {
                                 ],
                               ),
                             ),
-                            floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+                            floatingActionButtonLocation:
+                                FloatingActionButtonLocation.centerFloat,
                             floatingActionButton: FloatingActionButton.extended(
                               backgroundColor: Colors.blue[700],
                               elevation: 0.0,
                               icon: Icon(Icons.add_alert),
                               label: Text("Set Reminder"),
                               onPressed: () async {
-                                scheduleNotificationReminder("${widget.callSnapshot.data()['Name']}", "${widget.callSnapshot.data()['PhoneNumber']}");
+                                scheduleNotificationReminder(
+                                    "${widget.callSnapshot.data()['Name']}",
+                                    "${widget.callSnapshot.data()['PhoneNumber']}");
                               },
                             ),
                           ),
@@ -295,11 +319,15 @@ class CallCardState extends State<CallCard> {
               ),
               IconButton(
                 icon: Theme.of(context).brightness == Brightness.light
-                  ? Icon(GroovinMaterialIcons.edit_outline)
-                  : Icon(Icons.edit),
-                onPressed: (){
-                  globals.callToEdit = widget.callSnapshot.reference;
-                  Navigator.of(context).pushNamed("/EditCallScreen");
+                    ? Icon(GroovinMaterialIcons.edit_outline)
+                    : Icon(Icons.edit),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => EditCallScreen(
+                          callId: widget.callSnapshot.reference.id),
+                    ),
+                  );
                   /*Navigator.push(
                       context,
                       SlideLeftRoute(widget: EditCallScreen())
@@ -309,20 +337,20 @@ class CallCardState extends State<CallCard> {
               ),
               IconButton(
                 icon: Theme.of(context).brightness == Brightness.light
-                  ? Icon(GroovinMaterialIcons.comment_text_outline)
-                  : Icon(GroovinMaterialIcons.comment_text),
-                onPressed: (){
-                  globals.callToEdit = widget.callSnapshot.reference;
+                    ? Icon(GroovinMaterialIcons.comment_text_outline)
+                    : Icon(GroovinMaterialIcons.comment_text),
+                onPressed: () {
                   launch("sms:${widget.callSnapshot['PhoneNumber']}");
                 },
                 tooltip: "Text ${widget.callSnapshot['Name']}",
               ),
               IconButton(
                 icon: Theme.of(context).brightness == Brightness.light
-                  ? Icon(GroovinMaterialIcons.phone_outline)
-                  : Icon(Icons.phone),
+                    ? Icon(GroovinMaterialIcons.phone_outline)
+                    : Icon(Icons.phone),
                 onPressed: () async {
-                  await CallNumber().callNumber("${widget.callSnapshot['PhoneNumber']}");
+                  await CallNumber()
+                      .callNumber("${widget.callSnapshot['PhoneNumber']}");
                 },
                 tooltip: "Call ${widget.callSnapshot['Name']}",
               ),

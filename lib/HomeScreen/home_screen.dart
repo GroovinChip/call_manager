@@ -2,7 +2,6 @@ import 'package:call_manager/HomeScreen/CallCardList.dart';
 import 'package:call_manager/HomeScreen/bottom_sheets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:call_manager/globals.dart' as globals;
 import 'package:permission_handler/permission_handler.dart';
 
 void main() {
