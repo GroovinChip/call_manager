@@ -11,27 +11,30 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Initialize notification plugin
-  var initializationSettingsAndroid = AndroidInitializationSettings('ic_notification');
+  var initializationSettingsAndroid =
+      AndroidInitializationSettings('ic_notification');
   var initializationSettingsIOS = IOSInitializationSettings();
   var initializationSettings = InitializationSettings(
-      initializationSettingsAndroid, initializationSettingsIOS);
+    initializationSettingsAndroid,
+    initializationSettingsIOS,
+  );
   var flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   flutterLocalNotificationsPlugin.initialize(
     initializationSettings,
-      onSelectNotification: (String payload) async {
-        if (payload != null) {
-          debugPrint('notification payload: ' + payload);
-        }
-        await CallNumber().callNumber(payload);
+    onSelectNotification: (String payload) async {
+      if (payload != null) {
+        debugPrint('notification payload: ' + payload);
       }
-    );
+      await CallNumber().callNumber(payload);
+    },
+  );
 
   // launch app
   runApp(
     PassNotification(
       flutterLocalNotificationsPlugin,
       child: CallManagerApp(),
-    )
+    ),
   );
 }
 
@@ -50,9 +53,9 @@ class CallManagerApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       home: LoginPage(),
       routes: <String, WidgetBuilder>{
-        "/HomeScreen": (BuildContext context) => HomeScreen(),
-        "/AddNewCallScreen": (BuildContext context) => AddNewCallScreen(),
-        "/EditCallScreen": (BuildContext context) => EditCallScreen(),
+        '/HomeScreen': (BuildContext context) => HomeScreen(),
+        '/AddNewCallScreen': (BuildContext context) => AddNewCallScreen(),
+        '/EditCallScreen': (BuildContext context) => EditCallScreen(),
       },
       debugShowCheckedModeBanner: false,
     );
