@@ -65,14 +65,12 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> {
               showDialog(
                 context: context,
                 builder: (_) => AlertDialog(
-                  title: Text('Log Out'),
+                  //title: Text('Log Out'),
                   content: Text('Are you sure you want to log out?'),
-                  actions: <Widget>[
+                  actions: [
                     TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text('No'),
+                      onPressed: () => Navigator.pop(context),
+                      child: Text('NO'),
                     ),
                     TextButton(
                       onPressed: () async {
@@ -80,7 +78,7 @@ class _BottomAppBarSheetState extends State<BottomAppBarSheet> {
                         Navigator.of(context).pushNamedAndRemoveUntil(
                             '/', (Route<dynamic> route) => false);
                       },
-                      child: Text('Yes'),
+                      child: Text('YES'),
                     ),
                   ],
                 ),
