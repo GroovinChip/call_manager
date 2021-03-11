@@ -1,11 +1,12 @@
+import 'dart:async';
+
+import 'package:call_manager/globals.dart' as globals;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'dart:async';
 import 'package:flutter/services.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:call_manager/globals.dart' as globals;
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -82,10 +83,11 @@ class LoginPageState extends State<LoginPage> {
 
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle.dark.copyWith(
-          statusBarIconBrightness: barBrightness,
-          statusBarColor: Theme.of(context).canvasColor,
-          systemNavigationBarColor: Theme.of(context).canvasColor,
-          systemNavigationBarIconBrightness: barBrightness),
+        statusBarIconBrightness: barBrightness,
+        statusBarColor: Theme.of(context).canvasColor,
+        systemNavigationBarColor: Theme.of(context).canvasColor,
+        systemNavigationBarIconBrightness: barBrightness,
+      ),
     );
 
     Future.delayed(
