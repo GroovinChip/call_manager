@@ -28,11 +28,12 @@ class _HomeScreenState extends State<HomeScreen> {
   // Check current permissions. If phone permission not granted, prompt for it.
   void checkPermissions() async {
     Map<PermissionGroup, PermissionStatus> permissions =
-      await PermissionHandler().requestPermissions([PermissionGroup.phone, PermissionGroup.contacts]);
+        await PermissionHandler().requestPermissions(
+            [PermissionGroup.phone, PermissionGroup.contacts]);
     phonePerm =
-      await PermissionHandler().checkPermissionStatus(PermissionGroup.phone);
-    contactsPerm =
-      await PermissionHandler().checkPermissionStatus(PermissionGroup.contacts);
+        await PermissionHandler().checkPermissionStatus(PermissionGroup.phone);
+    contactsPerm = await PermissionHandler()
+        .checkPermissionStatus(PermissionGroup.contacts);
   }
 
   @override
@@ -44,11 +45,12 @@ class _HomeScreenState extends State<HomeScreen> {
       barBrightness = Brightness.light;
     }
 
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-        statusBarIconBrightness: barBrightness,
-        statusBarColor: Theme.of(context).canvasColor,
-        systemNavigationBarColor: Theme.of(context).canvasColor,
-        systemNavigationBarIconBrightness: barBrightness),
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle.dark.copyWith(
+          statusBarIconBrightness: barBrightness,
+          statusBarColor: Theme.of(context).canvasColor,
+          systemNavigationBarColor: Theme.of(context).canvasColor,
+          systemNavigationBarIconBrightness: barBrightness),
     );
 
     return Scaffold(
@@ -66,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: Colors.blue[700],
           label: Text('New Call'),
           onPressed: () {
-            if(contactsPerm == PermissionStatus.granted) {
+            if (contactsPerm == PermissionStatus.granted) {
               Navigator.of(context).pushNamed('/AddNewCallScreen');
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -74,16 +76,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   backgroundColor: Theme.of(context).primaryColor,
                   content: Wrap(
                     children: <Widget>[
-                      Text('Please grant the Contacts permission to use this page.'),
+                      Text(
+                          'Please grant the Contacts permission to use this page.'),
                     ],
                   ),
                   duration: Duration(seconds: 2),
                   action: SnackBarAction(
                     label: 'Grant',
                     textColor: Colors.white,
-                    onPressed: (){
-                      checkPermissions();
-                    },
+                    onPressed: checkPermissions,
                   ),
                 ),
               );
@@ -94,25 +95,22 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         child: Row(
-          //mainAxisSize: MainAxisSize.max,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: IconButton(
-                icon: Icon(Icons.menu),
-                onPressed: (){
-                  showModalBottomSheet(
-                    backgroundColor: Theme.of(context).canvasColor,
-                    context: context,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(8.0),
-                      ),
+            const SizedBox(width: 8.0),
+            IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () {
+                showModalBottomSheet(
+                  backgroundColor: theme.canvasColor,
+                  context: context,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(8.0),
                     ),
-                    builder: (_) => MenuBottomSheet(),
-                  );
-                },
-              ),
+                  ),
+                  builder: (_) => MenuBottomSheet(),
+                );
+              },
             ),
           ],
         ),

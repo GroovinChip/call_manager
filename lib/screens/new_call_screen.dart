@@ -18,8 +18,7 @@ class NewCallScreen extends StatefulWidget {
   _NewCallScreenState createState() => _NewCallScreenState();
 }
 
-class _NewCallScreenState extends State<NewCallScreen>
-    with FirebaseMixin {
+class _NewCallScreenState extends State<NewCallScreen> with FirebaseMixin {
   // Contact Picker stuff
   Iterable<Contact> contacts;
   Contact selectedContact;
@@ -44,26 +43,20 @@ class _NewCallScreenState extends State<NewCallScreen>
   @override
   void initState() {
     super.initState();
-    getContacts();
     checkContactsPermission();
-  }
-
-  Future<void> getContacts() async {
-    contacts = await ContactsService.getContacts();
-    if (contacts != null) {
-      setState(() {
-        retrievedContacts = true;
-      });
-    } else {
-      setState(() {
-        retrievedContacts = false;
-      });
-    }
+    getContacts();
   }
 
   Future<void> checkContactsPermission() async {
     PermissionStatus contactsPerm = await PermissionHandler()
         .checkPermissionStatus(PermissionGroup.contacts);
+  }
+
+  Future<void> getContacts() async {
+    contacts = await ContactsService.getContacts();
+    if (contacts != null && mounted) {
+      setState(() => retrievedContacts = true);
+    }
   }
 
   Future<void> saveCall() async {
@@ -461,36 +454,22 @@ class _NewCallScreenState extends State<NewCallScreen>
           ],
         ),
       ),
-      floatingActionButton: Builder(builder: (BuildContext fabContext) {
-        return FloatingActionButton.extended(
-          backgroundColor: Colors.blue[700],
-          onPressed: () async {
-            saveCall();
-          },
-          tooltip: 'Save',
-          elevation: 2.0,
-          icon: Icon(Icons.save),
-          label: Text('Save'),
-        );
-      }),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Colors.blue[700],
+        onPressed: saveCall,
+        tooltip: 'Save',
+        elevation: 2.0,
+        icon: Icon(Icons.save),
+        label: Text('Save'),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: Container(
-        child: BottomAppBar(
-          //hasNotch: false,
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(left: 16.0),
-                child: IconButton(
-                  icon: Icon(Icons.clear),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-            ],
-          ),
+      bottomNavigationBar: BottomAppBar(
+        //hasNotch: false,
+        child: Row(
+          children: [
+            const SizedBox(width: 8.0),
+            CloseButton(),
+          ],
         ),
       ),
     );

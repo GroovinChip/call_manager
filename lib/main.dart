@@ -1,6 +1,6 @@
 import 'package:call_manager/screens/home_screen.dart';
 import 'package:call_manager/screens/login_screen.dart';
-import 'package:call_manager/screens/add_new_call_screen.dart';
+import 'package:call_manager/screens/new_call_screen.dart';
 import 'package:call_manager/utils/pass_notification.dart';
 import 'package:call_number/call_number.dart';
 import 'package:firebase_core/firebase_core.dart';

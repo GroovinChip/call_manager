@@ -23,9 +23,9 @@ class EditCallScreen extends StatefulWidget {
 
 class _EditCallScreenState extends State<EditCallScreen> with FirebaseMixin {
   //TextField controllers
-  TextEditingController _nameFieldController = TextEditingController();
-  TextEditingController _phoneFieldController = TextEditingController();
-  TextEditingController _descriptionFieldController = TextEditingController();
+  final _nameFieldController = TextEditingController();
+  final _phoneFieldController = TextEditingController();
+  final _descriptionFieldController = TextEditingController();
 
   String name;
   String phoneNumber;
@@ -48,23 +48,27 @@ class _EditCallScreenState extends State<EditCallScreen> with FirebaseMixin {
     getContacts();
   }
 
-  void getContacts() async {
+  Future<void> getContacts() async {
     contacts = await ContactsService.getContacts();
     if (contacts != null && mounted) {
-      setState(() {
-        retrievedContacts = true;
-      });
+      setState(() => retrievedContacts = true);
     } else {
-      setState(() {
-        retrievedContacts = false;
-      });
+      setState(() => retrievedContacts = false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Theme.of(context).canvasColor,
+      backgroundColor: theme.canvasColor,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: theme.canvasColor,
+        title: Text('Edit Call'),
+      ),
       body: SafeArea(
         child: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
@@ -78,274 +82,216 @@ class _EditCallScreenState extends State<EditCallScreen> with FirebaseMixin {
                 child: const CircularProgressIndicator(),
               );
             } else {
-              for (int i = 0; i < snapshot.data.docs.length; i++) {
-                final doc = snapshot.data.docs[i];
-                if (doc.id == widget.callId) {
-                  name = '${doc['Name']}';
-                  phoneNumber = '${doc['PhoneNumber']}';
-                  description = '${doc['Description']}';
-
-                  return ListView(
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  left: 16.0,
-                                  top: 6.0,
-                                  bottom: 8.0,
-                                ),
-                                child: Text(
-                                  'Edit Call',
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
+              final doc = snapshot.data.docs
+                  .where((element) => element.reference.id == widget.callId)
+                  .single;
+              name = '${doc.data()['Name']}';
+              phoneNumber = '${doc.data()['PhoneNumber']}';
+              description = '${doc.data()['Description']}';
+              return Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    TypeAheadFormField(
+                      suggestionsCallback: (query) {
+                        return contacts
+                            .where((contact) => contact.displayName
+                                .toLowerCase()
+                                .contains(query.toLowerCase()))
+                            .toList();
+                      },
+                      itemBuilder: (context, contact) {
+                        return ListTile(
+                          leading: contact.avatar.length == 0
+                              ? CircleAvatar(
+                                  child: Icon(Icons.person_outline),
+                                )
+                              : ClipRRect(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(25.0)),
+                                  child: CircleAvatar(
+                                    child: Image.memory(
+                                      contact.avatar,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: TypeAheadFormField(
-                              suggestionsCallback: (query) {
-                                return contacts
-                                    .where((contact) => contact.displayName
-                                        .toLowerCase()
-                                        .contains(query.toLowerCase()))
-                                    .toList();
-                              },
-                              itemBuilder: (context, contact) {
-                                return ListTile(
-                                  leading: contact.avatar.length == 0
-                                      ? CircleAvatar(
-                                          child: Icon(Icons.person_outline),
-                                        )
-                                      : ClipRRect(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(25.0)),
-                                          child: CircleAvatar(
-                                            child: Image.memory(
-                                              contact.avatar,
-                                            ),
-                                          ),
+                          title: Text(contact.displayName),
+                        );
+                      },
+                      transitionBuilder: (context, suggestionsBox, controller) {
+                        return suggestionsBox;
+                      },
+                      onSuggestionSelected: (contact) {
+                        selectedContact = contact;
+                        this._nameFieldController.text =
+                            selectedContact.displayName;
+                        if (selectedContact.phones.length > 1) {
+                          showRoundedModalBottomSheet(
+                            context: context,
+                            builder: (builder) {
+                              return Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ModalDrawerHandle(),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Choose phone number',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16.0,
                                         ),
-                                  title: Text(contact.displayName),
-                                );
-                              },
-                              transitionBuilder:
-                                  (context, suggestionsBox, controller) {
-                                return suggestionsBox;
-                              },
-                              onSuggestionSelected: (contact) {
-                                selectedContact = contact;
-                                this._nameFieldController.text =
-                                    selectedContact.displayName;
-                                if (selectedContact.phones.length > 1) {
-                                  showRoundedModalBottomSheet(
-                                      context: context,
-                                      builder: (builder) {
-                                        return Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: <Widget>[
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: ModalDrawerHandle(),
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  'Choose phone number',
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 16.0,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Container(
-                                              height: 150.0,
-                                              child: ListView.builder(
-                                                itemCount: selectedContact
-                                                    .phones.length,
-                                                itemBuilder: (context, index) {
-                                                  List<Item> phoneNums = [];
-                                                  Icon phoneType;
-                                                  phoneNums = selectedContact
-                                                      .phones
-                                                      .toList();
-                                                  switch (
-                                                      phoneNums[index].label) {
-                                                    case 'mobile':
-                                                      phoneType = Icon(
-                                                          OMIcons.smartphone);
-                                                      break;
-                                                    case 'work':
-                                                      phoneType = Icon(
-                                                          OMIcons.business);
-                                                      break;
-                                                    case 'home':
-                                                      phoneType =
-                                                          Icon(OMIcons.home);
-                                                      break;
-                                                    default:
-                                                      phoneType =
-                                                          Icon(OMIcons.phone);
-                                                  }
-                                                  return ListTile(
-                                                    leading: phoneType,
-                                                    title: Text(
-                                                        phoneNums[index].value),
-                                                    subtitle: Text(
-                                                        phoneNums[index].label),
-                                                    onTap: () {
-                                                      _phoneFieldController
-                                                              .text =
-                                                          phoneNums[index]
-                                                              .value;
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      });
-                                } else {
-                                  _phoneFieldController.text =
-                                      selectedContact.phones.first.value;
-                                }
-                              },
-                              onSaved: (contactName) =>
-                                  _nameFieldController.text = contactName,
-                              textFieldConfiguration: TextFieldConfiguration(
-                                enabled: true,
-                                textCapitalization: TextCapitalization.words,
-                                controller: _nameFieldController,
-                                keyboardType: TextInputType.text,
-                                maxLines: 1,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  prefixIcon: Icon(
-                                    OMIcons.person,
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? Colors.white
-                                        : Colors.grey,
-                                  ),
-                                  suffixIcon: Padding(
-                                    padding: const EdgeInsets.only(right: 8.0),
-                                    child: IconButton(
-                                      icon: Icon(
-                                        Icons.close,
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.grey,
                                       ),
-                                      onPressed: () async =>
-                                          _nameFieldController.text = '',
+                                    ],
+                                  ),
+                                  Container(
+                                    height: 150.0,
+                                    child: ListView.builder(
+                                      itemCount: selectedContact.phones.length,
+                                      itemBuilder: (context, index) {
+                                        List<Item> phoneNums = [];
+                                        Icon phoneType;
+                                        phoneNums =
+                                            selectedContact.phones.toList();
+                                        switch (phoneNums[index].label) {
+                                          case 'mobile':
+                                            phoneType =
+                                                Icon(OMIcons.smartphone);
+                                            break;
+                                          case 'work':
+                                            phoneType = Icon(OMIcons.business);
+                                            break;
+                                          case 'home':
+                                            phoneType = Icon(OMIcons.home);
+                                            break;
+                                          default:
+                                            phoneType = Icon(OMIcons.phone);
+                                        }
+                                        return ListTile(
+                                          leading: phoneType,
+                                          title: Text(phoneNums[index].value),
+                                          subtitle:
+                                              Text(phoneNums[index].label),
+                                          onTap: () {
+                                            _phoneFieldController.text =
+                                                phoneNums[index].value;
+                                            Navigator.of(context).pop();
+                                          },
+                                        );
+                                      },
                                     ),
                                   ),
-                                  labelText: name,
-                                ),
+                                ],
+                              );
+                            },
+                          );
+                        } else {
+                          _phoneFieldController.text =
+                              selectedContact.phones.first.value;
+                        }
+                      },
+                      onSaved: (contactName) =>
+                          _nameFieldController.text = contactName,
+                      textFieldConfiguration: TextFieldConfiguration(
+                        enabled: true,
+                        textCapitalization: TextCapitalization.words,
+                        controller: _nameFieldController,
+                        keyboardType: TextInputType.text,
+                        maxLines: 1,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          prefixIcon: Icon(
+                            OMIcons.person,
+                            color: theme.brightness == Brightness.dark
+                                ? Colors.white
+                                : Colors.grey,
+                          ),
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.close,
+                                color: theme.brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.grey,
                               ),
+                              onPressed: () => _nameFieldController.text = '',
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: 16.0,
-                                right: 16.0,
-                                top: 8.0,
-                                bottom: 16.0),
-                            child: TextField(
-                              enabled: true,
-                              keyboardType: TextInputType.phone,
-                              maxLines: 1,
-                              autofocus: false,
-                              controller: _phoneFieldController,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  OMIcons.phone,
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.grey,
-                                ),
-                                suffixIcon: Padding(
-                                  padding: const EdgeInsets.only(right: 8.0),
-                                  child: IconButton(
-                                    icon: Icon(
-                                      Icons.close,
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? Colors.white
-                                          : Colors.grey,
-                                    ),
-                                    onPressed: () async =>
-                                        _phoneFieldController.text = '',
-                                  ),
-                                ),
-                                labelText: phoneNumber,
-                                border: OutlineInputBorder(),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: 16.0,
-                              right: 16.0,
-                              top: 8.0,
-                            ),
-                            child: TextFormField(
-                              enabled: true,
-                              keyboardType: TextInputType.multiline,
-                              textCapitalization: TextCapitalization.sentences,
-                              maxLines: 2,
-                              autofocus: false,
-                              controller: _descriptionFieldController,
-                              decoration: InputDecoration(
-                                labelText: description,
-                                prefixIcon: Icon(
-                                  OMIcons.comment,
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.grey,
-                                ),
-                                suffixIcon: Padding(
-                                  padding: const EdgeInsets.only(right: 8.0),
-                                  child: IconButton(
-                                    icon: Icon(
-                                      Icons.close,
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? Colors.white
-                                          : Colors.grey,
-                                    ),
-                                    onPressed: () async =>
-                                        _descriptionFieldController.text = '',
-                                  ),
-                                ),
-                                border: OutlineInputBorder(),
-                              ),
-                            ),
-                          ),
-                        ],
+                          labelText: name,
+                        ),
                       ),
-                    ],
-                  );
-                }
-              }
+                    ),
+                    const SizedBox(height: 16.0),
+                    TextField(
+                      enabled: true,
+                      keyboardType: TextInputType.phone,
+                      maxLines: 1,
+                      autofocus: false,
+                      controller: _phoneFieldController,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          OMIcons.phone,
+                          color: theme.brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.grey,
+                        ),
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.close,
+                              color: theme.brightness == Brightness.dark
+                                  ? Colors.white
+                                  : Colors.grey,
+                            ),
+                            onPressed: () => _phoneFieldController.text = '',
+                          ),
+                        ),
+                        labelText: phoneNumber,
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(height: 16.0),
+                    TextFormField(
+                      enabled: true,
+                      keyboardType: TextInputType.multiline,
+                      textCapitalization: TextCapitalization.sentences,
+                      maxLines: 2,
+                      autofocus: false,
+                      controller: _descriptionFieldController,
+                      decoration: InputDecoration(
+                        labelText: description,
+                        prefixIcon: Icon(
+                          OMIcons.comment,
+                          color: theme.brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.grey,
+                        ),
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.close,
+                              color: theme.brightness == Brightness.dark
+                                  ? Colors.white
+                                  : Colors.grey,
+                            ),
+                            onPressed: () async =>
+                                _descriptionFieldController.text = '',
+                          ),
+                        ),
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                  ],
+                ),
+              );
             }
           },
         ),
@@ -355,7 +301,7 @@ class _EditCallScreenState extends State<EditCallScreen> with FirebaseMixin {
           highlightElevation: 2.0,
           backgroundColor: Colors.blue[700],
           onPressed: () {
-            if (name == '' || phoneNumber == '') {
+            if (name.isEmpty || phoneNumber.isEmpty) {
               final snackBar = SnackBar(
                 content: Text('Please enter required fields'),
                 action: SnackBarAction(label: 'Dismiss', onPressed: () {}),
@@ -364,7 +310,7 @@ class _EditCallScreenState extends State<EditCallScreen> with FirebaseMixin {
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             } else {
               try {
-                CollectionReference userCalls = firestore
+                final userCalls = firestore
                     .collection('Users')
                     .doc(currentUser.uid)
                     .collection('Calls');
@@ -430,13 +376,8 @@ class _EditCallScreenState extends State<EditCallScreen> with FirebaseMixin {
         //hasNotch: false,
         child: Row(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: IconButton(
-                icon: Icon(Icons.clear),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ),
+            const SizedBox(width: 8.0),
+            CloseButton(),
           ],
         ),
       ),
