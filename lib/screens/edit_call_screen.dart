@@ -1,4 +1,4 @@
-import 'package:call_manager/firebase/firebase_mixin.dart';
+import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/provided.dart';
 import 'package:call_manager/utils/extensions.dart';
 import 'package:call_manager/widgets/multiple_phone_numbers_sheet.dart';
@@ -214,7 +214,7 @@ class _EditCallScreenState extends State<EditCallScreen>
                                   ? Colors.white
                                   : Colors.grey,
                             ),
-                            onPressed: () async =>
+                            onPressed: () =>
                                 _descriptionFieldController.text = '',
                           ),
                         ),
@@ -241,10 +241,7 @@ class _EditCallScreenState extends State<EditCallScreen>
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 } else {
                   try {
-                    final userCalls = firestore
-                        .collection('Users')
-                        .doc(currentUser.uid)
-                        .collection('Calls');
+                    final userCalls = firestore.calls(currentUser.uid);
                     String date;
                     String time;
 

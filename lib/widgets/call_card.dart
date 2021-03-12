@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:call_manager/firebase/firebase_mixin.dart';
+import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/screens/edit_call_screen.dart';
 import 'package:call_manager/utils/pass_notification.dart';
 import 'package:call_manager/widgets/schedule_notification_sheet.dart';
@@ -39,7 +39,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
     PopupMenuItem(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
+        children: [
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: Text('Send Email'),
@@ -98,7 +98,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
   void initDescription() {
     if ('${widget.callSnapshot['Description']}'.isNotEmpty) {
       descriptionRow = Row(
-        children: <Widget>[
+        children: [
           Padding(
             padding: const EdgeInsets.only(left: 16.0, bottom: 4.0),
             child: Text("${widget.callSnapshot['Description']}"),
@@ -168,7 +168,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
           descriptionRow,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
+            children: [
               IconButton(
                 icon: Theme.of(context).brightness == Brightness.light
                     ? Icon(Icons.delete_outline)
@@ -190,10 +190,8 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
                         TextButton(
                           child: Text('Yes'),
                           onPressed: () {
-                            FirebaseFirestore.instance
-                                .collection('Users')
-                                .doc(currentUser.uid)
-                                .collection('Calls')
+                            firestore
+                                .calls(currentUser.uid)
                                 .doc(widget.callSnapshot.id)
                                 .delete();
                             Navigator.pop(context);

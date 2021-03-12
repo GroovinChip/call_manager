@@ -1,4 +1,4 @@
-import 'package:call_manager/firebase/firebase_mixin.dart';
+import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/provided.dart';
 import 'package:call_manager/utils/extensions.dart';
 import 'package:call_manager/utils/pass_notification.dart';
@@ -42,10 +42,7 @@ class _NewCallScreenState extends State<NewCallScreen>
   Future<void> saveCall() async {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
-      final userCalls = firestore
-          .collection('Users')
-          .doc(currentUser.uid)
-          .collection('Calls');
+      final userCalls = firestore.calls(currentUser.uid);
       String date;
       String time;
       if (reminderDate != null && reminderTime != null) {

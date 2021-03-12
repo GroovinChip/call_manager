@@ -1,5 +1,5 @@
 import 'package:call_manager/widgets/call_card.dart';
-import 'package:call_manager/firebase/firebase_mixin.dart';
+import 'package:call_manager/firebase/firebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -14,11 +14,7 @@ class _CallCardListState extends State<CallCardList> with FirebaseMixin {
   Widget build(BuildContext context) {
     return SafeArea(
       child: StreamBuilder<QuerySnapshot>(
-        stream: firestore
-            .collection('Users')
-            .doc(currentUser.uid)
-            .collection('Calls')
-            .snapshots(),
+        stream: firestore.calls(currentUser.uid).snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData == false) {
             return Center(
