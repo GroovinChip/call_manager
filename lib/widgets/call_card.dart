@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:call_manager/screens/edit_call_screen.dart';
 import 'package:call_manager/firebase/firebase_mixin.dart';
 import 'package:call_manager/utils/pass_notification.dart';
+import 'package:call_manager/widgets/schedule_notification_sheet.dart';
 import 'package:call_number/call_number.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:groovin_material_icons/groovin_material_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:groovin_widgets/groovin_widgets.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:rounded_modal/rounded_modal.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -30,11 +32,9 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
   String numberToCallOnNotificationTap;
 
   final dateFormat = DateFormat('EEEE, MMMM d, yyyy');
-
   final timeFormat = DateFormat('h:mm a');
 
   DateTime reminderDate;
-
   TimeOfDay reminderTime;
 
   List<PopupMenuItem> overflowItemsCallCard = [
@@ -71,7 +71,9 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
     var iOSPlatformChannelSpecifics = IOSNotificationDetails();
 
     var platformChannelSpecifics = NotificationDetails(
-        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+      android: androidPlatformChannelSpecifics,
+      iOS: iOSPlatformChannelSpecifics,
+    );
 
     await PassNotification.of(context).schedule(
       0,
@@ -82,7 +84,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
       payload: phoneNumber,
     );
 
-    Navigator.pop(context);
+    Navigator.of(context).pop();
   }
 
   bool isExpanded = false;
@@ -96,7 +98,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
   }
 
   void initDescription() {
-    if ("${widget.callSnapshot['Description']}".isNotEmpty) {
+    if ('${widget.callSnapshot['Description']}'.isNotEmpty) {
       descriptionRow = Row(
         children: <Widget>[
           Padding(
@@ -131,7 +133,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
                   backgroundColor: Colors.transparent,
                   child: Image.memory(
                     Uint8List.fromList(
-                        "${widget.callSnapshot.data()['Avatar']}".codeUnits),
+                        '${widget.callSnapshot.data()['Avatar']}'.codeUnits),
                     gaplessPlayback: true,
                   ),
                 ),
@@ -146,7 +148,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
                 backgroundColor: Theme.of(context).primaryColor,
               ),
         title: Text(
-          "${widget.callSnapshot.data()['Name']}",
+          '${widget.callSnapshot.data()['Name']}',
           style: TextStyle(
             color: Theme.of(context).brightness == Brightness.light
                 ? Colors.black
@@ -154,11 +156,9 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
             fontWeight: FontWeight.bold,
           ),
         ),
-        subtitle: Text("${widget.callSnapshot.data()['PhoneNumber']}"),
+        subtitle: Text('${widget.callSnapshot.data()['PhoneNumber']}'),
         onExpansionChanged: (value) {
-          setState(() {
-            isExpanded = value;
-          });
+          setState(() => isExpanded = value);
         },
         inkwellRadius: !isExpanded
             ? BorderRadius.all(Radius.circular(5.0))
@@ -166,7 +166,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
                 topRight: Radius.circular(5.0),
                 topLeft: Radius.circular(5.0),
               ),
-        children: <Widget>[
+        children: [
           descriptionRow,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -214,105 +214,15 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
                 onPressed: () {
                   numberToCallOnNotificationTap =
                       '${widget.callSnapshot.data()['PhoneNumber']}';
-                  showRoundedModalBottomSheet(
-                    color: Theme.of(context).canvasColor,
+
+                  showModalBottomSheet(
                     context: context,
-                    dismissOnTap: false,
-                    builder: (builder) {
-                      return Container(
-                        height: 250.0,
-                        color: Colors.transparent,
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Scaffold(
-                            body: Container(
-                              child: Column(
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 8.0),
-                                    child: ModalDrawerHandle(),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(16.0),
-                                    child: DateTimeField(
-                                      format: dateFormat,
-                                      onShowPicker: (context, currentValue) {
-                                        return showDatePicker(
-                                          context: context,
-                                          initialDate: DateTime.now(),
-                                          firstDate: DateTime.now(),
-                                          lastDate:
-                                              DateTime(DateTime.now().year + 1),
-                                        );
-                                      },
-                                      onChanged: (date) {
-                                        reminderDate = date;
-                                      },
-                                      decoration: InputDecoration(
-                                        prefixIcon: Icon(
-                                          Icons.today,
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.grey,
-                                        ),
-                                        labelText: 'Reminder Date',
-                                        border: OutlineInputBorder(),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 16.0, right: 16.0),
-                                    child: DateTimeField(
-                                      format: timeFormat,
-                                      enabled: true,
-                                      onChanged: (timeOfDay) {
-                                        reminderTime =
-                                            TimeOfDay.fromDateTime(timeOfDay);
-                                      },
-                                      onShowPicker:
-                                          (context, currentValue) async {
-                                        final time = await showTimePicker(
-                                          context: context,
-                                          initialTime: TimeOfDay.fromDateTime(
-                                              currentValue ?? DateTime.now()),
-                                        );
-                                        return DateTimeField.convert(time);
-                                      },
-                                      decoration: InputDecoration(
-                                        labelText: 'Reminder Time',
-                                        border: OutlineInputBorder(),
-                                        prefixIcon: Icon(
-                                          Icons.access_time,
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.grey,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            floatingActionButtonLocation:
-                                FloatingActionButtonLocation.centerFloat,
-                            floatingActionButton: FloatingActionButton.extended(
-                              backgroundColor: Colors.blue[700],
-                              elevation: 0.0,
-                              icon: Icon(Icons.add_alert),
-                              label: Text('Set Reminder'),
-                              onPressed: () async {
-                                scheduleNotificationReminder(
-                                    '${widget.callSnapshot.data()['Name']}',
-                                    '${widget.callSnapshot.data()['PhoneNumber']}');
-                              },
-                            ),
-                          ),
-                        ),
-                      );
-                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    builder: (_) => ScheduleNotificationSheet(
+                      callSnapshot: widget.callSnapshot,
+                    ),
                   );
                 },
                 tooltip: 'Set reminder',

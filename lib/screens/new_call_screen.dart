@@ -1,4 +1,5 @@
 import 'package:call_manager/firebase/firebase_mixin.dart';
+import 'package:call_manager/provided.dart';
 import 'package:call_manager/utils/extensions.dart';
 import 'package:call_manager/utils/pass_notification.dart';
 import 'package:contacts_service/contacts_service.dart';
@@ -10,7 +11,6 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:groovin_widgets/groovin_widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:rounded_modal/rounded_modal.dart';
 
 // Add New Call Screen
@@ -19,7 +19,8 @@ class NewCallScreen extends StatefulWidget {
   _NewCallScreenState createState() => _NewCallScreenState();
 }
 
-class _NewCallScreenState extends State<NewCallScreen> with FirebaseMixin {
+class _NewCallScreenState extends State<NewCallScreen>
+    with FirebaseMixin, Provided {
   // Contact Picker stuff
   Iterable<Contact> contacts;
   Contact selectedContact;
@@ -38,27 +39,6 @@ class _NewCallScreenState extends State<NewCallScreen> with FirebaseMixin {
   TimeOfDay reminderTime;
 
   final formKey = GlobalKey<FormState>();
-
-  bool retrievedContacts = false;
-
-  @override
-  void initState() {
-    super.initState();
-    checkContactsPermission();
-    getContacts();
-  }
-
-  Future<void> checkContactsPermission() async {
-    PermissionStatus contactsPerm = await PermissionHandler()
-        .checkPermissionStatus(PermissionGroup.contacts);
-  }
-
-  Future<void> getContacts() async {
-    contacts = await ContactsService.getContacts();
-    if (contacts != null && mounted) {
-      setState(() => retrievedContacts = true);
-    }
-  }
 
   Future<void> saveCall() async {
     if (formKey.currentState.validate()) {
@@ -86,7 +66,9 @@ class _NewCallScreenState extends State<NewCallScreen> with FirebaseMixin {
         var iOSPlatformChannelSpecifics = IOSNotificationDetails();
 
         final platformChannelSpecifics = NotificationDetails(
-            androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+          android: androidPlatformChannelSpecifics,
+          iOS: iOSPlatformChannelSpecifics,
+        );
 
         await PassNotification.of(context).schedule(
             0,
@@ -148,18 +130,14 @@ class _NewCallScreenState extends State<NewCallScreen> with FirebaseMixin {
               child: Column(
                 children: [
                   TypeAheadFormField(
-                    suggestionsCallback: (query) {
-                      if (contacts != null) {
-                        return contacts
-                            .where((contact) => contact.displayName
-                                .toLowerCase()
-                                .contains(query.toLowerCase()))
-                            .toList();
-                      }
-                    },
+                    suggestionsCallback:
+                        contactsUtility.searchContactsWithQuery,
                     itemBuilder: (context, contact) {
+                      //var _avatar = contact.avatar ??
+                      Contact _contact = contact;
                       return ListTile(
-                        leading: contact.avatar.length == 0
+                        leading: _contact.avatar == null ||
+                                _contact.avatar.length == 0
                             ? CircleAvatar(
                                 child: Icon(Icons.person_outline),
                               )
@@ -195,8 +173,7 @@ class _NewCallScreenState extends State<NewCallScreen> with FirebaseMixin {
                                     child: ModalDrawerHandle(),
                                   ),
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Text(
                                         'Choose phone number',
@@ -210,8 +187,7 @@ class _NewCallScreenState extends State<NewCallScreen> with FirebaseMixin {
                                   Container(
                                     height: 150.0,
                                     child: ListView.builder(
-                                      itemCount:
-                                          selectedContact.phones.length,
+                                      itemCount: selectedContact.phones.length,
                                       itemBuilder: (context, index) {
                                         List<Item> phoneNums = [];
                                         Icon phoneType;
@@ -223,8 +199,7 @@ class _NewCallScreenState extends State<NewCallScreen> with FirebaseMixin {
                                                 Icon(OMIcons.smartphone);
                                             break;
                                           case 'work':
-                                            phoneType =
-                                                Icon(OMIcons.business);
+                                            phoneType = Icon(OMIcons.business);
                                             break;
                                           case 'home':
                                             phoneType = Icon(OMIcons.home);
@@ -269,10 +244,9 @@ class _NewCallScreenState extends State<NewCallScreen> with FirebaseMixin {
                         border: OutlineInputBorder(),
                         prefixIcon: Icon(
                           OMIcons.person,
-                          color:
-                              Theme.of(context).brightness == Brightness.dark
-                                  ? Colors.white
-                                  : Colors.grey,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.grey,
                         ),
                         suffixIcon: Padding(
                           padding: const EdgeInsets.only(right: 8.0),
@@ -318,10 +292,10 @@ class _NewCallScreenState extends State<NewCallScreen> with FirebaseMixin {
                         child: IconButton(
                           icon: Icon(
                             Icons.close,
-                            color: Theme.of(context).brightness ==
-                                    Brightness.dark
-                                ? Colors.white
-                                : Colors.grey,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.grey,
                           ),
                           onPressed: () async {
                             _phoneFieldController.text = '';
@@ -351,10 +325,10 @@ class _NewCallScreenState extends State<NewCallScreen> with FirebaseMixin {
                         child: IconButton(
                           icon: Icon(
                             Icons.close,
-                            color: Theme.of(context).brightness ==
-                                    Brightness.dark
-                                ? Colors.white
-                                : Colors.grey,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.grey,
                           ),
                           onPressed: () async {
                             _descriptionFieldController.text = '';
@@ -426,7 +400,6 @@ class _NewCallScreenState extends State<NewCallScreen> with FirebaseMixin {
       ),
       floatingActionButton: !MediaQuery.of(context).keyboardOpen
           ? FloatingActionButton.extended(
-              backgroundColor: Colors.blue[700],
               onPressed: saveCall,
               tooltip: 'Save',
               elevation: 2.0,

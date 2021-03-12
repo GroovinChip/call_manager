@@ -1,11 +1,15 @@
 import 'package:call_manager/firebase/firebase_mixin.dart';
+import 'package:call_manager/provided.dart';
 import 'package:call_manager/widgets/delete_calls_dialog.dart';
 import 'package:call_manager/widgets/log_out_dialog.dart';
+import 'package:call_manager/widgets/theme_icon.dart';
+import 'package:call_manager/widgets/theme_switcher_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:groovin_material_icons/groovin_material_icons.dart';
 import 'package:groovin_widgets/groovin_widgets.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:call_manager/utils/extensions.dart';
 
 /// Represents the BottomSheet launched from the BottomAppBar
 /// on the HomeScreen widget
@@ -14,7 +18,7 @@ class MenuBottomSheet extends StatefulWidget {
   _MenuBottomSheetState createState() => _MenuBottomSheetState();
 }
 
-class _MenuBottomSheetState extends State<MenuBottomSheet> with FirebaseMixin {
+class _MenuBottomSheetState extends State<MenuBottomSheet> with FirebaseMixin, Provided {
   // Set initial package info
   PackageInfo _packageInfo = PackageInfo(
     appName: 'Unknown',
@@ -89,19 +93,22 @@ class _MenuBottomSheetState extends State<MenuBottomSheet> with FirebaseMixin {
             );
           },
         ),
-        ListTile(
-          leading: Icon(
-            theme.brightness == Brightness.light
-                ? Icons.brightness_2
-                : Icons.brightness_7,
-            color: theme.brightness == Brightness.light
-                ? Colors.black
-                : Colors.white,
-          ),
-          title: theme.brightness == Brightness.light
-              ? Text('Toggle Dark Theme')
-              : Text('Toggle Light Theme'),
-          onTap: changeBrightness,
+        StreamBuilder<ThemeMode>(
+          stream: prefsService.themeModeSubject,
+          initialData: prefsService.currentThemeMode,
+          builder: (context, snapshot) {
+            return ListTile(
+              leading: ThemeIcon(),
+              title: Text('Toggle app theme'),
+              subtitle: Text(
+                snapshot.data.format(),
+              ),
+              onTap: () => showDialog(
+                context: context,
+                builder: (_) => ThemeSwitcherDialog(),
+              ),
+            );
+          },
         ),
         Divider(
           color: Colors.grey,

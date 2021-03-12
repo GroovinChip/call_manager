@@ -300,7 +300,6 @@ class _EditCallScreenState extends State<EditCallScreen> with FirebaseMixin {
       floatingActionButton: !MediaQuery.of(context).keyboardOpen
           ? FloatingActionButton.extended(
               highlightElevation: 2.0,
-              backgroundColor: Colors.blue[700],
               onPressed: () {
                 if (name.isEmpty || phoneNumber.isEmpty) {
                   final snackBar = SnackBar(
