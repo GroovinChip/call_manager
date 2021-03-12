@@ -25,8 +25,7 @@ class ContactsUtility {
 
   // Used to determine whether to show a TypeAheadFormField or a TextFormField
   // for NewCallScreen and EditCallScreen
-  final contactsPermissionSubject =
-      BehaviorSubject<PermissionStatus>();
+  final contactsPermissionSubject = BehaviorSubject<PermissionStatus>();
   PermissionStatus get permissionStatus => contactsPermissionSubject.value;
   Iterable<Contact> contacts;
 
@@ -53,8 +52,9 @@ class ContactsUtility {
   FutureOr<Iterable> searchContactsWithQuery(query) {
     if (contacts != null) {
       return contacts
-          .where((contacts) =>
-              contacts.displayName.toLowerCase().contains(query.toLowerCase()))
+          .where((contact) =>
+              contact.displayName != null &&
+              contact.displayName.toLowerCase().contains(query.toLowerCase()))
           .toList();
     }
     return [];

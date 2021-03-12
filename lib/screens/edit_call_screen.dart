@@ -1,14 +1,14 @@
 import 'package:call_manager/firebase/firebase_mixin.dart';
+import 'package:call_manager/provided.dart';
 import 'package:call_manager/utils/extensions.dart';
+import 'package:call_manager/widgets/multiple_phone_numbers_sheet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:groovin_widgets/groovin_widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
-import 'package:rounded_modal/rounded_modal.dart';
 
 class EditCallScreen extends StatefulWidget {
   const EditCallScreen({
@@ -22,7 +22,8 @@ class EditCallScreen extends StatefulWidget {
   _EditCallScreenState createState() => _EditCallScreenState();
 }
 
-class _EditCallScreenState extends State<EditCallScreen> with FirebaseMixin {
+class _EditCallScreenState extends State<EditCallScreen>
+    with FirebaseMixin, Provided {
   //TextField controllers
   final _nameFieldController = TextEditingController();
   final _phoneFieldController = TextEditingController();
@@ -38,25 +39,7 @@ class _EditCallScreenState extends State<EditCallScreen> with FirebaseMixin {
   DateTime reminderDate;
   TimeOfDay reminderTime;
 
-  Iterable<Contact> contacts;
   Contact selectedContact;
-
-  bool retrievedContacts = false;
-
-  @override
-  void initState() {
-    super.initState();
-    getContacts();
-  }
-
-  Future<void> getContacts() async {
-    contacts = await ContactsService.getContacts();
-    if (contacts != null && mounted) {
-      setState(() => retrievedContacts = true);
-    } else {
-      setState(() => retrievedContacts = false);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +55,7 @@ class _EditCallScreenState extends State<EditCallScreen> with FirebaseMixin {
       ),
       body: SafeArea(
         child: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance
+          stream: firestore
               .collection('Users')
               .doc(currentUser.uid)
               .collection('Calls')
@@ -92,19 +75,16 @@ class _EditCallScreenState extends State<EditCallScreen> with FirebaseMixin {
               return Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     TypeAheadFormField(
-                      suggestionsCallback: (query) {
-                        return contacts
-                            .where((contact) => contact.displayName
-                                .toLowerCase()
-                                .contains(query.toLowerCase()))
-                            .toList();
-                      },
+                      suggestionsCallback:
+                          contactsUtility.searchContactsWithQuery,
                       itemBuilder: (context, contact) {
+                        //var _avatar = contact.avatar ??
+                        final _contact = contact;
                         return ListTile(
-                          leading: contact.avatar.length == 0
+                          leading: _contact.avatar == null ||
+                                  _contact.avatar.length == 0
                               ? CircleAvatar(
                                   child: Icon(Icons.person_outline),
                                 )
@@ -125,77 +105,27 @@ class _EditCallScreenState extends State<EditCallScreen> with FirebaseMixin {
                       },
                       onSuggestionSelected: (contact) {
                         selectedContact = contact;
-                        this._nameFieldController.text =
-                            selectedContact.displayName;
+                        _nameFieldController.text = selectedContact.displayName;
                         if (selectedContact.phones.length > 1) {
-                          showRoundedModalBottomSheet(
+                          showModalBottomSheet(
                             context: context,
-                            builder: (builder) {
-                              return Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: ModalDrawerHandle(),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Choose phone number',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16.0,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Container(
-                                    height: 150.0,
-                                    child: ListView.builder(
-                                      itemCount: selectedContact.phones.length,
-                                      itemBuilder: (context, index) {
-                                        List<Item> phoneNums = [];
-                                        Icon phoneType;
-                                        phoneNums =
-                                            selectedContact.phones.toList();
-                                        switch (phoneNums[index].label) {
-                                          case 'mobile':
-                                            phoneType =
-                                                Icon(OMIcons.smartphone);
-                                            break;
-                                          case 'work':
-                                            phoneType = Icon(OMIcons.business);
-                                            break;
-                                          case 'home':
-                                            phoneType = Icon(OMIcons.home);
-                                            break;
-                                          default:
-                                            phoneType = Icon(OMIcons.phone);
-                                        }
-                                        return ListTile(
-                                          leading: phoneType,
-                                          title: Text(phoneNums[index].value),
-                                          subtitle:
-                                              Text(phoneNums[index].label),
-                                          onTap: () {
-                                            _phoneFieldController.text =
-                                                phoneNums[index].value;
-                                            Navigator.of(context).pop();
-                                          },
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            builder: (_) => MultiplePhoneNumbersSheet(
+                              selectedContact: selectedContact,
+                            ),
+                          ).then((value) {
+                            _phoneFieldController.text = value;
+                          });
                         } else {
                           _phoneFieldController.text =
                               selectedContact.phones.first.value;
                         }
                       },
+                      validator: (input) => input == null || input == ''
+                          ? 'This field is required'
+                          : null,
                       onSaved: (contactName) =>
                           _nameFieldController.text = contactName,
                       textFieldConfiguration: TextFieldConfiguration(
@@ -224,7 +154,7 @@ class _EditCallScreenState extends State<EditCallScreen> with FirebaseMixin {
                               onPressed: () => _nameFieldController.text = '',
                             ),
                           ),
-                          labelText: name,
+                          labelText: 'Name (Required)',
                         ),
                       ),
                     ),

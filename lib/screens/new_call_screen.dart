@@ -2,6 +2,7 @@ import 'package:call_manager/firebase/firebase_mixin.dart';
 import 'package:call_manager/provided.dart';
 import 'package:call_manager/utils/extensions.dart';
 import 'package:call_manager/utils/pass_notification.dart';
+import 'package:call_manager/widgets/multiple_phone_numbers_sheet.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
@@ -134,7 +135,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                         contactsUtility.searchContactsWithQuery,
                     itemBuilder: (context, contact) {
                       //var _avatar = contact.avatar ??
-                      Contact _contact = contact;
+                      final _contact = contact;
                       return ListTile(
                         leading: _contact.avatar == null ||
                                 _contact.avatar.length == 0
@@ -158,74 +159,21 @@ class _NewCallScreenState extends State<NewCallScreen>
                     },
                     onSuggestionSelected: (contact) {
                       selectedContact = contact;
-                      this._nameFieldController.text =
-                          selectedContact.displayName;
+                      _nameFieldController.text = selectedContact.displayName;
                       if (selectedContact.phones.length > 1) {
-                        showRoundedModalBottomSheet(
-                            context: context,
-                            color: Theme.of(context).canvasColor,
-                            builder: (builder) {
-                              return Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: ModalDrawerHandle(),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        'Choose phone number',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16.0,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Container(
-                                    height: 150.0,
-                                    child: ListView.builder(
-                                      itemCount: selectedContact.phones.length,
-                                      itemBuilder: (context, index) {
-                                        List<Item> phoneNums = [];
-                                        Icon phoneType;
-                                        phoneNums =
-                                            selectedContact.phones.toList();
-                                        switch (phoneNums[index].label) {
-                                          case 'mobile':
-                                            phoneType =
-                                                Icon(OMIcons.smartphone);
-                                            break;
-                                          case 'work':
-                                            phoneType = Icon(OMIcons.business);
-                                            break;
-                                          case 'home':
-                                            phoneType = Icon(OMIcons.home);
-                                            break;
-                                          default:
-                                            phoneType = Icon(OMIcons.phone);
-                                        }
-                                        return ListTile(
-                                          leading: phoneType,
-                                          title: Text(phoneNums[index].value),
-                                          subtitle:
-                                              Text(phoneNums[index].label),
-                                          onTap: () {
-                                            this._phoneFieldController.text =
-                                                phoneNums[index].value;
-                                            Navigator.pop(context);
-                                          },
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              );
-                            });
+                        showModalBottomSheet(
+                          context: context,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          builder: (_) => MultiplePhoneNumbersSheet(
+                            selectedContact: selectedContact,
+                          ),
+                        ).then((value) {
+                          _phoneFieldController.text = value;
+                        });
                       } else {
-                        this._phoneFieldController.text =
+                        _phoneFieldController.text =
                             selectedContact.phones.first.value;
                       }
                     },
@@ -244,7 +192,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                         border: OutlineInputBorder(),
                         prefixIcon: Icon(
                           OMIcons.person,
-                          color: Theme.of(context).brightness == Brightness.dark
+                          color: theme.brightness == Brightness.dark
                               ? Colors.white
                               : Colors.grey,
                         ),
@@ -258,9 +206,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                                   ? Colors.white
                                   : Colors.grey,
                             ),
-                            onPressed: () async {
-                              _nameFieldController.text = '';
-                            },
+                            onPressed: () => _nameFieldController.text = '',
                           ),
                         ),
                         labelText: 'Name (Required)',
@@ -281,7 +227,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                     decoration: InputDecoration(
                       prefixIcon: Icon(
                         OMIcons.phone,
-                        color: Theme.of(context).brightness == Brightness.dark
+                        color: theme.brightness == Brightness.dark
                             ? Colors.white
                             : Colors.grey,
                       ),
@@ -292,14 +238,11 @@ class _NewCallScreenState extends State<NewCallScreen>
                         child: IconButton(
                           icon: Icon(
                             Icons.close,
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? Colors.white
-                                    : Colors.grey,
+                            color: theme.brightness == Brightness.dark
+                                ? Colors.white
+                                : Colors.grey,
                           ),
-                          onPressed: () async {
-                            _phoneFieldController.text = '';
-                          },
+                          onPressed: () => _phoneFieldController.text = '',
                         ),
                       ),
                     ),
@@ -325,14 +268,12 @@ class _NewCallScreenState extends State<NewCallScreen>
                         child: IconButton(
                           icon: Icon(
                             Icons.close,
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? Colors.white
-                                    : Colors.grey,
+                            color: theme.brightness == Brightness.dark
+                                ? Colors.white
+                                : Colors.grey,
                           ),
-                          onPressed: () async {
-                            _descriptionFieldController.text = '';
-                          },
+                          onPressed: () =>
+                              _descriptionFieldController.text = '',
                         ),
                       ),
                       border: OutlineInputBorder(),
@@ -357,7 +298,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                     decoration: InputDecoration(
                       prefixIcon: Icon(
                         Icons.today,
-                        color: Theme.of(context).brightness == Brightness.dark
+                        color: theme.brightness == Brightness.dark
                             ? Colors.white
                             : Colors.grey,
                       ),
@@ -385,7 +326,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                       labelText: 'Reminder Time',
                       prefixIcon: Icon(
                         Icons.access_time,
-                        color: Theme.of(context).brightness == Brightness.dark
+                        color: theme.brightness == Brightness.dark
                             ? Colors.white
                             : Colors.grey,
                       ),

@@ -28,11 +28,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with Provided {
-  PermissionStatus status;
-  Brightness barBrightness;
-  PermissionStatus phonePerm;
-  PermissionStatus contactsPerm;
-
   @override
   void initState() {
     super.initState();
@@ -41,13 +36,21 @@ class _HomeScreenState extends State<HomeScreen> with Provided {
 
   /// Checks for contacts and phone permissions and requests them if they
   /// are not yet given.
-  void _checkPermissions() {
-    contactsUtility.requestPermission();
+  Future<void> _checkPermissions() async {
+    await [
+      Permission.phone,
+      Permission.contacts,
+    ].request();
+
+    /*if (contactsUtility.permissionStatus.isUndetermined ||
+        contactsUtility.permissionStatus.isDenied) {
+      contactsUtility.requestPermission();
+    }
 
     if (phoneUtility.phonePermissionStatus.isUndetermined ||
         phoneUtility.phonePermissionStatus.isDenied) {
       phoneUtility.requestPhonePermission();
-    }
+    }*/
   }
 
   @override
