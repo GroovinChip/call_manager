@@ -1,6 +1,5 @@
 import 'package:call_manager/provided.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class ThemeSwitcherDialog extends StatefulWidget {
   @override
