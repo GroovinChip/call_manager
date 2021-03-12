@@ -38,7 +38,10 @@ class _CallCardListState extends State<CallCardList> with FirebaseMixin {
               );
             } else {
               return Center(
-                child: Text('No calls'),
+                child: Text(
+                  'Nothing here!',
+                  style: Theme.of(context).textTheme.headline6,
+                ),
               );
             }
           }

@@ -119,6 +119,7 @@ class _NewCallScreenState extends State<NewCallScreen>
         elevation: 0,
         backgroundColor: theme.canvasColor,
         title: Text('New Call'),
+        backwardsCompatibility: false,
       ),
       body: SafeArea(
         child: Form(

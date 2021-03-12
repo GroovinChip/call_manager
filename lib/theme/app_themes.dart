@@ -114,7 +114,7 @@ class AppThemes {
       {
 
       /// Use a divider line on the top edge of the system navigation bar.
-      bool useDivider = true,
+      bool useDivider = false,
 
       /// Opacity value for the system navigation bar.
       ///
@@ -168,14 +168,10 @@ class AppThemes {
     // AnnotatedRegion if this does not produce the desired result.
     return SystemUiOverlayStyle(
       systemNavigationBarColor: background.withOpacity(opacity),
-      systemNavigationBarDividerColor: (useDivider ?? false)
-          ? isDark
-              ? const Color(0xFF2C2C2C)
-              : const Color(0xFFDDDDDD)
-          : null,
+      systemNavigationBarDividerColor: Colors.transparent,
       systemNavigationBarIconBrightness:
           isDark ? Brightness.light : Brightness.dark,
-      statusBarColor: background.withOpacity(opacity),
+      statusBarColor: Colors.transparent,
       statusBarBrightness: isDark ? Brightness.light : Brightness.dark,
       statusBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
     );

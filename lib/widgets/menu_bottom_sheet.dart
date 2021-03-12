@@ -60,7 +60,7 @@ class _MenuBottomSheetState extends State<MenuBottomSheet> with FirebaseMixin, P
               currentUser.displayName[0],
               style: TextStyle(color: Colors.white),
             ),
-            backgroundColor: Colors.blue[700],
+            backgroundColor: theme.primaryColor,
           ),
           title: Text(currentUser.displayName),
           subtitle: Text(currentUser.email),
