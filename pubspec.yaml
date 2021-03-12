@@ -11,7 +11,6 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
-  #contact_picker: ^0.0.2
   groovin_material_icons: ^1.1.6
   outline_material_icons: ^0.1.1
   datetime_picker_formfield: any
@@ -26,7 +25,6 @@ dependencies:
   cloud_firestore: ^0.16.0+1
   package_info: ^0.4.0+10
   permission_handler: ^5.0.1+1
-  rounded_modal: ^1.0.1
   groovin_widgets: ^1.6.1
   contacts_service: ^0.4.6
   flutter_typeahead: ^2.0.0
