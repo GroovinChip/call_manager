@@ -4,6 +4,7 @@ import 'package:call_manager/widgets/delete_calls_dialog.dart';
 import 'package:call_manager/widgets/log_out_dialog.dart';
 import 'package:call_manager/widgets/theme_icon.dart';
 import 'package:call_manager/widgets/theme_switcher_dialog.dart';
+import 'package:call_manager/widgets/user_account_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:groovin_material_icons/groovin_material_icons.dart';
 import 'package:groovin_widgets/groovin_widgets.dart';
@@ -55,13 +56,7 @@ class _MenuBottomSheetState extends State<MenuBottomSheet> with FirebaseMixin, P
           child: ModalDrawerHandle(),
         ),
         ListTile(
-          leading: CircleAvatar(
-            child: Text(
-              currentUser.displayName[0],
-              style: TextStyle(color: Colors.white),
-            ),
-            backgroundColor: theme.primaryColor,
-          ),
+          leading: UserAccountAvatar(),
           title: Text(currentUser.displayName),
           subtitle: Text(currentUser.email),
           trailing: TextButton(
