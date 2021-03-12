@@ -1,5 +1,6 @@
 import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/provided.dart';
+import 'package:call_manager/screens/home_screen.dart';
 import 'package:call_manager/utils/extensions.dart';
 import 'package:call_manager/utils/pass_notification.dart';
 import 'package:call_manager/widgets/multiple_phone_numbers_sheet.dart';
@@ -42,24 +43,21 @@ class _NewCallScreenState extends State<NewCallScreen>
   Future<void> saveCall() async {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
-      final userCalls = firestore.calls(currentUser.uid);
-      String date;
-      String time;
       if (reminderDate != null && reminderTime != null) {
-        var scheduledNotificationDateTime = DateTime(
+        final scheduledNotificationDateTime = DateTime(
           reminderDate.year,
           reminderDate.month,
           reminderDate.day,
           reminderTime.hour,
           reminderTime.minute,
         );
-        var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+        final androidPlatformChannelSpecifics = AndroidNotificationDetails(
           '1',
           'Call Reminders',
           'Allow Call Manager to create and send notifications about Call Reminders',
         );
 
-        var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+        final iOSPlatformChannelSpecifics = IOSNotificationDetails();
 
         final platformChannelSpecifics = NotificationDetails(
           android: androidPlatformChannelSpecifics,
@@ -73,35 +71,31 @@ class _NewCallScreenState extends State<NewCallScreen>
             scheduledNotificationDateTime,
             platformChannelSpecifics,
             payload: _phoneFieldController.text);
-
-        date = reminderDate.toString();
-        time = reminderTime.toString();
-      } else {
-        date = '';
-        time = '';
       }
 
-      if (selectedContact == null || selectedContact.avatar.length == 0) {
-        userCalls.add({
+      if (selectedContact == null || selectedContact.avatar.isEmpty) {
+        firestore.calls(currentUser.uid).add({
           'Name': _nameFieldController.text,
           'PhoneNumber': _phoneFieldController.text,
           'Description': _descriptionFieldController.text,
-          'ReminderDate': date,
-          'ReminderTime': time
+          'ReminderDate': reminderDate?.toString() ?? '',
+          'ReminderTime': reminderTime?.toString() ?? '',
         });
-      } else if (selectedContact.avatar.length > 0) {
-        userCalls.add({
+      } else if (selectedContact.avatar.isNotEmpty) {
+        firestore.calls(currentUser.uid).add({
           'Avatar': String.fromCharCodes(selectedContact.avatar),
           'Name': _nameFieldController.text,
           'PhoneNumber': _phoneFieldController.text,
           'Description': _descriptionFieldController.text,
-          'ReminderDate': date,
-          'ReminderTime': time
+          'ReminderDate': reminderDate?.toString() ?? '',
+          'ReminderTime': reminderTime?.toString() ?? ''
         });
       }
 
-      Navigator.of(context).pushNamedAndRemoveUntil(
-          '/HomeScreen', (Route<dynamic> route) => false);
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (_) => HomeScreen()),
+        (route) => false,
+      );
     }
   }
 
@@ -130,11 +124,9 @@ class _NewCallScreenState extends State<NewCallScreen>
                     suggestionsCallback:
                         contactsUtility.searchContactsWithQuery,
                     itemBuilder: (context, contact) {
-                      //var _avatar = contact.avatar ??
-                      final _contact = contact;
                       return ListTile(
-                        leading: _contact.avatar == null ||
-                                _contact.avatar.length == 0
+                        leading: contact.avatar == null ||
+                            contact.avatar.length == 0
                             ? CircleAvatar(
                                 child: Icon(Icons.person_outline),
                               )
