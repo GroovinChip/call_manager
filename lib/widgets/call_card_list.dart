@@ -13,42 +13,40 @@ class CallCardList extends StatefulWidget {
 class _CallCardListState extends State<CallCardList> with FirebaseMixin {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: StreamBuilder<QuerySnapshot>(
-        stream: firestore.calls(currentUser.uid).snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData == false) {
-            return Center(
-              child: const CircularProgressIndicator(),
+    return StreamBuilder<QuerySnapshot>(
+      stream: firestore.calls(currentUser.uid).snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData == false) {
+          return Center(
+            child: const CircularProgressIndicator(),
+          );
+        } else {
+          if (snapshot.data.docs.length > 0) {
+            return ListView.builder(
+              itemCount: snapshot.data.docs.length,
+              itemBuilder: (context, index) {
+                final call = Call.fromJsonWithDocId(
+                  snapshot.data.docs[index].data(),
+                  snapshot.data.docs[index].id,
+                );
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CallCard(
+                    call: call,
+                  ),
+                );
+              },
             );
           } else {
-            if (snapshot.data.docs.length > 0) {
-              return ListView.builder(
-                itemCount: snapshot.data.docs.length,
-                itemBuilder: (context, index) {
-                  final call = Call.fromJsonWithDocId(
-                    snapshot.data.docs[index].data(),
-                    snapshot.data.docs[index].id,
-                  );
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CallCard(
-                      call: call,
-                    ),
-                  );
-                },
-              );
-            } else {
-              return Center(
-                child: Text(
-                  'Nothing here!',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-              );
-            }
+            return Center(
+              child: Text(
+                'Nothing here!',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+            );
           }
-        },
-      ),
+        }
+      },
     );
   }
 }
