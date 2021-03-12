@@ -1,9 +1,9 @@
 import 'package:call_manager/firebase/firebase_mixin.dart';
 import 'package:call_manager/provided.dart';
-import 'package:call_manager/widgets/delete_calls_dialog.dart';
-import 'package:call_manager/widgets/log_out_dialog.dart';
+import 'package:call_manager/widgets/dialogs/delete_all_dialog.dart';
+import 'package:call_manager/widgets/dialogs/log_out_dialog.dart';
+import 'package:call_manager/widgets/dialogs/theme_switcher_dialog.dart';
 import 'package:call_manager/widgets/theme_icon.dart';
-import 'package:call_manager/widgets/theme_switcher_dialog.dart';
 import 'package:call_manager/widgets/user_account_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:groovin_material_icons/groovin_material_icons.dart';
@@ -84,7 +84,7 @@ class _MenuBottomSheetState extends State<MenuBottomSheet> with FirebaseMixin, P
           onTap: () {
             showDialog(
               context: context,
-              builder: (_) => DeleteCallsDialog(),
+              builder: (_) => DeleteAllDialog(),
             );
           },
         ),

@@ -1,3 +1,4 @@
+import 'package:call_manager/data_models/call.dart';
 import 'package:call_manager/widgets/call_card.dart';
 import 'package:call_manager/firebase/firebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -25,10 +26,15 @@ class _CallCardListState extends State<CallCardList> with FirebaseMixin {
               return ListView.builder(
                 itemCount: snapshot.data.docs.length,
                 itemBuilder: (context, index) {
-                  final ds = snapshot.data.docs[index];
+                  final call = Call.fromJsonWithDocId(
+                    snapshot.data.docs[index].data(),
+                    snapshot.data.docs[index].id,
+                  );
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: CallCard(callSnapshot: ds),
+                    child: CallCard(
+                      call: call,
+                    ),
                   );
                 },
               );

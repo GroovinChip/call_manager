@@ -21,3 +21,7 @@ extension ThemeModeExtensions on ThemeMode {
     return themeModeDisplay;
   }
 }
+
+extension BuildContextX on BuildContext {
+  bool get isDarkTheme => Theme.of(this).brightness == Brightness.dark;
+}

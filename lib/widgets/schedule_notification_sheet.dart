@@ -1,6 +1,6 @@
+import 'package:call_manager/data_models/call.dart';
 import 'package:call_manager/firebase/firebase_mixin.dart';
 import 'package:call_manager/utils/pass_notification.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -11,10 +11,10 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 class ScheduleNotificationSheet extends StatefulWidget {
   const ScheduleNotificationSheet({
     Key key,
-    @required this.callSnapshot,
+    @required this.call,
   }) : super(key: key);
 
-  final QueryDocumentSnapshot callSnapshot;
+  final Call call;
 
   @override
   _ScheduleNotificationSheetState createState() =>
@@ -31,7 +31,7 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
   DateTime reminderDate;
   TimeOfDay reminderTime;
 
-  Future<void> scheduleNotificationReminder(String name, String phoneNumber) async {
+  Future<void> scheduleNotificationReminder() async {
     var scheduledNotificationDateTime = DateTime(
       reminderDate.year,
       reminderDate.month,
@@ -55,11 +55,11 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
 
     await PassNotification.of(context).schedule(
       0,
-      'Reminder: call ' + name,
-      'Tap to call ' + name,
+      'Reminder: call ' + widget.call.name,
+      'Tap to call ' + widget.call.name,
       scheduledNotificationDateTime,
       platformChannelSpecifics,
-      payload: phoneNumber,
+      payload: widget.call.phoneNumber,
     );
 
     Navigator.of(context).pop();
@@ -82,8 +82,7 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
                   context: context,
                   initialDate: DateTime.now(),
                   firstDate: DateTime.now(),
-                  lastDate:
-                  DateTime(DateTime.now().year + 1),
+                  lastDate: DateTime(DateTime.now().year + 1),
                 );
               },
               onChanged: (date) {
@@ -92,8 +91,7 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.today,
-                  color: Theme.of(context).brightness ==
-                      Brightness.dark
+                  color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.white
                       : Colors.grey,
                 ),
@@ -106,15 +104,13 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
               format: timeFormat,
               enabled: true,
               onChanged: (timeOfDay) {
-                reminderTime =
-                    TimeOfDay.fromDateTime(timeOfDay);
+                reminderTime = TimeOfDay.fromDateTime(timeOfDay);
               },
-              onShowPicker:
-                  (context, currentValue) async {
+              onShowPicker: (context, currentValue) async {
                 final time = await showTimePicker(
                   context: context,
-                  initialTime: TimeOfDay.fromDateTime(
-                      currentValue ?? DateTime.now()),
+                  initialTime:
+                      TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
                 );
                 return DateTimeField.convert(time);
               },
@@ -123,8 +119,7 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(
                   Icons.access_time,
-                  color: Theme.of(context).brightness ==
-                      Brightness.dark
+                  color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.white
                       : Colors.grey,
                 ),
@@ -138,19 +133,15 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
                     icon: Icon(MdiIcons.bellPlusOutline),
                     label: Text('Set Reminder'),
                     style: ElevatedButton.styleFrom(
-                      primary:
-                      Theme.of(context).primaryColor,
+                      primary: Theme.of(context).primaryColor,
                       shape: RoundedRectangleBorder(
-                        borderRadius:
-                        BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                     onPressed: () {
                       numberToCallOnNotificationTap =
-                      '${widget.callSnapshot.data()['PhoneNumber']}';
-                      scheduleNotificationReminder(
-                          '${widget.callSnapshot.data()['Name']}',
-                          '${widget.callSnapshot.data()['PhoneNumber']}');
+                          '${widget.call.phoneNumber}';
+                      scheduleNotificationReminder();
                     },
                   ),
                 ),

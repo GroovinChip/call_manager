@@ -1,3 +1,4 @@
+import 'package:call_manager/data_models/call.dart';
 import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/provided.dart';
 import 'package:call_manager/utils/extensions.dart';
@@ -13,10 +14,10 @@ import 'package:outline_material_icons/outline_material_icons.dart';
 class EditCallScreen extends StatefulWidget {
   const EditCallScreen({
     Key key,
-    @required this.callId,
+    @required this.call,
   }) : super(key: key);
 
-  final String callId;
+  final Call call;
 
   @override
   _EditCallScreenState createState() => _EditCallScreenState();
@@ -68,7 +69,7 @@ class _EditCallScreenState extends State<EditCallScreen>
               );
             } else {
               final doc = snapshot.data.docs
-                  .where((element) => element.reference.id == widget.callId)
+                  .where((element) => element.reference.id == widget.call.id)
                   .single;
               name = '${doc.data()['Name']}';
               phoneNumber = '${doc.data()['PhoneNumber']}';
@@ -268,7 +269,7 @@ class _EditCallScreenState extends State<EditCallScreen>
                     }
 
                     if (selectedContact == null) {
-                      userCalls.doc(widget.callId).update({
+                      userCalls.doc(widget.call.id).update({
                         'Name': name,
                         'PhoneNumber': phoneNumber,
                         'Description': description,
@@ -276,7 +277,7 @@ class _EditCallScreenState extends State<EditCallScreen>
                         'ReminderTime': time
                       });
                     } else {
-                      userCalls.doc(widget.callId).update({
+                      userCalls.doc(widget.call.id).update({
                         'Avatar': String.fromCharCodes(selectedContact.avatar),
                         'Name': name,
                         'PhoneNumber': phoneNumber,

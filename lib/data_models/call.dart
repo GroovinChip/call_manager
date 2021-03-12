@@ -16,7 +16,7 @@ class Call {
       id: docId,
       name: json['Name'],
       phoneNumber: json['PhoneNumber'],
-      avatar: json['avatar'] ?? '',
+      avatar: json['Avatar'] ?? '',
       description: json['Description'],
       reminderDate: json['ReminderDate'],
       reminderTime: json['ReminderTime'],

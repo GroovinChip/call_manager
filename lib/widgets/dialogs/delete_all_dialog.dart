@@ -1,14 +1,14 @@
 import 'package:call_manager/firebase/firebase_mixin.dart';
 import 'package:flutter/material.dart';
 
-class DeleteCallsDialog extends StatefulWidget {
-  DeleteCallsDialog({Key key}) : super(key: key);
+class DeleteAllDialog extends StatefulWidget {
+  DeleteAllDialog({Key key}) : super(key: key);
 
   @override
-  _DeleteCallsDialogState createState() => _DeleteCallsDialogState();
+  _DeleteAllDialogState createState() => _DeleteAllDialogState();
 }
 
-class _DeleteCallsDialogState extends State<DeleteCallsDialog>
+class _DeleteAllDialogState extends State<DeleteAllDialog>
     with FirebaseMixin {
   @override
   Widget build(BuildContext context) {
