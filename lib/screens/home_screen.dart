@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> with Provided {
         floatingActionButton: FloatingActionButton.extended(
           icon: Icon(Icons.add),
           elevation: 2.0,
-          label: Text('New Call'),
+          label: Text('NEW CALL'),
           onPressed: () => Navigator.of(context).push(
             MaterialPageRoute(
               builder: (_) => NewCallScreen(),

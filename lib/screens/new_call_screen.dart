@@ -344,7 +344,7 @@ class _NewCallScreenState extends State<NewCallScreen>
               tooltip: 'Save',
               elevation: 2.0,
               icon: Icon(Icons.save),
-              label: Text('Save'),
+              label: Text('SAVE'),
             )
           : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

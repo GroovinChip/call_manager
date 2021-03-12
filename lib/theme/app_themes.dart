@@ -44,6 +44,7 @@ class AppThemes {
         foregroundColor: Colors.white,
       ),
       dividerColor: AppColors.dividerColorLight,
+      visualDensity: VisualDensity.adaptivePlatformDensity,
     );
   }
 
@@ -98,6 +99,7 @@ class AppThemes {
         hourMinuteColor: Colors.grey.shade800,
         //dayPeriodColor: Colors.grey.shade900,
       ),
+      visualDensity: VisualDensity.adaptivePlatformDensity,
     );
   }
 

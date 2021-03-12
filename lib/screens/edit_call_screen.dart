@@ -299,7 +299,7 @@ class _EditCallScreenState extends State<EditCallScreen>
               tooltip: 'Save',
               elevation: 2.0,
               icon: Icon(Icons.save),
-              label: Text('Save'),
+              label: Text('SAVE'),
             )
           : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
