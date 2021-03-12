@@ -34,8 +34,8 @@ class LoginScreenState extends State<LoginScreen> with FirebaseMixin {
   double _opacity = 0.0;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void initState() {
+    super.initState();
     _verifyUser();
   }
 
@@ -71,10 +71,8 @@ class LoginScreenState extends State<LoginScreen> with FirebaseMixin {
     if (currentUser != null) {
       final dbForUser = firestore.collection('Users');
       if (dbForUser.doc(currentUser.uid).path.isNotEmpty) {
-        setState(() {
-          Navigator.of(context).pushNamedAndRemoveUntil(
-              '/HomeScreen', (Route<dynamic> route) => false);
-        });
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            '/HomeScreen', (Route<dynamic> route) => false);
       } else {
         dbForUser.doc(currentUser.uid).set({});
       }
