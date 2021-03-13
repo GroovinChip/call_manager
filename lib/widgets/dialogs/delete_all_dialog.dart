@@ -17,12 +17,12 @@ class _DeleteAllDialogState extends State<DeleteAllDialog>
           'Are you sure you want to delete all calls? This cannot be undone.'),
       actions: [
         TextButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.of(context).pop(),
           child: Text('CANCEL'),
         ),
         TextButton(
           onPressed: () async {
-            Navigator.pop(context);
+            Navigator.of(context).pop();
             final callsRef = firestore
                 .collection('Users')
                 .doc(currentUser.uid)

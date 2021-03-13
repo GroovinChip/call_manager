@@ -1,10 +1,8 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/theme/app_themes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -27,45 +25,29 @@ class LoginScreen extends StatefulWidget {
   LoginScreenState createState() => LoginScreenState();
 }
 
-class LoginScreenState extends State<LoginScreen> with FirebaseMixin {
-  Brightness barBrightness;
-  double _opacity = 0.0;
+class LoginScreenState extends State<LoginScreen>
+    with FirebaseMixin, SingleTickerProviderStateMixin {
+  AnimationController controller;
+  Animation<double> animation;
 
   @override
   void initState() {
     super.initState();
-    _verifyUser();
+    controller = AnimationController(
+      duration: const Duration(milliseconds: 1500),
+      vsync: this,
+    );
+    animation = CurvedAnimation(
+      parent: controller,
+      curve: Curves.easeIn,
+    );
+    controller.forward();
   }
 
-  // Gets called from initState to check whether there is a cached user
-  Future<void> _verifyUser() async {
-    if (currentUser != null) {
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        Navigator.of(context).pushNamedAndRemoveUntil(
-            '/HomeScreen', (Route<dynamic> route) => false);
-      });
-    } else {
-      await Future.delayed(
-        Duration(milliseconds: 500),
-      ).then((_) {
-        setState(() => _opacity = 1.0);
-      });
-    }
-  }
-
-  // gets called on button press
-  Future<void> _loginUser() async {
-    await auth.signInWithGoogle();
-
-    if (currentUser != null) {
-      final dbForUser = firestore.collection('Users');
-      if (dbForUser.doc(currentUser.uid).path.isNotEmpty) {
-        Navigator.of(context).pushNamedAndRemoveUntil(
-            '/HomeScreen', (Route<dynamic> route) => false);
-      } else {
-        dbForUser.doc(currentUser.uid).set({});
-      }
-    }
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -76,9 +58,8 @@ class LoginScreenState extends State<LoginScreen> with FirebaseMixin {
       child: Scaffold(
         body: SafeArea(
           child: Center(
-            child: AnimatedOpacity(
-              opacity: _opacity,
-              duration: Duration(seconds: 1),
+            child: FadeTransition(
+              opacity: animation,
               child: Container(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -122,14 +103,7 @@ class LoginScreenState extends State<LoginScreen> with FirebaseMixin {
                         label: Text(
                           'Sign in with Google',
                         ),
-                        onPressed: () async {
-                          await _loginUser().catchError((e) {
-                            log(
-                              'Error signing in with Google: $e',
-                              name: 'Call Manager',
-                            );
-                          });
-                        },
+                        onPressed: () async => await auth.signInWithGoogle(),
                       ),
                   ],
                 ),

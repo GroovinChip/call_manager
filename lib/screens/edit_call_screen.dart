@@ -1,6 +1,7 @@
 import 'package:call_manager/data_models/call.dart';
 import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/provided.dart';
+import 'package:call_manager/screens/home_screen.dart';
 import 'package:call_manager/utils/extensions.dart';
 import 'package:call_manager/widgets/multiple_phone_numbers_sheet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -197,7 +198,9 @@ class _EditCallScreenState extends State<EditCallScreen>
                     autofocus: false,
                     controller: _descriptionFieldController,
                     decoration: InputDecoration(
-                      labelText: widget.call.description.isNotEmpty ? widget.call.description : 'Description',
+                      labelText: widget.call.description.isNotEmpty
+                          ? widget.call.description
+                          : 'Description',
                       prefixIcon: Icon(
                         Icons.comment_outlined,
                         color: theme.brightness == Brightness.dark
@@ -286,8 +289,12 @@ class _EditCallScreenState extends State<EditCallScreen>
                   } catch (e) {
                     print(e);
                   } finally {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        '/HomeScreen', (Route<dynamic> route) => false);
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreen(),
+                      ),
+                      (route) => false,
+                    );
                   }
                 }
               },

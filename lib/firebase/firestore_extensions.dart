@@ -4,4 +4,10 @@ extension FirestoreX on FirebaseFirestore {
   CollectionReference users() => this.collection('Users');
   CollectionReference calls(String uid) =>
       users().doc('$uid').collection('Calls');
+
+  void initStorageForUser(String uid) {
+    if (users().doc(uid).path.isEmpty) {
+      users().doc(uid).set({});
+    }
+  }
 }
