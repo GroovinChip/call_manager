@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:intl/intl.dart';
-import 'package:outline_material_icons/outline_material_icons.dart';
 
 class EditCallScreen extends StatefulWidget {
   const EditCallScreen({
@@ -138,7 +137,7 @@ class _EditCallScreenState extends State<EditCallScreen>
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         prefixIcon: Icon(
-                          OMIcons.person,
+                          Icons.person_outline,
                           color: theme.brightness == Brightness.dark
                               ? Colors.white
                               : Colors.grey,
@@ -168,7 +167,7 @@ class _EditCallScreenState extends State<EditCallScreen>
                     controller: _phoneFieldController,
                     decoration: InputDecoration(
                       prefixIcon: Icon(
-                        OMIcons.phone,
+                        Icons.phone_outlined,
                         color: theme.brightness == Brightness.dark
                             ? Colors.white
                             : Colors.grey,
@@ -200,7 +199,7 @@ class _EditCallScreenState extends State<EditCallScreen>
                     decoration: InputDecoration(
                       labelText: widget.call.description.isNotEmpty ? widget.call.description : 'Description',
                       prefixIcon: Icon(
-                        OMIcons.comment,
+                        Icons.comment_outlined,
                         color: theme.brightness == Brightness.dark
                             ? Colors.white
                             : Colors.grey,

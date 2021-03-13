@@ -11,7 +11,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:intl/intl.dart';
-import 'package:outline_material_icons/outline_material_icons.dart';
 
 // Add New Call Screen
 class NewCallScreen extends StatefulWidget {
@@ -178,7 +177,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       prefixIcon: Icon(
-                        OMIcons.person,
+                        Icons.person_outline,
                         color: theme.brightness == Brightness.dark
                             ? Colors.white
                             : Colors.grey,
@@ -213,7 +212,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                   controller: _phoneFieldController,
                   decoration: InputDecoration(
                     prefixIcon: Icon(
-                      OMIcons.phone,
+                      Icons.phone_outlined,
                       color: theme.brightness == Brightness.dark
                           ? Colors.white
                           : Colors.grey,
@@ -245,7 +244,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                   decoration: InputDecoration(
                     labelText: 'Description',
                     prefixIcon: Icon(
-                      OMIcons.comment,
+                      Icons.comment_outlined,
                       color: Theme.of(context).brightness == Brightness.dark
                           ? Colors.white
                           : Colors.grey,
