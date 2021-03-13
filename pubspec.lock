@@ -345,13 +345,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.2"
-  groovin_material_icons:
-    dependency: "direct main"
-    description:
-      name: groovin_material_icons
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.6"
   groovin_widgets:
     dependency: "direct main"
     description:
