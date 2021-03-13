@@ -16,7 +16,7 @@ class _CallCardListState extends State<CallCardList> with FirebaseMixin {
     return StreamBuilder<QuerySnapshot>(
       stream: firestore.calls(currentUser.uid).snapshots(),
       builder: (context, snapshot) {
-        if (snapshot.hasData == false) {
+        if (!snapshot.hasData) {
           return Center(
             child: const CircularProgressIndicator(),
           );
@@ -29,6 +29,7 @@ class _CallCardListState extends State<CallCardList> with FirebaseMixin {
                   snapshot.data.docs[index].data(),
                   snapshot.data.docs[index].id,
                 );
+
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CallCard(

@@ -119,7 +119,7 @@ packages:
       name: code_checker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.3"
+    version: "0.3.6"
   collection:
     dependency: transitive
     description:
@@ -168,7 +168,7 @@ packages:
       name: dart_code_metrics
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.4.0"
+    version: "2.4.1"
   dart_style:
     dependency: transitive
     description:
