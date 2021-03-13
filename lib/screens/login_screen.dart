@@ -135,8 +135,10 @@ class LoginScreenState extends State<LoginScreen> with FirebaseMixin {
                         ),
                         onPressed: () async {
                           await _loginUser().catchError((e) {
-                            log('Error signing in with Google: $e',
-                                name: 'Call Manager');
+                            log(
+                              'Error signing in with Google: $e',
+                              name: 'Call Manager',
+                            );
                           });
                         },
                       ),

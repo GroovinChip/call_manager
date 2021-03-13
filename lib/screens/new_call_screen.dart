@@ -64,12 +64,13 @@ class _NewCallScreenState extends State<NewCallScreen>
         );
 
         await PassNotification.of(context).schedule(
-            0,
-            'Reminder: call ' + _nameFieldController.text,
-            'Tap to call ' + _nameFieldController.text,
-            scheduledNotificationDateTime,
-            platformChannelSpecifics,
-            payload: _phoneFieldController.text);
+          0,
+          'Reminder: call ' + _nameFieldController.text,
+          'Tap to call ' + _nameFieldController.text,
+          scheduledNotificationDateTime,
+          platformChannelSpecifics,
+          payload: _phoneFieldController.text,
+        );
       }
 
       if (selectedContact == null || selectedContact.avatar.isEmpty) {
@@ -87,7 +88,7 @@ class _NewCallScreenState extends State<NewCallScreen>
           'PhoneNumber': _phoneFieldController.text,
           'Description': _descriptionFieldController.text,
           'ReminderDate': reminderDate?.toString() ?? '',
-          'ReminderTime': reminderTime?.toString() ?? ''
+          'ReminderTime': reminderTime?.toString() ?? '',
         });
       }
 
@@ -119,24 +120,23 @@ class _NewCallScreenState extends State<NewCallScreen>
             child: Column(
               children: [
                 TypeAheadFormField(
-                  suggestionsCallback:
-                      contactsUtility.searchContactsWithQuery,
+                  suggestionsCallback: contactsUtility.searchContactsWithQuery,
                   itemBuilder: (context, contact) {
                     return ListTile(
-                      leading: contact.avatar == null ||
-                          contact.avatar.length == 0
-                          ? CircleAvatar(
-                              child: Icon(Icons.person_outline),
-                            )
-                          : ClipRRect(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25.0)),
-                              child: CircleAvatar(
-                                child: Image.memory(
-                                  contact.avatar,
+                      leading:
+                          contact.avatar == null || contact.avatar.length == 0
+                              ? CircleAvatar(
+                                  child: Icon(Icons.person_outline),
+                                )
+                              : ClipRRect(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(25.0)),
+                                  child: CircleAvatar(
+                                    child: Image.memory(
+                                      contact.avatar,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
                       title: Text(contact.displayName),
                     );
                   },
@@ -187,10 +187,10 @@ class _NewCallScreenState extends State<NewCallScreen>
                         child: IconButton(
                           icon: Icon(
                             Icons.close,
-                            color: Theme.of(context).brightness ==
-                                    Brightness.dark
-                                ? Colors.white
-                                : Colors.grey,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.grey,
                           ),
                           onPressed: () => _nameFieldController.text = '',
                         ),
@@ -258,8 +258,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                               ? Colors.white
                               : Colors.grey,
                         ),
-                        onPressed: () =>
-                            _descriptionFieldController.text = '',
+                        onPressed: () => _descriptionFieldController.text = '',
                       ),
                     ),
                     border: OutlineInputBorder(),
@@ -303,7 +302,8 @@ class _NewCallScreenState extends State<NewCallScreen>
                     final time = await showTimePicker(
                       context: context,
                       initialTime: TimeOfDay.fromDateTime(
-                          currentValue ?? DateTime.now()),
+                        currentValue ?? DateTime.now(),
+                      ),
                     );
                     return DateTimeField.convert(time);
                   },

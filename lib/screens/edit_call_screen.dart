@@ -271,7 +271,7 @@ class _EditCallScreenState extends State<EditCallScreen>
                         'PhoneNumber': phoneNumber,
                         'Description': description,
                         'ReminderDate': date,
-                        'ReminderTime': time
+                        'ReminderTime': time,
                       });
                     } else {
                       userCalls.doc(widget.call.id).update({
@@ -280,7 +280,7 @@ class _EditCallScreenState extends State<EditCallScreen>
                         'PhoneNumber': phoneNumber,
                         'Description': description,
                         'ReminderDate': date,
-                        'ReminderTime': time
+                        'ReminderTime': time,
                       });
                     }
                   } catch (e) {

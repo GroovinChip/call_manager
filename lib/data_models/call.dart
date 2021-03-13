@@ -43,7 +43,7 @@ class Call {
         'description': description,
         'reminderDate': reminderDate,
         'reminderTime': reminderTime,
-      }
+      },
     };
   }
 }

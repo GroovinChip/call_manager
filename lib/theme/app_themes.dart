@@ -112,26 +112,27 @@ class AppThemes {
   }
 
   // lifted from Mike's flex_color_scheme package, slightly modified for my use
-  static SystemUiOverlayStyle themedSystemNavigationBar(BuildContext context,
-      {
+  static SystemUiOverlayStyle themedSystemNavigationBar(
+    BuildContext context, {
 
-      /// Use a divider line on the top edge of the system navigation bar.
-      bool useDivider = false,
+    /// Use a divider line on the top edge of the system navigation bar.
+    bool useDivider = false,
 
-      /// Opacity value for the system navigation bar.
-      ///
-      /// Use and support for this opacity value is EXPERIMENTAL, it ONLY
-      /// works on Android API 30 (=Android 11) or higher. For more information
-      /// and complete example of how it can be used, please see:
-      /// https://github.com/rydmike/sysnavbar
-      double opacity = 1,
+    /// Opacity value for the system navigation bar.
+    ///
+    /// Use and support for this opacity value is EXPERIMENTAL, it ONLY
+    /// works on Android API 30 (=Android 11) or higher. For more information
+    /// and complete example of how it can be used, please see:
+    /// https://github.com/rydmike/sysnavbar
+    double opacity = 1,
 
-      /// Brightness used if context is null, mostly used for testing.
-      Brightness nullContextBrightness = Brightness.light,
+    /// Brightness used if context is null, mostly used for testing.
+    Brightness nullContextBrightness = Brightness.light,
 
-      /// Background used if context is null, mostly used for testing. If null,
-      /// then black for dark brightness, and white for light brightness.
-      Color nullContextBackground}) {
+    /// Background used if context is null, mostly used for testing. If null,
+    /// then black for dark brightness, and white for light brightness.
+    Color nullContextBackground,
+  }) {
     //
     // Use Brightness.light if it was null for some reason.
     // ignore: parameter_assignments
