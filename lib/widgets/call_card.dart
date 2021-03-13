@@ -8,7 +8,6 @@ import 'package:call_manager/widgets/dialogs/delete_call_dialog.dart';
 import 'package:call_manager/widgets/schedule_notification_sheet.dart';
 import 'package:call_number/call_number.dart';
 import 'package:flutter/material.dart';
-import 'package:groovin_material_icons/groovin_material_icons.dart';
 import 'package:groovin_widgets/groovin_widgets.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -36,7 +35,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
             padding: const EdgeInsets.only(right: 8.0),
             child: Text('Send Email'),
           ),
-          Icon(GroovinMaterialIcons.send_outline),
+          Icon(Icons.send_outlined),
         ],
       ),
       value: 'Send Email',

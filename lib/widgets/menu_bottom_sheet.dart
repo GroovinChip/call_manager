@@ -6,8 +6,8 @@ import 'package:call_manager/widgets/dialogs/theme_switcher_dialog.dart';
 import 'package:call_manager/widgets/theme_icon.dart';
 import 'package:call_manager/widgets/user_account_avatar.dart';
 import 'package:flutter/material.dart';
-import 'package:groovin_material_icons/groovin_material_icons.dart';
 import 'package:groovin_widgets/groovin_widgets.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:call_manager/utils/extensions.dart';
@@ -111,7 +111,7 @@ class _MenuBottomSheetState extends State<MenuBottomSheet> with FirebaseMixin, P
         ),
         ListTile(
           leading: Icon(
-            GroovinMaterialIcons.github_circle,
+            MdiIcons.github,
             color: theme.brightness == Brightness.light
                 ? Colors.black
                 : Colors.white,
