@@ -1,13 +1,11 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:call_manager/firebase/firebase_mixin.dart';
+import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/theme/app_themes.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key}) : super(key: key);
@@ -41,8 +39,7 @@ class LoginScreenState extends State<LoginScreen> with FirebaseMixin {
 
   // Gets called from initState to check whether there is a cached user
   Future<void> _verifyUser() async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
+    if (currentUser != null) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         Navigator.of(context).pushNamedAndRemoveUntil(
             '/HomeScreen', (Route<dynamic> route) => false);
@@ -57,16 +54,8 @@ class LoginScreenState extends State<LoginScreen> with FirebaseMixin {
   }
 
   // gets called on button press
-  Future _loginUser() async {
-    final googleUser = await GoogleSignIn().signIn();
-    final googleAuth = await googleUser.authentication;
-
-    final googleAuthCredential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-
-    await auth.signInWithCredential(googleAuthCredential);
+  Future<void> _loginUser() async {
+    await auth.signInWithGoogle();
 
     if (currentUser != null) {
       final dbForUser = firestore.collection('Users');
@@ -81,7 +70,7 @@ class LoginScreenState extends State<LoginScreen> with FirebaseMixin {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
+    final theme = Theme.of(context);
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: AppThemes.themedSystemNavigationBar(context),
       child: Scaffold(
