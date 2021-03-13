@@ -1,6 +1,7 @@
 name: call_manager
 description: Call Manager in Flutter
 version: 2.3.1+34
+publish_to: none
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -17,7 +18,7 @@ dependencies:
   datetime_picker_formfield: any
   #call_number: ^0.0.1
   call_number:
-    git: git@github.com:sreesdas/flutter_call_number_plugin.git
+    path: ../../packages_and_plugins/call_number
   url_launcher: ^5.2.5
   flutter_local_notifications: ^4.0.1+2
   firebase_core: ^0.7.0

@@ -422,7 +422,7 @@ SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
-  call_number: 8b9c3a5c15b15087917ab826e21c5b8f1a4156d6
+  call_number: f81356878ef4b14a0f440ffc1fc4103d57ce11e0
   cloud_firestore: 357b92d4778d7715d76a393db5f89e7dcc9b7401
   contacts_service: 849e1f84281804c8bfbec1b4c3eedcb23c5d3eca
   Firebase: 26223c695fe322633274198cb19dca8cb7e54416

@@ -1,9 +1,9 @@
 // This is a generated file; do not edit or check into version control.
 FLUTTER_ROOT=/Users/groov/development/flutter
-FLUTTER_APPLICATION_PATH=/Users/groov/development/flutter_projects/apps/call_manager(old)
+FLUTTER_APPLICATION_PATH=/Users/groov/development/flutter_projects/apps/call_manager
 FLUTTER_BUILD_DIR=build
-FLUTTER_BUILD_NAME=1.0.0
-FLUTTER_BUILD_NUMBER=1
+FLUTTER_BUILD_NAME=2.3.1
+FLUTTER_BUILD_NUMBER=34
 EXCLUDED_ARCHS=arm64
 DART_OBFUSCATION=false
 TRACK_WIDGET_CREATION=false

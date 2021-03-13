@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1053316160376-mt3bfqu5kmb419noi3h6n6bdi6ct9ctc.apps.googleusercontent.com</string>
+	<string>1053316160376-117rp70a5ps0s6nk98th54trgsacoaim.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1053316160376-mt3bfqu5kmb419noi3h6n6bdi6ct9ctc</string>
+	<string>com.googleusercontent.apps.1053316160376-117rp70a5ps0s6nk98th54trgsacoaim</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>1053316160376-5juugktuaas98do08thao9iplqmr5fn9.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.groovinchip.flutter.callManager</string>
+	<string>dev.groovinchip.callmanager</string>
 	<key>PROJECT_ID</key>
 	<string>call-manager-flutter-db</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1053316160376:ios:30a9a717e1e2c80d</string>
+	<string>1:1053316160376:ios:3f44ce63a1c0a5fba4868d</string>
 	<key>DATABASE_URL</key>
 	<string>https://call-manager-flutter-db.firebaseio.com</string>
 </dict>

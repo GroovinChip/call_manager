@@ -35,7 +35,7 @@ Future<void> main() async {
       if (payload != null) {
         debugPrint('notification payload: ' + payload);
       }
-      await CallNumber().callNumber(payload);
+      await CallNumber.callNumber(payload);
     },
   );
 

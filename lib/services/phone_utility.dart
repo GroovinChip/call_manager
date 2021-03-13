@@ -29,7 +29,7 @@ class PhoneUtility {
 
   ///
   Future<void> callNumber(String phoneNumber) async {
-    await CallNumber().callNumber(phoneNumber);
+    await CallNumber.callNumber(phoneNumber);
   }
 
   ///

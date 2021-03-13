@@ -139,7 +139,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
               IconButton(
                 icon: Icon(Icons.phone_outlined),
                 onPressed: () async {
-                  await CallNumber().callNumber('${widget.call.phoneNumber}');
+                  await CallNumber.callNumber('${widget.call.phoneNumber}');
                 },
                 tooltip: 'Call ${widget.call.name}',
               ),

@@ -41,5 +41,20 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <!-- TODO Replace this value: -->
+                <!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+                <string>com.googleusercontent.apps.1053316160376-117rp70a5ps0s6nk98th54trgsacoaim</string>
+            </array>
+        </dict>
+    </array>
+    <key>NSContactsUsageDescription</key>
+    <string>Call Manager would like to access your contacts</string>
 </dict>
 </plist>
