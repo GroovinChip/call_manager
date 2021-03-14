@@ -67,9 +67,7 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
                   lastDate: DateTime(DateTime.now().year + 1),
                 );
               },
-              onChanged: (date) {
-                reminderDate = date;
-              },
+              onChanged: (date) => reminderDate = date,
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.today,
@@ -85,9 +83,8 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
             DateTimeField(
               format: timeFormat,
               enabled: true,
-              onChanged: (timeOfDay) {
-                reminderTime = TimeOfDay.fromDateTime(timeOfDay);
-              },
+              onChanged: (timeOfDay) =>
+                  reminderTime = TimeOfDay.fromDateTime(timeOfDay),
               onShowPicker: (context, currentValue) async {
                 final time = await showTimePicker(
                   context: context,
