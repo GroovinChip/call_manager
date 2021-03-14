@@ -49,6 +49,9 @@ class AppThemes {
         backgroundColor: AppColors.primaryColor,
         foregroundColor: Colors.white,
       ),
+      timePickerTheme: TimePickerThemeData(
+        backgroundColor: ThemeData.light().canvasColor,
+      ),
       dividerColor: AppColors.dividerColorLight,
       visualDensity: VisualDensity.adaptivePlatformDensity,
     );
@@ -107,6 +110,7 @@ class AppThemes {
         hourMinuteColor: Colors.grey.shade800,
         //dayPeriodColor: Colors.grey.shade900,
       ),
+      dialogBackgroundColor: AppColors.canvasColorDark,
       visualDensity: VisualDensity.adaptivePlatformDensity,
     );
   }
