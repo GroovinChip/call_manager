@@ -52,7 +52,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
       color: Theme.of(context).cardColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
-          Radius.circular(5.0),
+          Radius.circular(8.0),
         ),
       ),
       child: GroovinExpansionTile(
