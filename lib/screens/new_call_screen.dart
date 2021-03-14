@@ -1,14 +1,13 @@
+import 'package:call_manager/data_models/call.dart';
 import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/provided.dart';
 import 'package:call_manager/screens/home_screen.dart';
 import 'package:call_manager/utils/extensions.dart';
-import 'package:call_manager/utils/pass_notification.dart';
 import 'package:call_manager/widgets/multiple_phone_numbers_sheet.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:intl/intl.dart';
 
@@ -25,11 +24,11 @@ class _NewCallScreenState extends State<NewCallScreen>
   Contact selectedContact;
 
   //TextFormField controllers
-  TextEditingController _nameFieldController = TextEditingController();
-  TextEditingController _phoneFieldController = TextEditingController();
-  TextEditingController _descriptionFieldController = TextEditingController();
-  TextEditingController _dateFieldController = TextEditingController();
-  TextEditingController _timeFieldController = TextEditingController();
+  final _nameFieldController = TextEditingController();
+  final _phoneFieldController = TextEditingController();
+  final _descriptionFieldController = TextEditingController();
+  final _dateFieldController = TextEditingController();
+  final _timeFieldController = TextEditingController();
 
   final dateFormat = DateFormat('EEEE, MMMM d, yyyy');
   final timeFormat = DateFormat('h:mm a');
@@ -42,7 +41,17 @@ class _NewCallScreenState extends State<NewCallScreen>
   Future<void> saveCall() async {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
+      final call = Call(
+        avatar: selectedContact?.avatar != null
+            ? String.fromCharCodes(selectedContact.avatar)
+            : '',
+        name: _nameFieldController.text,
+        phoneNumber: _phoneFieldController.text,
+      );
+
       if (reminderDate != null && reminderTime != null) {
+        call.reminderDate = reminderDate.toString();
+        call.reminderTime = reminderTime.toString();
         final scheduledNotificationDateTime = DateTime(
           reminderDate.year,
           reminderDate.month,
@@ -50,47 +59,14 @@ class _NewCallScreenState extends State<NewCallScreen>
           reminderTime.hour,
           reminderTime.minute,
         );
-        final androidPlatformChannelSpecifics = AndroidNotificationDetails(
-          '1',
-          'Call Reminders',
-          'Allow Call Manager to create and send notifications about Call Reminders',
-        );
 
-        final iOSPlatformChannelSpecifics = IOSNotificationDetails();
-
-        final platformChannelSpecifics = NotificationDetails(
-          android: androidPlatformChannelSpecifics,
-          iOS: iOSPlatformChannelSpecifics,
-        );
-
-        await PassNotification.of(context).schedule(
-          0,
-          'Reminder: call ' + _nameFieldController.text,
-          'Tap to call ' + _nameFieldController.text,
+        await notificationService.scheduleNotification(
+          call,
           scheduledNotificationDateTime,
-          platformChannelSpecifics,
-          payload: _phoneFieldController.text,
         );
       }
 
-      if (selectedContact == null || selectedContact.avatar.isEmpty) {
-        firestore.calls(currentUser.uid).add({
-          'Name': _nameFieldController.text,
-          'PhoneNumber': _phoneFieldController.text,
-          'Description': _descriptionFieldController.text,
-          'ReminderDate': reminderDate?.toString() ?? '',
-          'ReminderTime': reminderTime?.toString() ?? '',
-        });
-      } else if (selectedContact.avatar.isNotEmpty) {
-        firestore.calls(currentUser.uid).add({
-          'Avatar': String.fromCharCodes(selectedContact.avatar),
-          'Name': _nameFieldController.text,
-          'PhoneNumber': _phoneFieldController.text,
-          'Description': _descriptionFieldController.text,
-          'ReminderDate': reminderDate?.toString() ?? '',
-          'ReminderTime': reminderTime?.toString() ?? '',
-        });
-      }
+      firestore.calls(currentUser.uid).add(call.toJson());
 
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (_) => HomeScreen()),

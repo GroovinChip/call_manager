@@ -111,9 +111,7 @@ class _EditCallScreenState extends State<EditCallScreen>
                           builder: (_) => MultiplePhoneNumbersSheet(
                             selectedContact: selectedContact,
                           ),
-                        ).then((value) {
-                          _phoneFieldController.text = value;
-                        });
+                        ).then((value) => _phoneFieldController.text = value);
                       } else {
                         _phoneFieldController.text =
                             selectedContact.phones.first.value;
@@ -238,7 +236,6 @@ class _EditCallScreenState extends State<EditCallScreen>
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 } else {
                   try {
-                    final userCalls = firestore.calls(currentUser.uid);
                     String date;
                     String time;
 
@@ -265,7 +262,7 @@ class _EditCallScreenState extends State<EditCallScreen>
                     }
 
                     if (selectedContact == null) {
-                      userCalls.doc(widget.call.id).update({
+                      firestore.calls(currentUser.uid).doc(widget.call.id).update({
                         'Name': name,
                         'PhoneNumber': phoneNumber,
                         'Description': description,
@@ -273,7 +270,7 @@ class _EditCallScreenState extends State<EditCallScreen>
                         'ReminderTime': time,
                       });
                     } else {
-                      userCalls.doc(widget.call.id).update({
+                      firestore.calls(currentUser.uid).doc(widget.call.id).update({
                         'Avatar': String.fromCharCodes(selectedContact.avatar),
                         'Name': name,
                         'PhoneNumber': phoneNumber,

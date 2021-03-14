@@ -1,9 +1,8 @@
 import 'package:call_manager/data_models/call.dart';
 import 'package:call_manager/firebase/firebase_mixin.dart';
-import 'package:call_manager/utils/pass_notification.dart';
+import 'package:call_manager/provided.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:groovin_widgets/groovin_widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -22,7 +21,7 @@ class ScheduleNotificationSheet extends StatefulWidget {
 }
 
 class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
-    with FirebaseMixin {
+    with FirebaseMixin, Provided {
   String numberToCallOnNotificationTap;
 
   final dateFormat = DateFormat('EEEE, MMMM d, yyyy');
@@ -40,26 +39,9 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
       reminderTime.minute,
     );
 
-    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      '1',
-      'Call Reminders',
-      'Allow Call Manager to create and send notifications about Call Reminders',
-    );
-
-    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
-
-    var platformChannelSpecifics = NotificationDetails(
-      android: androidPlatformChannelSpecifics,
-      iOS: iOSPlatformChannelSpecifics,
-    );
-
-    await PassNotification.of(context).schedule(
-      0,
-      'Reminder: call ' + widget.call.name,
-      'Tap to call ' + widget.call.name,
+    await notificationService.scheduleNotification(
+      widget.call,
       scheduledNotificationDateTime,
-      platformChannelSpecifics,
-      payload: widget.call.phoneNumber,
     );
 
     Navigator.of(context).pop();

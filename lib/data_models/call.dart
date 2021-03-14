@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 
 class Call {
   Call({
-    @required this.id,
+    this.id,
     @required this.name,
     @required this.phoneNumber,
     this.avatar,
@@ -23,27 +23,24 @@ class Call {
     );
   }
 
-  final String id;
-  final String name;
-  final String phoneNumber;
-  final String avatar;
-  final String description;
-  final String reminderDate;
-  final String reminderTime;
+  String id;
+  String name;
+  String phoneNumber;
+  String avatar;
+  String description;
+  String reminderDate;
+  String reminderTime;
 
   bool get hasAvatar => avatar.isNotEmpty;
 
   Map<String, dynamic> toJson() {
     return {
-      'Call': {
-        'id': id,
-        'name': name,
-        'phone': phoneNumber,
-        'hasAvatar': avatar.isNotEmpty,
-        'description': description,
-        'reminderDate': reminderDate,
-        'reminderTime': reminderTime,
-      },
+      'Name': name,
+      'PhoneNumber': phoneNumber,
+      'Avatar': avatar,
+      'Description': description,
+      'ReminderDate': reminderDate?.toString() ?? '',
+      'ReminderTime': reminderTime?.toString() ?? '',
     };
   }
 }

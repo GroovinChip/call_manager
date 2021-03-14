@@ -37,3 +37,9 @@ dart_code_metrics:
     - no-empty-block
     - prefer-trailing-comma
     - no-equal-then-else
+  member-ordering:
+    alphabetize: true
+    order:
+      - constructors
+      - public_fields
+      - private_fields

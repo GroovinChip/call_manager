@@ -76,7 +76,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
                 topLeft: Radius.circular(5.0),
               ),
         children: [
-          if (widget.call.description.isNotEmpty) ...[
+          if (widget.call.description != null && widget.call.description.isNotEmpty) ...[
             Row(
               children: [
                 const SizedBox(width: 16),

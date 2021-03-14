@@ -2,6 +2,7 @@ import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/screens/home_screen.dart';
 import 'package:call_manager/screens/login_screen.dart';
 import 'package:call_manager/services/contacts_utility.dart';
+import 'package:call_manager/services/notifications_service.dart';
 import 'package:call_manager/services/phone_utility.dart';
 import 'package:call_manager/services/prefs_service.dart';
 import 'package:call_manager/theme/app_themes.dart';
@@ -15,11 +16,13 @@ class CallManagerApp extends StatefulWidget {
     @required this.prefsService,
     @required this.contactsUtility,
     @required this.phoneUtility,
+    @required this.notificationService,
   }) : super(key: key);
 
   final PrefsService prefsService;
   final ContactsUtility contactsUtility;
   final PhoneUtility phoneUtility;
+  final NotificationService notificationService;
 
   @override
   _CallManagerAppState createState() => _CallManagerAppState();
@@ -69,6 +72,7 @@ class _CallManagerAppState extends State<CallManagerApp> with FirebaseMixin {
         Provider<PrefsService>.value(value: widget.prefsService),
         Provider<ContactsUtility>.value(value: widget.contactsUtility),
         Provider<PhoneUtility>.value(value: widget.phoneUtility),
+        Provider<NotificationService>.value(value: widget.notificationService),
       ],
       child: StreamBuilder<ThemeMode>(
         stream: widget.prefsService.themeModeSubject,
