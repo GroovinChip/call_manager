@@ -55,8 +55,6 @@ class _HomeScreenState extends State<HomeScreen> with Provided {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: AppThemes.themedSystemNavigationBar(context),
       child: Scaffold(
