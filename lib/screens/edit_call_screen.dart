@@ -43,6 +43,7 @@ class _EditCallScreenState extends State<EditCallScreen>
   Contact selectedContact;
 
   @override
+  // ignore: long-method, code-metrics
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
@@ -129,21 +130,16 @@ class _EditCallScreenState extends State<EditCallScreen>
                       keyboardType: TextInputType.text,
                       maxLines: 1,
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(),
                         prefixIcon: Icon(
                           Icons.person_outline,
-                          color: theme.brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.grey,
+                          color: theme.iconTheme.color,
                         ),
                         suffixIcon: Padding(
                           padding: const EdgeInsets.only(right: 8.0),
                           child: IconButton(
                             icon: Icon(
                               Icons.close,
-                              color: theme.brightness == Brightness.dark
-                                  ? Colors.white
-                                  : Colors.grey,
+                              color: theme.iconTheme.color,
                             ),
                             onPressed: () => _nameFieldController.text = '',
                           ),
@@ -162,24 +158,19 @@ class _EditCallScreenState extends State<EditCallScreen>
                     decoration: InputDecoration(
                       prefixIcon: Icon(
                         Icons.phone_outlined,
-                        color: theme.brightness == Brightness.dark
-                            ? Colors.white
-                            : Colors.grey,
+                        color: theme.iconTheme.color,
                       ),
                       suffixIcon: Padding(
                         padding: const EdgeInsets.only(right: 8.0),
                         child: IconButton(
                           icon: Icon(
                             Icons.close,
-                            color: theme.brightness == Brightness.dark
-                                ? Colors.white
-                                : Colors.grey,
+                            color: theme.iconTheme.color,
                           ),
                           onPressed: () => _phoneFieldController.text = '',
                         ),
                       ),
                       labelText: widget.call.phoneNumber,
-                      border: OutlineInputBorder(),
                     ),
                   ),
                   const SizedBox(height: 16.0),
@@ -196,24 +187,19 @@ class _EditCallScreenState extends State<EditCallScreen>
                           : 'Description',
                       prefixIcon: Icon(
                         Icons.comment_outlined,
-                        color: theme.brightness == Brightness.dark
-                            ? Colors.white
-                            : Colors.grey,
+                        color: theme.iconTheme.color,
                       ),
                       suffixIcon: Padding(
                         padding: const EdgeInsets.only(right: 8.0),
                         child: IconButton(
                           icon: Icon(
                             Icons.close,
-                            color: theme.brightness == Brightness.dark
-                                ? Colors.white
-                                : Colors.grey,
+                            color: theme.iconTheme.color,
                           ),
                           onPressed: () =>
                               _descriptionFieldController.text = '',
                         ),
                       ),
-                      border: OutlineInputBorder(),
                     ),
                   ),
                 ],
@@ -262,7 +248,10 @@ class _EditCallScreenState extends State<EditCallScreen>
                     }
 
                     if (selectedContact == null) {
-                      firestore.calls(currentUser.uid).doc(widget.call.id).update({
+                      firestore
+                          .calls(currentUser.uid)
+                          .doc(widget.call.id)
+                          .update({
                         'Name': name,
                         'PhoneNumber': phoneNumber,
                         'Description': description,
@@ -270,7 +259,10 @@ class _EditCallScreenState extends State<EditCallScreen>
                         'ReminderTime': time,
                       });
                     } else {
-                      firestore.calls(currentUser.uid).doc(widget.call.id).update({
+                      firestore
+                          .calls(currentUser.uid)
+                          .doc(widget.call.id)
+                          .update({
                         'Avatar': String.fromCharCodes(selectedContact.avatar),
                         'Name': name,
                         'PhoneNumber': phoneNumber,

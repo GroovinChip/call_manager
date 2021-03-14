@@ -49,6 +49,7 @@ class LoginScreenState extends State<LoginScreen>
   }
 
   @override
+  // ignore: long-method
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 

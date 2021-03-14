@@ -76,6 +76,7 @@ class _NewCallScreenState extends State<NewCallScreen>
   }
 
   @override
+  // ignore: long-method
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
@@ -148,27 +149,21 @@ class _NewCallScreenState extends State<NewCallScreen>
                     keyboardType: TextInputType.text,
                     maxLines: 1,
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
                       prefixIcon: Icon(
                         Icons.person_outline,
-                        color: theme.brightness == Brightness.dark
-                            ? Colors.white
-                            : Colors.grey,
+                        color: theme.iconTheme.color,
                       ),
+                      labelText: 'Name (Required)',
                       suffixIcon: Padding(
                         padding: const EdgeInsets.only(right: 8.0),
                         child: IconButton(
                           icon: Icon(
                             Icons.close,
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? Colors.white
-                                    : Colors.grey,
+                            color: theme.iconTheme.color,
                           ),
                           onPressed: () => _nameFieldController.text = '',
                         ),
                       ),
-                      labelText: 'Name (Required)',
                     ),
                   ),
                 ),
@@ -186,20 +181,15 @@ class _NewCallScreenState extends State<NewCallScreen>
                   decoration: InputDecoration(
                     prefixIcon: Icon(
                       Icons.phone_outlined,
-                      color: theme.brightness == Brightness.dark
-                          ? Colors.white
-                          : Colors.grey,
+                      color: theme.iconTheme.color,
                     ),
                     labelText: 'Phone Number (Required)',
-                    border: OutlineInputBorder(),
                     suffixIcon: Padding(
                       padding: const EdgeInsets.only(right: 8.0),
                       child: IconButton(
                         icon: Icon(
                           Icons.close,
-                          color: theme.brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.grey,
+                          color: theme.iconTheme.color,
                         ),
                         onPressed: () => _phoneFieldController.text = '',
                       ),
@@ -218,9 +208,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                     labelText: 'Description',
                     prefixIcon: Icon(
                       Icons.comment_outlined,
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white
-                          : Colors.grey,
+                      color: theme.iconTheme.color,
                     ),
                     suffixIcon: Padding(
                       padding: const EdgeInsets.only(right: 8.0),
@@ -234,7 +222,6 @@ class _NewCallScreenState extends State<NewCallScreen>
                         onPressed: () => _descriptionFieldController.text = '',
                       ),
                     ),
-                    border: OutlineInputBorder(),
                   ),
                 ),
                 const SizedBox(height: 16.0),
@@ -248,29 +235,22 @@ class _NewCallScreenState extends State<NewCallScreen>
                       lastDate: DateTime(DateTime.now().year + 1),
                     );
                   },
-                  onChanged: (date) {
-                    reminderDate = date;
-                    //_dateFieldController.text = date.toString();
-                  },
+                  onChanged: (date) => reminderDate = date,
                   controller: _dateFieldController,
                   decoration: InputDecoration(
                     prefixIcon: Icon(
                       Icons.today,
-                      color: theme.brightness == Brightness.dark
-                          ? Colors.white
-                          : Colors.grey,
+                      color: theme.iconTheme.color,
                     ),
                     labelText: 'Reminder Date',
-                    border: OutlineInputBorder(),
                   ),
                 ),
                 const SizedBox(height: 16.0),
                 DateTimeField(
                   format: timeFormat,
                   enabled: true,
-                  onChanged: (timeOfDay) {
-                    reminderTime = TimeOfDay.fromDateTime(timeOfDay);
-                  },
+                  onChanged: (timeOfDay) =>
+                      reminderTime = TimeOfDay.fromDateTime(timeOfDay),
                   onShowPicker: (context, currentValue) async {
                     final time = await showTimePicker(
                       context: context,
@@ -286,11 +266,8 @@ class _NewCallScreenState extends State<NewCallScreen>
                     labelText: 'Reminder Time',
                     prefixIcon: Icon(
                       Icons.access_time,
-                      color: theme.brightness == Brightness.dark
-                          ? Colors.white
-                          : Colors.grey,
+                      color: theme.iconTheme.color,
                     ),
-                    border: OutlineInputBorder(),
                   ),
                 ),
               ],

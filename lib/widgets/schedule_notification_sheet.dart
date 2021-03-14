@@ -48,6 +48,7 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
   }
 
   @override
+  // ignore: long-method
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(

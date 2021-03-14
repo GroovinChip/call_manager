@@ -41,6 +41,7 @@ class _MenuBottomSheetState extends State<MenuBottomSheet> with FirebaseMixin, P
   }
 
   @override
+  // ignore: long-method
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 

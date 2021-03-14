@@ -40,6 +40,11 @@ class AppThemes {
       iconTheme: IconThemeData(
         color: AppColors.iconColorLight,
       ),
+      inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: AppColors.primaryColor,
         foregroundColor: Colors.white,

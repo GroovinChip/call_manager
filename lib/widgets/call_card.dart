@@ -45,6 +45,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
   bool isExpanded = false;
 
   @override
+  // ignore: long-method
   Widget build(BuildContext context) {
     return Material(
       elevation: 2.0,
