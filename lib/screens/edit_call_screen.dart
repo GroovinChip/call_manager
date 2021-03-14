@@ -53,11 +53,7 @@ class _EditCallScreenState extends State<EditCallScreen>
         title: Text('Edit Call'),
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: firestore
-            .collection('Users')
-            .doc(currentUser.uid)
-            .collection('Calls')
-            .snapshots(),
+        stream: firestore.calls(currentUser.uid).snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(
