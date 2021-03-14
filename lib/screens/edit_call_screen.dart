@@ -3,6 +3,7 @@ import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/provided.dart';
 import 'package:call_manager/screens/home_screen.dart';
 import 'package:call_manager/utils/extensions.dart';
+import 'package:call_manager/widgets/contact_avatar.dart';
 import 'package:call_manager/widgets/multiple_phone_numbers_sheet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contacts_service/contacts_service.dart';
@@ -76,24 +77,8 @@ class _EditCallScreenState extends State<EditCallScreen>
                     suggestionsCallback:
                         contactsUtility.searchContactsWithQuery,
                     itemBuilder: (context, contact) {
-                      //var _avatar = contact.avatar ??
-                      final _contact = contact;
-
                       return ListTile(
-                        leading: _contact.avatar == null ||
-                                _contact.avatar.length == 0
-                            ? CircleAvatar(
-                                child: Icon(Icons.person_outline),
-                              )
-                            : ClipRRect(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(25.0)),
-                                child: CircleAvatar(
-                                  child: Image.memory(
-                                    contact.avatar,
-                                  ),
-                                ),
-                              ),
+                        leading: ContactAvatar(contact: contact),
                         title: Text(contact.displayName),
                       );
                     },
@@ -182,7 +167,7 @@ class _EditCallScreenState extends State<EditCallScreen>
                     autofocus: false,
                     controller: _descriptionFieldController,
                     decoration: InputDecoration(
-                      labelText: widget.call.description.isNotEmpty
+                      labelText: widget.call.hasDescription
                           ? widget.call.description
                           : 'Description',
                       prefixIcon: Icon(

@@ -31,7 +31,6 @@ class Call {
   String reminderDate;
   String reminderTime;
 
-  bool get hasAvatar => avatar.isNotEmpty;
 
   Map<String, dynamic> toJson() {
     return {
@@ -43,4 +42,9 @@ class Call {
       'ReminderTime': reminderTime?.toString() ?? '',
     };
   }
+}
+
+extension CallX on Call {
+  bool get hasAvatar => avatar != null && avatar.isNotEmpty;
+  bool get hasDescription => description != null && description.isNotEmpty;
 }

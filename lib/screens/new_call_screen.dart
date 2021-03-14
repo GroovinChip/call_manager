@@ -3,6 +3,7 @@ import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/provided.dart';
 import 'package:call_manager/screens/home_screen.dart';
 import 'package:call_manager/utils/extensions.dart';
+import 'package:call_manager/widgets/contact_avatar.dart';
 import 'package:call_manager/widgets/multiple_phone_numbers_sheet.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
@@ -97,20 +98,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                   suggestionsCallback: contactsUtility.searchContactsWithQuery,
                   itemBuilder: (context, contact) {
                     return ListTile(
-                      leading:
-                          contact.avatar == null || contact.avatar.length == 0
-                              ? CircleAvatar(
-                                  child: Icon(Icons.person_outline),
-                                )
-                              : ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(25.0)),
-                                  child: CircleAvatar(
-                                    child: Image.memory(
-                                      contact.avatar,
-                                    ),
-                                  ),
-                                ),
+                      leading: ContactAvatar(contact: contact),
                       title: Text(contact.displayName),
                     );
                   },

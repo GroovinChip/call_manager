@@ -1,9 +1,9 @@
-import 'dart:typed_data';
 
 import 'package:call_manager/data_models/call.dart';
 import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/screens/edit_call_screen.dart';
 import 'package:call_manager/utils/extensions.dart';
+import 'package:call_manager/widgets/call_avatar.dart';
 import 'package:call_manager/widgets/dialogs/delete_call_dialog.dart';
 import 'package:call_manager/widgets/schedule_notification_sheet.dart';
 import 'package:call_number/call_number.dart';
@@ -56,7 +56,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
         ),
       ),
       child: GroovinExpansionTile(
-        leading: _CallAvatar(
+        leading: CallAvatar(
           call: widget.call,
         ),
         title: Text(
@@ -151,32 +151,4 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
   }
 }
 
-class _CallAvatar extends StatelessWidget {
-  const _CallAvatar({
-    @required this.call,
-  });
 
-  final Call call;
-
-  @override
-  Widget build(BuildContext context) {
-    if (call.hasAvatar) {
-      return ClipOval(
-        child: CircleAvatar(
-          child: Image.memory(
-            Uint8List.fromList(call.avatar.codeUnits),
-            gaplessPlayback: true,
-          ),
-        ),
-      );
-    } else {
-      return CircleAvatar(
-        child: Icon(
-          Icons.person_outline,
-          color: Colors.white,
-        ),
-        backgroundColor: Theme.of(context).primaryColor,
-      );
-    }
-  }
-}
