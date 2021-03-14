@@ -50,6 +50,8 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
   @override
   // ignore: long-method
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
@@ -72,12 +74,9 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.today,
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.grey,
+                  color: theme.iconTheme.color,
                 ),
                 labelText: 'Reminder Date',
-                border: OutlineInputBorder(),
               ),
             ),
             SizedBox(height: 16.0),
@@ -97,12 +96,9 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
               },
               decoration: InputDecoration(
                 labelText: 'Reminder Time',
-                border: OutlineInputBorder(),
                 prefixIcon: Icon(
                   Icons.access_time,
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.grey,
+                  color: theme.iconTheme.color,
                 ),
               ),
             ),
