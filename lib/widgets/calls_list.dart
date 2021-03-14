@@ -5,12 +5,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 /// This widget represents the content on the main screen of the app
-class CallCardList extends StatefulWidget {
+class CallsList extends StatefulWidget {
   @override
-  _CallCardListState createState() => _CallCardListState();
+  _CallsListState createState() => _CallsListState();
 }
 
-class _CallCardListState extends State<CallCardList> with FirebaseMixin {
+class _CallsListState extends State<CallsList> with FirebaseMixin {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(

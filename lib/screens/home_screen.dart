@@ -1,7 +1,7 @@
 import 'package:call_manager/provided.dart';
 import 'package:call_manager/screens/new_call_screen.dart';
 import 'package:call_manager/theme/app_themes.dart';
-import 'package:call_manager/widgets/call_card_list.dart';
+import 'package:call_manager/widgets/calls_list.dart';
 import 'package:call_manager/widgets/menu_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> with Provided {
         appBar: AppBar(
           title: Text('Call Manager'),
         ),
-        body: CallCardList(),
+        body: CallsList(),
         floatingActionButton: FloatingActionButton.extended(
           icon: Icon(Icons.add),
           elevation: 2.0,
