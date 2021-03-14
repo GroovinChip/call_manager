@@ -48,6 +48,7 @@ class MultiplePhoneNumbersSheet extends StatelessWidget {
               default:
                 phoneType = Icon(Icons.phone_outlined);
             }
+
             return ListTile(
               leading: phoneType,
               title: Text(_phoneNumbers[index].value),

@@ -8,13 +8,13 @@ class DeleteAllDialog extends StatefulWidget {
   _DeleteAllDialogState createState() => _DeleteAllDialogState();
 }
 
-class _DeleteAllDialogState extends State<DeleteAllDialog>
-    with FirebaseMixin {
+class _DeleteAllDialogState extends State<DeleteAllDialog> with FirebaseMixin {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       content: Text(
-          'Are you sure you want to delete all calls? This cannot be undone.'),
+        'Are you sure you want to delete all calls? This cannot be undone.',
+      ),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
@@ -33,6 +33,7 @@ class _DeleteAllDialogState extends State<DeleteAllDialog>
                 content: Text('There are no calls to delete'),
                 action: SnackBarAction(
                   label: 'Dismiss',
+                  // ignore: no-empty-block
                   onPressed: () {},
                 ),
                 duration: Duration(seconds: 3),

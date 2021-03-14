@@ -115,9 +115,6 @@ class AppThemes {
   static SystemUiOverlayStyle themedSystemNavigationBar(
     BuildContext context, {
 
-    /// Use a divider line on the top edge of the system navigation bar.
-    bool useDivider = false,
-
     /// Opacity value for the system navigation bar.
     ///
     /// Use and support for this opacity value is EXPERIMENTAL, it ONLY

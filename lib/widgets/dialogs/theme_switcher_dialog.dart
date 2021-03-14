@@ -10,6 +10,7 @@ class _ThemeSwitcherDialogState extends State<ThemeSwitcherDialog>
     with Provided {
   void _onThemeSelection(ThemeMode themeMode) {
     prefsService.setThemeModePref(themeMode);
+    // ignore: no-empty-block
     setState(() {});
     Navigator.of(context).pop();
   }

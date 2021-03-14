@@ -102,6 +102,7 @@ class _NewCallScreenState extends State<NewCallScreen>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return Scaffold(
       backgroundColor: theme.canvasColor,
       appBar: AppBar(
@@ -305,6 +306,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                         currentValue ?? DateTime.now(),
                       ),
                     );
+
                     return DateTimeField.convert(time);
                   },
                   controller: _timeFieldController,

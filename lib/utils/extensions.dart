@@ -18,6 +18,7 @@ extension ThemeModeExtensions on ThemeMode {
         themeModeDisplay = 'Dark theme';
         break;
     }
+
     return themeModeDisplay;
   }
 }

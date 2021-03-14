@@ -11,6 +11,7 @@ class PhoneUtility {
   static Future<PhoneUtility> init() async {
     final service = PhoneUtility._();
     await service._init();
+
     return service;
   }
 

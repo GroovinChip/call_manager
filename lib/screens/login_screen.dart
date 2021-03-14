@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/theme/app_themes.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +51,7 @@ class LoginScreenState extends State<LoginScreen>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: AppThemes.themedSystemNavigationBar(context),
       child: Scaffold(

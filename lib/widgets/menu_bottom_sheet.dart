@@ -40,14 +40,10 @@ class _MenuBottomSheetState extends State<MenuBottomSheet> with FirebaseMixin, P
     setState(() => _packageInfo = packageInfo);
   }
 
-  void changeBrightness() {
-    //DynamicTheme.of(context).setBrightness(Theme.of(context).brightness == Brightness.dark? Brightness.light: Brightness.dark);
-    //Navigator.pop(context);
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [

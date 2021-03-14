@@ -112,6 +112,7 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
                   initialTime:
                       TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
                 );
+
                 return DateTimeField.convert(time);
               },
               decoration: InputDecoration(

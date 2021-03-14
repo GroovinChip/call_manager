@@ -45,6 +45,7 @@ class _EditCallScreenState extends State<EditCallScreen>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return Scaffold(
       backgroundColor: theme.canvasColor,
       appBar: AppBar(
@@ -73,6 +74,7 @@ class _EditCallScreenState extends State<EditCallScreen>
             name = '${doc.data()['Name']}';
             phoneNumber = '${doc.data()['PhoneNumber']}';
             description = '${doc.data()['Description']}';
+
             return Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -83,6 +85,7 @@ class _EditCallScreenState extends State<EditCallScreen>
                     itemBuilder: (context, contact) {
                       //var _avatar = contact.avatar ??
                       final _contact = contact;
+
                       return ListTile(
                         leading: _contact.avatar == null ||
                                 _contact.avatar.length == 0
@@ -236,6 +239,7 @@ class _EditCallScreenState extends State<EditCallScreen>
                 if (name.isEmpty || phoneNumber.isEmpty) {
                   final snackBar = SnackBar(
                     content: Text('Please enter required fields'),
+                    // ignore: no-empty-block
                     action: SnackBarAction(label: 'Dismiss', onPressed: () {}),
                     duration: Duration(seconds: 3),
                   );

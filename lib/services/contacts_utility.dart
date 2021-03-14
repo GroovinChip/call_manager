@@ -10,6 +10,7 @@ class ContactsUtility {
   static Future<ContactsUtility> init() async {
     final service = ContactsUtility._();
     await service._init();
+
     return service;
   }
 
@@ -57,6 +58,7 @@ class ContactsUtility {
               contact.displayName.toLowerCase().contains(query.toLowerCase()))
           .toList();
     }
+
     return [];
   }
 }

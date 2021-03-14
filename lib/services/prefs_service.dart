@@ -8,6 +8,7 @@ class PrefsService {
   static Future<PrefsService> init() async {
     final bloc = PrefsService._();
     await bloc._init();
+
     return bloc;
   }
 
