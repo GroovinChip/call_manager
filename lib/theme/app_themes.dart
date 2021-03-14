@@ -22,6 +22,7 @@ class AppThemes {
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
+        backwardsCompatibility: false,
       ),
       cardColor: AppColors.cardColorLight,
       buttonTheme: ButtonThemeData(
@@ -48,6 +49,7 @@ class AppThemes {
     );
   }
 
+  // ignore: long-method
   static ThemeData darkTheme() {
     return ThemeData(
       brightness: Brightness.dark,
@@ -66,6 +68,7 @@ class AppThemes {
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
+        backwardsCompatibility: false,
       ),
       buttonTheme: ButtonThemeData(
         buttonColor: AppColors.primaryColor,

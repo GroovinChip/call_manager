@@ -50,11 +50,7 @@ class _EditCallScreenState extends State<EditCallScreen>
       backgroundColor: theme.canvasColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: theme.canvasColor,
         title: Text('Edit Call'),
-        backwardsCompatibility: false,
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: firestore

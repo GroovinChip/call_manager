@@ -107,11 +107,7 @@ class _NewCallScreenState extends State<NewCallScreen>
       backgroundColor: theme.canvasColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: theme.canvasColor,
         title: Text('New Call'),
-        backwardsCompatibility: false,
       ),
       body: Form(
         key: formKey,

@@ -61,11 +61,7 @@ class _HomeScreenState extends State<HomeScreen> with Provided {
       value: AppThemes.themedSystemNavigationBar(context),
       child: Scaffold(
         appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: theme.canvasColor,
-          elevation: 0,
           title: Text('Call Manager'),
-          backwardsCompatibility: false,
         ),
         body: CallCardList(),
         floatingActionButton: FloatingActionButton.extended(
