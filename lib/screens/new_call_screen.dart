@@ -1,7 +1,6 @@
 import 'package:call_manager/data_models/call.dart';
 import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/provided.dart';
-import 'package:call_manager/screens/home_screen.dart';
 import 'package:call_manager/utils/extensions.dart';
 import 'package:call_manager/widgets/clear_button.dart';
 import 'package:call_manager/widgets/contact_avatar.dart';
