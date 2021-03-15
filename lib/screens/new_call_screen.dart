@@ -3,6 +3,7 @@ import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/provided.dart';
 import 'package:call_manager/screens/home_screen.dart';
 import 'package:call_manager/utils/extensions.dart';
+import 'package:call_manager/widgets/clear_button.dart';
 import 'package:call_manager/widgets/contact_avatar.dart';
 import 'package:call_manager/widgets/multiple_phone_numbers_sheet.dart';
 import 'package:contacts_service/contacts_service.dart';
@@ -142,15 +143,8 @@ class _NewCallScreenState extends State<NewCallScreen>
                         color: theme.iconTheme.color,
                       ),
                       labelText: 'Name (Required)',
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.close,
-                            color: theme.iconTheme.color,
-                          ),
-                          onPressed: () => _nameFieldController.text = '',
-                        ),
+                      suffixIcon: ClearButton(
+                        onPressed: () => _nameFieldController.text = '',
                       ),
                     ),
                   ),
@@ -172,15 +166,8 @@ class _NewCallScreenState extends State<NewCallScreen>
                       color: theme.iconTheme.color,
                     ),
                     labelText: 'Phone Number (Required)',
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.close,
-                          color: theme.iconTheme.color,
-                        ),
-                        onPressed: () => _phoneFieldController.text = '',
-                      ),
+                    suffixIcon: ClearButton(
+                      onPressed: () => _phoneFieldController.text = '',
                     ),
                   ),
                 ),
@@ -198,17 +185,8 @@ class _NewCallScreenState extends State<NewCallScreen>
                       Icons.comment_outlined,
                       color: theme.iconTheme.color,
                     ),
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.close,
-                          color: theme.brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.grey,
-                        ),
-                        onPressed: () => _descriptionFieldController.text = '',
-                      ),
+                    suffixIcon: ClearButton(
+                      onPressed: () => _descriptionFieldController.text = '',
                     ),
                   ),
                 ),

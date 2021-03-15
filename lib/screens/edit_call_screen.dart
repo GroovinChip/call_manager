@@ -3,6 +3,7 @@ import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/provided.dart';
 import 'package:call_manager/screens/home_screen.dart';
 import 'package:call_manager/utils/extensions.dart';
+import 'package:call_manager/widgets/clear_button.dart';
 import 'package:call_manager/widgets/contact_avatar.dart';
 import 'package:call_manager/widgets/multiple_phone_numbers_sheet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -119,15 +120,8 @@ class _EditCallScreenState extends State<EditCallScreen>
                           Icons.person_outline,
                           color: theme.iconTheme.color,
                         ),
-                        suffixIcon: Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.close,
-                              color: theme.iconTheme.color,
-                            ),
-                            onPressed: () => _nameFieldController.text = '',
-                          ),
+                        suffixIcon: ClearButton(
+                          onPressed: () => _nameFieldController.text = '',
                         ),
                         labelText: widget.call.name,
                       ),
@@ -145,15 +139,8 @@ class _EditCallScreenState extends State<EditCallScreen>
                         Icons.phone_outlined,
                         color: theme.iconTheme.color,
                       ),
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.close,
-                            color: theme.iconTheme.color,
-                          ),
-                          onPressed: () => _phoneFieldController.text = '',
-                        ),
+                      suffixIcon: ClearButton(
+                        onPressed: () => _phoneFieldController.text = '',
                       ),
                       labelText: widget.call.phoneNumber,
                     ),
@@ -174,16 +161,9 @@ class _EditCallScreenState extends State<EditCallScreen>
                         Icons.comment_outlined,
                         color: theme.iconTheme.color,
                       ),
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.close,
-                            color: theme.iconTheme.color,
-                          ),
-                          onPressed: () =>
-                              _descriptionFieldController.text = '',
-                        ),
+                      suffixIcon: ClearButton(
+                        onPressed: () =>
+                            _descriptionFieldController.text = '',
                       ),
                     ),
                   ),
