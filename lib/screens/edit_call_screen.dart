@@ -110,7 +110,6 @@ class _EditCallScreenState extends State<EditCallScreen>
                     onSaved: (contactName) =>
                         _nameFieldController.text = contactName,
                     textFieldConfiguration: TextFieldConfiguration(
-                      enabled: true,
                       textCapitalization: TextCapitalization.words,
                       controller: _nameFieldController,
                       keyboardType: TextInputType.text,
@@ -129,7 +128,6 @@ class _EditCallScreenState extends State<EditCallScreen>
                   ),
                   const SizedBox(height: 16.0),
                   TextField(
-                    enabled: true,
                     keyboardType: TextInputType.phone,
                     maxLines: 1,
                     autofocus: false,
@@ -147,7 +145,6 @@ class _EditCallScreenState extends State<EditCallScreen>
                   ),
                   const SizedBox(height: 16.0),
                   TextFormField(
-                    enabled: true,
                     keyboardType: TextInputType.multiline,
                     textCapitalization: TextCapitalization.sentences,
                     maxLines: 2,

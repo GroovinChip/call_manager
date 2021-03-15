@@ -132,7 +132,6 @@ class _NewCallScreenState extends State<NewCallScreen>
                   onSaved: (contactName) =>
                       _nameFieldController.text = contactName,
                   textFieldConfiguration: TextFieldConfiguration(
-                    enabled: true,
                     textCapitalization: TextCapitalization.words,
                     controller: _nameFieldController,
                     keyboardType: TextInputType.text,
@@ -155,7 +154,6 @@ class _NewCallScreenState extends State<NewCallScreen>
                       ? 'This field is required'
                       : null,
                   onSaved: (input) => _phoneFieldController.text = input,
-                  enabled: true,
                   keyboardType: TextInputType.phone,
                   maxLines: 1,
                   autofocus: false,
@@ -173,7 +171,6 @@ class _NewCallScreenState extends State<NewCallScreen>
                 ),
                 const SizedBox(height: 16.0),
                 TextFormField(
-                  enabled: true,
                   keyboardType: TextInputType.multiline,
                   textCapitalization: TextCapitalization.sentences,
                   maxLines: 2,
@@ -214,7 +211,6 @@ class _NewCallScreenState extends State<NewCallScreen>
                 const SizedBox(height: 16.0),
                 DateTimeField(
                   format: timeFormat,
-                  enabled: true,
                   onChanged: (timeOfDay) =>
                       reminderTime = TimeOfDay.fromDateTime(timeOfDay),
                   onShowPicker: (context, currentValue) async {
