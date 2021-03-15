@@ -71,10 +71,10 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
           setState(() => isExpanded = value);
         },
         inkwellRadius: !isExpanded
-            ? BorderRadius.all(Radius.circular(5.0))
+            ? BorderRadius.all(Radius.circular(8.0))
             : BorderRadius.only(
-                topRight: Radius.circular(5.0),
-                topLeft: Radius.circular(5.0),
+                topRight: Radius.circular(8.0),
+                topLeft: Radius.circular(8.0),
               ),
         children: [
           if (widget.call.description != null && widget.call.description.isNotEmpty) ...[
