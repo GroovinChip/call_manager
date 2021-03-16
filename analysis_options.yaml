@@ -37,6 +37,8 @@ dart_code_metrics:
     - no-empty-block
     - prefer-trailing-comma
     - no-equal-then-else
+    - potential-null-dereference
+    - member-ordering
   member-ordering:
     alphabetize: true
     order:
