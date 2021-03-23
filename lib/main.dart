@@ -15,7 +15,6 @@ Future<void> main() async {
   final prefsService = await PrefsService.init();
   final contactsUtility = await ContactsUtility.init();
   final phoneUtility = await PhoneUtility.init();
-
   final notificationService = await NotificationService.init();
 
   // launch app

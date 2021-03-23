@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:call_manager/data_models/call.dart';
-import 'package:call_number/call_number.dart';
+import 'package:direct_dialer/direct_dialer.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationService {
@@ -31,7 +31,8 @@ class NotificationService {
       onSelectNotification: (String payload) async {
         if (payload != null) {
           log('notification payload: ' + payload, name: 'Call Manager');
-          await CallNumber.callNumber(payload);
+          final dialer = await DirectDialer.instance;
+          await dialer.dial(payload);
         }
         //await CallNumber.callNumber(payload);
       },

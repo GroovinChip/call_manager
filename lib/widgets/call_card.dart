@@ -1,15 +1,16 @@
-
 import 'package:call_manager/data_models/call.dart';
 import 'package:call_manager/firebase/firebase.dart';
+import 'package:call_manager/provided.dart';
 import 'package:call_manager/screens/edit_call_screen.dart';
 import 'package:call_manager/utils/extensions.dart';
 import 'package:call_manager/widgets/call_avatar.dart';
 import 'package:call_manager/widgets/dialogs/delete_call_dialog.dart';
 import 'package:call_manager/widgets/schedule_notification_sheet.dart';
-import 'package:call_number/call_number.dart';
+import 'package:direct_dialer/direct_dialer.dart';
 import 'package:flutter/material.dart';
 import 'package:groovin_widgets/groovin_widgets.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CallCard extends StatefulWidget {
@@ -25,7 +26,7 @@ class CallCard extends StatefulWidget {
   }
 }
 
-class CallCardState extends State<CallCard> with FirebaseMixin {
+class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
   List<PopupMenuItem> overflowItemsCallCard = [
     PopupMenuItem(
       child: Row(
@@ -77,7 +78,8 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
                 topLeft: Radius.circular(8.0),
               ),
         children: [
-          if (widget.call.description != null && widget.call.description.isNotEmpty) ...[
+          if (widget.call.description != null &&
+              widget.call.description.isNotEmpty) ...[
             Row(
               children: [
                 const SizedBox(width: 16),
@@ -132,14 +134,14 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
               IconButton(
                 icon: Icon(MdiIcons.commentTextOutline),
                 onPressed: () {
-                  launch('sms:${widget.call.phoneNumber}');
+                  phoneUtility.sendSms(widget.call.phoneNumber);
                 },
                 tooltip: 'Text ${widget.call.name}',
               ),
               IconButton(
                 icon: Icon(Icons.phone_outlined),
                 onPressed: () async {
-                  await CallNumber.callNumber('${widget.call.phoneNumber}');
+                  await phoneUtility.callNumber('${widget.call.phoneNumber}');
                 },
                 tooltip: 'Call ${widget.call.name}',
               ),
@@ -150,5 +152,3 @@ class CallCardState extends State<CallCard> with FirebaseMixin {
     );
   }
 }
-
-

@@ -1,6 +1,6 @@
 name: call_manager
 description: Call Manager in Flutter
-version: 2.4.2+37
+version: 2.4.3+38
 publish_to: none
 
 environment:
@@ -12,35 +12,35 @@ dependencies:
 
   cupertino_icons: ^1.0.0
   datetime_picker_formfield: any
-  call_number:
-    path: ../../packages_and_plugins/call_number
-  url_launcher: ^5.2.5
-  flutter_local_notifications: ^4.0.1+2
-  firebase_core: ^0.7.0
-  firebase_auth: ^0.20.1
+  direct_dialer:
+    git: https://github.com/GroovinChip/direct_dialer.git
+  url_launcher: ^6.0.2
+  flutter_local_notifications: ^5.0.0
+  firebase_core: ^1.0.2
+  firebase_auth: ^1.0.1
   google_sign_in: ^4.5.9
-  cloud_firestore: ^0.16.0+1
+  cloud_firestore: ^1.0.2
   package_info: ^0.4.3+4
-  permission_handler: ^5.0.1+1
+  permission_handler: ^6.1.1
   groovin_widgets: ^1.6.1
   contacts_service: ^0.4.6
-  flutter_typeahead: ^2.0.0
+  flutter_typeahead: ^3.1.0
   rxdart: ^0.26.0
   shared_preferences: ^2.0.4
   provider: ^5.0.0
-  google_fonts: ^1.1.2
+  google_fonts: ^2.0.0
   material_design_icons_flutter: ^4.0.5955
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: "^0.7.2"
-  dart_code_metrics: ^2.4.1
+  #flutter_launcher_icons: "^0.7.2"
+  #dart_code_metrics: ^2.4.1
 
 flutter_icons:
   android: true
-  image_path: "assets/icon/call_manager_app_icon.png"
-  adaptive_icon_background: "#1976D2"
+  #image_path: "assets/icon/call_manager_app_icon.png"
+  #adaptive_icon_background: "#1976D2"
 
 flutter:
 
