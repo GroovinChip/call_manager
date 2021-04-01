@@ -33,7 +33,7 @@ class ContactsUtility {
   // Used to actually ask the user for permission
   void requestPermission() {
     Permission.contacts.status.then((status) {
-      if (status.isUndetermined || status.isDenied) {
+      if (status.isDenied) {
         Permission.contacts.request().then((value) {
           if (value.isGranted) {
             contactsPermissionSubject.add(value);

@@ -1,4 +1,4 @@
-import 'package:call_number/call_number.dart';
+import 'package:direct_dialer/direct_dialer.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
@@ -30,7 +30,8 @@ class PhoneUtility {
 
   ///
   Future<void> callNumber(String phoneNumber) async {
-    await CallNumber.callNumber(phoneNumber);
+    final dialer = await DirectDialer.instance;
+    await dialer.dial(phoneNumber);
   }
 
   ///
