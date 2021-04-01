@@ -6,12 +6,9 @@ import 'package:call_manager/utils/extensions.dart';
 import 'package:call_manager/widgets/call_avatar.dart';
 import 'package:call_manager/widgets/dialogs/delete_call_dialog.dart';
 import 'package:call_manager/widgets/schedule_notification_sheet.dart';
-import 'package:direct_dialer/direct_dialer.dart';
 import 'package:flutter/material.dart';
 import 'package:groovin_widgets/groovin_widgets.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class CallCard extends StatefulWidget {
   CallCard({
