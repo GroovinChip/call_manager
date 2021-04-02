@@ -24,17 +24,16 @@ if (flutterVersionName == null) {
 apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
-def keystorePropertiesFile
-def keystoreProperties
-
-if (System.getenv()["CI"]) {
-    // do nothing
-} else {
-    keystorePropertiesFile = rootProject.file("/Users/groov/development/flutter_projects/apps/call_manager/key.properties")
-    keystoreProperties = new Properties()
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+} else {
+    keystoreProperties.setProperty('storePassword', System.getenv('KEY_STORE_PASSWORD'));
+    keystoreProperties.setProperty('keyPassword', System.getenv('KEY_PASSWORD'));
+    keystoreProperties.setProperty('keyAlias', System.getenv('ALIAS'));
+    keystoreProperties.setProperty('storeFile', System.getenv('KEY_PATH'));
 }
-//def keystorePropertiesFile = rootProject.file("C:\\Users\\Reuvain\\Flutter Projects\\CallManager\\key.properties")
 
 android {
     compileSdkVersion 29
@@ -44,7 +43,6 @@ android {
     }
 
     defaultConfig {
-        // ALWAYS increment the versionCode and the versionName when preparing a release!
         applicationId "com.groovinchip.flutter.callmanager"
         minSdkVersion 21
         targetSdkVersion 29
@@ -55,7 +53,15 @@ android {
 
     signingConfigs {
         release {
-            if (System.getenv()["CI"]) { // CI=true is exported by Codemagic
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storePassword keystoreProperties['storePassword']
+            /*storeFile file("$System.env.KEY_PATH")
+            storePassword = "$System.env.KEY_STORE_PASSWORD"
+            keyAlias = "$System.env.ALIAS"
+            keyPassword = "$System.env.KEY_PASSWORD"*/
+            /*if (System.getenv()["CI"]) { // CI=true is exported by Codemagic
                 storeFile file(System.getenv()["FCI_BUILD_DIR"] + "/keystore.jks")
                 storePassword System.getenv()["FCI_KEYSTORE_PASSWORD"]
                 keyAlias System.getenv()["FCI_KEY_ALIAS"]
@@ -65,7 +71,7 @@ android {
                 keyPassword keystoreProperties['keyPassword']
                 storeFile file(keystoreProperties['storeFile'])
                 storePassword keystoreProperties['storePassword']
-            }
+            }*/
         }
     }
 
