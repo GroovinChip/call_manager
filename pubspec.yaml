@@ -22,7 +22,7 @@ dependencies:
   cloud_firestore: ^1.0.2
   package_info: ^0.4.3+4
   permission_handler: ^6.1.1
-  groovin_widgets: ^1.6.1
+  groovin_widgets: ^2.0.0
   contacts_service: ^0.4.6
   flutter_typeahead: ^3.1.0
   rxdart: ^0.26.0
