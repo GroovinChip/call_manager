@@ -24,12 +24,12 @@ class EditCallScreen extends StatefulWidget {
 
 class _EditCallScreenState extends State<EditCallScreen>
     with FirebaseMixin, Provided {
+  Contact selectedContact;
   //TextField controllers
   final _nameFieldController = TextEditingController();
   final _phoneFieldController = TextEditingController();
   final _descriptionFieldController = TextEditingController();
 
-  Contact selectedContact;
 
   @override
   // ignore: long-method, code-metrics
