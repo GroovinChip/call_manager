@@ -25,8 +25,8 @@ class LoginScreen extends StatefulWidget {
 
 class LoginScreenState extends State<LoginScreen>
     with FirebaseMixin, SingleTickerProviderStateMixin {
-  AnimationController controller;
   Animation<double> animation;
+  AnimationController controller;
 
   @override
   void initState() {

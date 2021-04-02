@@ -13,16 +13,16 @@ import 'package:provider/provider.dart';
 class CallManagerApp extends StatefulWidget {
   const CallManagerApp({
     Key key,
-    @required this.prefsService,
     @required this.contactsUtility,
-    @required this.phoneUtility,
     @required this.notificationService,
+    @required this.phoneUtility,
+    @required this.prefsService,
   }) : super(key: key);
 
-  final PrefsService prefsService;
   final ContactsUtility contactsUtility;
-  final PhoneUtility phoneUtility;
   final NotificationService notificationService;
+  final PhoneUtility phoneUtility;
+  final PrefsService prefsService;
 
   @override
   _CallManagerAppState createState() => _CallManagerAppState();

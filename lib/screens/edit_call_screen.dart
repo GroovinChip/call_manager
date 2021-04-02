@@ -26,9 +26,9 @@ class _EditCallScreenState extends State<EditCallScreen>
     with FirebaseMixin, Provided {
   Contact selectedContact;
   //TextField controllers
+  final _descriptionFieldController = TextEditingController();
   final _nameFieldController = TextEditingController();
   final _phoneFieldController = TextEditingController();
-  final _descriptionFieldController = TextEditingController();
 
 
   @override

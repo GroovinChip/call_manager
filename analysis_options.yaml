@@ -40,9 +40,10 @@ dart_code_metrics:
     - prefer-trailing-comma
     - no-equal-then-else
     - potential-null-dereference
-  member-ordering:
-    alphabetize: true
-    order:
-      - constructors
-      - public_fields
-      - private_fields
+    - member-ordering:
+        alphabetize: true
+        order:
+          - constructors
+          - public_fields
+          - private_fields
+          - public_setters

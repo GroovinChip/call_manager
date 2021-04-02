@@ -2,42 +2,42 @@ import 'package:flutter/foundation.dart';
 
 class Call {
   Call({
+    this.avatar,
+    this.description,
     this.id,
     @required this.name,
     @required this.phoneNumber,
-    this.avatar,
-    this.description,
     this.reminderDate,
     this.reminderTime,
   });
 
   factory Call.fromJsonWithDocId(Map<String, dynamic> json, String docId) {
     return Call(
+      avatar: json['Avatar'] ?? '',
+      description: json['Description'],
       id: docId,
       name: json['Name'],
       phoneNumber: json['PhoneNumber'],
-      avatar: json['Avatar'] ?? '',
-      description: json['Description'],
       reminderDate: json['ReminderDate'],
       reminderTime: json['ReminderTime'],
     );
   }
 
+  String avatar;
+  String description;
   String id;
   String name;
   String phoneNumber;
-  String avatar;
-  String description;
   String reminderDate;
   String reminderTime;
 
 
   Map<String, dynamic> toJson() {
     return {
-      'Name': name,
-      'PhoneNumber': phoneNumber,
       'Avatar': avatar,
       'Description': description,
+      'Name': name,
+      'PhoneNumber': phoneNumber,
       'ReminderDate': reminderDate?.toString() ?? '',
       'ReminderTime': reminderTime?.toString() ?? '',
     };

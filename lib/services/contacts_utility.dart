@@ -26,9 +26,9 @@ class ContactsUtility {
 
   // Used to determine whether to show a TypeAheadFormField or a TextFormField
   // for NewCallScreen and EditCallScreen
+  Iterable<Contact> contacts;
   final contactsPermissionSubject = BehaviorSubject<PermissionStatus>();
   PermissionStatus get permissionStatus => contactsPermissionSubject.value;
-  Iterable<Contact> contacts;
 
   // Used to actually ask the user for permission
   void requestPermission() {
