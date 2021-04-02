@@ -24,17 +24,16 @@ if (flutterVersionName == null) {
 apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
-def keystorePropertiesFile
-def keystoreProperties
-
-if (System.getenv()["CI"]) {
-    // do nothing
-} else {
-    keystorePropertiesFile = rootProject.file("/Users/groov/development/flutter_projects/apps/call_manager/key.properties")
-    keystoreProperties = new Properties()
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+} else {
+    keystoreProperties.setProperty('storePassword', System.getenv('KEY_STORE_PASSWORD'));
+    keystoreProperties.setProperty('keyPassword', System.getenv('KEY_PASSWORD'));
+    keystoreProperties.setProperty('keyAlias', System.getenv('ALIAS'));
+    keystoreProperties.setProperty('storeFile', System.getenv('KEY_PATH'));
 }
-//def keystorePropertiesFile = rootProject.file("C:\\Users\\Reuvain\\Flutter Projects\\CallManager\\key.properties")
 
 android {
     compileSdkVersion 29
@@ -44,7 +43,6 @@ android {
     }
 
     defaultConfig {
-        // ALWAYS increment the versionCode and the versionName when preparing a release!
         applicationId "com.groovinchip.flutter.callmanager"
         minSdkVersion 21
         targetSdkVersion 29
