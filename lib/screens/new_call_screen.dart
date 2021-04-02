@@ -24,13 +24,6 @@ class _NewCallScreenState extends State<NewCallScreen>
   Iterable<Contact> contacts;
   Contact selectedContact;
 
-  //TextFormField controllers
-  final _nameFieldController = TextEditingController();
-  final _phoneFieldController = TextEditingController();
-  final _descriptionFieldController = TextEditingController();
-  final _dateFieldController = TextEditingController();
-  final _timeFieldController = TextEditingController();
-
   final dateFormat = DateFormat('EEEE, MMMM d, yyyy');
   final timeFormat = DateFormat('h:mm a');
 
@@ -38,6 +31,12 @@ class _NewCallScreenState extends State<NewCallScreen>
   TimeOfDay reminderTime;
 
   final formKey = GlobalKey<FormState>();
+
+  final _nameFieldController = TextEditingController();
+  final _phoneFieldController = TextEditingController();
+  final _descriptionFieldController = TextEditingController();
+  final _dateFieldController = TextEditingController();
+  final _timeFieldController = TextEditingController();
 
   Future<void> saveCall() async {
     if (formKey.currentState.validate()) {
