@@ -11,7 +11,7 @@ jobs:
           java-version: '12.x'
       - run: echo $SIGNING_KEY | base64 -d > android/app/call_manager_key.jks
         env:
-          SIGNING_KEY: ${{ secrets.$SIGNING_KEY }}
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
       - uses: subosito/flutter-action@v1
         with:
           flutter-version: '2.0.3'
