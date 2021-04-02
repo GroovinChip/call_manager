@@ -13,6 +13,8 @@ linter:
     - camel_case_types
     - avoid_empty_else
     - avoid_classes_with_only_static_members
+    - always_declare_return_types
+    - always_require_non_null_named_parameters
 
 analyzer:
   exclude:
