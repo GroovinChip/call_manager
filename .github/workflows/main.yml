@@ -9,14 +9,12 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
-      #- run: echo $SIGNING_KEY | base64 -d > android/app/call_manager_key.jks
         env:
           SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
       - uses: subosito/flutter-action@v1
         with:
           flutter-version: '2.0.3'
       - run: flutter pub get
-      - run: flutter test
       - run: flutter build apk --split-per-abi
         env:
           KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
