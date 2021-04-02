@@ -20,7 +20,7 @@ dependencies:
   firebase_auth: ^1.0.1
   google_sign_in: ^4.5.9
   cloud_firestore: ^1.0.3
-  package_info: ^0.4.3+4
+  package_info: ^2.0.0
   permission_handler: ^6.1.1
   groovin_widgets: ^2.0.0
   contacts_service: ^0.4.6
