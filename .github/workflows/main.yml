@@ -4,11 +4,23 @@ on: [push]
 
 jobs:
   build:
-
+    
     runs-on: ubuntu-latest
-
+    
     steps:
-    - uses: subosito/flutter-action@v1
-    - uses: actions/checkout@v1
-    - run: flutter pub get
-    - run: flutter build apk --split-per-abi
+      - uses: actions/checkout@v1
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v1.1.1
+        with:
+          channel: 'dev'
+        env:
+          KEY_JKS: ${{ secrets.KEY_JKS }}
+          KEY_PASSWORD: ${{ secrets.ALIAS_PASSWORD }}
+          ALIAS_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          run: echo $KEY_JKS > key.jks && flutter pub get && flutter test && flutter build apk --release --split-per-abi
+      - uses: actions/upload-artifact@v1
+        with:
+          name: release-apk
+          path: build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
