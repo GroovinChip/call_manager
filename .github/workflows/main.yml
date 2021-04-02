@@ -11,6 +11,9 @@ jobs:
         with:
           fileName: 'call_manager_key.jks'
           encodedString: ${{ secrets.SIGNING_KEY }}
+      - name: Echo file
+          run: |
+            echo ${{ steps.write_file.outputs.filePath }}
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v1
         with:
