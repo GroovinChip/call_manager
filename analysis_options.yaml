@@ -14,34 +14,34 @@ linter:
     - avoid_empty_else
     - avoid_classes_with_only_static_members
 
-#analyzer:
-#  exclude:
-#    - ios/**
-#  plugins:
-#    - dart_code_metrics
-#
-#dart_code_metrics:
-#  anti-patterns:
-#    - long-method
-#    - long-parameter-list
-#  metrics:
-#    cyclomatic-complexity: 20
-#    lines-of-executable-code: 50
-#    number-of-arguments: 4
-#    maximum-nesting: 5
-#  metrics-exclude:
-#    - test/**
-#  rules:
-#    - newline-before-return
-#    - no-boolean-literal-compare
-#    - no-empty-block
-#    - prefer-trailing-comma
-#    - no-equal-then-else
-#    - potential-null-dereference
-#    - member-ordering
-#  member-ordering:
-#    alphabetize: true
-#    order:
-#      - constructors
-#      - public_fields
-#      - private_fields
+analyzer:
+  exclude:
+    - ios/**
+  plugins:
+    - dart_code_metrics
+
+dart_code_metrics:
+  anti-patterns:
+    - long-method
+    - long-parameter-list
+  metrics:
+    cyclomatic-complexity: 20
+    lines-of-executable-code: 50
+    number-of-arguments: 4
+    maximum-nesting: 5
+  metrics-exclude:
+    - test/**
+  rules:
+    - newline-before-return
+    - no-boolean-literal-compare
+    - no-empty-block
+    - prefer-trailing-comma
+    - no-equal-then-else
+    - potential-null-dereference
+    - member-ordering
+  member-ordering:
+    alphabetize: true
+    order:
+      - constructors
+      - public_fields
+      - private_fields
