@@ -42,7 +42,7 @@ packages:
       name: cloud_firestore
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.3"
   cloud_firestore_platform_interface:
     dependency: transitive
     description:
@@ -56,7 +56,7 @@ packages:
       name: cloud_firestore_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.3"
   collection:
     dependency: transitive
     description:
@@ -257,7 +257,7 @@ packages:
       name: flutter_typeahead
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.0"
+    version: "3.1.1"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -297,7 +297,7 @@ packages:
       name: groovin_widgets
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.1"
+    version: "2.0.0"
   http:
     dependency: transitive
     description:
@@ -369,7 +369,7 @@ packages:
       name: package_info
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.3+4"
+    version: "2.0.0"
   path:
     dependency: transitive
     description:
@@ -481,7 +481,7 @@ packages:
       name: shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.4"
+    version: "2.0.5"
   shared_preferences_linux:
     dependency: transitive
     description:

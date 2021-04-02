@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.0
+  cupertino_icons: ^1.0.2
   datetime_picker_formfield: any
   direct_dialer:
     git: https://github.com/GroovinChip/direct_dialer.git
@@ -19,14 +19,14 @@ dependencies:
   firebase_core: ^1.0.2
   firebase_auth: ^1.0.1
   google_sign_in: ^4.5.9
-  cloud_firestore: ^1.0.2
-  package_info: ^0.4.3+4
+  cloud_firestore: ^1.0.3
+  package_info: ^2.0.0
   permission_handler: ^6.1.1
-  groovin_widgets: ^1.6.1
+  groovin_widgets: ^2.0.0
   contacts_service: ^0.4.6
-  flutter_typeahead: ^3.1.0
+  flutter_typeahead: ^3.1.1
   rxdart: ^0.26.0
-  shared_preferences: ^2.0.4
+  shared_preferences: ^2.0.5
   provider: ^5.0.0
   google_fonts: ^2.0.0
   material_design_icons_flutter: ^4.0.5955
