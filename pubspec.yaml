@@ -26,7 +26,7 @@ dependencies:
   contacts_service: ^0.4.6
   flutter_typeahead: ^3.1.0
   rxdart: ^0.26.0
-  shared_preferences: ^2.0.4
+  shared_preferences: ^2.0.5
   provider: ^5.0.0
   google_fonts: ^2.0.0
   material_design_icons_flutter: ^4.0.5955
