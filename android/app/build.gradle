@@ -53,10 +53,14 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("call_manager_key.jks")
-            storePassword = "$System.env.KEY_PASSWORD"
-            keyAlias = "key"
-            keyPassword = "$System.env.ALIAS_PASSWORD"
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storePassword keystoreProperties['storePassword']
+            /*storeFile file("$System.env.KEY_PATH")
+            storePassword = "$System.env.KEY_STORE_PASSWORD"
+            keyAlias = "$System.env.ALIAS"
+            keyPassword = "$System.env.KEY_PASSWORD"*/
             /*if (System.getenv()["CI"]) { // CI=true is exported by Codemagic
                 storeFile file(System.getenv()["FCI_BUILD_DIR"] + "/keystore.jks")
                 storePassword System.getenv()["FCI_KEYSTORE_PASSWORD"]
