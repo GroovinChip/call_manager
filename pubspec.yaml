@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.0
+  cupertino_icons: ^1.0.2
   datetime_picker_formfield: any
   direct_dialer:
     git: https://github.com/GroovinChip/direct_dialer.git
