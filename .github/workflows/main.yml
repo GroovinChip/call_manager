@@ -5,8 +5,9 @@ jobs:
     name: Build APK
     runs-on: ubuntu-latest
     steps:
-      #- id: write_file
-      - uses: timheuer/base64-to-file@v1
+      - name: base64-to-file
+        id: write_file
+        uses: timheuer/base64-to-file@v1
         with:
           fileName: 'call_manager_key.jks'
           encodedString: ${{ secrets.SIGNING_KEY }}
