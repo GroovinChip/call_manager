@@ -28,8 +28,8 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           ALIAS: ${{ secrets.ALIAS }}
           KEY_PATH: ${{ steps.write_file.outputs.filePath }}
-      - name: Create a Release APK
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: "build/app/outputs/flutter-apk/*.apk"
-          token: ${{ secrets.TOKEN }}
+#      - name: Create a Release APK
+#        uses: ncipollo/release-action@v1
+#        with:
+#          artifacts: "build/app/outputs/flutter-apk/*.apk"
+#          token: ${{ secrets.TOKEN }}
