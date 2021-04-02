@@ -24,7 +24,7 @@ dependencies:
   permission_handler: ^6.1.1
   groovin_widgets: ^2.0.0
   contacts_service: ^0.4.6
-  flutter_typeahead: ^3.1.0
+  flutter_typeahead: ^3.1.1
   rxdart: ^0.26.0
   shared_preferences: ^2.0.5
   provider: ^5.0.0
