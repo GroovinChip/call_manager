@@ -9,7 +9,7 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
-      - run: echo $SIGNING_KEY | base64 -d > android/app/call_manager_key.jks
+      #- run: echo $SIGNING_KEY | base64 -d > android/app/call_manager_key.jks
         env:
           SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
       - uses: subosito/flutter-action@v1
