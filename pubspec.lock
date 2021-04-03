@@ -146,8 +146,8 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "8685348bb4e2a0c8ebeeef4e1eebe4fd7e88fb4c"
-      url: "git@github.com:dart-code-checker/dart-code-metrics.git"
+      resolved-ref: ab5fa1f154c2a28e15177589c2c9cf59281a8b1e
+      url: "https://github.com/dart-code-checker/dart-code-metrics.git"
     source: git
     version: "2.4.1"
   dart_style:
