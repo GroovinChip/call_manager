@@ -24,6 +24,8 @@ class CallCard extends StatefulWidget {
 }
 
 class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
+  bool isExpanded = false;
+
   List<PopupMenuItem> overflowItemsCallCard = [
     PopupMenuItem(
       child: Row(
@@ -39,8 +41,6 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
       value: 'Send Email',
     ),
   ];
-
-  bool isExpanded = false;
 
   @override
   // ignore: long-method

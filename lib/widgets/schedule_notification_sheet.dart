@@ -22,13 +22,13 @@ class ScheduleNotificationSheet extends StatefulWidget {
 
 class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
     with FirebaseMixin, Provided {
-  String numberToCallOnNotificationTap;
-
   final dateFormat = DateFormat('EEEE, MMMM d, yyyy');
-  final timeFormat = DateFormat('h:mm a');
 
+  String numberToCallOnNotificationTap;
   DateTime reminderDate;
   TimeOfDay reminderTime;
+
+  final timeFormat = DateFormat('h:mm a');
 
   Future<void> scheduleNotificationReminder() async {
     var scheduledNotificationDateTime = DateTime(

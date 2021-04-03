@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore_for_file: member-ordering
 // ignore: avoid_classes_with_only_static_members
 class AppColors {
   static Color primaryColor = Color(0xff2962ff);
