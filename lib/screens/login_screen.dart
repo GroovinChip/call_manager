@@ -1,4 +1,5 @@
 import 'package:call_manager/firebase/firebase.dart';
+import 'package:call_manager/screens/home_screen.dart';
 import 'package:call_manager/theme/app_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -103,7 +104,15 @@ class LoginScreenState extends State<LoginScreen>
                         label: Text(
                           'Sign in with Google',
                         ),
-                        onPressed: () async => await auth.signInWithGoogle(),
+                        onPressed: () async =>
+                            await auth.signInWithGoogle().then((value) {
+                          if (auth.currentUser != null) {
+                            Navigator.of(context).pushAndRemoveUntil(
+                              HomeScreen.route(),
+                              (route) => false,
+                            );
+                          }
+                        }),
                       ),
                   ],
                 ),
