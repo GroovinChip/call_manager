@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 
 class ContactAvatar extends StatelessWidget {
   const ContactAvatar({
-    Key key,
+    Key? key,
     this.contact,
   }) : super(key: key);
 
-  final Contact contact;
+  final Contact? contact;
   @override
   Widget build(BuildContext context) {
-    if (contact.avatar.isEmpty) {
+    if (contact!.avatar!.isEmpty) {
       return CircleAvatar(
         child: Icon(Icons.person_outline),
       );
@@ -19,7 +19,7 @@ class ContactAvatar extends StatelessWidget {
       return ClipOval(
         child: CircleAvatar(
           child: Image.memory(
-            contact.avatar,
+            contact!.avatar!,
             gaplessPlayback: true,
           ),
         ),

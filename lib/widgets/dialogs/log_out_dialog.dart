@@ -3,7 +3,7 @@ import 'package:call_manager/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class LogOutDialog extends StatefulWidget {
-  LogOutDialog({Key key}) : super(key: key);
+  LogOutDialog({Key? key}) : super(key: key);
 
   @override
   _LogOutDialogState createState() => _LogOutDialogState();

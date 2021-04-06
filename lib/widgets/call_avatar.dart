@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class CallAvatar extends StatelessWidget {
   const CallAvatar({
-    @required this.call,
+    required this.call,
   });
 
   final Call call;
@@ -16,7 +16,7 @@ class CallAvatar extends StatelessWidget {
       return ClipOval(
         child: CircleAvatar(
           child: Image.memory(
-            Uint8List.fromList(call.avatar.codeUnits),
+            Uint8List.fromList(call.avatar!.codeUnits),
             gaplessPlayback: true,
           ),
         ),

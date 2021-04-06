@@ -140,34 +140,19 @@ class AppThemes {
 
     /// Background used if context is null, mostly used for testing. If null,
     /// then black for dark brightness, and white for light brightness.
-    Color nullContextBackground,
+    Color? nullContextBackground,
   }) {
-    //
-    // Use Brightness.light if it was null for some reason.
-    // ignore: parameter_assignments
-    nullContextBrightness ??= Brightness.light;
-
-    // For the opacity validity checks and enforcement, we ignore the parameter
-    // re-assignment lint rule.
-    // ignore: parameter_assignments
-    opacity ??= 1.0;
     // ignore: parameter_assignments
     if (opacity < 0) opacity = 0;
     // ignore: parameter_assignments
     if (opacity > 1) opacity = 1;
 
-    // If context was null, use nullContextBrightness as brightness value.
-    final bool isDark = context != null
-        ? Theme.of(context).brightness == Brightness.dark
-        : nullContextBrightness == Brightness.dark;
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     // If nullContextBackground is null use black for dark, and white for light.
     nullContextBackground ??= isDark ? Colors.black : Colors.white;
 
-    // Use Theme colorScheme background if possible, else nullContextBackground.
-    final Color background = context != null
-        ? (Theme.of(context)?.canvasColor ?? nullContextBackground)
-        : nullContextBackground;
+    final Color background = Theme.of(context).canvasColor;
 
     // The used system navigation bar divider colors below were tuned to
     // fit well with most color schemes and possible surface branding.

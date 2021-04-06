@@ -12,11 +12,11 @@ import 'package:provider/provider.dart';
 
 class CallManagerApp extends StatefulWidget {
   const CallManagerApp({
-    Key key,
-    @required this.contactsUtility,
-    @required this.notificationService,
-    @required this.phoneUtility,
-    @required this.prefsService,
+    Key? key,
+    required this.contactsUtility,
+    required this.notificationService,
+    required this.phoneUtility,
+    required this.prefsService,
   }) : super(key: key);
 
   final ContactsUtility contactsUtility;
@@ -38,14 +38,14 @@ class _CallManagerAppState extends State<CallManagerApp> with FirebaseMixin {
   }
 
   void _onAuthStateChange() {
-    auth.authStateChanges().listen((User user) {
+    auth.authStateChanges().listen((User? user) {
       if (user != null) {
-        firestore.initStorageForUser(currentUser.uid);
+        firestore.initStorageForUser(currentUser!.uid);
       }
     });
   }
 
-  Route<dynamic> _onGenerateRoute(RouteSettings settings) {
+  Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case HomeScreen.routeName:
         return HomeScreen.route(settings: settings);
@@ -65,9 +65,9 @@ class _CallManagerAppState extends State<CallManagerApp> with FirebaseMixin {
         Provider<PhoneUtility>.value(value: widget.phoneUtility),
         Provider<NotificationService>.value(value: widget.notificationService),
       ],
-      child: StreamBuilder<ThemeMode>(
+      child: StreamBuilder<ThemeMode?>(
         stream: widget.prefsService.themeModeSubject,
-        initialData: widget.prefsService.themeModeSubject.valueWrapper.value,
+        initialData: widget.prefsService.themeModeSubject.valueWrapper!.value,
         builder: (context, snapshot) {
           return MaterialApp(
             navigatorKey: _navigatorKey,
@@ -78,9 +78,9 @@ class _CallManagerAppState extends State<CallManagerApp> with FirebaseMixin {
             initialRoute: currentUser != null
                 ? HomeScreen.routeName
                 : LoginScreen.routeName,
-            onGenerateInitialRoutes: (String initialRoute) => [
-              _onGenerateRoute(RouteSettings(name: initialRoute)),
-            ],
+            onGenerateInitialRoutes: ((String initialRoute) => [
+              _onGenerateRoute(RouteSettings(name: initialRoute))!,
+            ]),
             onGenerateRoute: _onGenerateRoute,
             debugShowCheckedModeBanner: false,
           );

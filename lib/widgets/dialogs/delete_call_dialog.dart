@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 class DeleteCallDialog extends StatefulWidget {
   const DeleteCallDialog({
-    Key key,
-    @required this.callId,
+    Key? key,
+    required this.callId,
   }) : super(key: key);
 
-  final String callId;
+  final String? callId;
   @override
   _DeleteCallDialogState createState() => _DeleteCallDialogState();
 }
@@ -26,7 +26,7 @@ class _DeleteCallDialogState extends State<DeleteCallDialog>
         TextButton(
           child: Text('DELETE'),
           onPressed: () {
-            firestore.calls(currentUser.uid).doc(widget.callId).delete();
+            firestore.calls(currentUser!.uid).doc(widget.callId).delete();
             Navigator.of(context).pop();
           },
         ),

@@ -9,8 +9,8 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 class ScheduleNotificationSheet extends StatefulWidget {
   const ScheduleNotificationSheet({
-    Key key,
-    @required this.call,
+    Key? key,
+    required this.call,
   }) : super(key: key);
 
   final Call call;
@@ -24,17 +24,17 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
     with FirebaseMixin, Provided {
   final dateFormat = DateFormat('EEEE, MMMM d, yyyy');
 
-  String numberToCallOnNotificationTap;
-  DateTime reminderDate;
-  TimeOfDay reminderTime;
+  String? numberToCallOnNotificationTap;
+  DateTime? reminderDate;
+  late TimeOfDay reminderTime;
 
   final timeFormat = DateFormat('h:mm a');
 
   Future<void> scheduleNotificationReminder() async {
     var scheduledNotificationDateTime = DateTime(
-      reminderDate.year,
-      reminderDate.month,
-      reminderDate.day,
+      reminderDate!.year,
+      reminderDate!.month,
+      reminderDate!.day,
       reminderTime.hour,
       reminderTime.minute,
     );
@@ -84,7 +84,7 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
               format: timeFormat,
               enabled: true,
               onChanged: (timeOfDay) =>
-                  reminderTime = TimeOfDay.fromDateTime(timeOfDay),
+                  reminderTime = TimeOfDay.fromDateTime(timeOfDay!),
               onShowPicker: (context, currentValue) async {
                 final time = await showTimePicker(
                   context: context,

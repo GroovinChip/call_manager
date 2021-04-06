@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -15,7 +17,7 @@ extension FirebaseAuthX on FirebaseAuth {
   /// This handles the displaying of the Google SignIn dialog and
   /// finalizing with Firebase Auth.
   Future<void> signInWithGoogle() async {
-    final googleUser = await GoogleSignIn().signIn();
+    final googleUser = await (GoogleSignIn().signIn() as FutureOr<GoogleSignInAccount>);
     final googleAuth = await googleUser.authentication;
 
     final googleAuthCredential = GoogleAuthProvider.credential(

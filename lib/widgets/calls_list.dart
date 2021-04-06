@@ -14,20 +14,20 @@ class _CallsListState extends State<CallsList> with FirebaseMixin {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: firestore.calls(currentUser.uid).snapshots(),
+      stream: firestore.calls(currentUser!.uid).snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Center(
             child: const CircularProgressIndicator(),
           );
         } else {
-          if (snapshot.data.docs.length > 0) {
+          if (snapshot.data!.docs.length > 0) {
             return ListView.builder(
-              itemCount: snapshot.data.docs.length,
+              itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
                 final call = Call.fromJsonWithDocId(
-                  snapshot.data.docs[index].data(),
-                  snapshot.data.docs[index].id,
+                  snapshot.data!.docs[index].data()!,
+                  snapshot.data!.docs[index].id,
                 );
 
                 return Padding(

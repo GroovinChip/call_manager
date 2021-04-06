@@ -1,12 +1,10 @@
-import 'package:flutter/foundation.dart';
-
 class Call {
   Call({
     this.avatar,
     this.description,
     this.id,
-    @required this.name,
-    @required this.phoneNumber,
+    required this.name,
+    required this.phoneNumber,
     this.reminderDate,
     this.reminderTime,
   });
@@ -23,14 +21,13 @@ class Call {
     );
   }
 
-  String avatar;
-  String description;
-  String id;
-  String name;
-  String phoneNumber;
-  String reminderDate;
-  String reminderTime;
-
+  String? avatar;
+  String? description;
+  String? id;
+  String? name;
+  String? phoneNumber;
+  String? reminderDate;
+  String? reminderTime;
 
   Map<String, dynamic> toJson() {
     return {
@@ -45,6 +42,6 @@ class Call {
 }
 
 extension CallX on Call {
-  bool get hasAvatar => avatar != null && avatar.isNotEmpty;
-  bool get hasDescription => description != null && description.isNotEmpty;
+  bool get hasAvatar => avatar != null && avatar!.isNotEmpty;
+  bool get hasDescription => description != null && description!.isNotEmpty;
 }

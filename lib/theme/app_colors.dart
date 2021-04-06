@@ -8,7 +8,7 @@ class AppColors {
   static Color cardColorLight = Color(0xffD1DDFF);
   static Color cardColorDark = Color(0xff283C87);
   static Color canvasColorDark = Colors.grey.shade900;
-  static Color bottomAppColorDark = Color.lerp(
+  static Color? bottomAppColorDark = Color.lerp(
     Colors.grey.shade900,
     Colors.grey.shade800,
     .10,

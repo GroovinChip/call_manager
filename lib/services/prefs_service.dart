@@ -17,17 +17,17 @@ class PrefsService {
     readThemeModePref();
   }
 
-  SharedPreferences preferences;
-  final themeModeSubject = BehaviorSubject<ThemeMode>();
-  ThemeMode get currentThemeMode => themeModeSubject.value;
+  late SharedPreferences preferences;
+  final themeModeSubject = BehaviorSubject<ThemeMode?>();
+  ThemeMode? get currentThemeMode => themeModeSubject.value;
 
-  Future<void> setThemeModePref(ThemeMode themeMode) async {
+  Future<void> setThemeModePref(ThemeMode? themeMode) async {
     await preferences.setString('themeModePref', '${themeMode.toString()}');
     themeModeSubject.add(themeMode);
   }
 
   void readThemeModePref() {
-    String tm = preferences.get('themeModePref') ?? 'ThemeMode.system';
+    String tm = preferences.get('themeModePref') as String? ?? 'ThemeMode.system';
     ThemeMode themeMode =
         ThemeMode.values.firstWhere((element) => element.toString() == tm);
     themeModeSubject.add(themeMode);

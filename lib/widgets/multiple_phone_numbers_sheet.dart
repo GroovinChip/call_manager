@@ -4,11 +4,11 @@ import 'package:groovin_widgets/groovin_widgets.dart';
 
 class MultiplePhoneNumbersSheet extends StatelessWidget {
   const MultiplePhoneNumbersSheet({
-    @required this.selectedContact,
-    Key key,
+    required this.selectedContact,
+    Key? key,
   }) : super(key: key);
 
-  final Contact selectedContact;
+  final Contact? selectedContact;
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +32,8 @@ class MultiplePhoneNumbersSheet extends StatelessWidget {
               ),
             ],
           ),
-          ...List.generate(selectedContact.phones.length, (index) {
-            List<Item> _phoneNumbers = selectedContact.phones.toList();
+          ...List.generate(selectedContact!.phones!.length, (index) {
+            List<Item> _phoneNumbers = selectedContact!.phones!.toList();
             Icon phoneType;
             switch (_phoneNumbers[index].label) {
               case 'mobile':
@@ -51,8 +51,8 @@ class MultiplePhoneNumbersSheet extends StatelessWidget {
 
             return ListTile(
               leading: phoneType,
-              title: Text(_phoneNumbers[index].value),
-              subtitle: Text(_phoneNumbers[index].label),
+              title: Text(_phoneNumbers[index].value!),
+              subtitle: Text(_phoneNumbers[index].label!),
               onTap: () =>
                   Navigator.of(context).pop(_phoneNumbers[index].value),
             );

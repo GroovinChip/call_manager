@@ -18,7 +18,7 @@ class _UserAccountAvatarState extends State<UserAccountAvatar>
     }
 
     return CircleAvatar(
-      backgroundImage: NetworkImage(currentUser.photoURL),
+      backgroundImage: NetworkImage(currentUser!.photoURL!),
       backgroundColor: Theme.of(context).primaryColor,
     );
   }

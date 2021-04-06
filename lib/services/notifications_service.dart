@@ -23,12 +23,12 @@ class NotificationService {
       requestBadgePermission: true,
       requestSoundPermission: true,
     );
-    notificationsPlugin.initialize(
+    notificationsPlugin!.initialize(
       InitializationSettings(
         android: androidInitializationSettings,
         iOS: iosInitializationSettings,
       ),
-      onSelectNotification: (String payload) async {
+      onSelectNotification: (String? payload) async {
         if (payload != null) {
           log('notification payload: ' + payload, name: 'Call Manager');
           final dialer = await DirectDialer.instance;
@@ -39,7 +39,7 @@ class NotificationService {
     );
   }
 
-  FlutterLocalNotificationsPlugin notificationsPlugin;
+  FlutterLocalNotificationsPlugin? notificationsPlugin;
 
   static const _androidPlatformChannelSpecifics = AndroidNotificationDetails(
     '1',
@@ -59,7 +59,7 @@ class NotificationService {
   );
 
   Future<void> scheduleNotification(Call call, DateTime scheduledDate) async {
-    await notificationsPlugin.schedule(
+    await notificationsPlugin!.schedule(
       0,
       'Reminder: call ${call.name}',
       'Tap to call ${call.name}',
