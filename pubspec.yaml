@@ -11,11 +11,11 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
-  datetime_picker_formfield: any
+  datetime_picker_formfield: ^2.0.0
   direct_dialer:
     git: https://github.com/GroovinChip/direct_dialer.git
-  url_launcher: ^6.0.2
-  flutter_local_notifications: ^5.0.0
+  url_launcher: ^6.0.3
+  flutter_local_notifications: ^5.0.0+1
   firebase_core: ^1.0.2
   firebase_auth: ^1.0.1
   google_sign_in: ^5.0.1
@@ -29,7 +29,7 @@ dependencies:
   shared_preferences: ^2.0.5
   provider: ^5.0.0
   google_fonts: ^2.0.0
-  material_design_icons_flutter: ^4.0.5955
+  material_design_icons_flutter: ^5.0.5955-rc.1
 
 dev_dependencies:
   flutter_test:

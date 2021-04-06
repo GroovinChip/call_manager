@@ -126,7 +126,7 @@ packages:
       name: crypto
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0"
+    version: "3.0.1"
   csslib:
     dependency: transitive
     description:
@@ -146,7 +146,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: ab5fa1f154c2a28e15177589c2c9cf59281a8b1e
+      resolved-ref: "090aba86626e539ac6057e9fdb43c3e89a0fc920"
       url: "https://github.com/dart-code-checker/dart-code-metrics.git"
     source: git
     version: "2.4.1"
@@ -163,7 +163,7 @@ packages:
       name: datetime_picker_formfield
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "2.0.0"
   device_info_plus:
     dependency: transitive
     description:
@@ -191,7 +191,7 @@ packages:
       name: device_info_plus_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.1"
   device_info_plus_web:
     dependency: transitive
     description:
@@ -211,7 +211,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "3b19452e468fdf9ef373c63cbeca66e201d7806c"
+      resolved-ref: b83f4d7eaaf78bffa9a557246a1b2bdaa832d5ef
       url: "https://github.com/GroovinChip/direct_dialer.git"
     source: git
     version: "0.2.0"
@@ -310,7 +310,7 @@ packages:
       name: flutter_local_notifications
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0"
+    version: "5.0.0+1"
   flutter_local_notifications_platform_interface:
     dependency: transitive
     description:
@@ -434,7 +434,7 @@ packages:
       name: material_design_icons_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.5955"
+    version: "5.0.5955-rc.1"
   meta:
     dependency: transitive
     description:
@@ -497,7 +497,7 @@ packages:
       name: path_provider_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   path_provider_windows:
     dependency: transitive
     description:
@@ -546,7 +546,7 @@ packages:
       name: process
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.1.0"
+    version: "4.2.1"
   provider:
     dependency: "direct main"
     description:
@@ -670,7 +670,7 @@ packages:
       name: timezone
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.0-nullsafety.0"
+    version: "0.7.0"
   typed_data:
     dependency: transitive
     description:
@@ -684,7 +684,7 @@ packages:
       name: url_launcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.2"
+    version: "6.0.3"
   url_launcher_linux:
     dependency: transitive
     description:
@@ -740,7 +740,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.5"
   xdg_directories:
     dependency: transitive
     description:
@@ -757,4 +757,4 @@ packages:
     version: "3.1.0"
 sdks:
   dart: ">=2.12.0 <3.0.0"
-  flutter: ">=1.22.0"
+  flutter: ">=2.0.0"
