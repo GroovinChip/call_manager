@@ -39,17 +39,8 @@ class _CallManagerAppState extends State<CallManagerApp> with FirebaseMixin {
 
   void _onAuthStateChange() {
     auth.authStateChanges().listen((User user) {
-      if (user == null) {
-        _navigatorKey.currentState.pushAndRemoveUntil(
-          LoginScreen.route(),
-          (route) => false,
-        );
-      } else {
+      if (user != null) {
         firestore.initStorageForUser(currentUser.uid);
-        _navigatorKey.currentState.pushAndRemoveUntil(
-          HomeScreen.route(),
-          (route) => false,
-        );
       }
     });
   }
