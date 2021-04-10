@@ -26,7 +26,7 @@ class _CallsListState extends State<CallsList> with FirebaseMixin {
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
                 final call = Call.fromJsonWithDocId(
-                  snapshot.data!.docs[index].data()!,
+                  snapshot.data!.docs[index].data(),
                   snapshot.data!.docs[index].id,
                 );
 
