@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 mixin Provided<T extends StatefulWidget> on State<T> {
-  PrefsService _prefsService;
-  ContactsUtility _contactsUtility;
-  PhoneUtility _phoneUtility;
-  NotificationService _notificationService;
+  PrefsService? _prefsService;
+  ContactsUtility? _contactsUtility;
+  PhoneUtility? _phoneUtility;
+  NotificationService? _notificationService;
 
   PrefsService get prefsService =>
       _prefsService ??= Provider.of<PrefsService>(context, listen: false);

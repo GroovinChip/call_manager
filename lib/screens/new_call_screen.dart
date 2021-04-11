@@ -21,12 +21,12 @@ class NewCallScreen extends StatefulWidget {
 class _NewCallScreenState extends State<NewCallScreen>
     with FirebaseMixin, Provided {
   // Contact Picker stuff
-  Iterable<Contact> contacts;
+  Iterable<Contact>? contacts;
   final dateFormat = DateFormat('EEEE, MMMM d, yyyy');
   final formKey = GlobalKey<FormState>();
-  DateTime reminderDate;
-  TimeOfDay reminderTime;
-  Contact selectedContact;
+  DateTime? reminderDate;
+  TimeOfDay? reminderTime;
+  Contact? selectedContact;
 
   final timeFormat = DateFormat('h:mm a');
 
@@ -37,11 +37,11 @@ class _NewCallScreenState extends State<NewCallScreen>
   final _timeFieldController = TextEditingController();
 
   Future<void> saveCall() async {
-    if (formKey.currentState.validate()) {
-      formKey.currentState.save();
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
       final call = Call(
         avatar: selectedContact?.avatar != null
-            ? String.fromCharCodes(selectedContact.avatar)
+            ? String.fromCharCodes(selectedContact!.avatar!)
             : '',
         name: _nameFieldController.text,
         phoneNumber: _phoneFieldController.text,
@@ -51,11 +51,11 @@ class _NewCallScreenState extends State<NewCallScreen>
         call.reminderDate = reminderDate.toString();
         call.reminderTime = reminderTime.toString();
         final scheduledNotificationDateTime = DateTime(
-          reminderDate.year,
-          reminderDate.month,
-          reminderDate.day,
-          reminderTime.hour,
-          reminderTime.minute,
+          reminderDate!.year,
+          reminderDate!.month,
+          reminderDate!.day,
+          reminderTime!.hour,
+          reminderTime!.minute,
         );
 
         await notificationService.scheduleNotification(
@@ -64,7 +64,7 @@ class _NewCallScreenState extends State<NewCallScreen>
         );
       }
 
-      firestore.calls(currentUser.uid).add(call.toJson());
+      firestore.calls(currentUser!.uid).add(call.toJson());
 
       Navigator.of(context).pop();
     }
@@ -90,7 +90,7 @@ class _NewCallScreenState extends State<NewCallScreen>
               children: [
                 TypeAheadFormField(
                   suggestionsCallback: contactsUtility.searchContactsWithQuery,
-                  itemBuilder: (context, contact) {
+                  itemBuilder: (context, dynamic contact) {
                     return ListTile(
                       leading: ContactAvatar(contact: contact),
                       title: Text(contact.displayName),
@@ -99,10 +99,10 @@ class _NewCallScreenState extends State<NewCallScreen>
                   transitionBuilder: (context, suggestionsBox, controller) {
                     return suggestionsBox;
                   },
-                  onSuggestionSelected: (contact) {
+                  onSuggestionSelected: (dynamic contact) {
                     selectedContact = contact;
-                    _nameFieldController.text = selectedContact.displayName;
-                    if (selectedContact.phones.length > 1) {
+                    _nameFieldController.text = selectedContact!.displayName!;
+                    if (selectedContact!.phones!.length > 1) {
                       showModalBottomSheet(
                         context: context,
                         shape: RoundedRectangleBorder(
@@ -116,14 +116,14 @@ class _NewCallScreenState extends State<NewCallScreen>
                       });
                     } else {
                       _phoneFieldController.text =
-                          selectedContact.phones.first.value;
+                          selectedContact!.phones!.first.value!;
                     }
                   },
                   validator: (input) => input == null || input == ''
                       ? 'This field is required'
                       : null,
                   onSaved: (contactName) =>
-                      _nameFieldController.text = contactName,
+                      _nameFieldController.text = contactName!,
                   textFieldConfiguration: TextFieldConfiguration(
                     textCapitalization: TextCapitalization.words,
                     controller: _nameFieldController,
@@ -146,7 +146,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                   validator: (input) => input == null || input == ''
                       ? 'This field is required'
                       : null,
-                  onSaved: (input) => _phoneFieldController.text = input,
+                  onSaved: (input) => _phoneFieldController.text = input!,
                   keyboardType: TextInputType.phone,
                   maxLines: 1,
                   autofocus: false,
@@ -205,7 +205,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                 DateTimeField(
                   format: timeFormat,
                   onChanged: (timeOfDay) =>
-                      reminderTime = TimeOfDay.fromDateTime(timeOfDay),
+                      reminderTime = TimeOfDay.fromDateTime(timeOfDay!),
                   onShowPicker: (context, currentValue) async {
                     final time = await showTimePicker(
                       context: context,

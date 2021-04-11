@@ -12,8 +12,8 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 class EditCallScreen extends StatefulWidget {
   const EditCallScreen({
-    Key key,
-    @required this.call,
+    Key? key,
+    required this.call,
   }) : super(key: key);
 
   final Call call;
@@ -24,7 +24,7 @@ class EditCallScreen extends StatefulWidget {
 
 class _EditCallScreenState extends State<EditCallScreen>
     with FirebaseMixin, Provided {
-  Contact selectedContact;
+  Contact? selectedContact;
   //TextField controllers
   final _descriptionFieldController = TextEditingController();
   final _nameFieldController = TextEditingController();
@@ -49,7 +49,7 @@ class _EditCallScreenState extends State<EditCallScreen>
             children: [
               TypeAheadFormField(
                 suggestionsCallback: contactsUtility.searchContactsWithQuery,
-                itemBuilder: (context, contact) {
+                itemBuilder: (context, dynamic contact) {
                   return ListTile(
                     leading: ContactAvatar(contact: contact),
                     title: Text(contact.displayName),
@@ -58,10 +58,10 @@ class _EditCallScreenState extends State<EditCallScreen>
                 transitionBuilder: (context, suggestionsBox, controller) {
                   return suggestionsBox;
                 },
-                onSuggestionSelected: (contact) {
+                onSuggestionSelected: (dynamic contact) {
                   selectedContact = contact;
-                  _nameFieldController.text = selectedContact.displayName;
-                  if (selectedContact.phones.length > 1) {
+                  _nameFieldController.text = selectedContact!.displayName!;
+                  if (selectedContact!.phones!.length > 1) {
                     showModalBottomSheet(
                       context: context,
                       shape: RoundedRectangleBorder(
@@ -73,14 +73,14 @@ class _EditCallScreenState extends State<EditCallScreen>
                     ).then((value) => _phoneFieldController.text = value);
                   } else {
                     _phoneFieldController.text =
-                        selectedContact.phones.first.value;
+                        selectedContact!.phones!.first.value!;
                   }
                 },
                 validator: (input) => input == null || input == ''
                     ? 'This field is required'
                     : null,
                 onSaved: (contactName) =>
-                    _nameFieldController.text = contactName,
+                    _nameFieldController.text = contactName!,
                 textFieldConfiguration: TextFieldConfiguration(
                   textCapitalization: TextCapitalization.words,
                   controller: _nameFieldController,
@@ -157,12 +157,12 @@ class _EditCallScreenState extends State<EditCallScreen>
 
                 if (selectedContact != null) {
                   widget.call.avatar = selectedContact?.avatar != null
-                      ? String.fromCharCodes(selectedContact.avatar)
+                      ? String.fromCharCodes(selectedContact!.avatar!)
                       : '';
                 }
 
                 firestore
-                    .calls(currentUser.uid)
+                    .calls(currentUser!.uid)
                     .doc(widget.call.id)
                     .update(widget.call.toJson());
 

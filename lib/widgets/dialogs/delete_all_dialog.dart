@@ -2,7 +2,7 @@ import 'package:call_manager/firebase/firebase_mixin.dart';
 import 'package:flutter/material.dart';
 
 class DeleteAllDialog extends StatefulWidget {
-  DeleteAllDialog({Key key}) : super(key: key);
+  DeleteAllDialog({Key? key}) : super(key: key);
 
   @override
   _DeleteAllDialogState createState() => _DeleteAllDialogState();
@@ -25,7 +25,7 @@ class _DeleteAllDialogState extends State<DeleteAllDialog> with FirebaseMixin {
             Navigator.of(context).pop();
             final callsRef = firestore
                 .collection('Users')
-                .doc(currentUser.uid)
+                .doc(currentUser!.uid)
                 .collection('Calls');
             final callSnapshots = await callsRef.get();
             if (callSnapshots.docs.length == 0) {

@@ -7,13 +7,13 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 class PassNotification extends InheritedWidget {
   PassNotification(
     this.instance, {
-    Widget child,
+    required Widget child,
   }) : super(child: child);
 
-  final FlutterLocalNotificationsPlugin instance;
+  final FlutterLocalNotificationsPlugin? instance;
 
-  static FlutterLocalNotificationsPlugin of(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<PassNotification>())
+  static FlutterLocalNotificationsPlugin? of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<PassNotification>()!
         .instance;
   }
 

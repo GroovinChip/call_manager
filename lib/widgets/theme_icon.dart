@@ -2,14 +2,14 @@ import 'package:call_manager/theme/app_themes.dart';
 import 'package:flutter/material.dart';
 
 class ThemeIcon extends StatefulWidget {
-  ThemeIcon({Key key}) : super(key: key);
+  ThemeIcon({Key? key}) : super(key: key);
 
   @override
   _ThemeIconState createState() => _ThemeIconState();
 }
 
 class _ThemeIconState extends State<ThemeIcon> {
-  IconData _themeIconData;
+  IconData? _themeIconData;
 
   @override
   void didChangeDependencies() {

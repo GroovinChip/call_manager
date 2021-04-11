@@ -19,7 +19,7 @@ class PhoneUtility {
     phonePermissionStatus = await Permission.phone.status;
   }
 
-  PermissionStatus phonePermissionStatus;
+  PermissionStatus? phonePermissionStatus;
 
   ///
   void requestPhonePermission() {
@@ -35,7 +35,7 @@ class PhoneUtility {
   }
 
   ///
-  void sendSms(String phoneNumber) async {
+  void sendSms(String? phoneNumber) async {
     final url = 'sms:$phoneNumber';
     try {
       if (await url_launcher.canLaunch(url)) {

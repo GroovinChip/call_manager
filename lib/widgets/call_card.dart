@@ -12,7 +12,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 class CallCard extends StatefulWidget {
   CallCard({
-    @required this.call,
+    required this.call,
   });
 
   final Call call;
@@ -58,13 +58,13 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
           call: widget.call,
         ),
         title: Text(
-          widget.call.name,
+          widget.call.name!,
           style: TextStyle(
             color: context.isDarkTheme ? Colors.white : Colors.black,
             fontWeight: FontWeight.bold,
           ),
         ),
-        subtitle: Text(widget.call.phoneNumber),
+        subtitle: Text(widget.call.phoneNumber!),
         onExpansionChanged: (value) {
           setState(() => isExpanded = value);
         },
@@ -76,11 +76,11 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
               ),
         children: [
           if (widget.call.description != null &&
-              widget.call.description.isNotEmpty) ...[
+              widget.call.description!.isNotEmpty) ...[
             Row(
               children: [
                 const SizedBox(width: 16),
-                Text(widget.call.description),
+                Text(widget.call.description!),
               ],
             ),
             const SizedBox(height: 4),

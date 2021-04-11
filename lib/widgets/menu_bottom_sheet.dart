@@ -19,7 +19,8 @@ class MenuBottomSheet extends StatefulWidget {
   _MenuBottomSheetState createState() => _MenuBottomSheetState();
 }
 
-class _MenuBottomSheetState extends State<MenuBottomSheet> with FirebaseMixin, Provided {
+class _MenuBottomSheetState extends State<MenuBottomSheet>
+    with FirebaseMixin, Provided {
   // Set initial package info
   PackageInfo _packageInfo = PackageInfo(
     appName: 'Unknown',
@@ -54,8 +55,8 @@ class _MenuBottomSheetState extends State<MenuBottomSheet> with FirebaseMixin, P
         ),
         ListTile(
           leading: UserAccountAvatar(),
-          title: Text(currentUser.displayName),
-          subtitle: Text(currentUser.email),
+          title: Text(currentUser!.displayName!),
+          subtitle: Text(currentUser!.email!),
           trailing: TextButton(
             child: Text('LOG OUT'),
             onPressed: () {
@@ -85,7 +86,7 @@ class _MenuBottomSheetState extends State<MenuBottomSheet> with FirebaseMixin, P
             );
           },
         ),
-        StreamBuilder<ThemeMode>(
+        StreamBuilder<ThemeMode?>(
           stream: prefsService.themeModeSubject,
           initialData: prefsService.currentThemeMode,
           builder: (context, snapshot) {
@@ -93,7 +94,7 @@ class _MenuBottomSheetState extends State<MenuBottomSheet> with FirebaseMixin, P
               leading: ThemeIcon(),
               title: Text('Toggle app theme'),
               subtitle: Text(
-                snapshot.data.format(),
+                snapshot.data!.format(),
               ),
               onTap: () => showDialog(
                 context: context,
