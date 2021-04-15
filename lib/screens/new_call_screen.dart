@@ -45,6 +45,7 @@ class _NewCallScreenState extends State<NewCallScreen>
             : '',
         name: _nameFieldController.text,
         phoneNumber: _phoneFieldController.text,
+        timeCreated: DateTime.now(),
       );
 
       if (reminderDate != null && reminderTime != null) {
@@ -64,6 +65,7 @@ class _NewCallScreenState extends State<NewCallScreen>
         );
       }
 
+      print(call.toJson());
       firestore.calls(currentUser!.uid).add(call.toJson());
 
       Navigator.of(context).pop();

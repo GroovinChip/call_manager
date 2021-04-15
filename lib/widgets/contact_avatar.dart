@@ -11,7 +11,7 @@ class ContactAvatar extends StatelessWidget {
   final Contact? contact;
   @override
   Widget build(BuildContext context) {
-    if (contact!.avatar!.isEmpty) {
+    if (contact!.avatar == null || contact!.avatar!.isEmpty) {
       return CircleAvatar(
         child: Icon(Icons.person_outline),
       );

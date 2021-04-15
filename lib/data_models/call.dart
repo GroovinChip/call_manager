@@ -7,9 +7,15 @@ class Call {
     required this.phoneNumber,
     this.reminderDate,
     this.reminderTime,
+    this.timeCreated,
   });
 
   factory Call.fromJsonWithDocId(Map<String, dynamic> json, String docId) {
+    DateTime? timestamp;
+    if (json['TimeCreated'] != null) {
+      timestamp = DateTime.parse(json['TimeCreated']);
+    }
+
     return Call(
       avatar: json['Avatar'] ?? '',
       description: json['Description'],
@@ -18,6 +24,7 @@ class Call {
       phoneNumber: json['PhoneNumber'],
       reminderDate: json['ReminderDate'],
       reminderTime: json['ReminderTime'],
+      timeCreated: timestamp,
     );
   }
 
@@ -28,6 +35,7 @@ class Call {
   String? phoneNumber;
   String? reminderDate;
   String? reminderTime;
+  DateTime? timeCreated;
 
   Map<String, dynamic> toJson() {
     return {
@@ -37,6 +45,7 @@ class Call {
       'PhoneNumber': phoneNumber,
       'ReminderDate': reminderDate?.toString() ?? '',
       'ReminderTime': reminderTime?.toString() ?? '',
+      'TimeCreated': timeCreated.toString(),
     };
   }
 }
