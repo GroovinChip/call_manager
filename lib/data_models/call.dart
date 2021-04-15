@@ -8,12 +8,18 @@ class Call {
     this.reminderDate,
     this.reminderTime,
     this.timeCreated,
+    this.lastEdited,
   });
 
   factory Call.fromJsonWithDocId(Map<String, dynamic> json, String docId) {
     DateTime? timestamp;
-    if (json['TimeCreated'] != null) {
+    DateTime? _lastEdited;
+    if (json['TimeCreated'] != "null" && json['TimeCreated'] != null) {
       timestamp = DateTime.parse(json['TimeCreated']);
+    }
+
+    if (json['LastEdited'] != null) {
+      _lastEdited = DateTime.parse(json['LastEdited']);
     }
 
     return Call(
@@ -25,6 +31,7 @@ class Call {
       reminderDate: json['ReminderDate'],
       reminderTime: json['ReminderTime'],
       timeCreated: timestamp,
+      lastEdited: _lastEdited,
     );
   }
 
@@ -36,6 +43,7 @@ class Call {
   String? reminderDate;
   String? reminderTime;
   DateTime? timeCreated;
+  DateTime? lastEdited;
 
   Map<String, dynamic> toJson() {
     return {
@@ -46,6 +54,7 @@ class Call {
       'ReminderDate': reminderDate?.toString() ?? '',
       'ReminderTime': reminderTime?.toString() ?? '',
       'TimeCreated': timeCreated.toString(),
+      'LastEdited': lastEdited.toString(),
     };
   }
 }
