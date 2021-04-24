@@ -16,6 +16,8 @@ Call Manager is available on the Google Play Store and will be coming to Apple d
 
 <a href='https://play.google.com/store/apps/details?id=com.groovinchip.flutter.callmanager&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/></a>
 
+Google Play and the Google Play logo are trademarks of Google LLC.
+
 ## Contribute
 If you would like to contribute to this application:
 1. Fork the repository
