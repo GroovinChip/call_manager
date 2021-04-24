@@ -14,7 +14,7 @@ class Call {
   factory Call.fromJsonWithDocId(Map<String, dynamic> json, String docId) {
     DateTime? timestamp;
     DateTime? _lastEdited;
-    if (json['TimeCreated'] != "null" && json['TimeCreated'] != null) {
+    if (json['TimeCreated'] != 'null' && json['TimeCreated'] != null) {
       timestamp = DateTime.parse(json['TimeCreated']);
     }
 
