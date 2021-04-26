@@ -169,7 +169,7 @@ class AppThemes {
       systemNavigationBarIconBrightness:
           isDark ? Brightness.light : Brightness.dark,
       statusBarColor: Colors.transparent,
-      statusBarBrightness: isDark ? Brightness.light : Brightness.dark,
+      statusBarBrightness: isDark ? Brightness.dark : Brightness.light,
       statusBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
     );
   }

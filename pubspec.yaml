@@ -30,6 +30,8 @@ dependencies:
   provider: ^5.0.0
   google_fonts: ^2.0.0
   material_design_icons_flutter: ^5.0.5955-rc.1
+  sign_in_with_apple: ^3.0.0
+  crypto: ^3.0.1
 
 dev_dependencies:
   flutter_test:

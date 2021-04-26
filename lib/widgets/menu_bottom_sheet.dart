@@ -56,8 +56,12 @@ class _MenuBottomSheetState extends State<MenuBottomSheet>
           ),
           ListTile(
             leading: UserAccountAvatar(),
-            title: Text(currentUser!.displayName!),
-            subtitle: Text(currentUser!.email!),
+            title: currentUser!.displayName != null
+                ? Text(currentUser!.displayName ?? 'user')
+                : Text(currentUser!.email!),
+            subtitle: currentUser!.displayName != null
+                ? Text(currentUser!.email ?? 'email')
+                : null,
             trailing: TextButton(
               child: Text('LOG OUT'),
               onPressed: () {
