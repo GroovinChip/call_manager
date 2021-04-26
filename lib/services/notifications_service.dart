@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:call_manager/data_models/call.dart';
 import 'package:direct_dialer/direct_dialer.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart';
 
 class NotificationService {
   NotificationService._();
@@ -15,6 +17,7 @@ class NotificationService {
   }
 
   Future<void> _init() async {
+    tz.initializeTimeZones();
     notificationsPlugin = FlutterLocalNotificationsPlugin();
     final androidInitializationSettings =
         AndroidInitializationSettings('ic_notification');
@@ -59,14 +62,17 @@ class NotificationService {
   );
 
   Future<void> scheduleNotification(Call call, DateTime scheduledDate) async {
-    await notificationsPlugin!.schedule(
+    final location = TZDateTime.local(scheduledDate.year).location;
+    print(location);
+    await notificationsPlugin!.zonedSchedule(
       0,
       'Reminder: call ${call.name}',
       'Tap to call ${call.name}',
-      scheduledDate,
+      TZDateTime.from(scheduledDate, location),
       _platformChannelSpecifics,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.wallClockTime,
       androidAllowWhileIdle: true,
-      payload: call.phoneNumber,
     );
   }
 }
