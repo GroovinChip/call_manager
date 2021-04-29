@@ -16,10 +16,10 @@ dependencies:
     git: https://github.com/GroovinChip/direct_dialer.git
   url_launcher: ^6.0.3
   flutter_local_notifications: ^5.0.0+3
-  firebase_core: ^1.0.3
-  firebase_auth: ^1.0.3
+  firebase_core: ^1.1.0
+  firebase_auth: ^1.1.2
   google_sign_in: ^5.0.1
-  cloud_firestore: ^1.0.4
+  cloud_firestore: ^1.0.7
   package_info: ^2.0.0
   permission_handler: ^7.0.0
   groovin_widgets: ^2.0.0
