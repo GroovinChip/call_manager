@@ -168,7 +168,7 @@ packages:
       name: device_info_plus
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.1"
   device_info_plus_linux:
     dependency: transitive
     description:
@@ -209,10 +209,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: b83f4d7eaaf78bffa9a557246a1b2bdaa832d5ef
+      resolved-ref: "359cdaea447ce2c093e961b7834e09739cd27005"
       url: "https://github.com/GroovinChip/direct_dialer.git"
     source: git
-    version: "0.2.0"
+    version: "0.2.1"
   fake_async:
     dependency: transitive
     description:
@@ -516,14 +516,14 @@ packages:
       name: permission_handler
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.1.1"
+    version: "7.0.0"
   permission_handler_platform_interface:
     dependency: transitive
     description:
       name: permission_handler_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.1"
+    version: "3.3.0"
   platform:
     dependency: transitive
     description:
