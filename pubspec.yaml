@@ -18,7 +18,7 @@ dependencies:
   flutter_local_notifications: ^5.0.0+3
   firebase_core: ^1.1.0
   firebase_auth: ^1.1.2
-  google_sign_in: ^5.0.1
+  google_sign_in: ^5.0.2
   cloud_firestore: ^1.0.7
   package_info: ^2.0.0
   permission_handler: ^7.0.0
