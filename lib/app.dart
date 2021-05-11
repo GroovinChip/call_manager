@@ -67,7 +67,7 @@ class _CallManagerAppState extends State<CallManagerApp> with FirebaseMixin {
       ],
       child: StreamBuilder<ThemeMode?>(
         stream: widget.prefsService.themeModeSubject,
-        initialData: widget.prefsService.themeModeSubject.valueWrapper!.value,
+        initialData: widget.prefsService.themeModeSubject.value,
         builder: (context, snapshot) {
           return MaterialApp(
             navigatorKey: _navigatorKey,

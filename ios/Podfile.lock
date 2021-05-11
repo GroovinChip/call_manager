@@ -223,7 +223,7 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.7):
     - BoringSSL-GRPC/Interface (= 0.0.7)
   - BoringSSL-GRPC/Interface (0.0.7)
-  - cloud_firestore (1.0.7):
+  - cloud_firestore (2.1.0):
     - Firebase/Firestore (= 7.11.0)
     - firebase_core
     - Flutter
@@ -241,11 +241,11 @@ PODS:
   - Firebase/Firestore (7.11.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 7.11.0)
-  - firebase_auth (1.1.2):
+  - firebase_auth (1.1.4):
     - Firebase/Auth (= 7.11.0)
     - firebase_core
     - Flutter
-  - firebase_core (1.1.0):
+  - firebase_core (1.1.1):
     - Firebase/CoreOnly (= 7.11.0)
     - Flutter
   - FirebaseAuth (7.11.0):
@@ -430,13 +430,13 @@ SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
-  cloud_firestore: 5dbb01f115c77f4380e2248852518f52830d631f
+  cloud_firestore: d40d713b447c39e4e5c1478cee269b2f2dc9cb99
   contacts_service: 849e1f84281804c8bfbec1b4c3eedcb23c5d3eca
   device_info_plus: e5c5da33f982a436e103237c0c85f9031142abed
   direct_dialer: 47a81737464ef2bb231e3bda4d3ac6ec6ff8bb07
   Firebase: c121feb35e4126c0b355e3313fa9b487d47319fd
-  firebase_auth: e7065954aa2a7c8ef1a8502fba3009bcdd8fc91a
-  firebase_core: 84dcd80ac6d29c3d1039071b7306ee99688eb9c7
+  firebase_auth: a2bcd374be68ccee6284c3d00286846466b5a28b
+  firebase_core: 54856a8a39b8f3e35f34fdd3373f3b92a1daa68b
   FirebaseAuth: 5fe4585c2ed847319f0ea68bd1d82c77e49ff9a0
   FirebaseCore: 907447d8917a4d3eb0cce2829c5a0ad21d90b432
   FirebaseCoreDiagnostics: 68ad972f99206cef818230f3f3179d52ccfb7f8c
