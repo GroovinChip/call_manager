@@ -46,81 +46,87 @@ class _MenuBottomSheetState extends State<MenuBottomSheet>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: ModalDrawerHandle(),
-        ),
-        ListTile(
-          leading: UserAccountAvatar(),
-          title: Text(currentUser!.displayName!),
-          subtitle: Text(currentUser!.email!),
-          trailing: TextButton(
-            child: Text('LOG OUT'),
-            onPressed: () {
+    return SafeArea(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: ModalDrawerHandle(),
+          ),
+          ListTile(
+            leading: UserAccountAvatar(),
+            title: currentUser!.displayName != null
+                ? Text(currentUser!.displayName ?? 'user')
+                : Text(currentUser!.email!),
+            subtitle: currentUser!.displayName != null
+                ? Text(currentUser!.email ?? 'email')
+                : null,
+            trailing: TextButton(
+              child: Text('LOG OUT'),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (_) => LogOutDialog(),
+                );
+              },
+            ),
+          ),
+          Divider(
+            color: Colors.grey,
+            height: 0.0,
+          ),
+          ListTile(
+            title: Text('Delete All Calls'),
+            leading: Icon(
+              Icons.clear_all,
+              color: theme.brightness == Brightness.light
+                  ? Colors.black
+                  : Colors.white,
+            ),
+            onTap: () {
               showDialog(
                 context: context,
-                builder: (_) => LogOutDialog(),
+                builder: (_) => DeleteAllDialog(),
               );
             },
           ),
-        ),
-        Divider(
-          color: Colors.grey,
-          height: 0.0,
-        ),
-        ListTile(
-          title: Text('Delete All Calls'),
-          leading: Icon(
-            Icons.clear_all,
-            color: theme.brightness == Brightness.light
-                ? Colors.black
-                : Colors.white,
+          StreamBuilder<ThemeMode?>(
+            stream: prefsService.themeModeSubject,
+            initialData: prefsService.currentThemeMode,
+            builder: (context, snapshot) {
+              return ListTile(
+                leading: ThemeIcon(),
+                title: Text('Toggle app theme'),
+                subtitle: Text(
+                  snapshot.data!.format(),
+                ),
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (_) => ThemeSwitcherDialog(),
+                ),
+              );
+            },
           ),
-          onTap: () {
-            showDialog(
-              context: context,
-              builder: (_) => DeleteAllDialog(),
-            );
-          },
-        ),
-        StreamBuilder<ThemeMode?>(
-          stream: prefsService.themeModeSubject,
-          initialData: prefsService.currentThemeMode,
-          builder: (context, snapshot) {
-            return ListTile(
-              leading: ThemeIcon(),
-              title: Text('Toggle app theme'),
-              subtitle: Text(
-                snapshot.data!.format(),
-              ),
-              onTap: () => showDialog(
-                context: context,
-                builder: (_) => ThemeSwitcherDialog(),
-              ),
-            );
-          },
-        ),
-        Divider(
-          color: Colors.grey,
-          height: 0.0,
-        ),
-        ListTile(
-          leading: Icon(
-            MdiIcons.github,
-            color: theme.brightness == Brightness.light
-                ? Colors.black
-                : Colors.white,
+          Divider(
+            color: Colors.grey,
+            height: 0.0,
           ),
-          title: Text('Call Manager v${_packageInfo.version}'),
-          subtitle: Text('View source code'),
-          onTap: () {
-            launch('https:github.com/GroovinChip/CallManager');
-          },
-        ),
-      ],
+          ListTile(
+            leading: Icon(
+              MdiIcons.github,
+              color: theme.brightness == Brightness.light
+                  ? Colors.black
+                  : Colors.white,
+            ),
+            title: Text('Call Manager v${_packageInfo.version}'),
+            subtitle: Text('View source code'),
+            onTap: () {
+              launch('https:github.com/GroovinChip/CallManager');
+            },
+          ),
+        ],
+      ),
     );
   }
 }

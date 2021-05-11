@@ -10,9 +10,12 @@ class _UserAccountAvatarState extends State<UserAccountAvatar>
     with FirebaseMixin {
   @override
   Widget build(BuildContext context) {
-    if (currentUser == null) {
-      CircleAvatar(
-        child: Icon(Icons.person_outline),
+    if (currentUser == null || currentUser!.photoURL == null) {
+      return CircleAvatar(
+        child: Icon(
+          Icons.person_outline,
+          color: Colors.white,
+        ),
         backgroundColor: Theme.of(context).primaryColor,
       );
     }

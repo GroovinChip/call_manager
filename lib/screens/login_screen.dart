@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/screens/home_screen.dart';
 import 'package:call_manager/theme/app_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -89,7 +92,29 @@ class LoginScreenState extends State<LoginScreen>
                     const SizedBox(height: 50.0),
                     if (currentUser != null)
                       const Center(child: CircularProgressIndicator())
-                    else
+                    else ...[
+                      if (Platform.isIOS) ...[
+                        ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            primary: theme.canvasColor,
+                            onPrimary: theme.colorScheme.onSurface,
+                            elevation: 2.0,
+                          ),
+                          icon: Icon(MdiIcons.apple),
+                          label: Text(
+                            'Sign in with Apple',
+                          ),
+                          onPressed: () async =>
+                          await auth.signInWithApple().then((value) {
+                            if (auth.currentUser != null) {
+                              Navigator.of(context).pushAndRemoveUntil(
+                                HomeScreen.route(),
+                                    (route) => false,
+                              );
+                            }
+                          }),
+                        ),
+                      ],
                       ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
                           primary: theme.canvasColor,
@@ -114,6 +139,7 @@ class LoginScreenState extends State<LoginScreen>
                           }
                         }),
                       ),
+                    ],
                   ],
                 ),
               ),

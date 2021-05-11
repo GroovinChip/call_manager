@@ -13,9 +13,10 @@ class CallsList extends StatefulWidget {
 class _CallsListState extends State<CallsList> with FirebaseMixin {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
+    return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
       stream: firestore.calls(currentUser!.uid).snapshots(),
-      builder: (context, snapshot) {
+      builder: (context,
+          AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
         if (!snapshot.hasData) {
           return Center(
             child: const CircularProgressIndicator(),
