@@ -64,7 +64,7 @@ class _NewCallScreenState extends State<NewCallScreen>
         );
       }
 
-      firestore.upcomingCalls(currentUser!.uid).add(call.toJson());
+      firestore.upcomingCalls.add(call.toJson());
 
       Navigator.of(context).pop();
     }

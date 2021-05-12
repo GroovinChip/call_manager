@@ -5,10 +5,11 @@ import 'package:call_manager/screens/edit_call_screen.dart';
 import 'package:call_manager/utils/extensions.dart';
 import 'package:call_manager/widgets/call_avatar.dart';
 import 'package:call_manager/widgets/dialogs/complete_call_dialog.dart';
+import 'package:call_manager/widgets/dialogs/delete_call_dialog.dart';
+import 'package:call_manager/widgets/dialogs/mark_incomplete_dialog.dart';
 import 'package:call_manager/widgets/schedule_notification_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:groovin_widgets/groovin_widgets.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class CallCard extends StatefulWidget {
   CallCard({
@@ -89,17 +90,44 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                icon: Icon(Icons.check_outlined),
+                icon: Icon(Icons.delete_outline),
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (_) => CompleteCallDialog(
-                      callId: widget.call.id,
+                    builder: (_) => DeleteCallDialog(
+                      call: widget.call,
                     ),
                   );
                 },
                 tooltip: 'Complete',
               ),
+              if (!widget.call.isCompleted) ...[
+                IconButton(
+                  icon: Icon(Icons.check),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) => CompleteCallDialog(
+                        call: widget.call,
+                      ),
+                    );
+                  },
+                  tooltip: 'Complete',
+                ),
+              ] else ...[
+                IconButton(
+                  icon: Icon(Icons.check_circle),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) => MarkIncompleteDialog(
+                        call: widget.call,
+                      ),
+                    );
+                  },
+                  tooltip: 'Complete',
+                ),
+              ],
               IconButton(
                 icon: Icon(Icons.notifications_none),
                 onPressed: () {
@@ -128,13 +156,13 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
                 },
                 tooltip: 'Edit this call',
               ),
-              IconButton(
+              /*IconButton(
                 icon: Icon(MdiIcons.commentTextOutline),
                 onPressed: () {
                   phoneUtility.sendSms(widget.call.phoneNumber);
                 },
                 tooltip: 'Text ${widget.call.name}',
-              ),
+              ),*/
               IconButton(
                 icon: Icon(Icons.phone_outlined),
                 onPressed: () async {

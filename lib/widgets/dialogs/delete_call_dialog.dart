@@ -2,23 +2,23 @@ import 'package:call_manager/data_models/call.dart';
 import 'package:call_manager/firebase/firebase.dart';
 import 'package:flutter/material.dart';
 
-class CompleteCallDialog extends StatefulWidget {
-  const CompleteCallDialog({
+class DeleteCallDialog extends StatefulWidget {
+  const DeleteCallDialog({
     Key? key,
     required this.call,
   }) : super(key: key);
 
   final Call call;
   @override
-  _CompleteCallDialogState createState() => _CompleteCallDialogState();
+  _DeleteCallDialogState createState() => _DeleteCallDialogState();
 }
 
-class _CompleteCallDialogState extends State<CompleteCallDialog>
+class _DeleteCallDialogState extends State<DeleteCallDialog>
     with FirebaseMixin {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: Text('Mark this call as completed?'),
+      content: Text('Delete call?'),
       actions: [
         TextButton(
           child: Text('CANCEL'),
@@ -27,7 +27,7 @@ class _CompleteCallDialogState extends State<CompleteCallDialog>
         TextButton(
           child: Text('YES'),
           onPressed: () {
-            firestore.completeCall(widget.call);
+            firestore.deleteCall(widget.call);
             Navigator.of(context).pop();
           },
         ),

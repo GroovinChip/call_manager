@@ -23,8 +23,9 @@ class _CallsListState extends State<CallsList> with FirebaseMixin {
     return TabBarView(
       controller: widget.tabController,
       children: [
+        // should only be one sb, above tabbarview
         StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-          stream: firestore.upcomingCalls(currentUser!.uid).snapshots(),
+          stream: firestore.upcomingCalls.snapshots(),
           builder: (context,
               AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
             if (!snapshot.hasData) {
@@ -60,7 +61,42 @@ class _CallsListState extends State<CallsList> with FirebaseMixin {
             }
           },
         ),
-        Container(),
+        StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+          stream: firestore.completedCalls.snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: const CircularProgressIndicator(),
+              );
+            } else {
+              if (snapshot.data!.docs.length > 0) {
+                return ListView.builder(
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (context, index) {
+                    final call = Call.fromJsonWithDocId(
+                      snapshot.data!.docs[index].data(),
+                      snapshot.data!.docs[index].id,
+                    );
+
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CallCard(
+                        call: call,
+                      ),
+                    );
+                  },
+                );
+              } else {
+                return Center(
+                  child: Text(
+                    'Nothing here!',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                );
+              }
+            }
+          },
+        ),
       ],
     );
   }

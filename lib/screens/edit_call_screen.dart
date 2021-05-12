@@ -30,7 +30,6 @@ class _EditCallScreenState extends State<EditCallScreen>
   final _nameFieldController = TextEditingController();
   final _phoneFieldController = TextEditingController();
 
-
   @override
   // ignore: long-method, code-metrics
   Widget build(BuildContext context) {
@@ -161,8 +160,7 @@ class _EditCallScreenState extends State<EditCallScreen>
                       : '';
                 }
 
-                firestore
-                    .upcomingCalls(currentUser!.uid)
+                firestore.upcomingCalls
                     .doc(widget.call.id)
                     .update(widget.call.toJson());
 
