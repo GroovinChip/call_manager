@@ -4,7 +4,7 @@ import 'package:call_manager/provided.dart';
 import 'package:call_manager/screens/edit_call_screen.dart';
 import 'package:call_manager/utils/extensions.dart';
 import 'package:call_manager/widgets/call_avatar.dart';
-import 'package:call_manager/widgets/dialogs/delete_call_dialog.dart';
+import 'package:call_manager/widgets/dialogs/complete_call_dialog.dart';
 import 'package:call_manager/widgets/schedule_notification_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:groovin_widgets/groovin_widgets.dart';
@@ -89,16 +89,16 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                icon: Icon(Icons.delete_outline),
+                icon: Icon(Icons.check_outlined),
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (_) => DeleteCallDialog(
+                    builder: (_) => CompleteCallDialog(
                       callId: widget.call.id,
                     ),
                   );
                 },
-                tooltip: 'Delete call',
+                tooltip: 'Complete',
               ),
               IconButton(
                 icon: Icon(Icons.notifications_none),

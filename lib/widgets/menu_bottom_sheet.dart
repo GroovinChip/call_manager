@@ -79,7 +79,7 @@ class _MenuBottomSheetState extends State<MenuBottomSheet>
           ListTile(
             title: Text('Delete All Calls'),
             leading: Icon(
-              Icons.clear_all,
+              MdiIcons.deleteSweepOutline,
               color: theme.brightness == Brightness.light
                   ? Colors.black
                   : Colors.white,
