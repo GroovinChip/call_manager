@@ -27,7 +27,9 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with Provided {
+class _HomeScreenState extends State<HomeScreen>
+    with Provided, SingleTickerProviderStateMixin {
+  late final tabController = TabController(length: 2, vsync: this);
   @override
   void initState() {
     super.initState();
@@ -60,8 +62,23 @@ class _HomeScreenState extends State<HomeScreen> with Provided {
       child: Scaffold(
         appBar: AppBar(
           title: Text('Call Manager'),
+          bottom: TabBar(
+            controller: tabController,
+            indicatorColor: Theme.of(context).indicatorColor.withOpacity(.40),
+            labelColor: Theme.of(context).colorScheme.onSurface,
+            tabs: [
+              Tab(
+                child: Text('Upcoming'),
+              ),
+              Tab(
+                child: Text('Completed'),
+              ),
+            ],
+          ),
         ),
-        body: CallsList(),
+        body: CallsList(
+          tabController: tabController,
+        ),
         floatingActionButton: FloatingActionButton.extended(
           icon: Icon(Icons.add),
           elevation: 2.0,

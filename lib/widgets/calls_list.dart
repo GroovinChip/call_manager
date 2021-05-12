@@ -6,6 +6,13 @@ import 'package:flutter/material.dart';
 
 /// This widget represents the content on the main screen of the app
 class CallsList extends StatefulWidget {
+  const CallsList({
+    Key? key,
+    required this.tabController,
+  }) : super(key: key);
+
+  final TabController tabController;
+
   @override
   _CallsListState createState() => _CallsListState();
 }
@@ -13,42 +20,48 @@ class CallsList extends StatefulWidget {
 class _CallsListState extends State<CallsList> with FirebaseMixin {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-      stream: firestore.calls(currentUser!.uid).snapshots(),
-      builder: (context,
-          AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-        if (!snapshot.hasData) {
-          return Center(
-            child: const CircularProgressIndicator(),
-          );
-        } else {
-          if (snapshot.data!.docs.length > 0) {
-            return ListView.builder(
-              itemCount: snapshot.data!.docs.length,
-              itemBuilder: (context, index) {
-                final call = Call.fromJsonWithDocId(
-                  snapshot.data!.docs[index].data(),
-                  snapshot.data!.docs[index].id,
-                );
+    return TabBarView(
+      controller: widget.tabController,
+      children: [
+        StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+          stream: firestore.upcomingCalls(currentUser!.uid).snapshots(),
+          builder: (context,
+              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: const CircularProgressIndicator(),
+              );
+            } else {
+              if (snapshot.data!.docs.length > 0) {
+                return ListView.builder(
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (context, index) {
+                    final call = Call.fromJsonWithDocId(
+                      snapshot.data!.docs[index].data(),
+                      snapshot.data!.docs[index].id,
+                    );
 
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CallCard(
-                    call: call,
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CallCard(
+                        call: call,
+                      ),
+                    );
+                  },
+                );
+              } else {
+                return Center(
+                  child: Text(
+                    'Nothing here!',
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                 );
-              },
-            );
-          } else {
-            return Center(
-              child: Text(
-                'Nothing here!',
-                style: Theme.of(context).textTheme.headline6,
-              ),
-            );
-          }
-        }
-      },
+              }
+            }
+          },
+        ),
+        Container(),
+      ],
     );
   }
 }

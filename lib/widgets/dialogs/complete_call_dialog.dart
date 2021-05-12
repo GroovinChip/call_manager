@@ -26,7 +26,7 @@ class _CompleteCallDialogState extends State<CompleteCallDialog>
         TextButton(
           child: Text('YES'),
           onPressed: () {
-            firestore.calls(currentUser!.uid).doc(widget.callId).delete();
+            firestore.upcomingCalls(currentUser!.uid).doc(widget.callId).delete();
             Navigator.of(context).pop();
           },
         ),
