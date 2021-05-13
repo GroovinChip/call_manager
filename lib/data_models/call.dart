@@ -24,13 +24,13 @@ class Call {
   }
 
   String? avatar;
+  String? completedAt;
   String? description;
   String? id;
   String? name;
   String? phoneNumber;
   String? reminderDate;
   String? reminderTime;
-  String? completedAt;
 
   Map<String, dynamic> toJson() {
     return {

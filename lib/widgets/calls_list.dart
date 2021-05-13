@@ -26,8 +26,10 @@ class _CallsListState extends State<CallsList> with FirebaseMixin {
         // should only be one sb, above tabbarview
         StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
           stream: firestore.upcomingCalls.snapshots(),
-          builder: (context,
-              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+          builder: (
+            context,
+            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot,
+          ) {
             if (!snapshot.hasData) {
               return Center(
                 child: const CircularProgressIndicator(),
