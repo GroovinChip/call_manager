@@ -3,6 +3,7 @@ import 'package:call_manager/widgets/call_card.dart';
 import 'package:call_manager/firebase/firebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 
 /// This widget represents the content on the main screen of the app
 class CallsList extends StatefulWidget {
@@ -20,28 +21,32 @@ class CallsList extends StatefulWidget {
 class _CallsListState extends State<CallsList> with FirebaseMixin {
   @override
   Widget build(BuildContext context) {
-    return TabBarView(
-      controller: widget.tabController,
-      children: [
-        // should only be one sb, above tabbarview
-        StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-          stream: firestore.upcomingCalls.snapshots(),
-          builder: (
-            context,
-            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot,
-          ) {
-            if (!snapshot.hasData) {
-              return Center(
+    return StreamBuilder<List<QuerySnapshot<Map<String, dynamic>>>>(
+      stream: CombineLatestStream.combine2(
+          firestore.upcomingCalls.snapshots(),
+          firestore.completedCalls.snapshots(),
+          (a, b) => <QuerySnapshot<Map<String, dynamic>>>[
+                a as QuerySnapshot<Map<String, dynamic>>,
+                b as QuerySnapshot<Map<String, dynamic>>
+              ]),
+      builder: (context,
+          AsyncSnapshot<List<QuerySnapshot<Map<String, dynamic>>>> snapshot) {
+        return TabBarView(
+          controller: widget.tabController,
+          children: [
+            // ignore: unnecessary_null_comparison
+            if (!snapshot.hasData) ...[
+              Center(
                 child: const CircularProgressIndicator(),
-              );
-            } else {
-              if (snapshot.data!.docs.length > 0) {
-                return ListView.builder(
-                  itemCount: snapshot.data!.docs.length,
+              ),
+            ] else ...[
+              if (snapshot.data!.first.docs.isNotEmpty) ...[
+                ListView.builder(
+                  itemCount: snapshot.data!.first.docs.length,
                   itemBuilder: (context, index) {
                     final call = Call.fromJsonWithDocId(
-                      snapshot.data!.docs[index].data(),
-                      snapshot.data!.docs[index].id,
+                      snapshot.data!.first.docs[index].data(),
+                      snapshot.data!.first.docs[index].id,
                     );
 
                     return Padding(
@@ -51,33 +56,22 @@ class _CallsListState extends State<CallsList> with FirebaseMixin {
                       ),
                     );
                   },
-                );
-              } else {
-                return Center(
+                ),
+              ] else ...[
+                Center(
                   child: Text(
                     'Nothing here!',
                     style: Theme.of(context).textTheme.headline6,
                   ),
-                );
-              }
-            }
-          },
-        ),
-        StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-          stream: firestore.completedCalls.snapshots(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return Center(
-                child: const CircularProgressIndicator(),
-              );
-            } else {
-              if (snapshot.data!.docs.length > 0) {
-                return ListView.builder(
-                  itemCount: snapshot.data!.docs.length,
+                ),
+              ],
+              if (snapshot.data!.last.docs.isNotEmpty) ...[
+                ListView.builder(
+                  itemCount: snapshot.data!.last.docs.length,
                   itemBuilder: (context, index) {
                     final call = Call.fromJsonWithDocId(
-                      snapshot.data!.docs[index].data(),
-                      snapshot.data!.docs[index].id,
+                      snapshot.data!.last.docs[index].data(),
+                      snapshot.data!.last.docs[index].id,
                     );
 
                     return Padding(
@@ -87,19 +81,24 @@ class _CallsListState extends State<CallsList> with FirebaseMixin {
                       ),
                     );
                   },
-                );
-              } else {
-                return Center(
+                )
+              ] else ...[
+                Center(
                   child: Text(
                     'Nothing here!',
                     style: Theme.of(context).textTheme.headline6,
                   ),
-                );
-              }
-            }
-          },
-        ),
-      ],
+                ),
+              ],
+            ],
+            if (!snapshot.hasData) ...[
+              Center(
+                child: const CircularProgressIndicator(),
+              ),
+            ]
+          ],
+        );
+      },
     );
   }
 }
