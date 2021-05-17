@@ -36,7 +36,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSContactsUsageDescription</key>
-	<string>Call Manager Pro would like to access your contacts</string>
+	<string>Call Manager can autocomplete your contacts when you add a new call, if you allow this permission.</string>
 	<key>PermissionGroupNotification</key>
 	<string>Call Manager Pro would like to send you notifications</string>
 	<key>UILaunchStoryboardName</key>
