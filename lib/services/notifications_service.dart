@@ -62,7 +62,6 @@ class NotificationService {
   );
 
   Future<void> scheduleNotification(Call call, DateTime scheduledDate) async {
-    print(tz.local);
     await notificationsPlugin!.zonedSchedule(
       0,
       'Reminder: call ${call.name}',
