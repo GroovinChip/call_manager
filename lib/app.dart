@@ -71,11 +71,13 @@ class _CallManagerAppState extends State<CallManagerApp> with FirebaseMixin {
         stream: widget.prefsService.preferencesSubject,
         initialData: widget.prefsService.preferencesSubject.value,
         builder: (context, snapshot) {
-          print(snapshot.data!.brightness);
           return Wiredash(
             projectId: 'call-manager-bk2ikve',
             secret: '6p356wjo9kyupuj9se49pd0q2e41xa1x4m68nnky0hvkeva8',
             navigatorKey: _navigatorKey,
+            options: WiredashOptionsData(
+              praiseButton: false,
+            ),
             theme: WiredashThemeData(
               primaryColor: AppColors.primaryColor,
               //primaryBackgroundColor: AppColors.primaryColor,
