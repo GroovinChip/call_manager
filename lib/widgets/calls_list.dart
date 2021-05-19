@@ -60,7 +60,7 @@ class _CallsListState extends State<CallsList> with FirebaseMixin {
               ] else ...[
                 Center(
                   child: Text(
-                    'Nothing here!',
+                    'Tap "Add Call" to get started!',
                     style: Theme.of(context).textTheme.headline6,
                   ),
                 ),
