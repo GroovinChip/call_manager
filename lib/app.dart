@@ -5,10 +5,12 @@ import 'package:call_manager/services/contacts_utility.dart';
 import 'package:call_manager/services/notifications_service.dart';
 import 'package:call_manager/services/phone_utility.dart';
 import 'package:call_manager/services/prefs_service.dart';
+import 'package:call_manager/theme/app_colors.dart';
 import 'package:call_manager/theme/app_themes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wiredash/wiredash.dart';
 
 class CallManagerApp extends StatefulWidget {
   const CallManagerApp({
@@ -65,24 +67,36 @@ class _CallManagerAppState extends State<CallManagerApp> with FirebaseMixin {
         Provider<PhoneUtility>.value(value: widget.phoneUtility),
         Provider<NotificationService>.value(value: widget.notificationService),
       ],
-      child: StreamBuilder<ThemeMode?>(
-        stream: widget.prefsService.themeModeSubject,
-        initialData: widget.prefsService.themeModeSubject.value,
+      child: StreamBuilder<Preferences>(
+        stream: widget.prefsService.preferencesSubject,
+        initialData: widget.prefsService.preferencesSubject.value,
         builder: (context, snapshot) {
-          return MaterialApp(
+          print(snapshot.data!.brightness);
+          return Wiredash(
+            projectId: 'call-manager-bk2ikve',
+            secret: '6p356wjo9kyupuj9se49pd0q2e41xa1x4m68nnky0hvkeva8',
             navigatorKey: _navigatorKey,
-            title: 'Call Manager',
-            theme: AppThemes.lightTheme(),
-            darkTheme: AppThemes.darkTheme(),
-            themeMode: snapshot.data,
-            initialRoute: currentUser != null
-                ? HomeScreen.routeName
-                : LoginScreen.routeName,
-            onGenerateInitialRoutes: ((String initialRoute) => [
-              _onGenerateRoute(RouteSettings(name: initialRoute))!,
-            ]),
-            onGenerateRoute: _onGenerateRoute,
-            debugShowCheckedModeBanner: false,
+            theme: WiredashThemeData(
+              primaryColor: AppColors.primaryColor,
+              //primaryBackgroundColor: AppColors.primaryColor,
+              backgroundColor: AppColors.primaryColor,
+              brightness: snapshot.data!.brightness,
+            ),
+            child: MaterialApp(
+              navigatorKey: _navigatorKey,
+              title: 'Call Manager',
+              theme: AppThemes.lightTheme(),
+              darkTheme: AppThemes.darkTheme(),
+              themeMode: snapshot.data!.themeMode,
+              initialRoute: currentUser != null
+                  ? HomeScreen.routeName
+                  : LoginScreen.routeName,
+              onGenerateInitialRoutes: ((String initialRoute) => [
+                    _onGenerateRoute(RouteSettings(name: initialRoute))!,
+                  ]),
+              onGenerateRoute: _onGenerateRoute,
+              debugShowCheckedModeBanner: false,
+            ),
           );
         },
       ),
