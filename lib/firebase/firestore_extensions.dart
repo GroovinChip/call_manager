@@ -12,6 +12,7 @@ extension FirestoreX on FirebaseFirestore {
       .doc('${FirebaseAuth.instance.currentUser!.uid}')
       .collection('CompletedCalls');
 
+  /// Marks a call as complete and moves it to [completedCalls]
   Future<void> completeCall(Call call) async {
     final completedAt = DateTime.now().toString();
     call.completedAt = completedAt;
@@ -19,6 +20,7 @@ extension FirestoreX on FirebaseFirestore {
     await upcomingCalls.doc(call.id).delete();
   }
 
+  /// Marks a call as incomplete and moves it to [upcomingCalls]
   Future<void> incompleteCall(Call call) async {
     call.completedAt = null;
     await upcomingCalls.doc(call.id).set(call.toJson());
