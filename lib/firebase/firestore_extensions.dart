@@ -35,6 +35,24 @@ extension FirestoreX on FirebaseFirestore {
     }
   }
 
+  Future<dynamic> deleteAllCalls() async {
+    final _upcomingCalls = await upcomingCalls.get();
+    final _completedCalls = await completedCalls.get();
+    if (_upcomingCalls.docs.isEmpty && _completedCalls.docs.isEmpty) {
+      return false;
+    }
+    if (_upcomingCalls.docs.isNotEmpty) {
+      for (int i = 0; i < _upcomingCalls.docs.length; i++) {
+        _upcomingCalls.docs[i].reference.delete();
+      }
+    }
+    if (_completedCalls.docs.isNotEmpty) {
+      for (int i = 0; i < _completedCalls.docs.length; i++) {
+        _completedCalls.docs[i].reference.delete();
+      }
+    }
+  }
+
   void initStorageForUser(String uid) {
     if (users.doc(uid).path.isEmpty) {
       users.doc(uid).set({});
