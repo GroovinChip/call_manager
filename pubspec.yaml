@@ -1,10 +1,10 @@
 name: call_manager
 description: Call Manager in Flutter
-version: 2.6.1+47
+version: 2.7.0-beta2+49
 publish_to: none
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.13.0 <3.0.0'
 
 dependencies:
   flutter:
@@ -16,9 +16,9 @@ dependencies:
   direct_dialer:
     git: https://github.com/GroovinChip/direct_dialer.git
   url_launcher: ^6.0.3
-  flutter_local_notifications: ^5.0.0+3
-  firebase_core: ^1.1.0
-  firebase_auth: ^1.1.2
+  flutter_local_notifications: ^5.0.0+4
+  firebase_core: ^1.1.1
+  firebase_auth: ^1.1.4
   google_sign_in: ^5.0.2
   cloud_firestore: ^2.1.0
   package_info: ^2.0.0
@@ -39,7 +39,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   #flutter_launcher_icons: "^0.7.2"
-  dart_code_metrics: ^3.0.0
+  dart_code_metrics: ^3.2.3
 
 flutter_icons:
   android: true
