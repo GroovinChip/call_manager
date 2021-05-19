@@ -19,6 +19,7 @@ class CallsList extends StatefulWidget {
 
 class _CallsListState extends State<CallsList> with FirebaseMixin {
   @override
+  // ignore: long-method
   Widget build(BuildContext context) {
     return StreamBuilder<List<FirestoreDocument>>(
       stream: CombineLatestStream.combine2(
@@ -80,7 +81,7 @@ class _CallsListState extends State<CallsList> with FirebaseMixin {
                       ),
                     );
                   },
-                )
+                ),
               ] else ...[
                 Center(
                   child: Text(
@@ -94,7 +95,7 @@ class _CallsListState extends State<CallsList> with FirebaseMixin {
               Center(
                 child: const CircularProgressIndicator(),
               ),
-            ]
+            ],
           ],
         );
       },

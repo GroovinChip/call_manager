@@ -56,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   @override
+  // ignore: long-method
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: AppThemes.themedSystemNavigationBar(context),
