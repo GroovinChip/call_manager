@@ -115,20 +115,6 @@ class _MenuBottomSheetState extends State<MenuBottomSheet>
             height: 0.0,
           ),
           ListTile(
-            leading: Icon(MdiIcons.thoughtBubbleOutline),
-            title: Text('Send Feedback'),
-            onTap: () => Wiredash.of(context)!
-              ..setBuildProperties(
-                buildVersion: _packageInfo.version,
-                buildNumber: _packageInfo.buildNumber,
-              )
-              ..show(),
-          ),
-          Divider(
-            color: Colors.grey,
-            height: 0.0,
-          ),
-          ListTile(
             leading: Icon(
               MdiIcons.github,
               color: theme.brightness == Brightness.light
@@ -140,6 +126,16 @@ class _MenuBottomSheetState extends State<MenuBottomSheet>
             onTap: () {
               launch('https:github.com/GroovinChip/CallManager');
             },
+          ),
+          ListTile(
+            leading: Icon(MdiIcons.thoughtBubbleOutline),
+            title: Text('Send Feedback'),
+            onTap: () => Wiredash.of(context)!
+              ..setBuildProperties(
+                buildVersion: _packageInfo.version,
+                buildNumber: _packageInfo.buildNumber,
+              )
+              ..show(),
           ),
         ],
       ),
