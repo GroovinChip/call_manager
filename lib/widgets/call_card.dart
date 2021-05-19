@@ -101,7 +101,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
                 },
                 tooltip: 'Complete',
               ),
-              if (!widget.call.isCompleted) ...[
+              if (widget.call.isNotCompleted) ...[
                 IconButton(
                   icon: Icon(Icons.check),
                   onPressed: () {

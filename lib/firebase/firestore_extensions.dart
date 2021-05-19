@@ -28,10 +28,28 @@ extension FirestoreX on FirebaseFirestore {
   }
 
   Future<void> deleteCall(Call call) async {
-    if (call.isCompleted) {
+    if (!call.isNotCompleted) {
       await completedCalls.doc(call.id).delete();
     } else {
       await upcomingCalls.doc(call.id).delete();
+    }
+  }
+
+  Future<dynamic> deleteAllCalls() async {
+    final _upcomingCalls = await upcomingCalls.get();
+    final _completedCalls = await completedCalls.get();
+    if (_upcomingCalls.docs.isEmpty && _completedCalls.docs.isEmpty) {
+      return false;
+    }
+    if (_upcomingCalls.docs.isNotEmpty) {
+      for (int i = 0; i < _upcomingCalls.docs.length; i++) {
+        _upcomingCalls.docs[i].reference.delete();
+      }
+    }
+    if (_completedCalls.docs.isNotEmpty) {
+      for (int i = 0; i < _completedCalls.docs.length; i++) {
+        _completedCalls.docs[i].reference.delete();
+      }
     }
   }
 

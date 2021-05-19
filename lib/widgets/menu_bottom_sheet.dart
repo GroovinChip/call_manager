@@ -1,5 +1,6 @@
 import 'package:call_manager/firebase/firebase_mixin.dart';
 import 'package:call_manager/provided.dart';
+import 'package:call_manager/services/prefs_service.dart';
 import 'package:call_manager/widgets/dialogs/delete_all_dialog.dart';
 import 'package:call_manager/widgets/dialogs/log_out_dialog.dart';
 import 'package:call_manager/widgets/dialogs/theme_switcher_dialog.dart';
@@ -11,6 +12,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:call_manager/utils/extensions.dart';
+import 'package:wiredash/wiredash.dart';
 
 /// Represents the BottomSheet launched from the BottomAppBar
 /// on the HomeScreen widget
@@ -91,15 +93,15 @@ class _MenuBottomSheetState extends State<MenuBottomSheet>
               );
             },
           ),
-          StreamBuilder<ThemeMode?>(
-            stream: prefsService.themeModeSubject,
-            initialData: prefsService.currentThemeMode,
+          StreamBuilder<Preferences>(
+            stream: prefsService.preferencesSubject,
+            initialData: prefsService.preferencesSubject.value,
             builder: (context, snapshot) {
               return ListTile(
                 leading: ThemeIcon(),
                 title: Text('Toggle app theme'),
                 subtitle: Text(
-                  snapshot.data!.format(),
+                  snapshot.data!.themeMode.format(),
                 ),
                 onTap: () => showDialog(
                   context: context,
@@ -124,6 +126,16 @@ class _MenuBottomSheetState extends State<MenuBottomSheet>
             onTap: () {
               launch('https:github.com/GroovinChip/CallManager');
             },
+          ),
+          ListTile(
+            leading: Icon(MdiIcons.thoughtBubbleOutline),
+            title: Text('Send Feedback'),
+            onTap: () => Wiredash.of(context)!
+              ..setBuildProperties(
+                buildVersion: _packageInfo.version,
+                buildNumber: _packageInfo.buildNumber,
+              )
+              ..show(),
           ),
         ],
       ),

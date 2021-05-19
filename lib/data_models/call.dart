@@ -48,5 +48,5 @@ class Call {
 extension CallX on Call {
   bool get hasAvatar => avatar != null && avatar!.isNotEmpty;
   bool get hasDescription => description != null && description!.isNotEmpty;
-  bool get isCompleted => completedAt != '';
+  bool get isNotCompleted => completedAt == null || completedAt!.isEmpty;
 }
