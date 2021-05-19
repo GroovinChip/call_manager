@@ -1,7 +1,6 @@
 import 'package:call_manager/data_models/call.dart';
-import 'package:call_manager/widgets/call_card.dart';
 import 'package:call_manager/firebase/firebase.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:call_manager/widgets/call_card.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -21,16 +20,16 @@ class CallsList extends StatefulWidget {
 class _CallsListState extends State<CallsList> with FirebaseMixin {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<QuerySnapshot<Map<String, dynamic>>>>(
+    return StreamBuilder<List<FirestoreDocument>>(
       stream: CombineLatestStream.combine2(
-          firestore.upcomingCalls.snapshots(),
-          firestore.completedCalls.snapshots(),
-          (a, b) => <QuerySnapshot<Map<String, dynamic>>>[
-                a as QuerySnapshot<Map<String, dynamic>>,
-                b as QuerySnapshot<Map<String, dynamic>>
-              ]),
-      builder: (context,
-          AsyncSnapshot<List<QuerySnapshot<Map<String, dynamic>>>> snapshot) {
+        firestore.upcomingCalls.snapshots(),
+        firestore.completedCalls.snapshots(),
+        (a, b) => <FirestoreDocument>[
+          a as FirestoreDocument,
+          b as FirestoreDocument,
+        ],
+      ),
+      builder: (_, AsyncSnapshot<List<FirestoreDocument>> snapshot) {
         return TabBarView(
           controller: widget.tabController,
           children: [

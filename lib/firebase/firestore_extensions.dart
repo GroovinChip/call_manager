@@ -1,14 +1,14 @@
 import 'package:call_manager/data_models/call.dart';
+import 'package:call_manager/firebase/fb_type_aliases.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 extension FirestoreX on FirebaseFirestore {
-  CollectionReference<Map<String, dynamic>> get users =>
-      this.collection('Users');
-  CollectionReference<Map<String, dynamic>> get upcomingCalls => users
+  FirestoreCollection get users => this.collection('Users');
+  FirestoreCollection get upcomingCalls => users
       .doc('${FirebaseAuth.instance.currentUser!.uid}')
       .collection('Calls');
-  CollectionReference<Map<String, dynamic>> get completedCalls => users
+  FirestoreCollection get completedCalls => users
       .doc('${FirebaseAuth.instance.currentUser!.uid}')
       .collection('CompletedCalls');
 
