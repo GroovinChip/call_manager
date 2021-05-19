@@ -28,7 +28,7 @@ extension FirestoreX on FirebaseFirestore {
   }
 
   Future<void> deleteCall(Call call) async {
-    if (call.isCompleted) {
+    if (!call.isNotCompleted) {
       await completedCalls.doc(call.id).delete();
     } else {
       await upcomingCalls.doc(call.id).delete();
