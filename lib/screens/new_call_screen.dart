@@ -84,7 +84,7 @@ class _NewCallScreenState extends State<NewCallScreen>
             child: Column(
               children: [
                 TextEditingControllerBuilder(
-                  text: '',
+                  text: call.name ?? '',
                   builder: (_, controller) {
                     return TypeAheadFormField(
                       suggestionsCallback:
@@ -150,7 +150,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                 ),
                 const SizedBox(height: 16.0),
                 TextEditingControllerBuilder(
-                  text: '',
+                  text: call.phoneNumber ?? '',
                   builder: (_, controller) {
                     return TextFormField(
                       validator: (input) => input == null || input == ''
@@ -177,7 +177,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                 ),
                 const SizedBox(height: 16.0),
                 TextEditingControllerBuilder(
-                  text: '',
+                  text: call.description ?? '',
                   builder: (_, controller) {
                     return TextFormField(
                       keyboardType: TextInputType.multiline,

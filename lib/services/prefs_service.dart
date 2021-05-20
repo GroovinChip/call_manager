@@ -83,6 +83,6 @@ class Preferences {
     required this.brightness,
   });
 
-  final ThemeMode themeMode;
   final Brightness brightness;
+  final ThemeMode themeMode;
 }
