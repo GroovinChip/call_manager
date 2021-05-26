@@ -34,6 +34,12 @@ dependencies:
   crypto: ^3.0.1
   timezone: any
   wiredash: ^0.7.0
+  macos_ui: ^0.2.2
+  google_sign_in_dartio:
+    git:
+      url: git@github.com:GroovinChip/firebase_dart_sdk.git
+      path: google_sign_in_dart
+      ref: null_safety
 
 dev_dependencies:
   flutter_test:
