@@ -37,6 +37,7 @@ Future<void> main() async {
           notificationService: notificationService,
           prefsService: prefsService,
           phoneUtility: phoneUtility,
+          contactsUtility: contactsUtility,
         ),
       ),
     );

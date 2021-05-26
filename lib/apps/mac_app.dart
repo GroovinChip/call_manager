@@ -1,6 +1,7 @@
 import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/screens/home_screen.dart';
 import 'package:call_manager/screens/login_screen.dart';
+import 'package:call_manager/services/contacts_utility.dart';
 import 'package:call_manager/services/notifications_service.dart';
 import 'package:call_manager/services/phone_utility.dart';
 import 'package:call_manager/services/prefs_service.dart';
@@ -16,11 +17,13 @@ class MacApp extends StatefulWidget {
     required this.notificationService,
     required this.prefsService,
     required this.phoneUtility,
+    required this.contactsUtility,
   }) : super(key: key);
 
   final NotificationService notificationService;
   final PrefsService prefsService;
   final PhoneUtility phoneUtility;
+  final ContactsUtility contactsUtility;
 
   @override
   _MacAppState createState() => _MacAppState();
@@ -61,6 +64,7 @@ class _MacAppState extends State<MacApp> with FirebaseMixin {
         Provider<PrefsService>.value(value: widget.prefsService),
         Provider<NotificationService>.value(value: widget.notificationService),
         Provider<PhoneUtility>.value(value: widget.phoneUtility),
+        Provider<ContactsUtility>.value(value: widget.contactsUtility),
       ],
       child: StreamBuilder<Preferences>(
         stream: widget.prefsService.preferencesSubject,
