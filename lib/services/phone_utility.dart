@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:direct_dialer/direct_dialer.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart' as url_launcher;
@@ -16,7 +18,9 @@ class PhoneUtility {
   }
 
   Future<void> _init() async {
-    phonePermissionStatus = await Permission.phone.status;
+    if (Platform.isAndroid || Platform.isIOS) {
+      phonePermissionStatus = await Permission.phone.status;
+    }
   }
 
   PermissionStatus? phonePermissionStatus;
