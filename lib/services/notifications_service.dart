@@ -26,10 +26,18 @@ class NotificationService {
       requestBadgePermission: true,
       requestSoundPermission: true,
     );
+
+    final initializationSettingsMacOs = MacOSInitializationSettings(
+      requestAlertPermission: true,
+      requestBadgePermission: true,
+      requestSoundPermission: true,
+    );
+
     notificationsPlugin!.initialize(
       InitializationSettings(
         android: androidInitializationSettings,
         iOS: iosInitializationSettings,
+        macOS: initializationSettingsMacOs,
       ),
       onSelectNotification: (String? payload) async {
         if (payload != null) {
