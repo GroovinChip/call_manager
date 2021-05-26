@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:call_manager/provided.dart';
 import 'package:call_manager/screens/new_call_screen.dart';
 import 'package:call_manager/theme/app_themes.dart';
@@ -64,56 +65,60 @@ class _HomeScreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: AppThemes.themedSystemNavigationBar(context),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Call Manager'),
-          bottom: TabBar(
-            controller: tabController,
-            indicatorColor: Theme.of(context).indicatorColor.withOpacity(.40),
-            labelColor: Theme.of(context).colorScheme.onSurface,
-            tabs: [
-              Tab(
-                child: Text('Upcoming'),
+      child: WindowTitleBarBox(
+        child: MoveWindow(
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text('Call Manager'),
+              bottom: TabBar(
+                controller: tabController,
+                indicatorColor: Theme.of(context).indicatorColor.withOpacity(.40),
+                labelColor: Theme.of(context).colorScheme.onSurface,
+                tabs: [
+                  Tab(
+                    child: Text('Upcoming'),
+                  ),
+                  Tab(
+                    child: Text('Completed'),
+                  ),
+                ],
               ),
-              Tab(
-                child: Text('Completed'),
-              ),
-            ],
-          ),
-        ),
-        body: CallsList(
-          tabController: tabController,
-        ),
-        floatingActionButton: FloatingActionButton.extended(
-          icon: Icon(Icons.add),
-          elevation: 2.0,
-          label: Text('NEW CALL'),
-          onPressed: () => Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (_) => NewCallScreen(),
             ),
-          ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: BottomAppBar(
-          child: Row(
-            children: [
-              const SizedBox(width: 8.0),
-              IconButton(
-                icon: Icon(Icons.menu),
-                onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(8.0),
-                      ),
-                    ),
-                    builder: (_) => MenuBottomSheet(),
-                  );
-                },
+            body: CallsList(
+              tabController: tabController,
+            ),
+            floatingActionButton: FloatingActionButton.extended(
+              icon: Icon(Icons.add),
+              elevation: 2.0,
+              label: Text('NEW CALL'),
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => NewCallScreen(),
+                ),
               ),
-            ],
+            ),
+            floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+            bottomNavigationBar: BottomAppBar(
+              child: Row(
+                children: [
+                  const SizedBox(width: 8.0),
+                  IconButton(
+                    icon: Icon(Icons.menu),
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(8.0),
+                          ),
+                        ),
+                        builder: (_) => MenuBottomSheet(),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
