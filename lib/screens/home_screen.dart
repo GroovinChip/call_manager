@@ -1,11 +1,14 @@
 import 'dart:io';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/provided.dart';
 import 'package:call_manager/screens/new_call_screen.dart';
 import 'package:call_manager/theme/app_themes.dart';
 import 'package:call_manager/widgets/calls_list.dart';
 import 'package:call_manager/widgets/menu_bottom_sheet.dart';
+import 'package:call_manager/widgets/user_account_avatar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -136,19 +139,69 @@ class _MobileHomeScreenState extends State<MobileHomeScreen>
   }
 }
 
-class DesktopHomeScreen extends StatelessWidget {
+class DesktopHomeScreen extends StatefulWidget {
   const DesktopHomeScreen({Key? key}) : super(key: key);
 
   @override
+  _DesktopHomeScreenState createState() => _DesktopHomeScreenState();
+}
+
+class _DesktopHomeScreenState extends State<DesktopHomeScreen> with Provided, FirebaseMixin {
+  @override
   Widget build(BuildContext context) {
+    final textColor = mui.MacosTheme.brightnessOf(context).isDark
+        ? Colors.white
+        : Colors.black;
     return WindowTitleBarBox(
       child: MoveWindow(
         child: mui.Scaffold(
           sidebar: mui.Sidebar(
-            minWidth: 200,
-            startWidth: 200,
+            minWidth: 225,
+            startWidth: 225,
             builder: (context, scrollController) {
-              return Column();
+              return Column(
+                children: [
+                  ListTileTheme(
+                    textColor: textColor,
+                    child: ListTile(
+                      leading: Icon(
+                        CupertinoIcons.calendar,
+                        color: mui.MacosColors.systemBlueColor,
+                      ),
+                      title: Text('Upcoming Calls'),
+                      onTap: () {},
+                    ),
+                  ),
+                  Divider(
+                    height: 0,
+                    color: mui.MacosTheme.of(context).dividerColor,
+                  ),
+                  ListTileTheme(
+                    textColor: textColor,
+                    child: ListTile(
+                      leading: Icon(
+                        CupertinoIcons.checkmark_seal,
+                        color: mui.MacosColors.systemBlueColor,
+                      ),
+                      title: Text('Completed Calls'),
+                      onTap: () {},
+                    ),
+                  ),
+                  Divider(
+                    height: 0,
+                    color: mui.MacosTheme.of(context).dividerColor,
+                  ),
+                  Spacer(),
+                  ListTileTheme(
+                    textColor: textColor,
+                    child: ListTile(
+                      leading: UserAccountAvatar(),
+                      title: Text(currentUser?.displayName ?? 'User'),
+                      onTap: () {},
+                    ),
+                  ),
+                ],
+              );
             },
           ),
           children: [
