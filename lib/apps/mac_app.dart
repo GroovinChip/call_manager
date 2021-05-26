@@ -2,6 +2,7 @@ import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/screens/home_screen.dart';
 import 'package:call_manager/screens/login_screen.dart';
 import 'package:call_manager/services/notifications_service.dart';
+import 'package:call_manager/services/phone_utility.dart';
 import 'package:call_manager/services/prefs_service.dart';
 import 'package:call_manager/theme/app_colors.dart';
 import 'package:flutter/widgets.dart';
@@ -14,10 +15,12 @@ class MacApp extends StatefulWidget {
     Key? key,
     required this.notificationService,
     required this.prefsService,
+    required this.phoneUtility,
   }) : super(key: key);
 
   final NotificationService notificationService;
   final PrefsService prefsService;
+  final PhoneUtility phoneUtility;
 
   @override
   _MacAppState createState() => _MacAppState();
@@ -57,6 +60,7 @@ class _MacAppState extends State<MacApp> with FirebaseMixin {
       providers: [
         Provider<PrefsService>.value(value: widget.prefsService),
         Provider<NotificationService>.value(value: widget.notificationService),
+        Provider<PhoneUtility>.value(value: widget.phoneUtility),
       ],
       child: StreamBuilder<Preferences>(
         stream: widget.prefsService.preferencesSubject,
@@ -85,8 +89,8 @@ class _MacAppState extends State<MacApp> with FirebaseMixin {
                   ? HomeScreen.routeName
                   : LoginScreen.routeName,
               onGenerateInitialRoutes: ((String initialRoute) => [
-                _onGenerateRoute(RouteSettings(name: initialRoute))!,
-              ]),
+                    _onGenerateRoute(RouteSettings(name: initialRoute))!,
+                  ]),
               onGenerateRoute: _onGenerateRoute,
               debugShowCheckedModeBanner: false,
             ),

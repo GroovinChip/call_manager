@@ -36,6 +36,7 @@ Future<void> main() async {
         child: MacApp(
           notificationService: notificationService,
           prefsService: prefsService,
+          phoneUtility: phoneUtility,
         ),
       ),
     );
