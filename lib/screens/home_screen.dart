@@ -9,8 +9,9 @@ import 'package:call_manager/widgets/menu_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:macos_ui/macos_ui.dart' as mui;
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
 
   static const routeName = '/homeScreen';
@@ -27,12 +28,36 @@ class HomeScreen extends StatefulWidget {
   }
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  // ignore: long-method
+  Widget build(BuildContext context) {
+    return HomeScreenAdapter();
+  }
 }
 
-class _HomeScreenState extends State<HomeScreen>
+class HomeScreenAdapter extends StatelessWidget {
+  const HomeScreenAdapter({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    if (Platform.isAndroid || Platform.isIOS) {
+      return MobileHomeScreen();
+    } else {
+      return DesktopHomeScreen();
+    }
+  }
+}
+
+class MobileHomeScreen extends StatefulWidget {
+  const MobileHomeScreen({Key? key}) : super(key: key);
+
+  @override
+  _MobileHomeScreenState createState() => _MobileHomeScreenState();
+}
+
+class _MobileHomeScreenState extends State<MobileHomeScreen>
     with Provided, SingleTickerProviderStateMixin {
   late final tabController = TabController(length: 2, vsync: this);
+
   @override
   void initState() {
     super.initState();
@@ -48,78 +73,89 @@ class _HomeScreenState extends State<HomeScreen>
         Permission.contacts,
       ].request();
     }
-
-    /*if (contactsUtility.permissionStatus.isUndetermined ||
-        contactsUtility.permissionStatus.isDenied) {
-      contactsUtility.requestPermission();
-    }
-
-    if (phoneUtility.phonePermissionStatus.isUndetermined ||
-        phoneUtility.phonePermissionStatus.isDenied) {
-      phoneUtility.requestPhonePermission();
-    }*/
   }
 
   @override
-  // ignore: long-method
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: AppThemes.themedSystemNavigationBar(context),
-      child: WindowTitleBarBox(
-        child: MoveWindow(
-          child: Scaffold(
-            appBar: AppBar(
-              title: Text('Call Manager'),
-              bottom: TabBar(
-                controller: tabController,
-                indicatorColor: Theme.of(context).indicatorColor.withOpacity(.40),
-                labelColor: Theme.of(context).colorScheme.onSurface,
-                tabs: [
-                  Tab(
-                    child: Text('Upcoming'),
-                  ),
-                  Tab(
-                    child: Text('Completed'),
-                  ),
-                ],
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Call Manager'),
+          bottom: TabBar(
+            controller: tabController,
+            indicatorColor: Theme.of(context).indicatorColor.withOpacity(.40),
+            labelColor: Theme.of(context).colorScheme.onSurface,
+            tabs: [
+              Tab(
+                child: Text('Upcoming'),
               ),
-            ),
-            body: CallsList(
-              tabController: tabController,
-            ),
-            floatingActionButton: FloatingActionButton.extended(
-              icon: Icon(Icons.add),
-              elevation: 2.0,
-              label: Text('NEW CALL'),
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => NewCallScreen(),
-                ),
+              Tab(
+                child: Text('Completed'),
               ),
-            ),
-            floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-            bottomNavigationBar: BottomAppBar(
-              child: Row(
-                children: [
-                  const SizedBox(width: 8.0),
-                  IconButton(
-                    icon: Icon(Icons.menu),
-                    onPressed: () {
-                      showModalBottomSheet(
-                        context: context,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(8.0),
-                          ),
-                        ),
-                        builder: (_) => MenuBottomSheet(),
-                      );
-                    },
-                  ),
-                ],
-              ),
+            ],
+          ),
+        ),
+        body: CallsList(
+          tabController: tabController,
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          icon: Icon(Icons.add),
+          elevation: 2.0,
+          label: Text('NEW CALL'),
+          onPressed: () => Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => NewCallScreen(),
             ),
           ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: BottomAppBar(
+          child: Row(
+            children: [
+              const SizedBox(width: 8.0),
+              IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(8.0),
+                      ),
+                    ),
+                    builder: (_) => MenuBottomSheet(),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class DesktopHomeScreen extends StatelessWidget {
+  const DesktopHomeScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return WindowTitleBarBox(
+      child: MoveWindow(
+        child: mui.Scaffold(
+          sidebar: mui.Sidebar(
+            minWidth: 200,
+            startWidth: 200,
+            builder: (context, scrollController) {
+              return Column();
+            },
+          ),
+          children: [
+            mui.ContentArea(
+              builder: (context, scrollController) => Container(),
+            ),
+          ],
         ),
       ),
     );

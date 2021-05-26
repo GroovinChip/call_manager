@@ -12,8 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wiredash/wiredash.dart';
 
-class CallManagerApp extends StatefulWidget {
-  const CallManagerApp({
+class MobileApp extends StatefulWidget {
+  const MobileApp({
     Key? key,
     required this.contactsUtility,
     required this.notificationService,
@@ -27,10 +27,10 @@ class CallManagerApp extends StatefulWidget {
   final PrefsService prefsService;
 
   @override
-  _CallManagerAppState createState() => _CallManagerAppState();
+  _MobileAppState createState() => _MobileAppState();
 }
 
-class _CallManagerAppState extends State<CallManagerApp> with FirebaseMixin {
+class _MobileAppState extends State<MobileApp> with FirebaseMixin {
   final _navigatorKey = GlobalKey<NavigatorState>();
 
   @override
