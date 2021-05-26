@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:call_manager/provided.dart';
 import 'package:call_manager/screens/new_call_screen.dart';
 import 'package:call_manager/theme/app_themes.dart';
@@ -39,10 +41,12 @@ class _HomeScreenState extends State<HomeScreen>
   /// Checks for contacts and phone permissions and requests them if they
   /// are not yet given.
   Future<void> _checkPermissions() async {
-    await [
-      Permission.phone,
-      Permission.contacts,
-    ].request();
+    if (Platform.isAndroid || Platform.isIOS) {
+      await [
+        Permission.phone,
+        Permission.contacts,
+      ].request();
+    }
 
     /*if (contactsUtility.permissionStatus.isUndetermined ||
         contactsUtility.permissionStatus.isDenied) {

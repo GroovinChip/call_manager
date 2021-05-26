@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:contacts_service/contacts_service.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -17,10 +18,12 @@ class ContactsUtility {
   // Get initial permission state, add to stream. There will always be
   // an initial permission state this way.
   Future<void> _init() async {
-    var status = await Permission.contacts.status;
-    contactsPermissionSubject.add(status);
-    if (status.isGranted) {
-      getContacts();
+    if (Platform.isAndroid || Platform.isIOS) {
+      var status = await Permission.contacts.status;
+      contactsPermissionSubject.add(status);
+      if (status.isGranted) {
+        getContacts();
+      }
     }
   }
 
