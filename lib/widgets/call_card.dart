@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:call_manager/data_models/call.dart';
 import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/provided.dart';
 import 'package:call_manager/screens/edit_call_screen.dart';
+import 'package:call_manager/theme/app_colors.dart';
 import 'package:call_manager/utils/extensions.dart';
 import 'package:call_manager/widgets/call_avatar.dart';
 import 'package:call_manager/widgets/dialogs/complete_call_dialog.dart';
@@ -10,6 +13,7 @@ import 'package:call_manager/widgets/dialogs/mark_incomplete_dialog.dart';
 import 'package:call_manager/widgets/schedule_notification_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:groovin_widgets/groovin_widgets.dart';
+import 'package:macos_ui/macos_ui.dart' as mui;
 
 class CallCard extends StatefulWidget {
   CallCard({
@@ -46,9 +50,24 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
   @override
   // ignore: long-method
   Widget build(BuildContext context) {
+    Color cardColor;
+    Color textColor;
+    if (Platform.isMacOS) {
+      cardColor = mui.MacosTheme.brightnessOf(context).isDark
+          ? AppColors.cardColorDark
+          : AppColors.cardColorLight;
+      textColor = mui.MacosTheme.brightnessOf(context).isDark
+          ? Colors.white
+          : Colors.black;
+    } else {
+      cardColor = context.isDarkTheme
+          ? AppColors.cardColorDark
+          : AppColors.cardColorLight;
+      textColor = context.isDarkTheme ? Colors.white : Colors.black;
+    }
     return Material(
       elevation: 2.0,
-      color: Theme.of(context).cardColor,
+      color: cardColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(8.0),
@@ -61,11 +80,16 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
         title: Text(
           widget.call.name!,
           style: TextStyle(
-            color: context.isDarkTheme ? Colors.white : Colors.black,
+            color: textColor,
             fontWeight: FontWeight.bold,
           ),
         ),
-        subtitle: Text(widget.call.phoneNumber!),
+        subtitle: Text(
+          widget.call.phoneNumber!,
+          style: TextStyle(
+            color: textColor,
+          ),
+        ),
         onExpansionChanged: (value) {
           setState(() => isExpanded = value);
         },
@@ -90,7 +114,10 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                icon: Icon(Icons.delete_outline),
+                icon: Icon(
+                  Icons.delete_outline,
+                  color: textColor,
+                ),
                 onPressed: () {
                   showDialog(
                     context: context,
@@ -103,7 +130,10 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
               ),
               if (widget.call.isNotCompleted) ...[
                 IconButton(
-                  icon: Icon(Icons.check),
+                  icon: Icon(
+                    Icons.check,
+                    color: textColor,
+                  ),
                   onPressed: () {
                     showDialog(
                       context: context,
@@ -116,7 +146,10 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
                 ),
               ] else ...[
                 IconButton(
-                  icon: Icon(Icons.check_circle),
+                  icon: Icon(
+                    Icons.check_circle,
+                    color: textColor,
+                  ),
                   onPressed: () {
                     showDialog(
                       context: context,
@@ -129,7 +162,10 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
                 ),
               ],
               IconButton(
-                icon: Icon(Icons.notifications_none),
+                icon: Icon(
+                  Icons.notifications_none,
+                  color: textColor,
+                ),
                 onPressed: () {
                   showModalBottomSheet(
                     context: context,
@@ -144,7 +180,10 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
                 tooltip: 'Set reminder',
               ),
               IconButton(
-                icon: Icon(Icons.edit_outlined),
+                icon: Icon(
+                  Icons.edit_outlined,
+                  color: textColor,
+                ),
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
@@ -164,7 +203,10 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
                 tooltip: 'Text ${widget.call.name}',
               ),*/
               IconButton(
-                icon: Icon(Icons.phone_outlined),
+                icon: Icon(
+                  Icons.phone_outlined,
+                  color: textColor,
+                ),
                 onPressed: () async {
                   await phoneUtility.callNumber('${widget.call.phoneNumber}');
                 },

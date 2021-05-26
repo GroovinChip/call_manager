@@ -1,6 +1,10 @@
+import 'dart:io';
 
+import 'package:call_manager/theme/app_colors.dart';
+import 'package:call_manager/utils/extensions.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
+import 'package:macos_ui/macos_ui.dart' as mui;
 
 class ContactAvatar extends StatelessWidget {
   const ContactAvatar({

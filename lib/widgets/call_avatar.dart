@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:call_manager/data_models/call.dart';
+import 'package:call_manager/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CallAvatar extends StatelessWidget {
@@ -27,7 +28,7 @@ class CallAvatar extends StatelessWidget {
           Icons.person_outline,
           color: Colors.white,
         ),
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: AppColors.primaryColor,
       );
     }
   }
