@@ -241,52 +241,106 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen>
                             index: screenIndex,
                             children: [
                               if (snapshot.data!.first.docs.isNotEmpty) ...[
-                                ListView.builder(
-                                  itemCount: snapshot.data!.first.docs.length,
-                                  itemBuilder: (context, index) {
-                                    final call = Call.fromJsonWithDocId(
-                                      snapshot.data!.first.docs[index].data(),
-                                      snapshot.data!.first.docs[index].id,
-                                    );
-
-                                    return Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: CallCard(
-                                        call: call,
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        left: 30.0,
+                                        top: 50.0,
                                       ),
-                                    );
-                                  },
+                                      child: Text(
+                                        'Upcoming',
+                                        style: mui.MacosTheme.of(context)
+                                            .typography
+                                            .largeTitle
+                                            .copyWith(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: ListView.builder(
+                                        padding: const EdgeInsets.all(16.0),
+                                        itemCount:
+                                            snapshot.data!.first.docs.length,
+                                        itemBuilder: (context, index) {
+                                          final call = Call.fromJsonWithDocId(
+                                            snapshot.data!.first.docs[index]
+                                                .data(),
+                                            snapshot.data!.first.docs[index].id,
+                                          );
+
+                                          return Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: CallCard(
+                                              call: call,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ] else ...[
                                 Center(
                                   child: Text(
                                     'Tap "Add Call" to get started!',
-                                    style: Theme.of(context).textTheme.headline6,
+                                    style:
+                                        Theme.of(context).textTheme.headline6,
                                   ),
                                 ),
                               ],
                               if (snapshot.data!.last.docs.isNotEmpty) ...[
-                                ListView.builder(
-                                  itemCount: snapshot.data!.last.docs.length,
-                                  itemBuilder: (context, index) {
-                                    final call = Call.fromJsonWithDocId(
-                                      snapshot.data!.last.docs[index].data(),
-                                      snapshot.data!.last.docs[index].id,
-                                    );
-
-                                    return Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: CallCard(
-                                        call: call,
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        left: 30.0,
+                                        top: 50.0,
                                       ),
-                                    );
-                                  },
+                                      child: Text(
+                                        'Completed',
+                                        style: mui.MacosTheme.of(context)
+                                            .typography
+                                            .largeTitle
+                                            .copyWith(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: ListView.builder(
+                                        padding: const EdgeInsets.all(16.0),
+                                        itemCount:
+                                            snapshot.data!.last.docs.length,
+                                        itemBuilder: (context, index) {
+                                          final call = Call.fromJsonWithDocId(
+                                            snapshot.data!.last.docs[index]
+                                                .data(),
+                                            snapshot.data!.last.docs[index].id,
+                                          );
+
+                                          return Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: CallCard(
+                                              call: call,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ] else ...[
                                 Center(
                                   child: Text(
                                     'Nothing here!',
-                                    style: Theme.of(context).textTheme.headline6,
+                                    style:
+                                        Theme.of(context).textTheme.headline6,
                                   ),
                                 ),
                               ],
