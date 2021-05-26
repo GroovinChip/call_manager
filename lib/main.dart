@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:call_manager/app.dart';
 import 'package:call_manager/services/contacts_utility.dart';
 import 'package:call_manager/services/notifications_service.dart';
@@ -35,4 +36,8 @@ Future<void> main() async {
       ),
     ),
   );
+
+  doWhenWindowReady(() {
+    appWindow.show();
+  });
 }
