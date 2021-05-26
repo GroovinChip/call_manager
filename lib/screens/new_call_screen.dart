@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bluejay/bluejay.dart';
 import 'package:call_manager/data_models/call.dart';
 import 'package:call_manager/firebase/firebase.dart';
@@ -131,7 +133,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                       onSaved: (contactName) => call.name = contactName!,
                       textFieldConfiguration: TextFieldConfiguration(
                         textCapitalization: TextCapitalization.words,
-                        controller: _nameFieldController,
+                        controller: controller,
                         keyboardType: TextInputType.text,
                         maxLines: 1,
                         decoration: InputDecoration(
@@ -259,15 +261,23 @@ class _NewCallScreenState extends State<NewCallScreen>
           ),
         ),
       ),
-      floatingActionButton: !MediaQuery.of(context).keyboardOpen
-          ? FloatingActionButton.extended(
+      floatingActionButton: !Platform.isMacOS
+          ? !MediaQuery.of(context).keyboardOpen
+              ? FloatingActionButton.extended(
+                  onPressed: saveCall,
+                  tooltip: 'Save',
+                  elevation: 2.0,
+                  icon: Icon(Icons.save),
+                  label: Text('SAVE'),
+                )
+              : null
+          : FloatingActionButton.extended(
               onPressed: saveCall,
               tooltip: 'Save',
               elevation: 2.0,
               icon: Icon(Icons.save),
               label: Text('SAVE'),
-            )
-          : null,
+            ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         //hasNotch: false,
