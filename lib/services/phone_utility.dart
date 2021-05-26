@@ -35,7 +35,11 @@ class PhoneUtility {
   ///
   Future<void> callNumber(String phoneNumber) async {
     final dialer = await DirectDialer.instance;
-    await dialer.dial(phoneNumber);
+    if (Platform.isMacOS) {
+      dialer.dialFaceTime(phoneNumber, false);
+    } else {
+      await dialer.dial(phoneNumber);
+    }
   }
 
   ///
