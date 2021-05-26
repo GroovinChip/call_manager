@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:call_manager/data_models/call.dart';
 import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/provided.dart';
 import 'package:call_manager/screens/new_call_screen.dart';
 import 'package:call_manager/theme/app_themes.dart';
+import 'package:call_manager/widgets/call_card.dart';
 import 'package:call_manager/widgets/calls_list.dart';
 import 'package:call_manager/widgets/menu_bottom_sheet.dart';
 import 'package:call_manager/widgets/user_account_avatar.dart';
@@ -13,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:macos_ui/macos_ui.dart' as mui;
+import 'package:rxdart/rxdart.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -146,7 +149,9 @@ class DesktopHomeScreen extends StatefulWidget {
   _DesktopHomeScreenState createState() => _DesktopHomeScreenState();
 }
 
-class _DesktopHomeScreenState extends State<DesktopHomeScreen> with Provided, FirebaseMixin {
+class _DesktopHomeScreenState extends State<DesktopHomeScreen>
+    with Provided, FirebaseMixin {
+  int screenIndex = 0;
   @override
   Widget build(BuildContext context) {
     final textColor = mui.MacosTheme.brightnessOf(context).isDark
@@ -154,59 +159,161 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen> with Provided, Fi
         : Colors.black;
     return WindowTitleBarBox(
       child: MoveWindow(
-        child: mui.Scaffold(
-          sidebar: mui.Sidebar(
-            minWidth: 225,
-            startWidth: 225,
-            builder: (context, scrollController) {
-              return Column(
-                children: [
-                  ListTileTheme(
-                    textColor: textColor,
-                    child: ListTile(
-                      leading: Icon(
-                        CupertinoIcons.calendar,
-                        color: mui.MacosColors.systemBlueColor,
-                      ),
-                      title: Text('Upcoming Calls'),
-                      onTap: () {},
-                    ),
-                  ),
-                  Divider(
-                    height: 0,
-                    color: mui.MacosTheme.of(context).dividerColor,
-                  ),
-                  ListTileTheme(
-                    textColor: textColor,
-                    child: ListTile(
-                      leading: Icon(
-                        CupertinoIcons.checkmark_seal,
-                        color: mui.MacosColors.systemBlueColor,
-                      ),
-                      title: Text('Completed Calls'),
-                      onTap: () {},
-                    ),
-                  ),
-                  Divider(
-                    height: 0,
-                    color: mui.MacosTheme.of(context).dividerColor,
-                  ),
-                  Spacer(),
-                  ListTileTheme(
-                    textColor: textColor,
-                    child: ListTile(
-                      leading: UserAccountAvatar(),
-                      title: Text(currentUser?.displayName ?? 'User'),
-                      onTap: () {},
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
+        child: Stack(
           children: [
-            mui.ContentArea(
-              builder: (context, scrollController) => Container(),
+            mui.Scaffold(
+              sidebar: mui.Sidebar(
+                minWidth: 225,
+                startWidth: 225,
+                builder: (context, scrollController) {
+                  return Column(
+                    children: [
+                      ListTileTheme(
+                        textColor: textColor,
+                        child: ListTile(
+                          leading: Icon(
+                            CupertinoIcons.calendar,
+                            color: mui.MacosColors.systemBlueColor,
+                          ),
+                          title: Text('Upcoming Calls'),
+                          onTap: () {
+                            setState(() => screenIndex = 0);
+                          },
+                        ),
+                      ),
+                      Divider(
+                        height: 0,
+                        color: mui.MacosTheme.of(context).dividerColor,
+                      ),
+                      ListTileTheme(
+                        textColor: textColor,
+                        child: ListTile(
+                          leading: Icon(
+                            CupertinoIcons.checkmark_seal,
+                            color: mui.MacosColors.systemBlueColor,
+                          ),
+                          title: Text('Completed Calls'),
+                          onTap: () {
+                            setState(() => screenIndex = 1);
+                          },
+                        ),
+                      ),
+                      Divider(
+                        height: 0,
+                        color: mui.MacosTheme.of(context).dividerColor,
+                      ),
+                      Spacer(),
+                      Divider(
+                        height: 0,
+                        color: mui.MacosTheme.of(context).dividerColor,
+                      ),
+                      ListTileTheme(
+                        textColor: textColor,
+                        child: ListTile(
+                          leading: UserAccountAvatar(),
+                          title: Text(currentUser?.displayName ?? 'User'),
+                          onTap: () {},
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+              children: [
+                mui.ContentArea(
+                  builder: (context, scrollController) {
+                    return StreamBuilder<List<FirestoreDocument>>(
+                      stream: CombineLatestStream.combine2(
+                        firestore.upcomingCalls.snapshots(),
+                        firestore.completedCalls.snapshots(),
+                        (a, b) => <FirestoreDocument>[
+                          a as FirestoreDocument,
+                          b as FirestoreDocument,
+                        ],
+                      ),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: mui.ProgressCircle(),
+                          );
+                        } else {
+                          return IndexedStack(
+                            index: screenIndex,
+                            children: [
+                              if (snapshot.data!.first.docs.isNotEmpty) ...[
+                                ListView.builder(
+                                  itemCount: snapshot.data!.first.docs.length,
+                                  itemBuilder: (context, index) {
+                                    final call = Call.fromJsonWithDocId(
+                                      snapshot.data!.first.docs[index].data(),
+                                      snapshot.data!.first.docs[index].id,
+                                    );
+
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: CallCard(
+                                        call: call,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ] else ...[
+                                Center(
+                                  child: Text(
+                                    'Tap "Add Call" to get started!',
+                                    style: Theme.of(context).textTheme.headline6,
+                                  ),
+                                ),
+                              ],
+                              if (snapshot.data!.last.docs.isNotEmpty) ...[
+                                ListView.builder(
+                                  itemCount: snapshot.data!.last.docs.length,
+                                  itemBuilder: (context, index) {
+                                    final call = Call.fromJsonWithDocId(
+                                      snapshot.data!.last.docs[index].data(),
+                                      snapshot.data!.last.docs[index].id,
+                                    );
+
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: CallCard(
+                                        call: call,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ] else ...[
+                                Center(
+                                  child: Text(
+                                    'Nothing here!',
+                                    style: Theme.of(context).textTheme.headline6,
+                                  ),
+                                ),
+                              ],
+                            ],
+                          );
+                        }
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
+            Positioned(
+              top: 8,
+              right: 8,
+              child: mui.IconButton(
+                icon: Icon(
+                  CupertinoIcons.add,
+                  color: textColor,
+                ),
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(7),
+                backgroundColor: mui.MacosTheme.brightnessOf(context).isDark
+                    ? mui.MacosColors.unemphasizedSelectedContentBackgroundColor
+                    : Colors.grey.shade300,
+                onPressed: () {},
+              ),
             ),
           ],
         ),
