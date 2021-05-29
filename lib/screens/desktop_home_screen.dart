@@ -1,16 +1,13 @@
-import 'dart:io';
-
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:bluejay/bluejay.dart';
 import 'package:call_manager/data_models/call.dart';
 import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/provided.dart';
 import 'package:call_manager/theme/app_colors.dart';
-import 'package:call_manager/widgets/call_card.dart';
+import 'package:call_manager/widgets/desktop/desktop_calls.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
-import 'package:rxdart/rxdart.dart';
 
 class DesktopHomeScreen extends StatefulWidget {
   const DesktopHomeScreen({Key? key}) : super(key: key);
@@ -76,146 +73,8 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen>
               children: [
                 ContentArea(
                   builder: (context, scrollController) {
-                    return StreamBuilder<List<FirestoreDocument>>(
-                      stream: CombineLatestStream.combine2(
-                        firestore.upcomingCalls.snapshots(),
-                        firestore.completedCalls.snapshots(),
-                        (a, b) => <FirestoreDocument>[
-                          a as FirestoreDocument,
-                          b as FirestoreDocument,
-                        ],
-                      ),
-                      builder: (context, snapshot) {
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: ProgressCircle(),
-                          );
-                        } else {
-                          return IndexedStack(
-                            index: screenIndex,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                      left: 30.0,
-                                      top: 50.0,
-                                    ),
-                                    child: Text(
-                                      'Upcoming',
-                                      style: MacosTheme.of(context)
-                                          .typography
-                                          .largeTitle
-                                          .copyWith(
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                    ),
-                                  ),
-                                  if (snapshot.data!.first.docs.isNotEmpty) ...[
-                                    Expanded(
-                                      child: ListView.builder(
-                                        padding: const EdgeInsets.all(16.0),
-                                        itemCount:
-                                            snapshot.data!.first.docs.length,
-                                        itemBuilder: (context, index) {
-                                          final call = Call.fromJsonWithDocId(
-                                            snapshot.data!.first.docs[index]
-                                                .data(),
-                                            snapshot.data!.first.docs[index].id,
-                                          );
-
-                                          return Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: CallCard(
-                                              call: call,
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ] else ...[
-                                    Expanded(
-                                      child: Center(
-                                        child: Text(
-                                          'Tap "Add Call" to get started!',
-                                          style: Platform.isMacOS
-                                              ? MacosTheme.of(context)
-                                                  .typography
-                                                  .title1
-                                              : Theme.of(context)
-                                                  .textTheme
-                                                  .headline6,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                      left: 30.0,
-                                      top: 50.0,
-                                    ),
-                                    child: Text(
-                                      'Completed',
-                                      style: MacosTheme.of(context)
-                                          .typography
-                                          .largeTitle
-                                          .copyWith(
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                    ),
-                                  ),
-                                  if (snapshot.data!.last.docs.isNotEmpty) ...[
-                                    Expanded(
-                                      child: ListView.builder(
-                                        padding: const EdgeInsets.all(16.0),
-                                        itemCount:
-                                            snapshot.data!.last.docs.length,
-                                        itemBuilder: (context, index) {
-                                          final call = Call.fromJsonWithDocId(
-                                            snapshot.data!.last.docs[index]
-                                                .data(),
-                                            snapshot.data!.last.docs[index].id,
-                                          );
-
-                                          return Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: CallCard(
-                                              call: call,
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ] else ...[
-                                    Expanded(
-                                      child: Center(
-                                        child: Text(
-                                          'Nothing here!',
-                                          style: Platform.isMacOS
-                                              ? MacosTheme.of(context)
-                                                  .typography
-                                                  .title1
-                                              : Theme.of(context)
-                                                  .textTheme
-                                                  .headline6,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ],
-                              ),
-                            ],
-                          );
-                        }
-                      },
+                    return DesktopCalls(
+                      screenIndex: screenIndex,
                     );
                   },
                 ),
@@ -256,16 +115,16 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen>
                                 builder: (_, controller) {
                                   return MacosTextField(
                                     controller: controller,
-                                    prefix: Icon(CupertinoIcons.person),
+                                    prefix: Icon(
+                                      CupertinoIcons.person,
+                                      color: AppColors.primaryColor,
+                                    ),
                                     placeholder: 'Name',
                                     decoration: BoxDecoration(
                                       color: MacosTheme.of(context).canvasColor,
                                       border: Border.all(
-                                        color: MacosTheme.brightnessOf(context)
-                                                .isDark
-                                            ? MacosColors
-                                                .alternatingContentBackgroundColor
-                                            : Colors.black,
+                                        color: MacosColors
+                                            .alternatingContentBackgroundColor,
                                       ),
                                       borderRadius: BorderRadius.circular(7),
                                     ),
@@ -284,16 +143,16 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen>
                                 text: value ?? '',
                                 builder: (_, controller) {
                                   return MacosTextField(
-                                    prefix: Icon(CupertinoIcons.phone),
+                                    prefix: Icon(
+                                      CupertinoIcons.phone,
+                                      color: AppColors.primaryColor,
+                                    ),
                                     placeholder: 'Phone number',
                                     decoration: BoxDecoration(
                                       color: MacosTheme.of(context).canvasColor,
                                       border: Border.all(
-                                        color: MacosTheme.brightnessOf(context)
-                                                .isDark
-                                            ? MacosColors
-                                                .alternatingContentBackgroundColor
-                                            : Colors.black,
+                                        color: MacosColors
+                                            .alternatingContentBackgroundColor,
                                       ),
                                       borderRadius: BorderRadius.circular(7),
                                     ),
@@ -313,17 +172,17 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen>
                                 text: value ?? '',
                                 builder: (_, controller) {
                                   return MacosTextField(
-                                    prefix: Icon(CupertinoIcons.text_bubble),
+                                    prefix: Icon(
+                                      CupertinoIcons.text_bubble,
+                                      color: AppColors.primaryColor,
+                                    ),
                                     placeholder: 'Description',
                                     maxLines: 5,
                                     decoration: BoxDecoration(
                                       color: MacosTheme.of(context).canvasColor,
                                       border: Border.all(
-                                        color: MacosTheme.brightnessOf(context)
-                                                .isDark
-                                            ? MacosColors
-                                                .alternatingContentBackgroundColor
-                                            : Colors.black,
+                                        color: MacosColors
+                                            .alternatingContentBackgroundColor,
                                       ),
                                       borderRadius: BorderRadius.circular(7),
                                     ),
