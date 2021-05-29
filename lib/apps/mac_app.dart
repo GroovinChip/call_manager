@@ -87,7 +87,12 @@ class _MacAppState extends State<MacApp> with FirebaseMixin {
               navigatorKey: _navigatorKey,
               title: 'Call Manager',
               theme: MacosThemeData.light(),
-              darkTheme: MacosThemeData.dark(),
+              darkTheme: MacosThemeData.dark().copyWith(
+                pushButtonTheme: PushButtonThemeData(
+                  color: AppColors.primaryColor,
+                  disabledColor: Color.fromRGBO(255, 255, 255, 0.1),
+                ),
+              ),
               themeMode: snapshot.data!.themeMode,
               initialRoute: currentUser != null
                   ? HomeScreen.routeName

@@ -476,10 +476,12 @@ packages:
   macos_ui:
     dependency: "direct main"
     description:
-      name: macos_ui
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.2"
+      path: "."
+      ref: sidebar_item
+      resolved-ref: "181d6f8ea0fd23a0a8dbed98fca39e0275508db9"
+      url: "git@github.com:GroovinChip/macos_ui.git"
+    source: git
+    version: "0.4.0"
   matcher:
     dependency: transitive
     description:

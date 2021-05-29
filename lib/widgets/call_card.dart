@@ -65,6 +65,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
           : AppColors.cardColorLight;
       textColor = context.isDarkTheme ? Colors.white : Colors.black;
     }
+
     return Material(
       elevation: 2.0,
       color: cardColor,
@@ -105,7 +106,12 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
             Row(
               children: [
                 const SizedBox(width: 16),
-                Text(widget.call.description!),
+                Text(
+                  widget.call.description!,
+                  style: TextStyle(
+                    color: textColor,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 4),
@@ -126,7 +132,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
                     ),
                   );
                 },
-                tooltip: 'Complete',
+                tooltip: 'Delete',
               ),
               if (widget.call.isNotCompleted) ...[
                 IconButton(

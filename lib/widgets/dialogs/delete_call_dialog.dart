@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:call_manager/data_models/call.dart';
 import 'package:call_manager/firebase/firebase.dart';
 import 'package:flutter/material.dart';
+import 'package:macos_ui/macos_ui.dart';
 
 class DeleteCallDialog extends StatefulWidget {
   const DeleteCallDialog({
@@ -15,10 +18,28 @@ class DeleteCallDialog extends StatefulWidget {
 
 class _DeleteCallDialogState extends State<DeleteCallDialog>
     with FirebaseMixin {
+  Color? backgroundColor;
+  Color? textColor;
   @override
   Widget build(BuildContext context) {
+    if (Platform.isMacOS) {
+      backgroundColor = MacosTheme.of(context).canvasColor;
+      textColor =
+          MacosTheme.brightnessOf(context).isDark ? Colors.white : Colors.black;
+    } else {
+      backgroundColor = Theme.of(context).canvasColor;
+      textColor = Theme.of(context).brightness == Brightness.dark
+          ? Colors.white
+          : Colors.black;
+    }
     return AlertDialog(
-      content: Text('Delete call?'),
+      backgroundColor: backgroundColor,
+      content: Text(
+        'Delete call?',
+        style: TextStyle(
+          color: textColor,
+        ),
+      ),
       actions: [
         TextButton(
           child: Text('CANCEL'),

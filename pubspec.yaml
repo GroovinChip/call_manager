@@ -34,7 +34,11 @@ dependencies:
   crypto: ^3.0.1
   timezone: any
   wiredash: ^0.7.0
-  macos_ui: ^0.2.2
+  #macos_ui: ^0.3.0
+  macos_ui:
+    git:
+      url: git@github.com:GroovinChip/macos_ui.git
+      ref: sidebar_item
   google_sign_in_dartio:
     git:
       url: git@github.com:GroovinChip/firebase_dart_sdk.git
