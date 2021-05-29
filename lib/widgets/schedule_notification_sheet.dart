@@ -28,14 +28,11 @@ class ScheduleNotificationSheet extends StatefulWidget {
 class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
     with FirebaseMixin, Provided {
   Color? backgroundColor;
-  Color? textColor;
-
   final dateFormat = DateFormat('EEEE, MMMM d, yyyy');
-
   String? numberToCallOnNotificationTap;
   DateTime? reminderDate;
   late TimeOfDay reminderTime;
-
+  Color? textColor;
   final timeFormat = DateFormat('h:mm a');
 
   Future<void> scheduleNotificationReminder() async {
@@ -126,7 +123,8 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
                     final time = await showTimePicker(
                       context: context,
                       initialTime: TimeOfDay.fromDateTime(
-                          currentValue ?? DateTime.now()),
+                        currentValue ?? DateTime.now(),
+                      ),
                     );
 
                     return DateTimeField.convert(time);

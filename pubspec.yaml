@@ -45,6 +45,10 @@ dependencies:
       path: google_sign_in_dart
       ref: null_safety
   bitsdojo_window: ^0.1.0+1
+  menubar:
+    git:
+      url: git://github.com/google/flutter-desktop-embedding.git
+      path: plugins/menubar
 
 dev_dependencies:
   flutter_test:

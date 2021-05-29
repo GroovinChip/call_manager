@@ -18,11 +18,11 @@ class DesktopHomeScreen extends StatefulWidget {
 
 class _DesktopHomeScreenState extends State<DesktopHomeScreen>
     with Provided, FirebaseMixin {
+  final formKey = GlobalKey<FormState>();
   int screenIndex = 0;
 
-  final formKey = GlobalKey<FormState>();
-
   @override
+  // ignore: code-metrics
   Widget build(BuildContext context) {
     final textColor =
         MacosTheme.brightnessOf(context).isDark ? Colors.white : Colors.black;
@@ -247,7 +247,7 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen>
 }
 
 class NewCallNotifiers {
+  ValueNotifier<String?> description = ValueNotifier<String?>(null);
   ValueNotifier<String?> name = ValueNotifier<String?>(null);
   ValueNotifier<String?> phoneNumber = ValueNotifier<String?>(null);
-  ValueNotifier<String?> description = ValueNotifier<String?>(null);
 }

@@ -317,6 +317,8 @@ PODS:
   - gRPC-Core/Interface (1.28.2)
   - GTMSessionFetcher/Core (1.5.0)
   - leveldb-library (1.22.1)
+  - menubar (0.0.2):
+    - FlutterMacOS
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
     - nanopb/encode (= 2.30908.0)
@@ -342,6 +344,7 @@ DEPENDENCIES:
   - firebase_core (from `Flutter/ephemeral/.symlinks/plugins/firebase_core/macos`)
   - flutter_local_notifications (from `Flutter/ephemeral/.symlinks/plugins/flutter_local_notifications/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
+  - menubar (from `Flutter/ephemeral/.symlinks/plugins/menubar/macos`)
   - package_info (from `Flutter/ephemeral/.symlinks/plugins/package_info/macos`)
   - path_provider_macos (from `Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos`)
   - shared_preferences_macos (from `Flutter/ephemeral/.symlinks/plugins/shared_preferences_macos/macos`)
@@ -381,6 +384,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/flutter_local_notifications/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
+  menubar:
+    :path: Flutter/ephemeral/.symlinks/plugins/menubar/macos
   package_info:
     :path: Flutter/ephemeral/.symlinks/plugins/package_info/macos
   path_provider_macos:
@@ -413,6 +418,7 @@ SPEC CHECKSUMS:
   gRPC-Core: 4afa11bfbedf7cdecd04de535a9e046893404ed5
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
+  menubar: 4e3d461d62d775540277ce6639acafe2a111a231
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   package_info: 6eba2fd8d3371dda2d85c8db6fe97488f24b74b2
   path_provider_macos: a0a3fd666cb7cd0448e936fb4abad4052961002b

@@ -8,6 +8,7 @@ import 'package:call_manager/services/prefs_service.dart';
 import 'package:call_manager/theme/app_colors.dart';
 import 'package:flutter/widgets.dart';
 import 'package:macos_ui/macos_ui.dart';
+import 'package:menubar/menubar.dart';
 import 'package:provider/provider.dart';
 import 'package:wiredash/wiredash.dart';
 
@@ -20,10 +21,10 @@ class MacApp extends StatefulWidget {
     required this.contactsUtility,
   }) : super(key: key);
 
-  final NotificationService notificationService;
-  final PrefsService prefsService;
-  final PhoneUtility phoneUtility;
   final ContactsUtility contactsUtility;
+  final NotificationService notificationService;
+  final PhoneUtility phoneUtility;
+  final PrefsService prefsService;
 
   @override
   _MacAppState createState() => _MacAppState();
@@ -36,6 +37,25 @@ class _MacAppState extends State<MacApp> with FirebaseMixin {
   void initState() {
     super.initState();
     _onAuthStateChange();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // setup menu
+    setApplicationMenu([
+      Submenu(
+        label: 'Menu',
+        children: [
+          MenuItem(
+            label: 'Sign Out',
+            onClicked: () {
+              auth.signOut();
+            },
+          ),
+        ],
+      ),
+    ]);
   }
 
   void _onAuthStateChange() {
