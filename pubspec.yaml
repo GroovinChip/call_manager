@@ -50,7 +50,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   #flutter_launcher_icons: "^0.7.2"
-  dart_code_metrics: ^3.3.2
+  dart_code_metrics: ^3.3.3
 
 flutter_icons:
   android: true

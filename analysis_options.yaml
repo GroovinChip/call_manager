@@ -36,7 +36,6 @@ dart_code_metrics:
   rules:
     - newline-before-return
     - no-boolean-literal-compare
-    - no-empty-block
     - prefer-trailing-comma
     - no-equal-then-else
     - potential-null-dereference
@@ -45,5 +44,5 @@ dart_code_metrics:
         order:
           - constructors
           - public_fields
-          - private_fields
           - public_setters
+          - private_fields
