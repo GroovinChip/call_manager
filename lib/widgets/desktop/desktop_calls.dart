@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bluejay/bluejay.dart';
 import 'package:call_manager/data_models/call.dart';
 import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/widgets/call_card.dart';
@@ -32,7 +33,7 @@ class DesktopCalls extends StatelessWidget with FirebaseMixin {
             child: ProgressCircle(),
           );
         } else {
-          return IndexedStack(
+          return FadeIndexedStack(
             index: screenIndex,
             children: [
               Column(
