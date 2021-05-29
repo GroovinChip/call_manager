@@ -32,6 +32,7 @@ class _DeleteCallDialogState extends State<DeleteCallDialog>
           ? Colors.white
           : Colors.black;
     }
+
     return AlertDialog(
       backgroundColor: backgroundColor,
       content: Text(

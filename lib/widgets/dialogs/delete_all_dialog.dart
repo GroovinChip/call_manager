@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:call_manager/firebase/firebase.dart';
 import 'package:flutter/material.dart';
+import 'package:macos_ui/macos_ui.dart';
 
 class DeleteAllDialog extends StatefulWidget {
   DeleteAllDialog({Key? key}) : super(key: key);
@@ -9,11 +12,28 @@ class DeleteAllDialog extends StatefulWidget {
 }
 
 class _DeleteAllDialogState extends State<DeleteAllDialog> with FirebaseMixin {
+  Color? backgroundColor;
+  Color? textColor;
   @override
   Widget build(BuildContext context) {
+    if (Platform.isMacOS) {
+      backgroundColor = MacosTheme.of(context).canvasColor;
+      textColor =
+          MacosTheme.brightnessOf(context).isDark ? Colors.white : Colors.black;
+    } else {
+      backgroundColor = Theme.of(context).canvasColor;
+      textColor = Theme.of(context).brightness == Brightness.dark
+          ? Colors.white
+          : Colors.black;
+    }
+
     return AlertDialog(
+      backgroundColor: backgroundColor,
       content: Text(
         'Are you sure you want to delete all calls? This cannot be undone.',
+        style: TextStyle(
+          color: textColor,
+        ),
       ),
       actions: [
         TextButton(
