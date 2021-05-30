@@ -155,13 +155,14 @@ class _NewCallScreenState extends State<NewCallScreen>
                   text: call.phoneNumber ?? '',
                   builder: (_, controller) {
                     if (call.phoneNumber != null) {
-                      controller.text = call.phoneNumber!;
+                      //controller.text = call.phoneNumber!;
                     }
+
                     return TextFormField(
                       validator: (input) => input == null || input == ''
                           ? 'This field is required'
                           : null,
-                      onSaved: (input) => controller.text = input!,
+                      //onSaved: (input) => controller.text = input!,
                       keyboardType: TextInputType.phone,
                       maxLines: 1,
                       autofocus: false,
