@@ -31,6 +31,14 @@
           }
         },
         {
+          "client_id": "1053316160376-kefg5rq4moi87ppeoh3orf264ap2a2id.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.groovinchip.flutter.callmanager",
+            "certificate_hash": "59ed53cd18e0211dfcb13e67785c58464fc8ea2a"
+          }
+        },
+        {
           "client_id": "1053316160376-llj2t9oec98dl6mfs7rfdc3ll3hqravv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -72,54 +80,10 @@
               "client_type": 3
             },
             {
-              "client_id": "1053316160376-2u844ic0oji05csq3e8fg86vnfsnshvv.apps.googleusercontent.com",
+              "client_id": "1053316160376-117rp70a5ps0s6nk98th54trgsacoaim.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "dev.groovinchip.callManager"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1053316160376:android:7047f2dc18aa4377a4868d",
-        "android_client_info": {
-          "package_name": "dev.groovinchip.call_manager"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1053316160376-6a63npaesb27fh2lp9tk88vq620lrt2s.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "dev.groovinchip.call_manager",
-            "certificate_hash": "ffae666c77cb4019976e48a903cc3c235875f9f6"
-          }
-        },
-        {
-          "client_id": "1053316160376-oe9l5ae2aigre7b7i4a5uqbsbn3scmgg.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDs2Vch4b2plINC3gqZ3Ksf1GAtquIlvnA"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1053316160376-oe9l5ae2aigre7b7i4a5uqbsbn3scmgg.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "1053316160376-2u844ic0oji05csq3e8fg86vnfsnshvv.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "dev.groovinchip.callManager"
+                "bundle_id": "dev.groovinchip.callmanager"
               }
             }
           ]
