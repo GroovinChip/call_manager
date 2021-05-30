@@ -35,8 +35,6 @@ class _NewCallScreenState extends State<NewCallScreen>
 
   final timeFormat = DateFormat('h:mm a');
 
-  final _nameFieldController = TextEditingController();
-
   Future<void> saveCall() async {
     formKey.currentState!.save();
     if (formKey.currentState!.validate()) {
@@ -100,8 +98,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                       },
                       onSuggestionSelected: (dynamic contact) {
                         selectedContact = contact;
-                        _nameFieldController.text =
-                            selectedContact!.displayName!;
+                        controller.text = selectedContact!.displayName!;
                         if (selectedContact!.phones!.length > 1) {
                           showModalBottomSheet(
                             context: context,
@@ -115,14 +112,19 @@ class _NewCallScreenState extends State<NewCallScreen>
                             call.avatar = selectedContact?.avatar != null
                                 ? String.fromCharCodes(selectedContact!.avatar!)
                                 : '';
+                            //call.name = value
                             call.phoneNumber = value;
                           });
                         } else {
                           call.avatar = selectedContact?.avatar != null
                               ? String.fromCharCodes(selectedContact!.avatar!)
                               : '';
-                          call.phoneNumber =
-                              selectedContact!.phones!.first.value!;
+                          if (selectedContact!.phones!.isEmpty) {
+                            call.phoneNumber = '';
+                          } else {
+                            call.phoneNumber =
+                                selectedContact!.phones?.first.value!;
+                          }
                         }
                       },
                       validator: (input) => input == null || input == ''
@@ -131,7 +133,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                       onSaved: (contactName) => call.name = contactName!,
                       textFieldConfiguration: TextFieldConfiguration(
                         textCapitalization: TextCapitalization.words,
-                        controller: _nameFieldController,
+                        controller: controller,
                         keyboardType: TextInputType.text,
                         maxLines: 1,
                         decoration: InputDecoration(
@@ -152,6 +154,9 @@ class _NewCallScreenState extends State<NewCallScreen>
                 TextEditingControllerBuilder(
                   text: call.phoneNumber ?? '',
                   builder: (_, controller) {
+                    if (call.phoneNumber != null) {
+                      controller.text = call.phoneNumber!;
+                    }
                     return TextFormField(
                       validator: (input) => input == null || input == ''
                           ? 'This field is required'
