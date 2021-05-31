@@ -1,6 +1,6 @@
 name: call_manager
 description: Call Manager in Flutter
-version: 2.8.1+50
+version: 2.8.2+51
 publish_to: none
 
 environment:
