@@ -13,3 +13,4 @@ build/
 android/key.properties
 *.iml
 /metrics
+.vscode/launch.json
