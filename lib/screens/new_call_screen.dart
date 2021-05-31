@@ -29,10 +29,10 @@ class _NewCallScreenState extends State<NewCallScreen>
   Iterable<Contact>? contacts;
   final dateFormat = DateFormat('EEEE, MMMM d, yyyy');
   final formKey = GlobalKey<FormState>();
+  final phoneFieldController = TextEditingController();
   DateTime? reminderDate;
   TimeOfDay? reminderTime;
   Contact? selectedContact;
-
   final timeFormat = DateFormat('h:mm a');
 
   Future<void> saveCall() async {
@@ -114,6 +114,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                                 : '';
                             //call.name = value
                             call.phoneNumber = value;
+                            phoneFieldController.text = value;
                           });
                         } else {
                           call.avatar = selectedContact?.avatar != null
@@ -124,6 +125,8 @@ class _NewCallScreenState extends State<NewCallScreen>
                           } else {
                             call.phoneNumber =
                                 selectedContact!.phones?.first.value!;
+                            final number = selectedContact!.phones?.first.value!;
+                            phoneFieldController.text = number!;
                           }
                         }
                       },
@@ -152,12 +155,8 @@ class _NewCallScreenState extends State<NewCallScreen>
                 ),
                 const SizedBox(height: 16.0),
                 TextEditingControllerBuilder(
-                  text: call.phoneNumber ?? '',
+                  text: phoneFieldController.text,
                   builder: (_, controller) {
-                    if (call.phoneNumber != null) {
-                      //controller.text = call.phoneNumber!;
-                    }
-
                     return TextFormField(
                       validator: (input) => input == null || input == ''
                           ? 'This field is required'
@@ -166,7 +165,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                       keyboardType: TextInputType.phone,
                       maxLines: 1,
                       autofocus: false,
-                      controller: controller,
+                      controller: phoneFieldController,
                       onChanged: (value) => call.phoneNumber = value,
                       decoration: InputDecoration(
                         prefixIcon: Icon(
