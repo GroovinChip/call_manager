@@ -4,7 +4,7 @@ import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/provided.dart';
 import 'package:call_manager/utils/extensions.dart';
 import 'package:call_manager/widgets/clear_button.dart';
-import 'package:call_manager/widgets/contact_avatar.dart';
+import 'package:call_manager/widgets/contact_tile.dart';
 import 'package:call_manager/widgets/multiple_phone_numbers_sheet.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
@@ -63,8 +63,44 @@ class _NewCallScreenState extends State<NewCallScreen>
     }
   }
 
+  /// Show sheet and set number
+  void showMultiplePhoneNumbersSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      builder: (_) => MultiplePhoneNumbersSheet(
+        selectedContact: selectedContact,
+      ),
+    ).then((value) {
+      call.avatar = selectedContact?.avatar != null
+          ? String.fromCharCodes(selectedContact!.avatar!)
+          : '';
+      //call.name = value
+      call.phoneNumber = value;
+      phoneFieldController.text = value;
+    });
+  }
+
+  /// Set number.
+  ///
+  /// Called in case of single phone number.
+  void setPhoneNumber() {
+    call.avatar = selectedContact?.avatar != null
+        ? String.fromCharCodes(selectedContact!.avatar!)
+        : '';
+    if (selectedContact!.phones!.isEmpty) {
+      call.phoneNumber = '';
+    } else {
+      call.phoneNumber = selectedContact!.phones?.first.value!;
+      final number = selectedContact!.phones?.first.value!;
+      phoneFieldController.text = number!;
+    }
+  }
+
   @override
-  // ignore: long-method, code-metrics
+  // ignore: long-method
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
@@ -87,12 +123,8 @@ class _NewCallScreenState extends State<NewCallScreen>
                     return TypeAheadFormField(
                       suggestionsCallback:
                           contactsUtility.searchContactsWithQuery,
-                      itemBuilder: (context, dynamic contact) {
-                        return ListTile(
-                          leading: ContactAvatar(contact: contact),
-                          title: Text(contact.displayName),
-                        );
-                      },
+                      itemBuilder: (context, dynamic contact) =>
+                          ContactTile(contact: contact),
                       transitionBuilder: (context, suggestionsBox, controller) {
                         return suggestionsBox;
                       },
@@ -100,34 +132,9 @@ class _NewCallScreenState extends State<NewCallScreen>
                         selectedContact = contact;
                         controller.text = selectedContact!.displayName!;
                         if (selectedContact!.phones!.length > 1) {
-                          showModalBottomSheet(
-                            context: context,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            builder: (_) => MultiplePhoneNumbersSheet(
-                              selectedContact: selectedContact,
-                            ),
-                          ).then((value) {
-                            call.avatar = selectedContact?.avatar != null
-                                ? String.fromCharCodes(selectedContact!.avatar!)
-                                : '';
-                            //call.name = value
-                            call.phoneNumber = value;
-                            phoneFieldController.text = value;
-                          });
+                          showMultiplePhoneNumbersSheet(context);
                         } else {
-                          call.avatar = selectedContact?.avatar != null
-                              ? String.fromCharCodes(selectedContact!.avatar!)
-                              : '';
-                          if (selectedContact!.phones!.isEmpty) {
-                            call.phoneNumber = '';
-                          } else {
-                            call.phoneNumber =
-                                selectedContact!.phones?.first.value!;
-                            final number = selectedContact!.phones?.first.value!;
-                            phoneFieldController.text = number!;
-                          }
+                          setPhoneNumber();
                         }
                       },
                       validator: (input) => input == null || input == ''
@@ -286,3 +293,4 @@ class _NewCallScreenState extends State<NewCallScreen>
     );
   }
 }
+
