@@ -7,6 +7,7 @@ class Call {
     required this.phoneNumber,
     this.reminderDate,
     this.reminderTime,
+    this.completedAt,
   });
 
   factory Call.fromJsonWithDocId(Map<String, dynamic> json, String docId) {
@@ -18,10 +19,12 @@ class Call {
       phoneNumber: json['PhoneNumber'],
       reminderDate: json['ReminderDate'],
       reminderTime: json['ReminderTime'],
+      completedAt: json['CompletedAt'],
     );
   }
 
   String? avatar;
+  String? completedAt;
   String? description;
   String? id;
   String? name;
@@ -37,6 +40,7 @@ class Call {
       'PhoneNumber': phoneNumber,
       'ReminderDate': reminderDate?.toString() ?? '',
       'ReminderTime': reminderTime?.toString() ?? '',
+      'CompletedAt': completedAt ?? '',
     };
   }
 }
@@ -44,4 +48,5 @@ class Call {
 extension CallX on Call {
   bool get hasAvatar => avatar != null && avatar!.isNotEmpty;
   bool get hasDescription => description != null && description!.isNotEmpty;
+  bool get isNotCompleted => completedAt == null || completedAt!.isEmpty;
 }

@@ -17,23 +17,72 @@ class PrefsService {
     readThemeModePref();
   }
 
+  ThemeMode? get currentThemeMode => preferencesSubject.value.themeMode;
   late SharedPreferences preferences;
-  final themeModeSubject = BehaviorSubject<ThemeMode?>();
-  ThemeMode? get currentThemeMode => themeModeSubject.value;
+  final preferencesSubject = BehaviorSubject<Preferences>.seeded(
+    Preferences(
+      brightness: Brightness.light,
+      themeMode: ThemeMode.system,
+    ),
+  );
 
-  Future<void> setThemeModePref(ThemeMode? themeMode) async {
+  Future<void> setThemeModePref(ThemeMode themeMode) async {
     await preferences.setString('themeModePref', '${themeMode.toString()}');
-    themeModeSubject.add(themeMode);
+    preferencesSubject.add(
+      Preferences(
+        themeMode: themeMode,
+        brightness: preferencesSubject.value.brightness,
+      ),
+    );
+  }
+
+  Future<void> setBrightnessPref(Brightness brightness) async {
+    await preferences.setString('brightness', brightness.toString());
+    preferencesSubject.add(
+      Preferences(
+        themeMode: preferencesSubject.value.themeMode,
+        brightness: brightness,
+      ),
+    );
   }
 
   void readThemeModePref() {
-    String tm = preferences.get('themeModePref') as String? ?? 'ThemeMode.system';
+    String tm =
+        preferences.get('themeModePref') as String? ?? 'ThemeMode.system';
     ThemeMode themeMode =
         ThemeMode.values.firstWhere((element) => element.toString() == tm);
-    themeModeSubject.add(themeMode);
+
+    preferencesSubject.add(
+      Preferences(
+        themeMode: themeMode,
+        brightness: preferencesSubject.value.brightness,
+      ),
+    );
+  }
+
+  void readBrightnessPref() {
+    String b = preferences.getString('brightness') ?? 'Brightness.system';
+    final _brightness =
+        Brightness.values.firstWhere((element) => element.toString() == b);
+    preferencesSubject.add(
+      Preferences(
+        themeMode: preferencesSubject.value.themeMode,
+        brightness: _brightness,
+      ),
+    );
   }
 
   void close() {
-    themeModeSubject.close();
+    preferencesSubject.close();
   }
+}
+
+class Preferences {
+  Preferences({
+    required this.themeMode,
+    required this.brightness,
+  });
+
+  final Brightness brightness;
+  final ThemeMode themeMode;
 }

@@ -181,8 +181,7 @@ class _EditCallScreenState extends State<EditCallScreen>
                         : '';
                   }
 
-                  firestore
-                      .calls(currentUser!.uid)
+                  firestore.upcomingCalls
                       .doc(widget.call.id)
                       .update(widget.call.toJson());
 

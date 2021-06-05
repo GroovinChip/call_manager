@@ -27,11 +27,13 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with Provided {
+class _HomeScreenState extends State<HomeScreen>
+    with Provided, SingleTickerProviderStateMixin {
+  late final tabController = TabController(length: 2, vsync: this);
   @override
   void initState() {
     super.initState();
-    _checkPermissions();
+    //_checkPermissions();
   }
 
   /// Checks for contacts and phone permissions and requests them if they
@@ -54,14 +56,30 @@ class _HomeScreenState extends State<HomeScreen> with Provided {
   }
 
   @override
+  // ignore: long-method
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: AppThemes.themedSystemNavigationBar(context),
       child: Scaffold(
         appBar: AppBar(
           title: Text('Call Manager'),
+          bottom: TabBar(
+            controller: tabController,
+            indicatorColor: Theme.of(context).indicatorColor.withOpacity(.40),
+            labelColor: Theme.of(context).colorScheme.onSurface,
+            tabs: [
+              Tab(
+                child: Text('Upcoming'),
+              ),
+              Tab(
+                child: Text('Completed'),
+              ),
+            ],
+          ),
         ),
-        body: CallsList(),
+        body: CallsList(
+          tabController: tabController,
+        ),
         floatingActionButton: FloatingActionButton.extended(
           icon: Icon(Icons.add),
           elevation: 2.0,

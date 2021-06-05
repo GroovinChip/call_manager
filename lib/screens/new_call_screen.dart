@@ -29,13 +29,11 @@ class _NewCallScreenState extends State<NewCallScreen>
   Iterable<Contact>? contacts;
   final dateFormat = DateFormat('EEEE, MMMM d, yyyy');
   final formKey = GlobalKey<FormState>();
+  final phoneFieldController = TextEditingController();
   DateTime? reminderDate;
   TimeOfDay? reminderTime;
   Contact? selectedContact;
-
   final timeFormat = DateFormat('h:mm a');
-
-  final _nameFieldController = TextEditingController();
 
   Future<void> saveCall() async {
     formKey.currentState!.save();
@@ -59,7 +57,7 @@ class _NewCallScreenState extends State<NewCallScreen>
         );
       }
 
-      firestore.calls(currentUser!.uid).add(call.toJson());
+      firestore.upcomingCalls.add(call.toJson());
 
       Navigator.of(context).pop();
     }
@@ -84,7 +82,7 @@ class _NewCallScreenState extends State<NewCallScreen>
             child: Column(
               children: [
                 TextEditingControllerBuilder(
-                  text: '',
+                  text: call.name ?? '',
                   builder: (_, controller) {
                     return TypeAheadFormField(
                       suggestionsCallback:
@@ -100,8 +98,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                       },
                       onSuggestionSelected: (dynamic contact) {
                         selectedContact = contact;
-                        _nameFieldController.text =
-                            selectedContact!.displayName!;
+                        controller.text = selectedContact!.displayName!;
                         if (selectedContact!.phones!.length > 1) {
                           showModalBottomSheet(
                             context: context,
@@ -115,14 +112,22 @@ class _NewCallScreenState extends State<NewCallScreen>
                             call.avatar = selectedContact?.avatar != null
                                 ? String.fromCharCodes(selectedContact!.avatar!)
                                 : '';
+                            //call.name = value
                             call.phoneNumber = value;
+                            phoneFieldController.text = value;
                           });
                         } else {
                           call.avatar = selectedContact?.avatar != null
                               ? String.fromCharCodes(selectedContact!.avatar!)
                               : '';
-                          call.phoneNumber =
-                              selectedContact!.phones!.first.value!;
+                          if (selectedContact!.phones!.isEmpty) {
+                            call.phoneNumber = '';
+                          } else {
+                            call.phoneNumber =
+                                selectedContact!.phones?.first.value!;
+                            final number = selectedContact!.phones?.first.value!;
+                            phoneFieldController.text = number!;
+                          }
                         }
                       },
                       validator: (input) => input == null || input == ''
@@ -131,7 +136,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                       onSaved: (contactName) => call.name = contactName!,
                       textFieldConfiguration: TextFieldConfiguration(
                         textCapitalization: TextCapitalization.words,
-                        controller: _nameFieldController,
+                        controller: controller,
                         keyboardType: TextInputType.text,
                         maxLines: 1,
                         decoration: InputDecoration(
@@ -150,17 +155,17 @@ class _NewCallScreenState extends State<NewCallScreen>
                 ),
                 const SizedBox(height: 16.0),
                 TextEditingControllerBuilder(
-                  text: '',
+                  text: phoneFieldController.text,
                   builder: (_, controller) {
                     return TextFormField(
                       validator: (input) => input == null || input == ''
                           ? 'This field is required'
                           : null,
-                      onSaved: (input) => controller.text = input!,
+                      //onSaved: (input) => controller.text = input!,
                       keyboardType: TextInputType.phone,
                       maxLines: 1,
                       autofocus: false,
-                      controller: controller,
+                      controller: phoneFieldController,
                       onChanged: (value) => call.phoneNumber = value,
                       decoration: InputDecoration(
                         prefixIcon: Icon(
@@ -177,7 +182,7 @@ class _NewCallScreenState extends State<NewCallScreen>
                 ),
                 const SizedBox(height: 16.0),
                 TextEditingControllerBuilder(
-                  text: '',
+                  text: call.description ?? '',
                   builder: (_, controller) {
                     return TextFormField(
                       keyboardType: TextInputType.multiline,

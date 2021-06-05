@@ -1,4 +1,4 @@
-import 'package:call_manager/firebase/firebase_mixin.dart';
+import 'package:call_manager/firebase/firebase.dart';
 import 'package:flutter/material.dart';
 
 class DeleteAllDialog extends StatefulWidget {
@@ -23,12 +23,10 @@ class _DeleteAllDialogState extends State<DeleteAllDialog> with FirebaseMixin {
         TextButton(
           onPressed: () async {
             Navigator.of(context).pop();
-            final callsRef = firestore
-                .collection('Users')
-                .doc(currentUser!.uid)
-                .collection('Calls');
-            final callSnapshots = await callsRef.get();
-            if (callSnapshots.docs.length == 0) {
+
+            final result = await firestore.deleteAllCalls();
+
+            if (result == false) {
               final snackBar = SnackBar(
                 content: Text('There are no calls to delete'),
                 action: SnackBarAction(
@@ -39,10 +37,6 @@ class _DeleteAllDialogState extends State<DeleteAllDialog> with FirebaseMixin {
                 duration: Duration(seconds: 3),
               );
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            } else {
-              for (int i = 0; i < callSnapshots.docs.length; i++) {
-                callSnapshots.docs[i].reference.delete();
-              }
             }
           },
           child: Text('DELETE'),

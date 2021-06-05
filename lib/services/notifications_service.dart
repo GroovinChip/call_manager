@@ -20,7 +20,7 @@ class NotificationService {
     tz.initializeTimeZones();
     notificationsPlugin = FlutterLocalNotificationsPlugin();
     final androidInitializationSettings =
-        AndroidInitializationSettings('ic_notification');
+        AndroidInitializationSettings('ic_stat_phone_in_talk');
     final iosInitializationSettings = IOSInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
