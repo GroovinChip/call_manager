@@ -33,7 +33,7 @@ dependencies:
   sign_in_with_apple: ^3.0.0
   timezone: any
   url_launcher: ^6.0.3
-  wiredash: ^0.6.2
+  wiredash: ^0.7.0+1
 
 dev_dependencies:
   flutter_test:
