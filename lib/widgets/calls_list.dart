@@ -36,8 +36,8 @@ class _CallsListState extends State<CallsList> with FirebaseMixin {
           children: [
             // ignore: unnecessary_null_comparison
             if (!snapshot.hasData) ...[
-              Center(
-                child: const CircularProgressIndicator(),
+              const Center(
+                child: CircularProgressIndicator(),
               ),
             ] else ...[
               if (snapshot.data!.first.docs.isNotEmpty) ...[
@@ -92,8 +92,8 @@ class _CallsListState extends State<CallsList> with FirebaseMixin {
               ],
             ],
             if (!snapshot.hasData) ...[
-              Center(
-                child: const CircularProgressIndicator(),
+              const Center(
+                child: CircularProgressIndicator(),
               ),
             ],
           ],

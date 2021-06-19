@@ -22,7 +22,7 @@ class MultiplePhoneNumbersSheet extends StatelessWidget {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: const [
               Text(
                 'Choose phone number',
                 style: TextStyle(
@@ -37,16 +37,16 @@ class MultiplePhoneNumbersSheet extends StatelessWidget {
             Icon phoneType;
             switch (_phoneNumbers[index].label) {
               case 'mobile':
-                phoneType = Icon(Icons.smartphone);
+                phoneType = const Icon(Icons.smartphone);
                 break;
               case 'work':
-                phoneType = Icon(Icons.business);
+                phoneType = const Icon(Icons.business);
                 break;
               case 'home':
-                phoneType = Icon(Icons.home_outlined);
+                phoneType = const Icon(Icons.home_outlined);
                 break;
               default:
-                phoneType = Icon(Icons.phone_outlined);
+                phoneType = const Icon(Icons.phone_outlined);
             }
 
             return ListTile(

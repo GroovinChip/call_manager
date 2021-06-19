@@ -19,15 +19,15 @@ class NotificationService {
   Future<void> _init() async {
     tz.initializeTimeZones();
     notificationsPlugin = FlutterLocalNotificationsPlugin();
-    final androidInitializationSettings =
+    const androidInitializationSettings =
         AndroidInitializationSettings('ic_stat_phone_in_talk');
-    final iosInitializationSettings = IOSInitializationSettings(
+    const iosInitializationSettings = IOSInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
       requestSoundPermission: true,
     );
     notificationsPlugin!.initialize(
-      InitializationSettings(
+      const InitializationSettings(
         android: androidInitializationSettings,
         iOS: iosInitializationSettings,
       ),

@@ -10,7 +10,7 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 /// Generates a cryptographically secure random nonce, to be included in a
 /// credential request.
 String generateNonce([int length = 32]) {
-  final charset =
+  const charset =
       '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
   final random = Random.secure();
 
@@ -54,7 +54,7 @@ extension FirebaseAuthX on FirebaseAuth {
       rawNonce: rawNonce,
     );
 
-    await this.signInWithCredential(oauthCredential);
+    await signInWithCredential(oauthCredential);
   }
 
   /// Sign in with Google.
@@ -70,6 +70,6 @@ extension FirebaseAuthX on FirebaseAuth {
       idToken: googleAuth.idToken,
     );
 
-    await this.signInWithCredential(googleAuthCredential);
+    await signInWithCredential(googleAuthCredential);
   }
 }

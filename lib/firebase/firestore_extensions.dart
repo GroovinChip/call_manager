@@ -4,12 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 extension FirestoreX on FirebaseFirestore {
-  FirestoreCollection get users => this.collection('Users');
-  FirestoreCollection get upcomingCalls => users
-      .doc('${FirebaseAuth.instance.currentUser!.uid}')
-      .collection('Calls');
+  FirestoreCollection get users => collection('Users');
+  FirestoreCollection get upcomingCalls =>
+      users.doc(FirebaseAuth.instance.currentUser!.uid).collection('Calls');
   FirestoreCollection get completedCalls => users
-      .doc('${FirebaseAuth.instance.currentUser!.uid}')
+      .doc(FirebaseAuth.instance.currentUser!.uid)
       .collection('CompletedCalls');
 
   /// Marks a call as complete and moves it to [completedCalls]

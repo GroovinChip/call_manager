@@ -18,14 +18,14 @@ class _MarkIncompleteDialogState extends State<MarkIncompleteDialog>
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: Text('Mark this call as incomplete?'),
+      content: const Text('Mark this call as incomplete?'),
       actions: [
         TextButton(
-          child: Text('CANCEL'),
+          child: const Text('CANCEL'),
           onPressed: () => Navigator.of(context).pop(),
         ),
         TextButton(
-          child: Text('YES'),
+          child: const Text('YES'),
           onPressed: () {
             firestore.incompleteCall(widget.call);
             Navigator.of(context).pop();

@@ -12,9 +12,10 @@ import 'package:flutter/material.dart';
 import 'package:groovin_widgets/groovin_widgets.dart';
 
 class CallCard extends StatefulWidget {
-  CallCard({
+  const CallCard({
+    Key? key,
     required this.call,
-  });
+  }) : super(key: key);
 
   final Call call;
 
@@ -31,9 +32,9 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
     PopupMenuItem(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
+        children: const [
           Padding(
-            padding: const EdgeInsets.only(right: 8.0),
+            padding: EdgeInsets.only(right: 8.0),
             child: Text('Send Email'),
           ),
           Icon(Icons.send_outlined),
@@ -49,7 +50,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
     return Material(
       elevation: 2.0,
       color: Theme.of(context).cardColor,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(8.0),
         ),
@@ -70,8 +71,8 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
           setState(() => isExpanded = value);
         },
         inkwellRadius: !isExpanded
-            ? BorderRadius.all(Radius.circular(8.0))
-            : BorderRadius.only(
+            ? const BorderRadius.all(Radius.circular(8.0))
+            : const BorderRadius.only(
                 topRight: Radius.circular(8.0),
                 topLeft: Radius.circular(8.0),
               ),
@@ -90,7 +91,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                icon: Icon(Icons.delete_outline),
+                icon: const Icon(Icons.delete_outline),
                 onPressed: () {
                   showDialog(
                     context: context,
@@ -103,7 +104,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
               ),
               if (widget.call.isNotCompleted) ...[
                 IconButton(
-                  icon: Icon(Icons.check),
+                  icon: const Icon(Icons.check),
                   onPressed: () {
                     showDialog(
                       context: context,
@@ -116,7 +117,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
                 ),
               ] else ...[
                 IconButton(
-                  icon: Icon(Icons.check_circle),
+                  icon: const Icon(Icons.check_circle),
                   onPressed: () {
                     showDialog(
                       context: context,
@@ -129,7 +130,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
                 ),
               ],
               IconButton(
-                icon: Icon(Icons.notifications_none),
+                icon: const Icon(Icons.notifications_none),
                 onPressed: () {
                   showModalBottomSheet(
                     context: context,
@@ -144,7 +145,7 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
                 tooltip: 'Set reminder',
               ),
               IconButton(
-                icon: Icon(Icons.edit_outlined),
+                icon: const Icon(Icons.edit_outlined),
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
@@ -164,9 +165,9 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
                 tooltip: 'Text ${widget.call.name}',
               ),*/
               IconButton(
-                icon: Icon(Icons.phone_outlined),
+                icon: const Icon(Icons.phone_outlined),
                 onPressed: () async {
-                  await phoneUtility.callNumber('${widget.call.phoneNumber}');
+                  await phoneUtility.callNumber(widget.call.phoneNumber!);
                 },
                 tooltip: 'Call ${widget.call.name}',
               ),

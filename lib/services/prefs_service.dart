@@ -27,7 +27,7 @@ class PrefsService {
   );
 
   Future<void> setThemeModePref(ThemeMode themeMode) async {
-    await preferences.setString('themeModePref', '${themeMode.toString()}');
+    await preferences.setString('themeModePref', themeMode.toString());
     preferencesSubject.add(
       Preferences(
         themeMode: themeMode,
