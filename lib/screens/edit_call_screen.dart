@@ -37,7 +37,7 @@ class _EditCallScreenState extends State<EditCallScreen>
       backgroundColor: theme.canvasColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('Edit Call'),
+        title: const Text('Edit Call'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -190,16 +190,16 @@ class _EditCallScreenState extends State<EditCallScreen>
               },
               tooltip: 'Save',
               elevation: 2.0,
-              icon: Icon(Icons.save),
-              label: Text('SAVE'),
+              icon: const Icon(Icons.save),
+              label: const Text('SAVE'),
             )
           : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         //hasNotch: false,
         child: Row(
-          children: [
-            const SizedBox(width: 8.0),
+          children: const [
+            SizedBox(width: 8.0),
             CloseButton(),
           ],
         ),

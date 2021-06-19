@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   static const routeName = '/homeScreen';
 
@@ -18,7 +18,7 @@ class HomeScreen extends StatefulWidget {
     return MaterialPageRoute(
       settings: settings,
       builder: (BuildContext context) {
-        return HomeScreen();
+        return const HomeScreen();
       },
     );
   }
@@ -62,12 +62,12 @@ class _HomeScreenState extends State<HomeScreen>
       value: AppThemes.themedSystemNavigationBar(context),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Call Manager'),
+          title: const Text('Call Manager'),
           bottom: TabBar(
             controller: tabController,
             indicatorColor: Theme.of(context).indicatorColor.withOpacity(.40),
             labelColor: Theme.of(context).colorScheme.onSurface,
-            tabs: [
+            tabs: const [
               Tab(
                 child: Text('Upcoming'),
               ),
@@ -81,12 +81,12 @@ class _HomeScreenState extends State<HomeScreen>
           tabController: tabController,
         ),
         floatingActionButton: FloatingActionButton.extended(
-          icon: Icon(Icons.add),
+          icon: const Icon(Icons.add),
           elevation: 2.0,
-          label: Text('NEW CALL'),
+          label: const Text('NEW CALL'),
           onPressed: () => Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (_) => NewCallScreen(),
+              builder: (_) => const NewCallScreen(),
             ),
           ),
         ),
@@ -96,16 +96,16 @@ class _HomeScreenState extends State<HomeScreen>
             children: [
               const SizedBox(width: 8.0),
               IconButton(
-                icon: Icon(Icons.menu),
+                icon: const Icon(Icons.menu),
                 onPressed: () {
                   showModalBottomSheet(
                     context: context,
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.vertical(
                         top: Radius.circular(8.0),
                       ),
                     ),
-                    builder: (_) => MenuBottomSheet(),
+                    builder: (_) => const MenuBottomSheet(),
                   );
                 },
               ),

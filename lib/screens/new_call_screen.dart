@@ -15,6 +15,8 @@ import 'package:intl/intl.dart';
 
 // Add New Call Screen
 class NewCallScreen extends StatefulWidget {
+  const NewCallScreen({Key? key}) : super(key: key);
+
   @override
   _NewCallScreenState createState() => _NewCallScreenState();
 }
@@ -108,7 +110,7 @@ class _NewCallScreenState extends State<NewCallScreen>
       backgroundColor: theme.canvasColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('New Call'),
+        title: const Text('New Call'),
       ),
       body: Form(
         key: formKey,
@@ -276,16 +278,16 @@ class _NewCallScreenState extends State<NewCallScreen>
               onPressed: saveCall,
               tooltip: 'Save',
               elevation: 2.0,
-              icon: Icon(Icons.save),
-              label: Text('SAVE'),
+              icon: const Icon(Icons.save),
+              label: const Text('SAVE'),
             )
           : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         //hasNotch: false,
         child: Row(
-          children: [
-            const SizedBox(width: 8.0),
+          children: const [
+            SizedBox(width: 8.0),
             CloseButton(),
           ],
         ),
@@ -293,4 +295,3 @@ class _NewCallScreenState extends State<NewCallScreen>
     );
   }
 }
-

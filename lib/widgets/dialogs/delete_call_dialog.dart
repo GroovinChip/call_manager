@@ -18,14 +18,14 @@ class _DeleteCallDialogState extends State<DeleteCallDialog>
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: Text('Delete call?'),
+      content: const Text('Delete call?'),
       actions: [
         TextButton(
-          child: Text('CANCEL'),
+          child: const Text('CANCEL'),
           onPressed: () => Navigator.of(context).pop(),
         ),
         TextButton(
-          child: Text('YES'),
+          child: const Text('YES'),
           onPressed: () {
             firestore.deleteCall(widget.call);
             Navigator.of(context).pop();

@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 
 class CallAvatar extends StatelessWidget {
   const CallAvatar({
+    Key? key,
     required this.call,
-  });
+  }) : super(key: key);
 
   final Call call;
 
@@ -23,7 +24,7 @@ class CallAvatar extends StatelessWidget {
       );
     } else {
       return CircleAvatar(
-        child: Icon(
+        child: const Icon(
           Icons.person_outline,
           color: Colors.white,
         ),
