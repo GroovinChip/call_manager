@@ -1,7 +1,7 @@
 import 'package:call_manager/provided.dart';
 import 'package:call_manager/screens/new_call_screen.dart';
 import 'package:call_manager/theme/app_themes.dart';
-import 'package:call_manager/widgets/calls_list.dart';
+import 'package:call_manager/widgets/calls_view.dart';
 import 'package:call_manager/widgets/menu_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -43,16 +43,6 @@ class _HomeScreenState extends State<HomeScreen>
       Permission.phone,
       Permission.contacts,
     ].request();
-
-    /*if (contactsUtility.permissionStatus.isUndetermined ||
-        contactsUtility.permissionStatus.isDenied) {
-      contactsUtility.requestPermission();
-    }
-
-    if (phoneUtility.phonePermissionStatus.isUndetermined ||
-        phoneUtility.phonePermissionStatus.isDenied) {
-      phoneUtility.requestPhonePermission();
-    }*/
   }
 
   @override
@@ -77,9 +67,7 @@ class _HomeScreenState extends State<HomeScreen>
             ],
           ),
         ),
-        body: CallsList(
-          tabController: tabController,
-        ),
+        body: const CallsView(),
         floatingActionButton: FloatingActionButton.extended(
           icon: const Icon(Icons.add),
           elevation: 2.0,
