@@ -9,6 +9,7 @@ class Call {
     this.reminderTime,
     this.timeCreated,
     this.lastEdited,
+    this.completedAt,
   });
 
   factory Call.fromJsonWithDocId(Map<String, dynamic> json, String docId) {
@@ -18,7 +19,7 @@ class Call {
       timestamp = DateTime.parse(json['TimeCreated']);
     }
 
-    if (json['LastEdited'] != null) {
+    if (json['LastEdited'] != 'null' && json['LastEdited'] != null) {
       _lastEdited = DateTime.parse(json['LastEdited']);
     }
 
@@ -32,18 +33,20 @@ class Call {
       reminderTime: json['ReminderTime'],
       timeCreated: timestamp,
       lastEdited: _lastEdited,
+      completedAt: json['CompletedAt'],
     );
   }
 
   String? avatar;
+  String? completedAt;
   String? description;
   String? id;
+  DateTime? lastEdited;
   String? name;
   String? phoneNumber;
   String? reminderDate;
   String? reminderTime;
   DateTime? timeCreated;
-  DateTime? lastEdited;
 
   Map<String, dynamic> toJson() {
     return {
@@ -55,6 +58,7 @@ class Call {
       'ReminderTime': reminderTime?.toString() ?? '',
       'TimeCreated': timeCreated.toString(),
       'LastEdited': lastEdited.toString(),
+      'CompletedAt': completedAt ?? '',
     };
   }
 }
@@ -62,4 +66,5 @@ class Call {
 extension CallX on Call {
   bool get hasAvatar => avatar != null && avatar!.isNotEmpty;
   bool get hasDescription => description != null && description!.isNotEmpty;
+  bool get isNotCompleted => completedAt == null || completedAt!.isEmpty;
 }

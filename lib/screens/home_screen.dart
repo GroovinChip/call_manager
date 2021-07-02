@@ -1,14 +1,14 @@
 import 'package:call_manager/provided.dart';
 import 'package:call_manager/screens/new_call_screen.dart';
 import 'package:call_manager/theme/app_themes.dart';
-import 'package:call_manager/widgets/calls_list.dart';
+import 'package:call_manager/widgets/calls_view.dart';
 import 'package:call_manager/widgets/menu_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   static const routeName = '/homeScreen';
 
@@ -18,7 +18,7 @@ class HomeScreen extends StatefulWidget {
     return MaterialPageRoute(
       settings: settings,
       builder: (BuildContext context) {
-        return HomeScreen();
+        return const HomeScreen();
       },
     );
   }
@@ -27,11 +27,13 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with Provided {
+class _HomeScreenState extends State<HomeScreen>
+    with Provided, SingleTickerProviderStateMixin {
+  late final tabController = TabController(length: 2, vsync: this);
   @override
   void initState() {
     super.initState();
-    _checkPermissions();
+    //_checkPermissions();
   }
 
   /// Checks for contacts and phone permissions and requests them if they
@@ -41,34 +43,38 @@ class _HomeScreenState extends State<HomeScreen> with Provided {
       Permission.phone,
       Permission.contacts,
     ].request();
-
-    /*if (contactsUtility.permissionStatus.isUndetermined ||
-        contactsUtility.permissionStatus.isDenied) {
-      contactsUtility.requestPermission();
-    }
-
-    if (phoneUtility.phonePermissionStatus.isUndetermined ||
-        phoneUtility.phonePermissionStatus.isDenied) {
-      phoneUtility.requestPhonePermission();
-    }*/
   }
 
   @override
+  // ignore: long-method
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: AppThemes.themedSystemNavigationBar(context),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Call Manager'),
+          title: const Text('Call Manager'),
+          bottom: TabBar(
+            controller: tabController,
+            indicatorColor: Theme.of(context).indicatorColor.withOpacity(.40),
+            labelColor: Theme.of(context).colorScheme.onSurface,
+            tabs: const [
+              Tab(
+                child: Text('Upcoming'),
+              ),
+              Tab(
+                child: Text('Completed'),
+              ),
+            ],
+          ),
         ),
-        body: CallsList(),
+        body: const CallsView(),
         floatingActionButton: FloatingActionButton.extended(
-          icon: Icon(Icons.add),
+          icon: const Icon(Icons.add),
           elevation: 2.0,
-          label: Text('NEW CALL'),
+          label: const Text('NEW CALL'),
           onPressed: () => Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (_) => NewCallScreen(),
+              builder: (_) => const NewCallScreen(),
             ),
           ),
         ),
@@ -78,16 +84,16 @@ class _HomeScreenState extends State<HomeScreen> with Provided {
             children: [
               const SizedBox(width: 8.0),
               IconButton(
-                icon: Icon(Icons.menu),
+                icon: const Icon(Icons.menu),
                 onPressed: () {
                   showModalBottomSheet(
                     context: context,
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.vertical(
                         top: Radius.circular(8.0),
                       ),
                     ),
-                    builder: (_) => MenuBottomSheet(),
+                    builder: (_) => const MenuBottomSheet(),
                   );
                 },
               ),

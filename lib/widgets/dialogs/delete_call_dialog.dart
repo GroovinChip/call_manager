@@ -1,13 +1,14 @@
+import 'package:call_manager/data_models/call.dart';
 import 'package:call_manager/firebase/firebase.dart';
 import 'package:flutter/material.dart';
 
 class DeleteCallDialog extends StatefulWidget {
   const DeleteCallDialog({
     Key? key,
-    required this.callId,
+    required this.call,
   }) : super(key: key);
 
-  final String? callId;
+  final Call call;
   @override
   _DeleteCallDialogState createState() => _DeleteCallDialogState();
 }
@@ -17,16 +18,16 @@ class _DeleteCallDialogState extends State<DeleteCallDialog>
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: Text('Are you sure you want to delete this call?'),
+      content: const Text('Delete call?'),
       actions: [
         TextButton(
-          child: Text('CANCEL'),
+          child: const Text('CANCEL'),
           onPressed: () => Navigator.of(context).pop(),
         ),
         TextButton(
-          child: Text('DELETE'),
+          child: const Text('YES'),
           onPressed: () {
-            firestore.calls(currentUser!.uid).doc(widget.callId).delete();
+            firestore.deleteCall(widget.call);
             Navigator.of(context).pop();
           },
         ),

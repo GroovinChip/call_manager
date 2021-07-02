@@ -5,15 +5,17 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 /// notification plugin to the rest of the app. The purpose of this is so that
 /// when the notification is tapped, the payload from the notification runs.
 class PassNotification extends InheritedWidget {
-  PassNotification(
+  const PassNotification(
     this.instance, {
+    Key? key,
     required Widget child,
-  }) : super(child: child);
+  }) : super(key: key, child: child);
 
   final FlutterLocalNotificationsPlugin? instance;
 
   static FlutterLocalNotificationsPlugin? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<PassNotification>()!
+    return context
+        .dependOnInheritedWidgetOfExactType<PassNotification>()!
         .instance;
   }
 

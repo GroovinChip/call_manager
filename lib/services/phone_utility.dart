@@ -1,4 +1,5 @@
 import 'package:direct_dialer/direct_dialer.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
@@ -42,7 +43,7 @@ class PhoneUtility {
         await url_launcher.launch(url);
       }
     } catch (e) {
-      print('Error sending SMS: $e');
+      debugPrint('Error sending SMS: $e');
     }
   }
 }

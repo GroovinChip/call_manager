@@ -17,7 +17,7 @@ class AppThemes {
         centerTitle: true,
         backgroundColor: ThemeData.light().canvasColor,
         //foregroundColor: Colors.black,
-        titleTextStyle: TextStyle(
+        titleTextStyle: const TextStyle(
           color: Colors.black,
           fontSize: 20,
           fontWeight: FontWeight.bold,
@@ -25,7 +25,7 @@ class AppThemes {
         backwardsCompatibility: false,
       ),
       cardColor: AppColors.cardColorLight,
-      buttonTheme: ButtonThemeData(
+      buttonTheme: const ButtonThemeData(
         buttonColor: AppColors.primaryColor,
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
@@ -33,7 +33,7 @@ class AppThemes {
           side: BorderSide(
             color: AppColors.outlinedButtonColorLight,
           ),
-          shape: StadiumBorder(),
+          shape: const StadiumBorder(),
           primary: AppColors.outlinedButtonColorLight,
         ),
       ),
@@ -45,7 +45,7 @@ class AppThemes {
           borderRadius: BorderRadius.circular(12),
         ),
       ),
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: AppColors.primaryColor,
         foregroundColor: Colors.white,
       ),
@@ -71,27 +71,27 @@ class AppThemes {
         elevation: 0,
         centerTitle: true,
         backgroundColor: AppColors.canvasColorDark,
-        titleTextStyle: TextStyle(
+        titleTextStyle: const TextStyle(
           color: Colors.white,
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
         backwardsCompatibility: false,
       ),
-      buttonTheme: ButtonThemeData(
+      buttonTheme: const ButtonThemeData(
         buttonColor: AppColors.primaryColor,
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          side: BorderSide(
+          side: const BorderSide(
             color: Colors.white,
           ),
-          shape: StadiumBorder(),
+          shape: const StadiumBorder(),
           primary: Colors.white,
         ),
       ),
       cardColor: AppColors.cardColorDark,
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: AppColors.primaryColor,
         foregroundColor: Colors.white,
       ),
@@ -169,7 +169,7 @@ class AppThemes {
       systemNavigationBarIconBrightness:
           isDark ? Brightness.light : Brightness.dark,
       statusBarColor: Colors.transparent,
-      statusBarBrightness: isDark ? Brightness.light : Brightness.dark,
+      statusBarBrightness: isDark ? Brightness.dark : Brightness.light,
       statusBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
     );
   }

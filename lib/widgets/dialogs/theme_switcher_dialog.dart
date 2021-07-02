@@ -2,51 +2,69 @@ import 'package:call_manager/provided.dart';
 import 'package:flutter/material.dart';
 
 class ThemeSwitcherDialog extends StatefulWidget {
+  const ThemeSwitcherDialog({Key? key}) : super(key: key);
   @override
   _ThemeSwitcherDialogState createState() => _ThemeSwitcherDialogState();
 }
 
 class _ThemeSwitcherDialogState extends State<ThemeSwitcherDialog>
     with Provided {
-  void _onThemeSelection(ThemeMode? themeMode) {
+  void _onThemeSelection(ThemeMode themeMode) {
     prefsService.setThemeModePref(themeMode);
+    if (themeMode == ThemeMode.system &&
+        Theme.of(context).brightness == Brightness.light) {
+      prefsService.setBrightnessPref(Brightness.light);
+    }
+    if (themeMode == ThemeMode.system &&
+        Theme.of(context).brightness == Brightness.dark) {
+      prefsService.setBrightnessPref(Brightness.light);
+    }
+    if (themeMode == ThemeMode.light) {
+      prefsService.setBrightnessPref(Brightness.light);
+    }
+
+    if (themeMode == ThemeMode.dark) {
+      prefsService.setBrightnessPref(Brightness.dark);
+    }
+
     // ignore: no-empty-block
     setState(() {});
-    Navigator.of(context).pop();
+
+    Navigator.of(context).pop(themeMode);
   }
 
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
       backgroundColor: Theme.of(context).canvasColor,
-      title: Text('Change app theme'),
+      title: const Text('Change app theme'),
       children: [
-        RadioListTile(
-          title: Text('System theme'),
+        RadioListTile<ThemeMode>(
+          title: const Text('System theme'),
           value: ThemeMode.system,
           selected:
               prefsService.currentThemeMode == ThemeMode.system ? true : false,
           activeColor: Theme.of(context).accentColor,
           groupValue: prefsService.currentThemeMode,
-          onChanged: _onThemeSelection,
+          onChanged: (value) => _onThemeSelection(value!),
         ),
-        RadioListTile(
-          title: Text('Light theme'),
+        RadioListTile<ThemeMode>(
+          title: const Text('Light theme'),
           value: ThemeMode.light,
           selected:
               prefsService.currentThemeMode == ThemeMode.light ? true : false,
           activeColor: Theme.of(context).accentColor,
           groupValue: prefsService.currentThemeMode,
-          onChanged: _onThemeSelection,
+          onChanged: (value) => _onThemeSelection(value!),
         ),
-        RadioListTile(
-          title: Text('Dark theme'),
+        RadioListTile<ThemeMode>(
+          title: const Text('Dark theme'),
           value: ThemeMode.dark,
           selected:
               prefsService.currentThemeMode == ThemeMode.dark ? true : false,
           activeColor: Theme.of(context).accentColor,
           groupValue: prefsService.currentThemeMode,
-          onChanged: _onThemeSelection,
+          onChanged: (value) => _onThemeSelection(value!),
         ),
       ],
     );

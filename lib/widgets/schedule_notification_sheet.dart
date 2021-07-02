@@ -59,7 +59,7 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
           mainAxisSize: MainAxisSize.min,
           children: [
             ModalDrawerHandle(),
-            SizedBox(height: 12.0),
+            const SizedBox(height: 12.0),
             DateTimeField(
               format: dateFormat,
               onShowPicker: (context, currentValue) {
@@ -79,7 +79,7 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
                 labelText: 'Reminder Date',
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             DateTimeField(
               format: timeFormat,
               enabled: true,
@@ -102,13 +102,13 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
                 ),
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Row(
               children: [
                 Expanded(
                   child: ElevatedButton.icon(
-                    icon: Icon(MdiIcons.bellPlusOutline),
-                    label: Text('Set Reminder'),
+                    icon: const Icon(MdiIcons.bellPlusOutline),
+                    label: const Text('Set Reminder'),
                     style: ElevatedButton.styleFrom(
                       primary: Theme.of(context).primaryColor,
                       shape: RoundedRectangleBorder(
@@ -116,8 +116,7 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
                       ),
                     ),
                     onPressed: () {
-                      numberToCallOnNotificationTap =
-                          '${widget.call.phoneNumber}';
+                      numberToCallOnNotificationTap = widget.call.phoneNumber;
                       scheduleNotificationReminder();
                     },
                   ),
