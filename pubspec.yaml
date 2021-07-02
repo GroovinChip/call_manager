@@ -11,13 +11,13 @@ dependencies:
     sdk: flutter
 
   bluejay: ^1.4.0
-  cloud_firestore: ^2.2.2
+  cloud_firestore: ^2.3.0
   contacts_service: ^0.6.1
   crypto: ^3.0.1
   cupertino_icons: ^1.0.3
   datetime_picker_formfield: ^2.0.0
   direct_dialer: ^1.0.1+1
-  firebase_auth: ^1.4.1
+  firebase_auth: ^2.0.0
   firebase_core: ^1.3.0
   flutter_local_notifications: ^6.0.0
   flutter_typeahead: ^3.1.3
