@@ -106,6 +106,7 @@ class LoginScreenState extends State<LoginScreen>
                         onPressed: () async =>
                             await auth.signInWithApple().then((value) {
                           if (auth.currentUser != null) {
+                            firestore.recordLoginWithApple(currentUser!.uid);
                             Navigator.of(context).pushAndRemoveUntil(
                               HomeScreen.route(),
                               (route) => false,
@@ -131,6 +132,7 @@ class LoginScreenState extends State<LoginScreen>
                       onPressed: () async =>
                           await auth.signInWithGoogle().then((value) {
                         if (auth.currentUser != null) {
+                          firestore.recordLoginWithGoogle(currentUser!.uid);
                           Navigator.of(context).pushAndRemoveUntil(
                             HomeScreen.route(),
                             (route) => false,

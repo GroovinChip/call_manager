@@ -41,6 +41,7 @@ class _NewCallScreenState extends State<NewCallScreen>
     formKey.currentState!.save();
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
+      call.timeCreated = DateTime.now();
 
       if (reminderDate != null && reminderTime != null) {
         call.reminderDate = reminderDate.toString();
