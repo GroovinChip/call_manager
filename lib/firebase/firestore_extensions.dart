@@ -26,6 +26,7 @@ extension FirestoreX on FirebaseFirestore {
     await completedCalls.doc(call.id).delete();
   }
 
+  /// Deletes one call
   Future<void> deleteCall(Call call) async {
     if (!call.isNotCompleted) {
       await completedCalls.doc(call.id).delete();
@@ -34,6 +35,7 @@ extension FirestoreX on FirebaseFirestore {
     }
   }
 
+  /// Deletes all calls
   Future<dynamic> deleteAllCalls() async {
     final _upcomingCalls = await upcomingCalls.get();
     final _completedCalls = await completedCalls.get();
