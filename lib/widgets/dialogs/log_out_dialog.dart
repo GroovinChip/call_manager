@@ -1,4 +1,4 @@
-import 'package:call_manager/firebase/firebase_mixin.dart';
+import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +22,7 @@ class _LogOutDialogState extends State<LogOutDialog> with FirebaseMixin {
         ),
         TextButton(
           onPressed: () async {
+            firestore.recordLogout(currentUser!.uid);
             await auth.signOut();
             Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(

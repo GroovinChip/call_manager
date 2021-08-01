@@ -61,20 +61,26 @@ extension FirestoreX on FirebaseFirestore {
   }
 
   void recordLoginDate(String uid) {
-    users.doc(uid).set({
+    users.doc(uid).update({
       'last login date': DateTime.now().toIso8601String(),
     });
   }
 
   void recordLoginWithGoogle(String uid) {
-    users.doc(uid).set({
+    users.doc(uid).update({
       'last login with Google': DateTime.now().toIso8601String(),
     });
   }
 
   void recordLoginWithApple(String uid) {
-    users.doc(uid).set({
+    users.doc(uid).update({
       'last login with Apple': DateTime.now().toIso8601String(),
+    });
+  }
+
+  void recordLogout(String uid) {
+    users.doc(uid).update({
+      'last logout date': DateTime.now().toIso8601String(),
     });
   }
 }
