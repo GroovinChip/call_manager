@@ -59,4 +59,10 @@ extension FirestoreX on FirebaseFirestore {
       users.doc(uid).set({});
     }
   }
+
+  void recordLoginDate(String uid) {
+    users.doc(uid).set({
+      'last login date': DateTime.now().toIso8601String(),
+    });
+  }
 }
