@@ -6,10 +6,10 @@ class PrefsService {
   PrefsService._();
 
   static Future<PrefsService> init() async {
-    final bloc = PrefsService._();
-    await bloc._init();
+    final service = PrefsService._();
+    await service._init();
 
-    return bloc;
+    return service;
   }
 
   Future<void> _init() async {
