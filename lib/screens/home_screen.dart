@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void initState() {
     super.initState();
-    //_checkPermissions();
+    _checkPermissions();
   }
 
   /// Checks for contacts and phone permissions and requests them if they
