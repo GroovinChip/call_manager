@@ -28,22 +28,6 @@ class CallCard extends StatefulWidget {
 class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
   bool isExpanded = false;
 
-  List<PopupMenuItem> overflowItemsCallCard = [
-    PopupMenuItem(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: const [
-          Padding(
-            padding: EdgeInsets.only(right: 8.0),
-            child: Text('Send Email'),
-          ),
-          Icon(Icons.send_outlined),
-        ],
-      ),
-      value: 'Send Email',
-    ),
-  ];
-
   @override
   // ignore: long-method
   Widget build(BuildContext context) {
@@ -157,13 +141,6 @@ class CallCardState extends State<CallCard> with FirebaseMixin, Provided {
                 },
                 tooltip: 'Edit this call',
               ),
-              /*IconButton(
-                icon: Icon(MdiIcons.commentTextOutline),
-                onPressed: () {
-                  phoneUtility.sendSms(widget.call.phoneNumber);
-                },
-                tooltip: 'Text ${widget.call.name}',
-              ),*/
               IconButton(
                 icon: const Icon(Icons.phone_outlined),
                 onPressed: () async {
