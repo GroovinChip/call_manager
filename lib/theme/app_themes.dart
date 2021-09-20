@@ -23,7 +23,6 @@ class AppThemes {
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
-        backwardsCompatibility: false,
       ),
       cardColor: AppColors.cardColorLight,
       buttonTheme: const ButtonThemeData(
@@ -77,7 +76,6 @@ class AppThemes {
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
-        backwardsCompatibility: false,
       ),
       buttonTheme: const ButtonThemeData(
         buttonColor: AppColors.primaryColor,
