@@ -19,7 +19,7 @@ dependencies:
   direct_dialer: ^1.0.1+1
   firebase_auth: ^3.0.2
   firebase_core: ^1.5.0
-  flutter_local_notifications: ^8.0.0
+  flutter_local_notifications: ^8.2.0
   flutter_typeahead: ^3.2.0
   google_fonts: ^2.1.0
   google_sign_in: ^5.0.7
