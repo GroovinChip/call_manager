@@ -48,6 +48,8 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   // ignore: long-method
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: AppThemes.themedSystemNavigationBar(context),
       child: Scaffold(

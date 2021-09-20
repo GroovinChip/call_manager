@@ -151,7 +151,7 @@ class AppThemes {
     // If nullContextBackground is null use black for dark, and white for light.
     nullContextBackground ??= isDark ? Colors.black : Colors.white;
 
-    final Color background = Theme.of(context).canvasColor;
+    final Color background = Theme.of(context).bottomAppBarColor;
 
     // The used system navigation bar divider colors below were tuned to
     // fit well with most color schemes and possible surface branding.
@@ -164,6 +164,7 @@ class AppThemes {
     // AnnotatedRegion if this does not produce the desired result.
     return SystemUiOverlayStyle(
       systemNavigationBarColor: background.withOpacity(opacity),
+      //systemNavigationBarColor: Colors.transparent,
       systemNavigationBarDividerColor: Colors.transparent,
       systemNavigationBarIconBrightness:
           isDark ? Brightness.light : Brightness.dark,
