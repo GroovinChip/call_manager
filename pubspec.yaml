@@ -39,7 +39,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   #flutter_launcher_icons: "^0.7.2"
-  dart_code_metrics: ^4.1.0
+  dart_code_metrics: ^4.2.0
   flutter_lints: ^1.0.4
 
 flutter_icons:
