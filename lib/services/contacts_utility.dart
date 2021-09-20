@@ -21,6 +21,8 @@ class ContactsUtility {
     contactsPermissionSubject.add(status);
     if (status.isGranted) {
       getContacts();
+    } else {
+      //requestPermission();
     }
   }
 
