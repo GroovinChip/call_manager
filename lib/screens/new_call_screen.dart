@@ -4,7 +4,7 @@ import 'package:call_manager/firebase/firebase.dart';
 import 'package:call_manager/provided.dart';
 import 'package:call_manager/utils/extensions.dart';
 import 'package:call_manager/widgets/clear_button.dart';
-import 'package:call_manager/widgets/contact_avatar.dart';
+import 'package:call_manager/widgets/contact_tile.dart';
 import 'package:call_manager/widgets/multiple_phone_numbers_sheet.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
@@ -15,6 +15,8 @@ import 'package:intl/intl.dart';
 
 // Add New Call Screen
 class NewCallScreen extends StatefulWidget {
+  const NewCallScreen({Key? key}) : super(key: key);
+
   @override
   _NewCallScreenState createState() => _NewCallScreenState();
 }
@@ -39,6 +41,7 @@ class _NewCallScreenState extends State<NewCallScreen>
     formKey.currentState!.save();
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
+      call.timeCreated = DateTime.now();
 
       if (reminderDate != null && reminderTime != null) {
         call.reminderDate = reminderDate.toString();
@@ -63,8 +66,44 @@ class _NewCallScreenState extends State<NewCallScreen>
     }
   }
 
+  /// Show sheet and set number
+  void showMultiplePhoneNumbersSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      builder: (_) => MultiplePhoneNumbersSheet(
+        selectedContact: selectedContact,
+      ),
+    ).then((value) {
+      call.avatar = selectedContact?.avatar != null
+          ? String.fromCharCodes(selectedContact!.avatar!)
+          : '';
+      //call.name = value
+      call.phoneNumber = value;
+      phoneFieldController.text = value;
+    });
+  }
+
+  /// Set number.
+  ///
+  /// Called in case of single phone number.
+  void setPhoneNumber() {
+    call.avatar = selectedContact?.avatar != null
+        ? String.fromCharCodes(selectedContact!.avatar!)
+        : '';
+    if (selectedContact!.phones!.isEmpty) {
+      call.phoneNumber = '';
+    } else {
+      call.phoneNumber = selectedContact!.phones?.first.value!;
+      final number = selectedContact!.phones?.first.value!;
+      phoneFieldController.text = number!;
+    }
+  }
+
   @override
-  // ignore: long-method, code-metrics
+  // ignore: long-method
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
@@ -72,7 +111,7 @@ class _NewCallScreenState extends State<NewCallScreen>
       backgroundColor: theme.canvasColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('New Call'),
+        title: const Text('New Call'),
       ),
       body: Form(
         key: formKey,
@@ -87,12 +126,8 @@ class _NewCallScreenState extends State<NewCallScreen>
                     return TypeAheadFormField(
                       suggestionsCallback:
                           contactsUtility.searchContactsWithQuery,
-                      itemBuilder: (context, dynamic contact) {
-                        return ListTile(
-                          leading: ContactAvatar(contact: contact),
-                          title: Text(contact.displayName),
-                        );
-                      },
+                      itemBuilder: (context, dynamic contact) =>
+                          ContactTile(contact: contact),
                       transitionBuilder: (context, suggestionsBox, controller) {
                         return suggestionsBox;
                       },
@@ -100,34 +135,9 @@ class _NewCallScreenState extends State<NewCallScreen>
                         selectedContact = contact;
                         controller.text = selectedContact!.displayName!;
                         if (selectedContact!.phones!.length > 1) {
-                          showModalBottomSheet(
-                            context: context,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            builder: (_) => MultiplePhoneNumbersSheet(
-                              selectedContact: selectedContact,
-                            ),
-                          ).then((value) {
-                            call.avatar = selectedContact?.avatar != null
-                                ? String.fromCharCodes(selectedContact!.avatar!)
-                                : '';
-                            //call.name = value
-                            call.phoneNumber = value;
-                            phoneFieldController.text = value;
-                          });
+                          showMultiplePhoneNumbersSheet(context);
                         } else {
-                          call.avatar = selectedContact?.avatar != null
-                              ? String.fromCharCodes(selectedContact!.avatar!)
-                              : '';
-                          if (selectedContact!.phones!.isEmpty) {
-                            call.phoneNumber = '';
-                          } else {
-                            call.phoneNumber =
-                                selectedContact!.phones?.first.value!;
-                            final number = selectedContact!.phones?.first.value!;
-                            phoneFieldController.text = number!;
-                          }
+                          setPhoneNumber();
                         }
                       },
                       validator: (input) => input == null || input == ''
@@ -269,16 +279,16 @@ class _NewCallScreenState extends State<NewCallScreen>
               onPressed: saveCall,
               tooltip: 'Save',
               elevation: 2.0,
-              icon: Icon(Icons.save),
-              label: Text('SAVE'),
+              icon: const Icon(Icons.save),
+              label: const Text('SAVE'),
             )
           : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         //hasNotch: false,
         child: Row(
-          children: [
-            const SizedBox(width: 8.0),
+          children: const [
+            SizedBox(width: 8.0),
             CloseButton(),
           ],
         ),

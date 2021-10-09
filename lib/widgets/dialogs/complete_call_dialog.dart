@@ -18,14 +18,14 @@ class _CompleteCallDialogState extends State<CompleteCallDialog>
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: Text('Mark this call as completed?'),
+      content: const Text('Mark this call as completed?'),
       actions: [
         TextButton(
-          child: Text('CANCEL'),
+          child: const Text('CANCEL'),
           onPressed: () => Navigator.of(context).pop(),
         ),
         TextButton(
-          child: Text('YES'),
+          child: const Text('YES'),
           onPressed: () {
             firestore.completeCall(widget.call);
             Navigator.of(context).pop();

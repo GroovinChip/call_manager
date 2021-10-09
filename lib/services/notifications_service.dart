@@ -19,15 +19,15 @@ class NotificationService {
   Future<void> _init() async {
     tz.initializeTimeZones();
     notificationsPlugin = FlutterLocalNotificationsPlugin();
-    final androidInitializationSettings =
+    const androidInitializationSettings =
         AndroidInitializationSettings('ic_stat_phone_in_talk');
-    final iosInitializationSettings = IOSInitializationSettings(
+    const iosInitializationSettings = IOSInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
       requestSoundPermission: true,
     );
     notificationsPlugin!.initialize(
-      InitializationSettings(
+      const InitializationSettings(
         android: androidInitializationSettings,
         iOS: iosInitializationSettings,
       ),
@@ -47,7 +47,8 @@ class NotificationService {
   static const _androidPlatformChannelSpecifics = AndroidNotificationDetails(
     '1',
     'Call Reminders',
-    'Call Manager sends reminders about your calls through this channel.',
+    channelDescription:
+        'Call Manager sends reminders about your calls through this channel.',
   );
 
   static const _iosPlatformChannelSpecifics = IOSNotificationDetails(

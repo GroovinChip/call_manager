@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "1053316160376-a5ophi33ioqa0sp0efc1g9g1p3dug62c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.groovinchip.flutter.callmanager",
+            "certificate_hash": "bd512282d3192eb10c311691a907423947cff8fc"
+          }
+        },
+        {
           "client_id": "1053316160376-e77pbuh7scqba2fgae9fi0r5dt0nerkv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

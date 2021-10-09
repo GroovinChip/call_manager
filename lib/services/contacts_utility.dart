@@ -22,7 +22,7 @@ class ContactsUtility {
     if (status.isGranted) {
       getContacts();
     } else {
-      requestPermission();
+      //requestPermission();
     }
   }
 

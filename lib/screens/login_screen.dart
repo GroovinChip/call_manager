@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({Key? key}) : super(key: key);
 
   static const routeName = '/login';
 
@@ -18,7 +18,7 @@ class LoginScreen extends StatefulWidget {
     return MaterialPageRoute(
       settings: settings,
       builder: (BuildContext context) {
-        return LoginScreen();
+        return const LoginScreen();
       },
     );
   }
@@ -57,6 +57,8 @@ class LoginScreenState extends State<LoginScreen>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: AppThemes.themedSystemNavigationBar(context),
       child: Scaffold(
@@ -64,74 +66,49 @@ class LoginScreenState extends State<LoginScreen>
           child: Center(
             child: FadeTransition(
               opacity: animation,
-              child: Container(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Call Manager',
-                      style: TextStyle(
-                        fontSize: 48.0,
-                        fontWeight: FontWeight.bold,
-                      ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    'Call Manager',
+                    style: TextStyle(
+                      fontSize: 48.0,
+                      fontWeight: FontWeight.bold,
                     ),
-                    const SizedBox(height: 25.0),
-                    Text(
-                      'Your Phone Call Organizer',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.0,
-                      ),
+                  ),
+                  const SizedBox(height: 25.0),
+                  const Text(
+                    'Your Phone Call Organizer',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.0,
                     ),
-                    const SizedBox(height: 50.0),
-                    Image.asset(
-                      'assets/icon/call_manager_app_icon.png',
-                      width: 92.0,
-                      height: 92.0,
-                    ),
-                    const SizedBox(height: 50.0),
-                    if (currentUser != null)
-                      const Center(child: CircularProgressIndicator())
-                    else ...[
-                      if (Platform.isIOS) ...[
-                        ElevatedButton.icon(
-                          style: ElevatedButton.styleFrom(
-                            primary: theme.canvasColor,
-                            onPrimary: theme.colorScheme.onSurface,
-                            elevation: 2.0,
-                          ),
-                          icon: Icon(MdiIcons.apple),
-                          label: Text(
-                            'Sign in with Apple',
-                          ),
-                          onPressed: () async =>
-                          await auth.signInWithApple().then((value) {
-                            if (auth.currentUser != null) {
-                              Navigator.of(context).pushAndRemoveUntil(
-                                HomeScreen.route(),
-                                    (route) => false,
-                              );
-                            }
-                          }),
-                        ),
-                      ],
+                  ),
+                  const SizedBox(height: 50.0),
+                  Image.asset(
+                    'assets/icon/call_manager_app_icon.png',
+                    width: 92.0,
+                    height: 92.0,
+                  ),
+                  const SizedBox(height: 50.0),
+                  if (currentUser != null)
+                    const Center(child: CircularProgressIndicator())
+                  else ...[
+                    if (Platform.isIOS) ...[
                       ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
                           primary: theme.canvasColor,
                           onPrimary: theme.colorScheme.onSurface,
                           elevation: 2.0,
                         ),
-                        icon: Image.asset(
-                          'assets/glogo.png',
-                          width: 32.0,
-                          height: 32.0,
-                        ),
-                        label: Text(
-                          'Sign in with Google',
+                        icon: const Icon(MdiIcons.apple),
+                        label: const Text(
+                          'Sign in with Apple',
                         ),
                         onPressed: () async =>
-                            await auth.signInWithGoogle().then((value) {
+                            await auth.signInWithApple().then((value) {
                           if (auth.currentUser != null) {
+                            firestore.recordLoginWithApple(currentUser!.uid);
                             Navigator.of(context).pushAndRemoveUntil(
                               HomeScreen.route(),
                               (route) => false,
@@ -140,8 +117,33 @@ class LoginScreenState extends State<LoginScreen>
                         }),
                       ),
                     ],
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        primary: theme.canvasColor,
+                        onPrimary: theme.colorScheme.onSurface,
+                        elevation: 2.0,
+                      ),
+                      icon: Image.asset(
+                        'assets/glogo.png',
+                        width: 32.0,
+                        height: 32.0,
+                      ),
+                      label: const Text(
+                        'Sign in with Google',
+                      ),
+                      onPressed: () async =>
+                          await auth.signInWithGoogle().then((value) {
+                        if (auth.currentUser != null) {
+                          firestore.recordLoginWithGoogle(currentUser!.uid);
+                          Navigator.of(context).pushAndRemoveUntil(
+                            HomeScreen.route(),
+                            (route) => false,
+                          );
+                        }
+                      }),
+                    ),
                   ],
-                ),
+                ],
               ),
             ),
           ),

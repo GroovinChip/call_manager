@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// ignore: avoid_classes_with_only_static_members
 class AppThemes {
   static ThemeData lightTheme() {
     return ThemeData(
@@ -17,15 +18,14 @@ class AppThemes {
         centerTitle: true,
         backgroundColor: ThemeData.light().canvasColor,
         //foregroundColor: Colors.black,
-        titleTextStyle: TextStyle(
+        titleTextStyle: const TextStyle(
           color: Colors.black,
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
-        backwardsCompatibility: false,
       ),
       cardColor: AppColors.cardColorLight,
-      buttonTheme: ButtonThemeData(
+      buttonTheme: const ButtonThemeData(
         buttonColor: AppColors.primaryColor,
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
@@ -33,7 +33,7 @@ class AppThemes {
           side: BorderSide(
             color: AppColors.outlinedButtonColorLight,
           ),
-          shape: StadiumBorder(),
+          shape: const StadiumBorder(),
           primary: AppColors.outlinedButtonColorLight,
         ),
       ),
@@ -45,7 +45,7 @@ class AppThemes {
           borderRadius: BorderRadius.circular(12),
         ),
       ),
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: AppColors.primaryColor,
         foregroundColor: Colors.white,
       ),
@@ -71,27 +71,26 @@ class AppThemes {
         elevation: 0,
         centerTitle: true,
         backgroundColor: AppColors.canvasColorDark,
-        titleTextStyle: TextStyle(
+        titleTextStyle: const TextStyle(
           color: Colors.white,
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
-        backwardsCompatibility: false,
       ),
-      buttonTheme: ButtonThemeData(
+      buttonTheme: const ButtonThemeData(
         buttonColor: AppColors.primaryColor,
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          side: BorderSide(
+          side: const BorderSide(
             color: Colors.white,
           ),
-          shape: StadiumBorder(),
+          shape: const StadiumBorder(),
           primary: Colors.white,
         ),
       ),
       cardColor: AppColors.cardColorDark,
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: AppColors.primaryColor,
         foregroundColor: Colors.white,
       ),
@@ -152,7 +151,7 @@ class AppThemes {
     // If nullContextBackground is null use black for dark, and white for light.
     nullContextBackground ??= isDark ? Colors.black : Colors.white;
 
-    final Color background = Theme.of(context).canvasColor;
+    final Color background = Theme.of(context).bottomAppBarColor;
 
     // The used system navigation bar divider colors below were tuned to
     // fit well with most color schemes and possible surface branding.
@@ -165,6 +164,7 @@ class AppThemes {
     // AnnotatedRegion if this does not produce the desired result.
     return SystemUiOverlayStyle(
       systemNavigationBarColor: background.withOpacity(opacity),
+      //systemNavigationBarColor: Colors.transparent,
       systemNavigationBarDividerColor: Colors.transparent,
       systemNavigationBarIconBrightness:
           isDark ? Brightness.light : Brightness.dark,

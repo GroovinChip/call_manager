@@ -2,6 +2,8 @@ import 'package:call_manager/firebase/firebase_mixin.dart';
 import 'package:flutter/material.dart';
 
 class UserAccountAvatar extends StatefulWidget {
+  const UserAccountAvatar({Key? key}) : super(key: key);
+
   @override
   _UserAccountAvatarState createState() => _UserAccountAvatarState();
 }
@@ -12,7 +14,7 @@ class _UserAccountAvatarState extends State<UserAccountAvatar>
   Widget build(BuildContext context) {
     if (currentUser == null || currentUser!.photoURL == null) {
       return CircleAvatar(
-        child: Icon(
+        child: const Icon(
           Icons.person_outline,
           color: Colors.white,
         ),

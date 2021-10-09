@@ -1,6 +1,6 @@
 name: call_manager
 description: Call Manager in Flutter
-version: 2.8.2+51
+version: 2.8.4+53
 publish_to: none
 
 environment:
@@ -11,35 +11,36 @@ dependencies:
     sdk: flutter
 
   bluejay: ^1.4.0
-  cloud_firestore: ^2.2.0
-  contacts_service: ^0.6.1
+  cloud_firestore: ^2.5.3
+  contacts_service: ^0.6.3
   crypto: ^3.0.1
   cupertino_icons: ^1.0.3
   datetime_picker_formfield: ^2.0.0
   direct_dialer: ^1.0.1+1
-  firebase_auth: ^1.2.0
-  firebase_core: ^1.2.0
-  flutter_local_notifications: ^6.0.0
-  flutter_typeahead: ^3.1.3
+  firebase_auth: ^3.1.3
+  firebase_core: ^1.7.0
+  flutter_local_notifications: ^9.0.0
+  flutter_typeahead: ^3.2.1
   google_fonts: ^2.1.0
-  google_sign_in: ^5.0.4
-  groovin_widgets: ^2.0.0
+  google_sign_in: ^5.1.1
+  groovin_widgets: ^3.0.2
   material_design_icons_flutter: ^5.0.5955-rc.1
   package_info: ^2.0.2
-  permission_handler: ^8.0.0+2
-  provider: ^5.0.0
-  rxdart: ^0.27.0
-  shared_preferences: ^2.0.6
-  sign_in_with_apple: ^3.0.0
+  permission_handler: ^8.2.2
+  provider: ^6.0.1
+  rxdart: ^0.27.2
+  shared_preferences: ^2.0.8
+  sign_in_with_apple: ^3.2.0
   timezone: any
-  url_launcher: ^6.0.3
-  wiredash: ^0.6.2
+  url_launcher: ^6.0.12
+  wiredash: ^0.7.0+1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   #flutter_launcher_icons: "^0.7.2"
-  dart_code_metrics: ^3.3.3
+  dart_code_metrics: ^4.4.0
+  flutter_lints: ^1.0.4
 
 flutter_icons:
   android: true

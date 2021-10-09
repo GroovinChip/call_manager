@@ -1,4 +1,3 @@
-
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +11,7 @@ class ContactAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (contact!.avatar == null || contact!.avatar!.isEmpty) {
-      return CircleAvatar(
+      return const CircleAvatar(
         child: Icon(Icons.person_outline),
       );
     } else {

@@ -43,6 +43,7 @@ class _CallManagerAppState extends State<CallManagerApp> with FirebaseMixin {
     auth.authStateChanges().listen((User? user) {
       if (user != null) {
         firestore.initStorageForUser(currentUser!.uid);
+        firestore.recordLoginDate(currentUser!.uid);
       }
     });
   }

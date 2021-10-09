@@ -14,3 +14,7 @@ android/key.properties
 *.iml
 /metrics
 .vscode/launch.json
+detective_connect.txt
+
+*.patch
+.vscode/launch.json
