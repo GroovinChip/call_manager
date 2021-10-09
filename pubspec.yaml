@@ -32,7 +32,7 @@ dependencies:
   shared_preferences: ^2.0.6
   sign_in_with_apple: ^3.0.0
   timezone: any
-  url_launcher: ^6.0.3
+  url_launcher: ^6.0.12
   wiredash: ^0.7.0+1
 
 dev_dependencies:
