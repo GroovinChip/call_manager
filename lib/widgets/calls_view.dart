@@ -63,6 +63,7 @@ class _MobileCallsViewState extends State<MobileCallsView>
             child: CircularProgressIndicator(),
           ),
         ] else ...[
+          // Upcoming calls
           if (widget.snapshot.data!.first.docs.isNotEmpty) ...[
             _CallsList(
               calls: widget.snapshot.data!.first.docs,
@@ -70,11 +71,12 @@ class _MobileCallsViewState extends State<MobileCallsView>
           ] else ...[
             Center(
               child: Text(
-                'Tap "Add Call" to get started!',
+                'Tap "New Call" to get started!',
                 style: Theme.of(context).textTheme.headline6,
               ),
             ),
           ],
+          // Completed calls
           if (widget.snapshot.data!.last.docs.isNotEmpty) ...[
             _CallsList(
               calls: widget.snapshot.data!.last.docs,
