@@ -47,7 +47,8 @@ class NotificationService {
   static const _androidPlatformChannelSpecifics = AndroidNotificationDetails(
     '1',
     'Call Reminders',
-    'Call Manager sends reminders about your calls through this channel.',
+    channelDescription:
+        'Call Manager sends reminders about your calls through this channel.',
   );
 
   static const _iosPlatformChannelSpecifics = IOSNotificationDetails(
