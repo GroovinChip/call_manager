@@ -17,7 +17,7 @@ class _ThemeSwitcherDialogState extends State<ThemeSwitcherDialog>
     }
     if (themeMode == ThemeMode.system &&
         Theme.of(context).brightness == Brightness.dark) {
-      prefsService.setBrightnessPref(Brightness.light);
+      prefsService.setBrightnessPref(Brightness.dark);
     }
     if (themeMode == ThemeMode.light) {
       prefsService.setBrightnessPref(Brightness.light);
