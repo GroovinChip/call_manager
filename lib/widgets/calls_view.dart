@@ -54,47 +54,66 @@ class _MobileCallsViewState extends State<MobileCallsView>
 
   @override
   Widget build(BuildContext context) {
-    return TabBarView(
-      controller: tabController,
+    return Column(
       children: [
-        // ignore: unnecessary_null_comparison
-        if (!widget.snapshot.hasData) ...[
-          const Center(
-            child: CircularProgressIndicator(),
-          ),
-        ] else ...[
-          // Upcoming calls
-          if (widget.snapshot.data!.first.docs.isNotEmpty) ...[
-            _CallsList(
-              calls: widget.snapshot.data!.first.docs,
+        TabBar(
+          controller: tabController,
+          indicatorColor: Theme.of(context).indicatorColor.withOpacity(.40),
+          labelColor: Theme.of(context).colorScheme.onSurface,
+          tabs: const [
+            Tab(
+              child: Text('Upcoming'),
             ),
-          ] else ...[
-            Center(
-              child: Text(
-                'Tap "New Call" to get started!',
-                style: Theme.of(context).textTheme.headline6,
-              ),
+            Tab(
+              child: Text('Completed'),
             ),
           ],
-          // Completed calls
-          if (widget.snapshot.data!.last.docs.isNotEmpty) ...[
-            _CallsList(
-              calls: widget.snapshot.data!.last.docs,
-            ),
-          ] else ...[
-            Center(
-              child: Text(
-                'Nothing here!',
-                style: Theme.of(context).textTheme.headline6,
-              ),
-            ),
-          ],
-        ],
-        if (!widget.snapshot.hasData) ...[
-          const Center(
-            child: CircularProgressIndicator(),
+        ),
+        Expanded(
+          child: TabBarView(
+            controller: tabController,
+            children: [
+              // ignore: unnecessary_null_comparison
+              if (!widget.snapshot.hasData) ...[
+                const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ] else ...[
+                // Upcoming calls
+                if (widget.snapshot.data!.first.docs.isNotEmpty) ...[
+                  _CallsList(
+                    calls: widget.snapshot.data!.first.docs,
+                  ),
+                ] else ...[
+                  Center(
+                    child: Text(
+                      'Tap "New Call" to get started!',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                  ),
+                ],
+                // Completed calls
+                if (widget.snapshot.data!.last.docs.isNotEmpty) ...[
+                  _CallsList(
+                    calls: widget.snapshot.data!.last.docs,
+                  ),
+                ] else ...[
+                  Center(
+                    child: Text(
+                      'Nothing here!',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                  ),
+                ],
+              ],
+              if (!widget.snapshot.hasData) ...[
+                const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ],
+            ],
           ),
-        ],
+        ),
       ],
     );
   }
