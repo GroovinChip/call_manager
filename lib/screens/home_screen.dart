@@ -55,19 +55,6 @@ class _HomeScreenState extends State<HomeScreen>
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Call Manager'),
-          bottom: TabBar(
-            controller: tabController,
-            indicatorColor: Theme.of(context).indicatorColor.withOpacity(.40),
-            labelColor: Theme.of(context).colorScheme.onSurface,
-            tabs: const [
-              Tab(
-                child: Text('Upcoming'),
-              ),
-              Tab(
-                child: Text('Completed'),
-              ),
-            ],
-          ),
         ),
         body: const CallsView(),
         floatingActionButton: FloatingActionButton.extended(
