@@ -20,7 +20,7 @@ class MenuBottomSheet extends StatefulWidget {
   const MenuBottomSheet({Key? key}) : super(key: key);
 
   @override
-  _MenuBottomSheetState createState() => _MenuBottomSheetState();
+  State<MenuBottomSheet> createState() => _MenuBottomSheetState();
 }
 
 class _MenuBottomSheetState extends State<MenuBottomSheet>
@@ -54,8 +54,8 @@ class _MenuBottomSheetState extends State<MenuBottomSheet>
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
+          const Padding(
+            padding: EdgeInsets.only(top: 8.0),
             child: ModalDrawerHandle(),
           ),
           ListTile(
@@ -126,13 +126,13 @@ class _MenuBottomSheetState extends State<MenuBottomSheet>
             title: Text('Call Manager v${_packageInfo.version}'),
             subtitle: const Text('View source code'),
             onTap: () {
-              launch('https:github.com/GroovinChip/CallManager');
+              launchUrl(Uri.parse('https:github.com/GroovinChip/CallManager'));
             },
           ),
           ListTile(
-            leading: const Icon(MdiIcons.thoughtBubbleOutline),
+            leading: Icon(MdiIcons.thoughtBubbleOutline),
             title: const Text('Send Feedback'),
-            onTap: () => Wiredash.of(context)!
+            onTap: () => Wiredash.of(context)
               ..setBuildProperties(
                 buildVersion: _packageInfo.version,
                 buildNumber: _packageInfo.buildNumber,

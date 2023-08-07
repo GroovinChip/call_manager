@@ -19,23 +19,23 @@ class NotificationService {
   Future<void> _init() async {
     tz.initializeTimeZones();
     notificationsPlugin = FlutterLocalNotificationsPlugin();
-    const androidInitializationSettings =
-        AndroidInitializationSettings('ic_stat_phone_in_talk');
-    const iosInitializationSettings = IOSInitializationSettings(
-      requestAlertPermission: true,
-      requestBadgePermission: true,
-      requestSoundPermission: true,
-    );
     notificationsPlugin!.initialize(
       const InitializationSettings(
-        android: androidInitializationSettings,
-        iOS: iosInitializationSettings,
+        android: AndroidInitializationSettings('ic_stat_phone_in_talk'),
+        iOS: DarwinInitializationSettings(
+          requestAlertPermission: true,
+          requestBadgePermission: true,
+          requestSoundPermission: true,
+        ),
       ),
-      onSelectNotification: (String? payload) async {
-        if (payload != null) {
-          log('notification payload: ' + payload, name: 'Call Manager');
+      onDidReceiveNotificationResponse: (response) async {
+        if (response.payload != null) {
+          log(
+            'notification payload: ${response.payload}',
+            name: 'Call Manager',
+          );
           final dialer = await DirectDialer.instance;
-          await dialer.dial(payload);
+          await dialer.dial(response.payload!);
         }
         //await CallNumber.callNumber(payload);
       },
@@ -51,7 +51,7 @@ class NotificationService {
         'Call Manager sends reminders about your calls through this channel.',
   );
 
-  static const _iosPlatformChannelSpecifics = IOSNotificationDetails(
+  static const _iosPlatformChannelSpecifics = DarwinNotificationDetails(
     presentAlert: true,
     presentBadge: true,
     presentSound: true,
@@ -71,7 +71,7 @@ class NotificationService {
       _platformChannelSpecifics,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.wallClockTime,
-      androidAllowWhileIdle: true,
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
     );
   }
 }

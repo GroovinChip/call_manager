@@ -14,13 +14,13 @@ class Call {
 
   factory Call.fromJsonWithDocId(Map<String, dynamic> json, String docId) {
     DateTime? timestamp;
-    DateTime? _lastEdited;
+    DateTime? lastEdited;
     if (json['TimeCreated'] != 'null' && json['TimeCreated'] != null) {
       timestamp = DateTime.parse(json['TimeCreated']);
     }
 
     if (json['LastEdited'] != 'null' && json['LastEdited'] != null) {
-      _lastEdited = DateTime.parse(json['LastEdited']);
+      lastEdited = DateTime.parse(json['LastEdited']);
     }
 
     return Call(
@@ -32,7 +32,7 @@ class Call {
       reminderDate: json['ReminderDate'],
       reminderTime: json['ReminderTime'],
       timeCreated: timestamp,
-      lastEdited: _lastEdited,
+      lastEdited: lastEdited,
       completedAt: json['CompletedAt'],
     );
   }

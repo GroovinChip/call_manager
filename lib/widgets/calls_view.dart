@@ -11,7 +11,7 @@ class CallsView extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _CallsViewState createState() => _CallsViewState();
+  State<CallsView> createState() => _CallsViewState();
 }
 
 class _CallsViewState extends State<CallsView> with FirebaseMixin {
@@ -22,10 +22,7 @@ class _CallsViewState extends State<CallsView> with FirebaseMixin {
       stream: CombineLatestStream.combine2(
         firestore.upcomingCalls.snapshots(),
         firestore.completedCalls.snapshots(),
-        (a, b) => <FirestoreDocument>[
-          a as FirestoreDocument,
-          b as FirestoreDocument,
-        ],
+        (a, b) => <FirestoreDocument>[a, b],
       ),
       builder: (_, AsyncSnapshot<List<FirestoreDocument>> snapshot) {
         return MobileCallsView(
@@ -45,7 +42,7 @@ class MobileCallsView extends StatefulWidget {
   final AsyncSnapshot<List<FirestoreDocument>> snapshot;
 
   @override
-  _MobileCallsViewState createState() => _MobileCallsViewState();
+  State<MobileCallsView> createState() => _MobileCallsViewState();
 }
 
 class _MobileCallsViewState extends State<MobileCallsView>
@@ -88,7 +85,7 @@ class _MobileCallsViewState extends State<MobileCallsView>
                   Center(
                     child: Text(
                       'Tap "New Call" to get started!',
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),
                 ],
@@ -101,7 +98,7 @@ class _MobileCallsViewState extends State<MobileCallsView>
                   Center(
                     child: Text(
                       'Nothing here!',
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),
                 ],

@@ -9,7 +9,6 @@ import 'package:call_manager/widgets/multiple_phone_numbers_sheet.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:intl/intl.dart';
 
@@ -18,7 +17,7 @@ class NewCallScreen extends StatefulWidget {
   const NewCallScreen({Key? key}) : super(key: key);
 
   @override
-  _NewCallScreenState createState() => _NewCallScreenState();
+  State<NewCallScreen> createState() => _NewCallScreenState();
 }
 
 class _NewCallScreenState extends State<NewCallScreen>
@@ -62,7 +61,7 @@ class _NewCallScreenState extends State<NewCallScreen>
 
       firestore.upcomingCalls.add(call.toJson());
 
-      Navigator.of(context).pop();
+      if (mounted) Navigator.of(context).pop();
     }
   }
 
@@ -284,10 +283,10 @@ class _NewCallScreenState extends State<NewCallScreen>
             )
           : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
+      bottomNavigationBar: const BottomAppBar(
         //hasNotch: false,
         child: Row(
-          children: const [
+          children: [
             SizedBox(width: 8.0),
             CloseButton(),
           ],

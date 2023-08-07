@@ -7,9 +7,10 @@ import 'package:google_fonts/google_fonts.dart';
 class AppThemes {
   static ThemeData lightTheme() {
     return ThemeData(
+      useMaterial3: false,
       brightness: Brightness.light,
       primaryColor: AppColors.primaryColor,
-      accentColor: AppColors.accentColor,
+      // accentColor: AppColors.accentColor,
       textTheme: GoogleFonts.sourceSansProTextTheme(
         ThemeData.light().textTheme,
       ),
@@ -30,11 +31,9 @@ class AppThemes {
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          side: BorderSide(
-            color: AppColors.outlinedButtonColorLight,
-          ),
+          foregroundColor: AppColors.outlinedButtonColorLight,
+          side: BorderSide(color: AppColors.outlinedButtonColorLight),
           shape: const StadiumBorder(),
-          primary: AppColors.outlinedButtonColorLight,
         ),
       ),
       iconTheme: IconThemeData(
@@ -60,10 +59,11 @@ class AppThemes {
   // ignore: long-method
   static ThemeData darkTheme() {
     return ThemeData(
+      useMaterial3: false,
       brightness: Brightness.dark,
       canvasColor: AppColors.canvasColorDark,
       primaryColor: AppColors.primaryColor,
-      accentColor: AppColors.accentColor,
+      // accentColor: AppColors.accentColor,
       textTheme: GoogleFonts.sourceSansProTextTheme(
         ThemeData.dark().textTheme,
       ),
@@ -82,11 +82,9 @@ class AppThemes {
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          side: const BorderSide(
-            color: Colors.white,
-          ),
+          foregroundColor: Colors.white,
+          side: const BorderSide(color: Colors.white),
           shape: const StadiumBorder(),
-          primary: Colors.white,
         ),
       ),
       cardColor: AppColors.cardColorDark,
@@ -98,7 +96,9 @@ class AppThemes {
         color: AppColors.iconColorDark,
       ),
       dividerColor: Colors.white,
-      bottomAppBarColor: AppColors.bottomAppColorDark,
+      bottomAppBarTheme: BottomAppBarTheme(
+        color: AppColors.bottomAppColorDark,
+      ),
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
@@ -125,7 +125,6 @@ class AppThemes {
   // lifted from Mike's flex_color_scheme package, slightly modified for my use
   static SystemUiOverlayStyle themedSystemNavigationBar(
     BuildContext context, {
-
     /// Opacity value for the system navigation bar.
     ///
     /// Use and support for this opacity value is EXPERIMENTAL, it ONLY
@@ -151,7 +150,8 @@ class AppThemes {
     // If nullContextBackground is null use black for dark, and white for light.
     nullContextBackground ??= isDark ? Colors.black : Colors.white;
 
-    final Color background = Theme.of(context).bottomAppBarColor;
+    final Color background = Theme.of(context).bottomAppBarTheme.color ??
+        nullContextBackground;
 
     // The used system navigation bar divider colors below were tuned to
     // fit well with most color schemes and possible surface branding.

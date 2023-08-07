@@ -97,11 +97,11 @@ class LoginScreenState extends State<LoginScreen>
                     if (Platform.isIOS) ...[
                       ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
-                          primary: theme.canvasColor,
-                          onPrimary: theme.colorScheme.onSurface,
+                          foregroundColor: theme.colorScheme.onSurface,
+                          backgroundColor: theme.canvasColor,
                           elevation: 2.0,
                         ),
-                        icon: const Icon(MdiIcons.apple),
+                        icon: Icon(MdiIcons.apple),
                         label: const Text(
                           'Sign in with Apple',
                         ),
@@ -119,8 +119,8 @@ class LoginScreenState extends State<LoginScreen>
                     ],
                     ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
-                        primary: theme.canvasColor,
-                        onPrimary: theme.colorScheme.onSurface,
+                        foregroundColor: theme.colorScheme.onSurface,
+                        backgroundColor: theme.canvasColor,
                         elevation: 2.0,
                       ),
                       icon: Image.asset(

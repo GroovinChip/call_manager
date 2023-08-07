@@ -16,13 +16,13 @@ class MultiplePhoneNumbersSheet extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8),
+          const Padding(
+            padding: EdgeInsets.all(8),
             child: ModalDrawerHandle(),
           ),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               Text(
                 'Choose phone number',
                 style: TextStyle(
@@ -33,9 +33,9 @@ class MultiplePhoneNumbersSheet extends StatelessWidget {
             ],
           ),
           ...List.generate(selectedContact!.phones!.length, (index) {
-            List<Item> _phoneNumbers = selectedContact!.phones!.toList();
+            List<Item> phoneNumbers = selectedContact!.phones!.toList();
             Icon phoneType;
-            switch (_phoneNumbers[index].label) {
+            switch (phoneNumbers[index].label) {
               case 'mobile':
                 phoneType = const Icon(Icons.smartphone);
                 break;
@@ -51,10 +51,10 @@ class MultiplePhoneNumbersSheet extends StatelessWidget {
 
             return ListTile(
               leading: phoneType,
-              title: Text(_phoneNumbers[index].value!),
-              subtitle: Text(_phoneNumbers[index].label!),
+              title: Text(phoneNumbers[index].value!),
+              subtitle: Text(phoneNumbers[index].label!),
               onTap: () =>
-                  Navigator.of(context).pop(_phoneNumbers[index].value),
+                  Navigator.of(context).pop(phoneNumbers[index].value),
             );
           }),
         ],

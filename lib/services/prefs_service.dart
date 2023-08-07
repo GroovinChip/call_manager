@@ -62,12 +62,12 @@ class PrefsService {
 
   void readBrightnessPref() {
     String b = preferences.getString('brightness') ?? 'Brightness.system';
-    final _brightness =
+    final brightness =
         Brightness.values.firstWhere((element) => element.toString() == b);
     preferencesSubject.add(
       Preferences(
         themeMode: preferencesSubject.value.themeMode,
-        brightness: _brightness,
+        brightness: brightness,
       ),
     );
   }

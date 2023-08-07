@@ -24,11 +24,11 @@ class CallAvatar extends StatelessWidget {
       );
     } else {
       return CircleAvatar(
+        backgroundColor: Theme.of(context).primaryColor,
         child: const Icon(
           Icons.person_outline,
           color: Colors.white,
         ),
-        backgroundColor: Theme.of(context).primaryColor,
       );
     }
   }

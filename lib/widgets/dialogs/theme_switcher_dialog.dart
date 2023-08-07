@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class ThemeSwitcherDialog extends StatefulWidget {
   const ThemeSwitcherDialog({Key? key}) : super(key: key);
   @override
-  _ThemeSwitcherDialogState createState() => _ThemeSwitcherDialogState();
+  State<ThemeSwitcherDialog> createState() => _ThemeSwitcherDialogState();
 }
 
 class _ThemeSwitcherDialogState extends State<ThemeSwitcherDialog>
@@ -44,7 +44,7 @@ class _ThemeSwitcherDialogState extends State<ThemeSwitcherDialog>
           value: ThemeMode.system,
           selected:
               prefsService.currentThemeMode == ThemeMode.system ? true : false,
-          activeColor: Theme.of(context).accentColor,
+          activeColor: Theme.of(context).colorScheme.secondary,
           groupValue: prefsService.currentThemeMode,
           onChanged: (value) => _onThemeSelection(value!),
         ),
@@ -53,7 +53,7 @@ class _ThemeSwitcherDialogState extends State<ThemeSwitcherDialog>
           value: ThemeMode.light,
           selected:
               prefsService.currentThemeMode == ThemeMode.light ? true : false,
-          activeColor: Theme.of(context).accentColor,
+          activeColor: Theme.of(context).colorScheme.secondary,
           groupValue: prefsService.currentThemeMode,
           onChanged: (value) => _onThemeSelection(value!),
         ),
@@ -62,7 +62,7 @@ class _ThemeSwitcherDialogState extends State<ThemeSwitcherDialog>
           value: ThemeMode.dark,
           selected:
               prefsService.currentThemeMode == ThemeMode.dark ? true : false,
-          activeColor: Theme.of(context).accentColor,
+          activeColor: Theme.of(context).colorScheme.secondary,
           groupValue: prefsService.currentThemeMode,
           onChanged: (value) => _onThemeSelection(value!),
         ),

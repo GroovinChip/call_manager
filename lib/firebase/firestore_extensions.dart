@@ -37,19 +37,19 @@ extension FirestoreX on FirebaseFirestore {
 
   /// Deletes all calls
   Future<dynamic> deleteAllCalls() async {
-    final _upcomingCalls = await upcomingCalls.get();
-    final _completedCalls = await completedCalls.get();
-    if (_upcomingCalls.docs.isEmpty && _completedCalls.docs.isEmpty) {
+    final upcomingCallsResult = await upcomingCalls.get();
+    final completedCallsResult = await completedCalls.get();
+    if (upcomingCallsResult.docs.isEmpty && completedCallsResult.docs.isEmpty) {
       return false;
     }
-    if (_upcomingCalls.docs.isNotEmpty) {
-      for (int i = 0; i < _upcomingCalls.docs.length; i++) {
-        _upcomingCalls.docs[i].reference.delete();
+    if (upcomingCallsResult.docs.isNotEmpty) {
+      for (int i = 0; i < upcomingCallsResult.docs.length; i++) {
+        upcomingCallsResult.docs[i].reference.delete();
       }
     }
-    if (_completedCalls.docs.isNotEmpty) {
-      for (int i = 0; i < _completedCalls.docs.length; i++) {
-        _completedCalls.docs[i].reference.delete();
+    if (completedCallsResult.docs.isNotEmpty) {
+      for (int i = 0; i < completedCallsResult.docs.length; i++) {
+        completedCallsResult.docs[i].reference.delete();
       }
     }
   }

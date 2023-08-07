@@ -7,7 +7,6 @@ import 'package:call_manager/services/phone_utility.dart';
 import 'package:call_manager/services/prefs_service.dart';
 import 'package:call_manager/theme/app_colors.dart';
 import 'package:call_manager/theme/app_themes.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wiredash/wiredash.dart';
@@ -27,7 +26,7 @@ class CallManagerApp extends StatefulWidget {
   final PrefsService prefsService;
 
   @override
-  _CallManagerAppState createState() => _CallManagerAppState();
+  State<CallManagerApp> createState() => _CallManagerAppState();
 }
 
 class _CallManagerAppState extends State<CallManagerApp> with FirebaseMixin {
@@ -75,14 +74,10 @@ class _CallManagerAppState extends State<CallManagerApp> with FirebaseMixin {
           return Wiredash(
             projectId: 'call-manager-bk2ikve',
             secret: '6p356wjo9kyupuj9se49pd0q2e41xa1x4m68nnky0hvkeva8',
-            navigatorKey: _navigatorKey,
-            options: WiredashOptionsData(
-              praiseButton: false,
-            ),
             theme: WiredashThemeData(
               primaryColor: AppColors.primaryColor,
               //primaryBackgroundColor: AppColors.primaryColor,
-              backgroundColor: AppColors.primaryColor,
+              appBackgroundColor: AppColors.primaryColor,
               brightness: snapshot.data!.brightness,
             ),
             child: MaterialApp(

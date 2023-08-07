@@ -10,7 +10,7 @@ class DeleteCallDialog extends StatefulWidget {
 
   final Call call;
   @override
-  _DeleteCallDialogState createState() => _DeleteCallDialogState();
+  State<DeleteCallDialog> createState() => _DeleteCallDialogState();
 }
 
 class _DeleteCallDialogState extends State<DeleteCallDialog>

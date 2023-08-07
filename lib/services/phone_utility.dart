@@ -39,8 +39,8 @@ class PhoneUtility {
   void sendSms(String? phoneNumber) async {
     final url = 'sms:$phoneNumber';
     try {
-      if (await url_launcher.canLaunch(url)) {
-        await url_launcher.launch(url);
+      if (await url_launcher.canLaunchUrl(Uri.parse(url))) {
+        await url_launcher.launchUrl(Uri.parse(url));
       }
     } catch (e) {
       debugPrint('Error sending SMS: $e');

@@ -5,7 +5,7 @@ class ThemeIcon extends StatefulWidget {
   const ThemeIcon({Key? key}) : super(key: key);
 
   @override
-  _ThemeIconState createState() => _ThemeIconState();
+  State<ThemeIcon> createState() => _ThemeIconState();
 }
 
 class _ThemeIconState extends State<ThemeIcon> {

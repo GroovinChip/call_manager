@@ -8,7 +8,6 @@ import 'package:call_manager/widgets/contact_avatar.dart';
 import 'package:call_manager/widgets/multiple_phone_numbers_sheet.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 class EditCallScreen extends StatefulWidget {
@@ -20,7 +19,7 @@ class EditCallScreen extends StatefulWidget {
   final Call call;
 
   @override
-  _EditCallScreenState createState() => _EditCallScreenState();
+  State<EditCallScreen> createState() => _EditCallScreenState();
 }
 
 class _EditCallScreenState extends State<EditCallScreen>
@@ -197,10 +196,10 @@ class _EditCallScreenState extends State<EditCallScreen>
             )
           : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
+      bottomNavigationBar: const BottomAppBar(
         //hasNotch: false,
         child: Row(
-          children: const [
+          children: [
             SizedBox(width: 8.0),
             CloseButton(),
           ],

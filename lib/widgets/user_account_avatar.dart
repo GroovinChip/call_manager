@@ -5,7 +5,7 @@ class UserAccountAvatar extends StatefulWidget {
   const UserAccountAvatar({Key? key}) : super(key: key);
 
   @override
-  _UserAccountAvatarState createState() => _UserAccountAvatarState();
+  State<UserAccountAvatar> createState() => _UserAccountAvatarState();
 }
 
 class _UserAccountAvatarState extends State<UserAccountAvatar>
@@ -14,11 +14,11 @@ class _UserAccountAvatarState extends State<UserAccountAvatar>
   Widget build(BuildContext context) {
     if (currentUser == null || currentUser!.photoURL == null) {
       return CircleAvatar(
+        backgroundColor: Theme.of(context).primaryColor,
         child: const Icon(
           Icons.person_outline,
           color: Colors.white,
         ),
-        backgroundColor: Theme.of(context).primaryColor,
       );
     }
 

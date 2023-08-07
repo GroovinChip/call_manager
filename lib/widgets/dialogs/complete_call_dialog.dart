@@ -10,7 +10,7 @@ class CompleteCallDialog extends StatefulWidget {
 
   final Call call;
   @override
-  _CompleteCallDialogState createState() => _CompleteCallDialogState();
+  State<CompleteCallDialog> createState() => _CompleteCallDialogState();
 }
 
 class _CompleteCallDialogState extends State<CompleteCallDialog>

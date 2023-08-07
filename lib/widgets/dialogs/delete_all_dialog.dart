@@ -5,7 +5,7 @@ class DeleteAllDialog extends StatefulWidget {
   const DeleteAllDialog({Key? key}) : super(key: key);
 
   @override
-  _DeleteAllDialogState createState() => _DeleteAllDialogState();
+  State<DeleteAllDialog> createState() => _DeleteAllDialogState();
 }
 
 class _DeleteAllDialogState extends State<DeleteAllDialog> with FirebaseMixin {
@@ -26,7 +26,7 @@ class _DeleteAllDialogState extends State<DeleteAllDialog> with FirebaseMixin {
 
             final result = await firestore.deleteAllCalls();
 
-            if (result == false) {
+            if (mounted && result == false) {
               final snackBar = SnackBar(
                 content: const Text('There are no calls to delete'),
                 action: SnackBarAction(

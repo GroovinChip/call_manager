@@ -16,7 +16,7 @@ class ScheduleNotificationSheet extends StatefulWidget {
   final Call call;
 
   @override
-  _ScheduleNotificationSheetState createState() =>
+  State<ScheduleNotificationSheet> createState() =>
       _ScheduleNotificationSheetState();
 }
 
@@ -44,7 +44,7 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
       scheduledNotificationDateTime,
     );
 
-    Navigator.of(context).pop();
+    if (mounted) Navigator.of(context).pop();
   }
 
   @override
@@ -58,7 +58,7 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ModalDrawerHandle(),
+            const ModalDrawerHandle(),
             const SizedBox(height: 12.0),
             DateTimeField(
               format: dateFormat,
@@ -107,10 +107,10 @@ class _ScheduleNotificationSheetState extends State<ScheduleNotificationSheet>
               children: [
                 Expanded(
                   child: ElevatedButton.icon(
-                    icon: const Icon(MdiIcons.bellPlusOutline),
+                    icon: Icon(MdiIcons.bellPlusOutline),
                     label: const Text('Set Reminder'),
                     style: ElevatedButton.styleFrom(
-                      primary: Theme.of(context).primaryColor,
+                      backgroundColor: Theme.of(context).primaryColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
