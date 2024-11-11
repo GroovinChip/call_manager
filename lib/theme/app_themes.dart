@@ -11,7 +11,7 @@ class AppThemes {
       brightness: Brightness.light,
       primaryColor: AppColors.primaryColor,
       // accentColor: AppColors.accentColor,
-      textTheme: GoogleFonts.sourceSansProTextTheme(
+      textTheme: GoogleFonts.sourceSans3TextTheme(
         ThemeData.light().textTheme,
       ),
       appBarTheme: AppBarTheme(
@@ -64,7 +64,7 @@ class AppThemes {
       canvasColor: AppColors.canvasColorDark,
       primaryColor: AppColors.primaryColor,
       // accentColor: AppColors.accentColor,
-      textTheme: GoogleFonts.sourceSansProTextTheme(
+      textTheme: GoogleFonts.sourceSans3TextTheme(
         ThemeData.dark().textTheme,
       ),
       appBarTheme: AppBarTheme(
@@ -150,8 +150,8 @@ class AppThemes {
     // If nullContextBackground is null use black for dark, and white for light.
     nullContextBackground ??= isDark ? Colors.black : Colors.white;
 
-    final Color background = Theme.of(context).bottomAppBarTheme.color ??
-        nullContextBackground;
+    final Color background =
+        Theme.of(context).bottomAppBarTheme.color ?? nullContextBackground;
 
     // The used system navigation bar divider colors below were tuned to
     // fit well with most color schemes and possible surface branding.

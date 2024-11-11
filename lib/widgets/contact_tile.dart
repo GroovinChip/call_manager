@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 class ContactTile extends StatelessWidget {
   const ContactTile({
-    Key? key,
+    super.key,
     required this.contact,
-  }) : super(key: key);
+  });
 
   final Contact contact;
 

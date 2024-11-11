@@ -5,8 +5,8 @@ import 'package:groovin_widgets/groovin_widgets.dart';
 class MultiplePhoneNumbersSheet extends StatelessWidget {
   const MultiplePhoneNumbersSheet({
     required this.selectedContact,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Contact? selectedContact;
 

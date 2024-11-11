@@ -2,7 +2,7 @@ import 'package:call_manager/firebase/firebase_mixin.dart';
 import 'package:flutter/material.dart';
 
 class UserAccountAvatar extends StatefulWidget {
-  const UserAccountAvatar({Key? key}) : super(key: key);
+  const UserAccountAvatar({super.key});
 
   @override
   State<UserAccountAvatar> createState() => _UserAccountAvatarState();

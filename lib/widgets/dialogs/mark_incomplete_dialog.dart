@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 class MarkIncompleteDialog extends StatefulWidget {
   const MarkIncompleteDialog({
-    Key? key,
+    super.key,
     required this.call,
-  }) : super(key: key);
+  });
 
   final Call call;
   @override

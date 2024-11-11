@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class ContactAvatar extends StatelessWidget {
   const ContactAvatar({
-    Key? key,
+    super.key,
     this.contact,
-  }) : super(key: key);
+  });
 
   final Contact? contact;
   @override

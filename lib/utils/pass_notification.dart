@@ -7,9 +7,9 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 class PassNotification extends InheritedWidget {
   const PassNotification(
     this.instance, {
-    Key? key,
-    required Widget child,
-  }) : super(key: key, child: child);
+    super.key,
+    required super.child,
+  });
 
   final FlutterLocalNotificationsPlugin? instance;
 

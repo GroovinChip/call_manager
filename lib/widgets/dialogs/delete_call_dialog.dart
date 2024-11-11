@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 class DeleteCallDialog extends StatefulWidget {
   const DeleteCallDialog({
-    Key? key,
+    super.key,
     required this.call,
-  }) : super(key: key);
+  });
 
   final Call call;
   @override

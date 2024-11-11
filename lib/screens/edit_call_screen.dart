@@ -12,9 +12,9 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 class EditCallScreen extends StatefulWidget {
   const EditCallScreen({
-    Key? key,
+    super.key,
     required this.call,
-  }) : super(key: key);
+  });
 
   final Call call;
 
@@ -48,19 +48,28 @@ class _EditCallScreenState extends State<EditCallScreen>
                 TextEditingControllerBuilder(
                   text: widget.call.name!,
                   builder: (_, controller) {
-                    return TypeAheadFormField(
-                      suggestionsCallback:
-                          contactsUtility.searchContactsWithQuery,
+                    return TypeAheadField(
+                      suggestionsCallback: (pattern) async {
+                        final results = await contactsUtility
+                            .searchContactsWithQuery(pattern);
+                        return results.toList();
+                      },
                       itemBuilder: (context, dynamic contact) {
                         return ListTile(
                           leading: ContactAvatar(contact: contact),
                           title: Text(contact.displayName),
                         );
                       },
-                      transitionBuilder: (context, suggestionsBox, controller) {
-                        return suggestionsBox;
+                      transitionBuilder: (context, animation, child) {
+                        return FadeTransition(
+                          opacity: CurvedAnimation(
+                            parent: animation,
+                            curve: Curves.fastOutSlowIn,
+                          ),
+                          child: child,
+                        );
                       },
-                      onSuggestionSelected: (dynamic contact) {
+                      onSelected: (dynamic contact) {
                         selectedContact = contact;
                         controller.text = selectedContact!.displayName!;
                         if (selectedContact!.phones!.length > 1) {
@@ -78,32 +87,34 @@ class _EditCallScreenState extends State<EditCallScreen>
                               selectedContact!.phones!.first.value!;
                         }
                       },
-                      validator: (value) => value == null || value.isEmpty
-                          ? 'This field is required'
-                          : null,
-                      onSaved: (contactName) {
-                        controller.text = contactName!;
-                        widget.call.name = contactName;
+                      // controller: controller,
+                      errorBuilder: (context, error) {
+                        return Text(
+                          '$error',
+                          style: const TextStyle(color: Colors.red),
+                        );
                       },
-                      textFieldConfiguration: TextFieldConfiguration(
-                        textCapitalization: TextCapitalization.words,
-                        controller: controller,
-                        keyboardType: TextInputType.text,
-                        maxLines: 1,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.person_outline,
-                            color: theme.iconTheme.color,
+                      builder: (context, controller, focusNode) {
+                        return TextFormField(
+                          controller: controller,
+                          focusNode: focusNode,
+                          keyboardType: TextInputType.text,
+                          maxLines: 1,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(
+                              Icons.person_outline,
+                              color: theme.iconTheme.color,
+                            ),
+                            suffixIcon: ClearButton(
+                              onPressed: () {
+                                controller.clear();
+                                widget.call.name = controller.text;
+                              },
+                            ),
+                            labelText: 'Name',
                           ),
-                          suffixIcon: ClearButton(
-                            onPressed: () {
-                              controller.clear();
-                              widget.call.name = controller.text;
-                            },
-                          ),
-                          labelText: 'Name',
-                        ),
-                      ),
+                        );
+                      },
                     );
                   },
                 ),

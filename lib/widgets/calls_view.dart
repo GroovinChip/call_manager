@@ -7,8 +7,8 @@ import 'package:rxdart/rxdart.dart';
 /// This widget represents the content on the main screen of the app
 class CallsView extends StatefulWidget {
   const CallsView({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<CallsView> createState() => _CallsViewState();
@@ -35,9 +35,9 @@ class _CallsViewState extends State<CallsView> with FirebaseMixin {
 
 class MobileCallsView extends StatefulWidget {
   const MobileCallsView({
-    Key? key,
+    super.key,
     required this.snapshot,
-  }) : super(key: key);
+  });
 
   final AsyncSnapshot<List<FirestoreDocument>> snapshot;
 
@@ -118,9 +118,8 @@ class _MobileCallsViewState extends State<MobileCallsView>
 
 class _CallsList extends StatelessWidget {
   const _CallsList({
-    Key? key,
     required this.calls,
-  }) : super(key: key);
+  });
 
   final List<QueryDocumentSnapshot> calls;
 

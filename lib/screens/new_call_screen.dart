@@ -14,7 +14,7 @@ import 'package:intl/intl.dart';
 
 // Add New Call Screen
 class NewCallScreen extends StatefulWidget {
-  const NewCallScreen({Key? key}) : super(key: key);
+  const NewCallScreen({super.key});
 
   @override
   State<NewCallScreen> createState() => _NewCallScreenState();
@@ -122,15 +122,24 @@ class _NewCallScreenState extends State<NewCallScreen>
                 TextEditingControllerBuilder(
                   text: call.name ?? '',
                   builder: (_, controller) {
-                    return TypeAheadFormField(
-                      suggestionsCallback:
-                          contactsUtility.searchContactsWithQuery,
+                    return TypeAheadField(
+                      suggestionsCallback: (pattern) async {
+                        final results = await contactsUtility
+                            .searchContactsWithQuery(pattern);
+                        return results.toList();
+                      },
                       itemBuilder: (context, dynamic contact) =>
                           ContactTile(contact: contact),
-                      transitionBuilder: (context, suggestionsBox, controller) {
-                        return suggestionsBox;
+                      transitionBuilder: (context, animation, child) {
+                        return FadeTransition(
+                          opacity: CurvedAnimation(
+                            parent: animation,
+                            curve: Curves.fastOutSlowIn,
+                          ),
+                          child: child,
+                        );
                       },
-                      onSuggestionSelected: (dynamic contact) {
+                      onSelected: (dynamic contact) {
                         selectedContact = contact;
                         controller.text = selectedContact!.displayName!;
                         if (selectedContact!.phones!.length > 1) {
@@ -139,26 +148,33 @@ class _NewCallScreenState extends State<NewCallScreen>
                           setPhoneNumber();
                         }
                       },
-                      validator: (input) => input == null || input == ''
-                          ? 'This field is required'
-                          : null,
-                      onSaved: (contactName) => call.name = contactName!,
-                      textFieldConfiguration: TextFieldConfiguration(
-                        textCapitalization: TextCapitalization.words,
-                        controller: controller,
-                        keyboardType: TextInputType.text,
-                        maxLines: 1,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.person_outline,
-                            color: theme.iconTheme.color,
+                      errorBuilder: (context, error) {
+                        return Text(
+                          '$error',
+                          style: const TextStyle(color: Colors.red),
+                        );
+                      },
+                      builder: (context, controller, focusNode) {
+                        return TextFormField(
+                          controller: controller,
+                          focusNode: focusNode,
+                          keyboardType: TextInputType.text,
+                          maxLines: 1,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(
+                              Icons.person_outline,
+                              color: theme.iconTheme.color,
+                            ),
+                            suffixIcon: ClearButton(
+                              onPressed: () {
+                                controller.clear();
+                                call.name = controller.text;
+                              },
+                            ),
+                            labelText: 'Name',
                           ),
-                          labelText: 'Name*',
-                          suffixIcon: ClearButton(
-                            onPressed: () => controller.clear(),
-                          ),
-                        ),
-                      ),
+                        );
+                      },
                     );
                   },
                 ),

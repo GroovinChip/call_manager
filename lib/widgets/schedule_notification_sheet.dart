@@ -9,9 +9,9 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 class ScheduleNotificationSheet extends StatefulWidget {
   const ScheduleNotificationSheet({
-    Key? key,
+    super.key,
     required this.call,
-  }) : super(key: key);
+  });
 
   final Call call;
 

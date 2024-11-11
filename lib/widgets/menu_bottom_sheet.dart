@@ -17,7 +17,7 @@ import 'package:wiredash/wiredash.dart';
 /// Represents the BottomSheet launched from the BottomAppBar
 /// on the HomeScreen widget
 class MenuBottomSheet extends StatefulWidget {
-  const MenuBottomSheet({Key? key}) : super(key: key);
+  const MenuBottomSheet({super.key});
 
   @override
   State<MenuBottomSheet> createState() => _MenuBottomSheetState();
@@ -132,12 +132,7 @@ class _MenuBottomSheetState extends State<MenuBottomSheet>
           ListTile(
             leading: Icon(MdiIcons.thoughtBubbleOutline),
             title: const Text('Send Feedback'),
-            onTap: () => Wiredash.of(context)
-              ..setBuildProperties(
-                buildVersion: _packageInfo.version,
-                buildNumber: _packageInfo.buildNumber,
-              )
-              ..show(),
+            onTap: () => Wiredash.of(context).show(),
           ),
         ],
       ),
