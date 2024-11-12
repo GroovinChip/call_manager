@@ -17,3 +17,4 @@ android/key.properties
 detective_connect.txt
 
 *.patch
+android/call_manager_key.jks

@@ -19,7 +19,7 @@
 	<key>PROJECT_ID</key>
 	<string>call-manager-flutter-db</string>
 	<key>STORAGE_BUCKET</key>
-	<string>call-manager-flutter-db.appspot.com</string>
+	<string>call-manager-flutter-db.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>

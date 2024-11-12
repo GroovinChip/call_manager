@@ -3,7 +3,7 @@
     "project_number": "1053316160376",
     "firebase_url": "https://call-manager-flutter-db.firebaseio.com",
     "project_id": "call-manager-flutter-db",
-    "storage_bucket": "call-manager-flutter-db.appspot.com"
+    "storage_bucket": "call-manager-flutter-db.firebasestorage.app"
   },
   "client": [
     {
