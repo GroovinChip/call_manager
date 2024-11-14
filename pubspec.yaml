@@ -12,7 +12,6 @@ dependencies:
 
   bluejay: ^2.0.0
   cloud_firestore: ^5.4.5
-  # contacts_service: ^0.6.3
   crypto: ^3.0.6
   cupertino_icons: ^1.0.8
   datetime_picker_formfield: ^2.0.1
