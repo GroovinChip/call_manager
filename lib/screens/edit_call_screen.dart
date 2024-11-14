@@ -6,7 +6,7 @@ import 'package:call_manager/utils/extensions.dart';
 import 'package:call_manager/widgets/clear_button.dart';
 import 'package:call_manager/widgets/contact_avatar.dart';
 import 'package:call_manager/widgets/multiple_phone_numbers_sheet.dart';
-import 'package:contacts_service/contacts_service.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
@@ -71,8 +71,8 @@ class _EditCallScreenState extends State<EditCallScreen>
                       },
                       onSelected: (dynamic contact) {
                         selectedContact = contact;
-                        controller.text = selectedContact!.displayName!;
-                        if (selectedContact!.phones!.length > 1) {
+                        controller.text = selectedContact!.displayName;
+                        if (selectedContact!.phones.length > 1) {
                           showModalBottomSheet(
                             context: context,
                             shape: RoundedRectangleBorder(
@@ -84,7 +84,7 @@ class _EditCallScreenState extends State<EditCallScreen>
                           ).then((value) => widget.call.phoneNumber = value);
                         } else {
                           widget.call.phoneNumber =
-                              selectedContact!.phones!.first.value!;
+                              selectedContact!.phones.first.number;
                         }
                       },
                       // controller: controller,
@@ -186,8 +186,8 @@ class _EditCallScreenState extends State<EditCallScreen>
                 _formKey.currentState!.save();
                 if (_formKey.currentState!.validate()) {
                   if (selectedContact != null) {
-                    widget.call.avatar = selectedContact?.avatar != null
-                        ? String.fromCharCodes(selectedContact!.avatar!)
+                    widget.call.avatar = selectedContact?.photo != null
+                        ? String.fromCharCodes(selectedContact!.photo!)
                         : '';
                   }
 

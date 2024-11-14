@@ -113,15 +113,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
-  contacts_service:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "527d03e1499efc5f7ed60715f4d48c51d3de5a57"
-      url: "https://github.com/GroovinChip/flutter_contacts.git"
-    source: git
-    version: "0.6.3"
   crypto:
     dependency: "direct main"
     description:
@@ -255,6 +246,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_contacts:
+    dependency: "direct main"
+    description:
+      name: flutter_contacts
+      sha256: "388d32cd33f16640ee169570128c933b45f3259bddbfae7a100bb49e5ffea9ae"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.9+2"
   flutter_keyboard_visibility:
     dependency: transitive
     description:
@@ -718,14 +717,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.2"
-  quiver:
-    dependency: transitive
-    description:
-      name: quiver
-      sha256: ea0b925899e64ecdfbf9c7becb60d5b50e706ade44a85b2363be2a22d88117d2
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.2.2"
   rxdart:
     dependency: "direct main"
     description:

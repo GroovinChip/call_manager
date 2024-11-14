@@ -1,4 +1,4 @@
-import 'package:contacts_service/contacts_service.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter/material.dart';
 import 'package:groovin_widgets/groovin_widgets.dart';
 
@@ -32,17 +32,17 @@ class MultiplePhoneNumbersSheet extends StatelessWidget {
               ),
             ],
           ),
-          ...List.generate(selectedContact!.phones!.length, (index) {
-            List<Item> phoneNumbers = selectedContact!.phones!.toList();
+          ...List.generate(selectedContact!.phones.length, (index) {
+            List<Phone> phoneNumbers = selectedContact!.phones;
             Icon phoneType;
             switch (phoneNumbers[index].label) {
-              case 'mobile':
+              case PhoneLabel.mobile:
                 phoneType = const Icon(Icons.smartphone);
                 break;
-              case 'work':
+              case PhoneLabel.work:
                 phoneType = const Icon(Icons.business);
                 break;
-              case 'home':
+              case PhoneLabel.home:
                 phoneType = const Icon(Icons.home_outlined);
                 break;
               default:
@@ -51,10 +51,10 @@ class MultiplePhoneNumbersSheet extends StatelessWidget {
 
             return ListTile(
               leading: phoneType,
-              title: Text(phoneNumbers[index].value!),
-              subtitle: Text(phoneNumbers[index].label!),
+              title: Text(phoneNumbers[index].number),
+              subtitle: Text('${phoneNumbers[index].label}'),
               onTap: () =>
-                  Navigator.of(context).pop(phoneNumbers[index].value),
+                  Navigator.of(context).pop(phoneNumbers[index].number),
             );
           }),
         ],

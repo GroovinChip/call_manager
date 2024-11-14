@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:contacts_service/contacts_service.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -28,7 +28,7 @@ class ContactsUtility {
 
   // Used to determine whether to show a TypeAheadFormField or a TextFormField
   // for NewCallScreen and EditCallScreen
-  Iterable<Contact>? contacts;
+  List<Contact> contacts = [];
   final contactsPermissionSubject = BehaviorSubject<PermissionStatus>();
   PermissionStatus? get permissionStatus => contactsPermissionSubject.value;
 
@@ -47,17 +47,17 @@ class ContactsUtility {
   }
 
   void getContacts() {
-    ContactsService.getContacts().then((value) {
+    FlutterContacts.getContacts(withPhoto: true).then((value) {
       contacts = value;
     });
   }
 
-  FutureOr<Iterable> searchContactsWithQuery(query) {
-    if (contacts != null) {
-      return contacts!
+  FutureOr<List<Contact>> searchContactsWithQuery(query) {
+    if (contacts.isNotEmpty) {
+      return contacts
           .where((contact) =>
-              contact.displayName != null &&
-              contact.displayName!.toLowerCase().contains(query.toLowerCase()))
+              contact.displayName == query ||
+              contact.displayName.toLowerCase().contains(query.toLowerCase()))
           .toList();
     }
 

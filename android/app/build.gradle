@@ -44,8 +44,8 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace 'com.groovinchip.flutter.callmanager'
-    compileSdkVersion 34
+    namespace = 'com.groovinchip.flutter.callmanager'
+    compileSdkVersion = 34
 
     compileOptions {
         coreLibraryDesugaringEnabled = true
