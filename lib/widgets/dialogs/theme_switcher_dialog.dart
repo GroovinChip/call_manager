@@ -2,7 +2,7 @@ import 'package:call_manager/provided.dart';
 import 'package:flutter/material.dart';
 
 class ThemeSwitcherDialog extends StatefulWidget {
-  const ThemeSwitcherDialog({Key? key}) : super(key: key);
+  const ThemeSwitcherDialog({super.key});
   @override
   State<ThemeSwitcherDialog> createState() => _ThemeSwitcherDialogState();
 }

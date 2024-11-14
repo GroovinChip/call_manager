@@ -1,12 +1,12 @@
 import 'package:call_manager/widgets/contact_avatar.dart';
-import 'package:contacts_service/contacts_service.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter/material.dart';
 
 class ContactTile extends StatelessWidget {
   const ContactTile({
-    Key? key,
+    super.key,
     required this.contact,
-  }) : super(key: key);
+  });
 
   final Contact contact;
 
@@ -14,7 +14,7 @@ class ContactTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: ContactAvatar(contact: contact),
-      title: Text(contact.displayName!),
+      title: Text(contact.displayName),
     );
   }
 }

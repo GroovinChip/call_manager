@@ -4,44 +4,44 @@ version: 2.8.5+54
 publish_to: none
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.5.3 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
   bluejay: ^2.0.0
-  cloud_firestore: ^4.8.4
-  contacts_service: ^0.6.3
-  crypto: ^3.0.3
-  cupertino_icons: ^1.0.5
+  cloud_firestore: ^5.4.5
+  crypto: ^3.0.6
+  cupertino_icons: ^1.0.8
   datetime_picker_formfield: ^2.0.1
-  direct_dialer: ^2.0.0
-  firebase_auth: ^4.7.2
-  firebase_core: ^2.15.0
-  flutter_local_notifications: ^15.1.0+1
-  flutter_typeahead: ^4.6.2
-  google_fonts: ^5.1.0
-  google_sign_in: ^6.1.4
-  groovin_widgets: ^3.1.0
-  intl: ^0.18.0
+  direct_dialer: ^2.0.1
+  firebase_auth: ^5.3.2
+  firebase_core: ^3.7.0
+  flutter_local_notifications: ^18.0.1
+  flutter_typeahead: ^5.2.0
+  google_fonts: ^6.2.1
+  google_sign_in: ^6.2.2
+  groovin_widgets: ^3.2.0
+  intl: ^0.19.0
   material_design_icons_flutter: ^7.0.7296
-  package_info: ^2.0.2
-  permission_handler: ^10.4.3
-  provider: ^6.0.5
-  rxdart: ^0.27.7
-  shared_preferences: ^2.2.0
-  sign_in_with_apple: ^5.0.0
+  package_info_plus: ^8.1.1
+  permission_handler: ^11.3.1
+  provider: ^6.1.2
+  rxdart: ^0.28.0
+  shared_preferences: ^2.3.3
+  sign_in_with_apple: ^6.1.3
   timezone: any
-  url_launcher: ^6.1.12
-  wiredash: ^1.7.2
+  url_launcher: ^6.3.1
+  wiredash: ^2.3.0
+  flutter_contacts: ^1.1.9+2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   #flutter_launcher_icons: "^0.7.2"
 #  dart_code_metrics: ^5.7.6
-  flutter_lints: ^2.0.2
+  flutter_lints: ^5.0.0
 
 flutter_icons:
   android: true

@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   static const routeName = '/login';
 
@@ -109,10 +109,12 @@ class LoginScreenState extends State<LoginScreen>
                             await auth.signInWithApple().then((value) {
                           if (auth.currentUser != null) {
                             firestore.recordLoginWithApple(currentUser!.uid);
-                            Navigator.of(context).pushAndRemoveUntil(
-                              HomeScreen.route(),
-                              (route) => false,
-                            );
+                            if (context.mounted) {
+                              Navigator.of(context).pushAndRemoveUntil(
+                                HomeScreen.route(),
+                                (route) => false,
+                              );
+                            }
                           }
                         }),
                       ),
@@ -135,10 +137,12 @@ class LoginScreenState extends State<LoginScreen>
                           await auth.signInWithGoogle().then((value) {
                         if (auth.currentUser != null) {
                           firestore.recordLoginWithGoogle(currentUser!.uid);
-                          Navigator.of(context).pushAndRemoveUntil(
-                            HomeScreen.route(),
-                            (route) => false,
-                          );
+                          if (context.mounted) {
+                            Navigator.of(context).pushAndRemoveUntil(
+                              HomeScreen.route(),
+                              (route) => false,
+                            );
+                          }
                         }
                       }),
                     ),

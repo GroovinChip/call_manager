@@ -2,7 +2,7 @@ import 'package:call_manager/theme/app_themes.dart';
 import 'package:flutter/material.dart';
 
 class ThemeIcon extends StatefulWidget {
-  const ThemeIcon({Key? key}) : super(key: key);
+  const ThemeIcon({super.key});
 
   @override
   State<ThemeIcon> createState() => _ThemeIconState();

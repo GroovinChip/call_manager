@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 class CompleteCallDialog extends StatefulWidget {
   const CompleteCallDialog({
-    Key? key,
+    super.key,
     required this.call,
-  }) : super(key: key);
+  });
 
   final Call call;
   @override

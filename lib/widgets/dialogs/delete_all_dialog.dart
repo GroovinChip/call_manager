@@ -2,7 +2,7 @@ import 'package:call_manager/firebase/firebase.dart';
 import 'package:flutter/material.dart';
 
 class DeleteAllDialog extends StatefulWidget {
-  const DeleteAllDialog({Key? key}) : super(key: key);
+  const DeleteAllDialog({super.key});
 
   @override
   State<DeleteAllDialog> createState() => _DeleteAllDialogState();
@@ -36,7 +36,9 @@ class _DeleteAllDialogState extends State<DeleteAllDialog> with FirebaseMixin {
                 ),
                 duration: const Duration(seconds: 3),
               );
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
             }
           },
           child: const Text('DELETE'),

@@ -3,7 +3,7 @@ import 'package:call_manager/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class LogOutDialog extends StatefulWidget {
-  const LogOutDialog({Key? key}) : super(key: key);
+  const LogOutDialog({super.key});
 
   @override
   State<LogOutDialog> createState() => _LogOutDialogState();
@@ -25,10 +25,12 @@ class _LogOutDialogState extends State<LogOutDialog> with FirebaseMixin {
             firestore.recordLogout(currentUser!.uid);
             await auth.signOut();
             if (mounted) {
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => const LoginScreen()),
-                (route) => false,
-              );
+              if (context.mounted) {
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                  (route) => false,
+                );
+              }
             }
           },
           child: const Text('YES'),

@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 
 class CallAvatar extends StatelessWidget {
   const CallAvatar({
-    Key? key,
+    super.key,
     required this.call,
-  }) : super(key: key);
+  });
 
   final Call call;
 

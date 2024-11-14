@@ -13,12 +13,12 @@ import 'package:wiredash/wiredash.dart';
 
 class CallManagerApp extends StatefulWidget {
   const CallManagerApp({
-    Key? key,
+    super.key,
     required this.contactsUtility,
     required this.notificationService,
     required this.phoneUtility,
     required this.prefsService,
-  }) : super(key: key);
+  });
 
   final ContactsUtility contactsUtility;
   final NotificationService notificationService;

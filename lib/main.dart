@@ -1,4 +1,5 @@
 import 'package:call_manager/app.dart';
+import 'package:call_manager/firebase_options.dart';
 import 'package:call_manager/services/contacts_utility.dart';
 import 'package:call_manager/services/notifications_service.dart';
 import 'package:call_manager/services/phone_utility.dart';
@@ -10,7 +11,9 @@ import 'package:flutter/material.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   final prefsService = await PrefsService.init();
   final contactsUtility = await ContactsUtility.init();

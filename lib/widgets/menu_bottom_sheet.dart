@@ -10,14 +10,14 @@ import 'package:call_manager/widgets/user_account_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:groovin_widgets/groovin_widgets.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wiredash/wiredash.dart';
 
 /// Represents the BottomSheet launched from the BottomAppBar
 /// on the HomeScreen widget
 class MenuBottomSheet extends StatefulWidget {
-  const MenuBottomSheet({Key? key}) : super(key: key);
+  const MenuBottomSheet({super.key});
 
   @override
   State<MenuBottomSheet> createState() => _MenuBottomSheetState();
@@ -132,12 +132,7 @@ class _MenuBottomSheetState extends State<MenuBottomSheet>
           ListTile(
             leading: Icon(MdiIcons.thoughtBubbleOutline),
             title: const Text('Send Feedback'),
-            onTap: () => Wiredash.of(context)
-              ..setBuildProperties(
-                buildVersion: _packageInfo.version,
-                buildNumber: _packageInfo.buildNumber,
-              )
-              ..show(),
+            onTap: () => Wiredash.of(context).show(),
           ),
         ],
       ),

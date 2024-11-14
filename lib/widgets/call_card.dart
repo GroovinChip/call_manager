@@ -13,9 +13,9 @@ import 'package:groovin_widgets/groovin_widgets.dart';
 
 class CallCard extends StatefulWidget {
   const CallCard({
-    Key? key,
+    super.key,
     required this.call,
-  }) : super(key: key);
+  });
 
   final Call call;
 

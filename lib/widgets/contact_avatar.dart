@@ -1,16 +1,17 @@
-import 'package:contacts_service/contacts_service.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter/material.dart';
 
 class ContactAvatar extends StatelessWidget {
   const ContactAvatar({
-    Key? key,
+    super.key,
     this.contact,
-  }) : super(key: key);
+  });
 
   final Contact? contact;
+  
   @override
   Widget build(BuildContext context) {
-    if (contact!.avatar == null || contact!.avatar!.isEmpty) {
+    if (contact!.photo == null || contact!.photo!.isEmpty) {
       return const CircleAvatar(
         child: Icon(Icons.person_outline),
       );
@@ -18,7 +19,7 @@ class ContactAvatar extends StatelessWidget {
       return ClipOval(
         child: CircleAvatar(
           child: Image.memory(
-            contact!.avatar!,
+            contact!.photo!,
             gaplessPlayback: true,
           ),
         ),
