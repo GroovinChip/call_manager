@@ -1,0 +1,162 @@
+[
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-xxhdpi_launcher_icon.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-xxhdpi/launcher_icon.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/drawable-v21_launch_background.xml.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/drawable-v21/launch_background.xml"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-mdpi_launcher_icon_round.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-mdpi/launcher_icon_round.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/drawable-xxhdpi_ic_notification.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/drawable-xxhdpi/ic_notification.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-xxhdpi_ic_launcher_foreground.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-xxhdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-hdpi_ic_launcher_foreground.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-hdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-xhdpi_launcher_icon_round.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-xhdpi/launcher_icon_round.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-xxxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-xxxhdpi_ic_launcher_foreground.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-xxxhdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-xxxhdpi_launcher_icon_round.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-xxxhdpi/launcher_icon_round.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-mdpi_launcher_icon.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-mdpi/launcher_icon.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/drawable-xhdpi_ic_notification.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/drawable-xhdpi/ic_notification.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-hdpi_launcher_icon_round.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-hdpi/launcher_icon_round.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/drawable-xxhdpi_ic_stat_phone_in_talk.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/drawable-xxhdpi/ic_stat_phone_in_talk.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/drawable-mdpi_ic_notification.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/drawable-mdpi/ic_notification.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-xxhdpi_launcher_icon_round.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-xxhdpi/launcher_icon_round.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/drawable-hdpi_ic_notification.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/drawable-hdpi/ic_notification.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-xxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-anydpi-v26_launcher_icon.xml.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-anydpi-v26/launcher_icon.xml"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-hdpi_launcher_icon.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-hdpi/launcher_icon.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/drawable-xxxhdpi_ic_stat_phone_in_talk.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/drawable-xxxhdpi/ic_stat_phone_in_talk.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/drawable-hdpi_ic_stat_phone_in_talk.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/drawable-hdpi/ic_stat_phone_in_talk.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/drawable-xhdpi_ic_stat_phone_in_talk.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/drawable-xhdpi/ic_stat_phone_in_talk.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/drawable-mdpi_ic_stat_phone_in_talk.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/drawable-mdpi/ic_stat_phone_in_talk.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-xhdpi_ic_launcher_foreground.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-xhdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-anydpi-v26_launcher_icon_round.xml.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-anydpi-v26/launcher_icon_round.xml"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-mdpi_ic_launcher_foreground.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-mdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-hdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-xxxhdpi_launcher_icon.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-xxxhdpi/launcher_icon.png"
+    },
+    {
+        "merged": "com.groovinchip.flutter.callmanager.app-debug-50:/mipmap-xhdpi_launcher_icon.png.flat",
+        "source": "com.groovinchip.flutter.callmanager.app-main-52:/mipmap-xhdpi/launcher_icon.png"
+    }
+]

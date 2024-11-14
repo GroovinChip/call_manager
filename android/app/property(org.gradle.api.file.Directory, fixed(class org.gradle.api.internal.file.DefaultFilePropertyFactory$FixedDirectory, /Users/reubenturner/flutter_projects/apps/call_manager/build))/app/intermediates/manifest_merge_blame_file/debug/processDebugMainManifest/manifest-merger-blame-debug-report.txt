@@ -1,0 +1,488 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.groovinchip.flutter.callmanager"
+4    android:versionCode="54"
+5    android:versionName="2.8.5" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="23"
+9        android:targetSdkVersion="34" />
+10    <!--
+11         Flutter needs it to communicate with the running application
+12         to allow setting breakpoints, to provide hot reload, etc.
+13    -->
+14    <uses-permission android:name="android.permission.INTERNET" />
+14-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:12:5-66
+14-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:12:22-64
+15    <!--
+16     The INTERNET permission is required for development. Specifically,
+17         flutter needs it to communicate with the running application
+18         to allow setting breakpoints, to provide hot reload, etc.
+19    -->
+20    <uses-feature
+20-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:8:5-10:36
+21        android:name="android.hardware.telephony"
+21-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:9:9-50
+22        android:required="false" />
+22-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:10:9-33
+23
+24    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+24-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:13:5-80
+24-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:13:22-78
+25    <uses-permission android:name="android.permission.VIBRATE" />
+25-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:14:5-66
+25-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:14:22-63
+26    <uses-permission android:name="android.permission.READ_CONTACTS" />
+26-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:15:5-72
+26-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:15:22-69
+27    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+27-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:16:5-73
+27-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:16:22-70
+28    <uses-permission android:name="android.permission.CALL_PHONE" />
+28-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:17:5-68
+28-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:17:22-66
+29    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+29-->[:connectivity_plus] /Users/reubenturner/.pub-cache/hosted/pub.dev/connectivity_plus-6.1.0/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/connectivity_plus/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:7:5-79
+29-->[:connectivity_plus] /Users/reubenturner/.pub-cache/hosted/pub.dev/connectivity_plus-6.1.0/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/connectivity_plus/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:7:22-76
+30
+31    <queries>
+31-->[:contacts_service] /Users/reubenturner/.pub-cache/git/flutter_contacts-527d03e1499efc5f7ed60715f4d48c51d3de5a57/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/contacts_service/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:7:5-20:15
+32        <intent>
+32-->[:contacts_service] /Users/reubenturner/.pub-cache/git/flutter_contacts-527d03e1499efc5f7ed60715f4d48c51d3de5a57/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/contacts_service/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:8:9-10:18
+33            <action android:name="android.accounts.AccountAuthenticator" />
+33-->[:contacts_service] /Users/reubenturner/.pub-cache/git/flutter_contacts-527d03e1499efc5f7ed60715f4d48c51d3de5a57/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/contacts_service/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:13-76
+33-->[:contacts_service] /Users/reubenturner/.pub-cache/git/flutter_contacts-527d03e1499efc5f7ed60715f4d48c51d3de5a57/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/contacts_service/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:21-73
+34        </intent>
+35        <!-- Allows the app to load an icon corresponding to the custom MIME type. -->
+36        <intent>
+36-->[:contacts_service] /Users/reubenturner/.pub-cache/git/flutter_contacts-527d03e1499efc5f7ed60715f4d48c51d3de5a57/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/contacts_service/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:12:9-19:18
+37            <action android:name="android.intent.action.VIEW" />
+37-->[:contacts_service] /Users/reubenturner/.pub-cache/git/flutter_contacts-527d03e1499efc5f7ed60715f4d48c51d3de5a57/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/contacts_service/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:13:13-65
+37-->[:contacts_service] /Users/reubenturner/.pub-cache/git/flutter_contacts-527d03e1499efc5f7ed60715f4d48c51d3de5a57/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/contacts_service/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:13:21-62
+38
+39            <data
+39-->[:contacts_service] /Users/reubenturner/.pub-cache/git/flutter_contacts-527d03e1499efc5f7ed60715f4d48c51d3de5a57/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/contacts_service/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:15:13-18:44
+40                android:host="com.android.contacts"
+40-->[:contacts_service] /Users/reubenturner/.pub-cache/git/flutter_contacts-527d03e1499efc5f7ed60715f4d48c51d3de5a57/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/contacts_service/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:16:17-52
+41                android:mimeType="vnd.android.cursor.item/*"
+41-->[:contacts_service] /Users/reubenturner/.pub-cache/git/flutter_contacts-527d03e1499efc5f7ed60715f4d48c51d3de5a57/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/contacts_service/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:17:17-61
+42                android:scheme="content" />
+42-->[:contacts_service] /Users/reubenturner/.pub-cache/git/flutter_contacts-527d03e1499efc5f7ed60715f4d48c51d3de5a57/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/contacts_service/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:18:17-41
+43        </intent>
+44    </queries>
+45
+46    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+46-->[:flutter_local_notifications] /Users/reubenturner/.pub-cache/hosted/pub.dev/flutter_local_notifications-18.0.1/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/flutter_local_notifications/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:8:5-77
+46-->[:flutter_local_notifications] /Users/reubenturner/.pub-cache/hosted/pub.dev/flutter_local_notifications-18.0.1/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/flutter_local_notifications/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:8:22-74
+47    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+47-->[com.google.android.recaptcha:recaptcha:18.5.1] /Users/reubenturner/.gradle/caches/transforms-3/e963b03ac222798c81bcd4239a5c2a5a/transformed/jetified-recaptcha-18.5.1/AndroidManifest.xml:9:5-98
+47-->[com.google.android.recaptcha:recaptcha:18.5.1] /Users/reubenturner/.gradle/caches/transforms-3/e963b03ac222798c81bcd4239a5c2a5a/transformed/jetified-recaptcha-18.5.1/AndroidManifest.xml:9:22-95
+48
+49    <permission
+49-->[androidx.core:core:1.13.1] /Users/reubenturner/.gradle/caches/transforms-3/32a06f45eb9ac1935e258ec6e9f472ff/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
+50        android:name="com.groovinchip.flutter.callmanager.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+50-->[androidx.core:core:1.13.1] /Users/reubenturner/.gradle/caches/transforms-3/32a06f45eb9ac1935e258ec6e9f472ff/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
+51        android:protectionLevel="signature" />
+51-->[androidx.core:core:1.13.1] /Users/reubenturner/.gradle/caches/transforms-3/32a06f45eb9ac1935e258ec6e9f472ff/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
+52
+53    <uses-permission android:name="com.groovinchip.flutter.callmanager.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+53-->[androidx.core:core:1.13.1] /Users/reubenturner/.gradle/caches/transforms-3/32a06f45eb9ac1935e258ec6e9f472ff/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
+53-->[androidx.core:core:1.13.1] /Users/reubenturner/.gradle/caches/transforms-3/32a06f45eb9ac1935e258ec6e9f472ff/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
+54    <!--
+55 io.flutter.app.FlutterApplication is an android.app.Application that
+56         calls FlutterMain.startInitialization(this); in its onCreate method.
+57         In most cases you can leave this as-is, but you if you want to provide
+58         additional functionality it is fine to subclass or reimplement
+59         FlutterApplication and put your custom class here.
+60    -->
+61    <application
+61-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:24:5-58:19
+62        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+62-->[androidx.core:core:1.13.1] /Users/reubenturner/.gradle/caches/transforms-3/32a06f45eb9ac1935e258ec6e9f472ff/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
+63        android:debuggable="true"
+64        android:extractNativeLibs="false"
+65        android:icon="@mipmap/ic_launcher"
+65-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:26:9-43
+66        android:label="Call Manager" >
+66-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:25:9-37
+67        <receiver
+67-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:27:9-131
+68            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver"
+68-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:27:44-128
+69            android:exported="false" />
+69-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:27:19-43
+70        <receiver
+70-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:28:9-35:20
+71            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver"
+71-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:28:44-132
+72            android:exported="false" >
+72-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:28:19-43
+73            <intent-filter>
+73-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:29:13-34:29
+74                <action android:name="android.intent.action.BOOT_COMPLETED" />
+74-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:30:17-78
+74-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:30:25-76
+75                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+75-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:31:17-83
+75-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:31:25-81
+76                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+76-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:32:17-82
+76-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:32:25-79
+77                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+77-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:33:17-81
+77-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:33:25-79
+78            </intent-filter>
+79        </receiver>
+80
+81        <meta-data
+81-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:36:9-38:66
+82            android:name="dev.groovinchip.flutter.callmanager.default_notification_icon"
+82-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:37:13-89
+83            android:resource="@drawable/ic_stat_phone_in_talk" />
+83-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:38:13-63
+84        <meta-data
+84-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:39:9-41:59
+85            android:name="dev.groovinchip.flutter.callmanager.default_notification_color"
+85-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:40:13-90
+86            android:resource="@color/notificationColor" />
+86-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:41:13-56
+87
+88        <activity
+88-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:42:9-54:20
+89            android:name="com.groovinchip.flutter.callmanager.MainActivity"
+89-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:43:13-41
+90            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density"
+90-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:47:13-137
+91            android:exported="true"
+91-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:44:13-36
+92            android:hardwareAccelerated="true"
+92-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:48:13-47
+93            android:launchMode="singleTop"
+93-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:45:13-43
+94            android:theme="@style/LaunchTheme"
+94-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:46:13-47
+95            android:windowSoftInputMode="adjustResize" >
+95-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:49:13-55
+96            <intent-filter>
+96-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:50:13-53:29
+97                <action android:name="android.intent.action.MAIN" />
+97-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:51:17-68
+97-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:51:25-66
+98
+99                <category android:name="android.intent.category.LAUNCHER" />
+99-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:52:17-76
+99-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:52:27-74
+100            </intent-filter>
+101        </activity>
+102
+103        <meta-data
+103-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:55:9-57:33
+104            android:name="flutterEmbedding"
+104-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:56:13-44
+105            android:value="2" />
+105-->/Users/reubenturner/flutter_projects/apps/call_manager/android/app/src/main/AndroidManifest.xml:57:13-30
+106
+107        <service
+107-->[:cloud_firestore] /Users/reubenturner/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.5/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/cloud_firestore/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:8:9-12:19
+108            android:name="com.google.firebase.components.ComponentDiscoveryService"
+108-->[:cloud_firestore] /Users/reubenturner/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.5/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/cloud_firestore/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:8:18-89
+109            android:directBootAware="true"
+109-->[com.google.firebase:firebase-common:21.0.0] /Users/reubenturner/.gradle/caches/transforms-3/ad832a7f51a5650725cf5868a515cefa/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:32:13-43
+110            android:exported="false" >
+110-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:68:13-37
+111            <meta-data
+111-->[:cloud_firestore] /Users/reubenturner/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.5/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/cloud_firestore/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:13-11:85
+112                android:name="com.google.firebase.components:io.flutter.plugins.firebase.firestore.FlutterFirebaseFirestoreRegistrar"
+112-->[:cloud_firestore] /Users/reubenturner/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.5/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/cloud_firestore/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:10:17-134
+113                android:value="com.google.firebase.components.ComponentRegistrar" />
+113-->[:cloud_firestore] /Users/reubenturner/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.5/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/cloud_firestore/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:11:17-82
+114            <meta-data
+114-->[:firebase_auth] /Users/reubenturner/.pub-cache/hosted/pub.dev/firebase_auth-5.3.2/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/firebase_auth/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:13-11:85
+115                android:name="com.google.firebase.components:io.flutter.plugins.firebase.auth.FlutterFirebaseAuthRegistrar"
+115-->[:firebase_auth] /Users/reubenturner/.pub-cache/hosted/pub.dev/firebase_auth-5.3.2/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/firebase_auth/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:10:17-124
+116                android:value="com.google.firebase.components.ComponentRegistrar" />
+116-->[:firebase_auth] /Users/reubenturner/.pub-cache/hosted/pub.dev/firebase_auth-5.3.2/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/firebase_auth/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:11:17-82
+117            <meta-data
+117-->[:firebase_core] /Users/reubenturner/.pub-cache/hosted/pub.dev/firebase_core-3.7.0/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/firebase_core/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:13-11:85
+118                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar"
+118-->[:firebase_core] /Users/reubenturner/.pub-cache/hosted/pub.dev/firebase_core-3.7.0/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/firebase_core/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:10:17-124
+119                android:value="com.google.firebase.components.ComponentRegistrar" />
+119-->[:firebase_core] /Users/reubenturner/.pub-cache/hosted/pub.dev/firebase_core-3.7.0/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/firebase_core/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:11:17-82
+120            <meta-data
+120-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:69:13-71:85
+121                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+121-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:70:17-109
+122                android:value="com.google.firebase.components.ComponentRegistrar" />
+122-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:71:17-82
+123            <meta-data
+123-->[com.google.firebase:firebase-firestore:25.1.1] /Users/reubenturner/.gradle/caches/transforms-3/36d60adc0636344dc8c30ee9239ef05a/transformed/jetified-firebase-firestore-25.1.1/AndroidManifest.xml:17:13-19:85
+124                android:name="com.google.firebase.components:com.google.firebase.firestore.FirebaseFirestoreKtxRegistrar"
+124-->[com.google.firebase:firebase-firestore:25.1.1] /Users/reubenturner/.gradle/caches/transforms-3/36d60adc0636344dc8c30ee9239ef05a/transformed/jetified-firebase-firestore-25.1.1/AndroidManifest.xml:18:17-122
+125                android:value="com.google.firebase.components.ComponentRegistrar" />
+125-->[com.google.firebase:firebase-firestore:25.1.1] /Users/reubenturner/.gradle/caches/transforms-3/36d60adc0636344dc8c30ee9239ef05a/transformed/jetified-firebase-firestore-25.1.1/AndroidManifest.xml:19:17-82
+126            <meta-data
+126-->[com.google.firebase:firebase-firestore:25.1.1] /Users/reubenturner/.gradle/caches/transforms-3/36d60adc0636344dc8c30ee9239ef05a/transformed/jetified-firebase-firestore-25.1.1/AndroidManifest.xml:20:13-22:85
+127                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+127-->[com.google.firebase:firebase-firestore:25.1.1] /Users/reubenturner/.gradle/caches/transforms-3/36d60adc0636344dc8c30ee9239ef05a/transformed/jetified-firebase-firestore-25.1.1/AndroidManifest.xml:21:17-111
+128                android:value="com.google.firebase.components.ComponentRegistrar" />
+128-->[com.google.firebase:firebase-firestore:25.1.1] /Users/reubenturner/.gradle/caches/transforms-3/36d60adc0636344dc8c30ee9239ef05a/transformed/jetified-firebase-firestore-25.1.1/AndroidManifest.xml:22:17-82
+129            <meta-data
+129-->[com.google.firebase:firebase-common-ktx:21.0.0] /Users/reubenturner/.gradle/caches/transforms-3/43d6b6347cd050aadbf161082d6a321c/transformed/jetified-firebase-common-ktx-21.0.0/AndroidManifest.xml:12:13-14:85
+130                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
+130-->[com.google.firebase:firebase-common-ktx:21.0.0] /Users/reubenturner/.gradle/caches/transforms-3/43d6b6347cd050aadbf161082d6a321c/transformed/jetified-firebase-common-ktx-21.0.0/AndroidManifest.xml:13:17-116
+131                android:value="com.google.firebase.components.ComponentRegistrar" />
+131-->[com.google.firebase:firebase-common-ktx:21.0.0] /Users/reubenturner/.gradle/caches/transforms-3/43d6b6347cd050aadbf161082d6a321c/transformed/jetified-firebase-common-ktx-21.0.0/AndroidManifest.xml:14:17-82
+132            <meta-data
+132-->[com.google.firebase:firebase-common:21.0.0] /Users/reubenturner/.gradle/caches/transforms-3/ad832a7f51a5650725cf5868a515cefa/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:35:13-37:85
+133                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
+133-->[com.google.firebase:firebase-common:21.0.0] /Users/reubenturner/.gradle/caches/transforms-3/ad832a7f51a5650725cf5868a515cefa/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:36:17-109
+134                android:value="com.google.firebase.components.ComponentRegistrar" />
+134-->[com.google.firebase:firebase-common:21.0.0] /Users/reubenturner/.gradle/caches/transforms-3/ad832a7f51a5650725cf5868a515cefa/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:37:17-82
+135        </service>
+136
+137        <activity
+137-->[:url_launcher_android] /Users/reubenturner/.pub-cache/hosted/pub.dev/url_launcher_android-6.3.14/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/url_launcher_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:8:9-11:74
+138            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+138-->[:url_launcher_android] /Users/reubenturner/.pub-cache/hosted/pub.dev/url_launcher_android-6.3.14/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/url_launcher_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:13-74
+139            android:exported="false"
+139-->[:url_launcher_android] /Users/reubenturner/.pub-cache/hosted/pub.dev/url_launcher_android-6.3.14/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/url_launcher_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:10:13-37
+140            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+140-->[:url_launcher_android] /Users/reubenturner/.pub-cache/hosted/pub.dev/url_launcher_android-6.3.14/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/url_launcher_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:11:13-71
+141        <activity
+141-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:29:9-46:20
+142            android:name="com.google.firebase.auth.internal.GenericIdpActivity"
+142-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:30:13-80
+143            android:excludeFromRecents="true"
+143-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:31:13-46
+144            android:exported="true"
+144-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:32:13-36
+145            android:launchMode="singleTask"
+145-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:33:13-44
+146            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+146-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:34:13-72
+147            <intent-filter>
+147-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:35:13-45:29
+148                <action android:name="android.intent.action.VIEW" />
+148-->[:contacts_service] /Users/reubenturner/.pub-cache/git/flutter_contacts-527d03e1499efc5f7ed60715f4d48c51d3de5a57/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/contacts_service/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:13:13-65
+148-->[:contacts_service] /Users/reubenturner/.pub-cache/git/flutter_contacts-527d03e1499efc5f7ed60715f4d48c51d3de5a57/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/contacts_service/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:13:21-62
+149
+150                <category android:name="android.intent.category.DEFAULT" />
+150-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:38:17-76
+150-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:38:27-73
+151                <category android:name="android.intent.category.BROWSABLE" />
+151-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:39:17-78
+151-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:39:27-75
+152
+153                <data
+153-->[:contacts_service] /Users/reubenturner/.pub-cache/git/flutter_contacts-527d03e1499efc5f7ed60715f4d48c51d3de5a57/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/contacts_service/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:15:13-18:44
+154                    android:host="firebase.auth"
+154-->[:contacts_service] /Users/reubenturner/.pub-cache/git/flutter_contacts-527d03e1499efc5f7ed60715f4d48c51d3de5a57/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/contacts_service/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:16:17-52
+155                    android:path="/"
+156                    android:scheme="genericidp" />
+156-->[:contacts_service] /Users/reubenturner/.pub-cache/git/flutter_contacts-527d03e1499efc5f7ed60715f4d48c51d3de5a57/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/contacts_service/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:18:17-41
+157            </intent-filter>
+158        </activity>
+159        <activity
+159-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:47:9-64:20
+160            android:name="com.google.firebase.auth.internal.RecaptchaActivity"
+160-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:48:13-79
+161            android:excludeFromRecents="true"
+161-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:49:13-46
+162            android:exported="true"
+162-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:50:13-36
+163            android:launchMode="singleTask"
+163-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:51:13-44
+164            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+164-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:52:13-72
+165            <intent-filter>
+165-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:53:13-63:29
+166                <action android:name="android.intent.action.VIEW" />
+166-->[:contacts_service] /Users/reubenturner/.pub-cache/git/flutter_contacts-527d03e1499efc5f7ed60715f4d48c51d3de5a57/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/contacts_service/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:13:13-65
+166-->[:contacts_service] /Users/reubenturner/.pub-cache/git/flutter_contacts-527d03e1499efc5f7ed60715f4d48c51d3de5a57/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/contacts_service/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:13:21-62
+167
+168                <category android:name="android.intent.category.DEFAULT" />
+168-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:38:17-76
+168-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:38:27-73
+169                <category android:name="android.intent.category.BROWSABLE" />
+169-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:39:17-78
+169-->[com.google.firebase:firebase-auth:23.1.0] /Users/reubenturner/.gradle/caches/transforms-3/8d4bc8ba309d4e57e13d154fa6ad7e8c/transformed/jetified-firebase-auth-23.1.0/AndroidManifest.xml:39:27-75
+170
+171                <data
+171-->[:contacts_service] /Users/reubenturner/.pub-cache/git/flutter_contacts-527d03e1499efc5f7ed60715f4d48c51d3de5a57/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/contacts_service/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:15:13-18:44
+172                    android:host="firebase.auth"
+172-->[:contacts_service] /Users/reubenturner/.pub-cache/git/flutter_contacts-527d03e1499efc5f7ed60715f4d48c51d3de5a57/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/contacts_service/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:16:17-52
+173                    android:path="/"
+174                    android:scheme="recaptcha" />
+174-->[:contacts_service] /Users/reubenturner/.pub-cache/git/flutter_contacts-527d03e1499efc5f7ed60715f4d48c51d3de5a57/android/property(org.gradle.api.file.Directory, fixed(class org.gradle.api.internal.file.DefaultFilePropertyFactory$FixedDirectory, /Users/reubenturner/flutter_projects/apps/call_manager/build))/contacts_service/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:18:17-41
+175            </intent-filter>
+176        </activity>
+177
+178        <uses-library
+178-->[androidx.window:window:1.2.0] /Users/reubenturner/.gradle/caches/transforms-3/7c591980b88975776aa2e085b2650397/transformed/jetified-window-1.2.0/AndroidManifest.xml:23:9-25:40
+179            android:name="androidx.window.extensions"
+179-->[androidx.window:window:1.2.0] /Users/reubenturner/.gradle/caches/transforms-3/7c591980b88975776aa2e085b2650397/transformed/jetified-window-1.2.0/AndroidManifest.xml:24:13-54
+180            android:required="false" />
+180-->[androidx.window:window:1.2.0] /Users/reubenturner/.gradle/caches/transforms-3/7c591980b88975776aa2e085b2650397/transformed/jetified-window-1.2.0/AndroidManifest.xml:25:13-37
+181        <uses-library
+181-->[androidx.window:window:1.2.0] /Users/reubenturner/.gradle/caches/transforms-3/7c591980b88975776aa2e085b2650397/transformed/jetified-window-1.2.0/AndroidManifest.xml:26:9-28:40
+182            android:name="androidx.window.sidecar"
+182-->[androidx.window:window:1.2.0] /Users/reubenturner/.gradle/caches/transforms-3/7c591980b88975776aa2e085b2650397/transformed/jetified-window-1.2.0/AndroidManifest.xml:27:13-51
+183            android:required="false" />
+183-->[androidx.window:window:1.2.0] /Users/reubenturner/.gradle/caches/transforms-3/7c591980b88975776aa2e085b2650397/transformed/jetified-window-1.2.0/AndroidManifest.xml:28:13-37
+184
+185        <service
+185-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/reubenturner/.gradle/caches/transforms-3/2b14d2705e75e60d2437676694b578e8/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:24:9-32:19
+186            android:name="androidx.credentials.playservices.CredentialProviderMetadataHolder"
+186-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/reubenturner/.gradle/caches/transforms-3/2b14d2705e75e60d2437676694b578e8/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:25:13-94
+187            android:enabled="true"
+187-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/reubenturner/.gradle/caches/transforms-3/2b14d2705e75e60d2437676694b578e8/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:26:13-35
+188            android:exported="false" >
+188-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/reubenturner/.gradle/caches/transforms-3/2b14d2705e75e60d2437676694b578e8/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:27:13-37
+189            <meta-data
+189-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/reubenturner/.gradle/caches/transforms-3/2b14d2705e75e60d2437676694b578e8/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:29:13-31:104
+190                android:name="androidx.credentials.CREDENTIAL_PROVIDER_KEY"
+190-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/reubenturner/.gradle/caches/transforms-3/2b14d2705e75e60d2437676694b578e8/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:30:17-76
+191                android:value="androidx.credentials.playservices.CredentialProviderPlayServicesImpl" />
+191-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/reubenturner/.gradle/caches/transforms-3/2b14d2705e75e60d2437676694b578e8/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:31:17-101
+192        </service>
+193
+194        <activity
+194-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/reubenturner/.gradle/caches/transforms-3/2b14d2705e75e60d2437676694b578e8/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:34:9-41:20
+195            android:name="androidx.credentials.playservices.HiddenActivity"
+195-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/reubenturner/.gradle/caches/transforms-3/2b14d2705e75e60d2437676694b578e8/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:35:13-76
+196            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+196-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/reubenturner/.gradle/caches/transforms-3/2b14d2705e75e60d2437676694b578e8/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:36:13-87
+197            android:enabled="true"
+197-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/reubenturner/.gradle/caches/transforms-3/2b14d2705e75e60d2437676694b578e8/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:37:13-35
+198            android:exported="false"
+198-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/reubenturner/.gradle/caches/transforms-3/2b14d2705e75e60d2437676694b578e8/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:38:13-37
+199            android:fitsSystemWindows="true"
+199-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/reubenturner/.gradle/caches/transforms-3/2b14d2705e75e60d2437676694b578e8/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:39:13-45
+200            android:theme="@style/Theme.Hidden" >
+200-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/reubenturner/.gradle/caches/transforms-3/2b14d2705e75e60d2437676694b578e8/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:40:13-48
+201        </activity>
+202        <activity
+202-->[com.google.android.gms:play-services-auth:21.0.0] /Users/reubenturner/.gradle/caches/transforms-3/e023663689035591412c13375f984803/transformed/jetified-play-services-auth-21.0.0/AndroidManifest.xml:23:9-27:75
+203            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+203-->[com.google.android.gms:play-services-auth:21.0.0] /Users/reubenturner/.gradle/caches/transforms-3/e023663689035591412c13375f984803/transformed/jetified-play-services-auth-21.0.0/AndroidManifest.xml:24:13-93
+204            android:excludeFromRecents="true"
+204-->[com.google.android.gms:play-services-auth:21.0.0] /Users/reubenturner/.gradle/caches/transforms-3/e023663689035591412c13375f984803/transformed/jetified-play-services-auth-21.0.0/AndroidManifest.xml:25:13-46
+205            android:exported="false"
+205-->[com.google.android.gms:play-services-auth:21.0.0] /Users/reubenturner/.gradle/caches/transforms-3/e023663689035591412c13375f984803/transformed/jetified-play-services-auth-21.0.0/AndroidManifest.xml:26:13-37
+206            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+206-->[com.google.android.gms:play-services-auth:21.0.0] /Users/reubenturner/.gradle/caches/transforms-3/e023663689035591412c13375f984803/transformed/jetified-play-services-auth-21.0.0/AndroidManifest.xml:27:13-72
+207        <!--
+208            Service handling Google Sign-In user revocation. For apps that do not integrate with
+209            Google Sign-In, this service will never be started.
+210        -->
+211        <service
+211-->[com.google.android.gms:play-services-auth:21.0.0] /Users/reubenturner/.gradle/caches/transforms-3/e023663689035591412c13375f984803/transformed/jetified-play-services-auth-21.0.0/AndroidManifest.xml:33:9-37:51
+212            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+212-->[com.google.android.gms:play-services-auth:21.0.0] /Users/reubenturner/.gradle/caches/transforms-3/e023663689035591412c13375f984803/transformed/jetified-play-services-auth-21.0.0/AndroidManifest.xml:34:13-89
+213            android:exported="true"
+213-->[com.google.android.gms:play-services-auth:21.0.0] /Users/reubenturner/.gradle/caches/transforms-3/e023663689035591412c13375f984803/transformed/jetified-play-services-auth-21.0.0/AndroidManifest.xml:35:13-36
+214            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"
+214-->[com.google.android.gms:play-services-auth:21.0.0] /Users/reubenturner/.gradle/caches/transforms-3/e023663689035591412c13375f984803/transformed/jetified-play-services-auth-21.0.0/AndroidManifest.xml:36:13-107
+215            android:visibleToInstantApps="true" />
+215-->[com.google.android.gms:play-services-auth:21.0.0] /Users/reubenturner/.gradle/caches/transforms-3/e023663689035591412c13375f984803/transformed/jetified-play-services-auth-21.0.0/AndroidManifest.xml:37:13-48
+216
+217        <activity
+217-->[com.google.android.gms:play-services-base:18.0.1] /Users/reubenturner/.gradle/caches/transforms-3/0f49440c68ba986b4a86141093bea586/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:9-22:45
+218            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+218-->[com.google.android.gms:play-services-base:18.0.1] /Users/reubenturner/.gradle/caches/transforms-3/0f49440c68ba986b4a86141093bea586/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:19-85
+219            android:exported="false"
+219-->[com.google.android.gms:play-services-base:18.0.1] /Users/reubenturner/.gradle/caches/transforms-3/0f49440c68ba986b4a86141093bea586/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:22:19-43
+220            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+220-->[com.google.android.gms:play-services-base:18.0.1] /Users/reubenturner/.gradle/caches/transforms-3/0f49440c68ba986b4a86141093bea586/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:21:19-78
+221
+222        <provider
+222-->[com.google.firebase:firebase-common:21.0.0] /Users/reubenturner/.gradle/caches/transforms-3/ad832a7f51a5650725cf5868a515cefa/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:23:9-28:39
+223            android:name="com.google.firebase.provider.FirebaseInitProvider"
+223-->[com.google.firebase:firebase-common:21.0.0] /Users/reubenturner/.gradle/caches/transforms-3/ad832a7f51a5650725cf5868a515cefa/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:24:13-77
+224            android:authorities="com.groovinchip.flutter.callmanager.firebaseinitprovider"
+224-->[com.google.firebase:firebase-common:21.0.0] /Users/reubenturner/.gradle/caches/transforms-3/ad832a7f51a5650725cf5868a515cefa/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:25:13-72
+225            android:directBootAware="true"
+225-->[com.google.firebase:firebase-common:21.0.0] /Users/reubenturner/.gradle/caches/transforms-3/ad832a7f51a5650725cf5868a515cefa/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:26:13-43
+226            android:exported="false"
+226-->[com.google.firebase:firebase-common:21.0.0] /Users/reubenturner/.gradle/caches/transforms-3/ad832a7f51a5650725cf5868a515cefa/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:27:13-37
+227            android:initOrder="100" />
+227-->[com.google.firebase:firebase-common:21.0.0] /Users/reubenturner/.gradle/caches/transforms-3/ad832a7f51a5650725cf5868a515cefa/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:28:13-36
+228        <provider
+228-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/reubenturner/.gradle/caches/transforms-3/57d32eca5436781e50af6ae9d4254172/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:24:9-32:20
+229            android:name="androidx.startup.InitializationProvider"
+229-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/reubenturner/.gradle/caches/transforms-3/57d32eca5436781e50af6ae9d4254172/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:25:13-67
+230            android:authorities="com.groovinchip.flutter.callmanager.androidx-startup"
+230-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/reubenturner/.gradle/caches/transforms-3/57d32eca5436781e50af6ae9d4254172/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:26:13-68
+231            android:exported="false" >
+231-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/reubenturner/.gradle/caches/transforms-3/57d32eca5436781e50af6ae9d4254172/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:27:13-37
+232            <meta-data
+232-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/reubenturner/.gradle/caches/transforms-3/57d32eca5436781e50af6ae9d4254172/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:29:13-31:52
+233                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+233-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/reubenturner/.gradle/caches/transforms-3/57d32eca5436781e50af6ae9d4254172/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:30:17-78
+234                android:value="androidx.startup" />
+234-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/reubenturner/.gradle/caches/transforms-3/57d32eca5436781e50af6ae9d4254172/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:31:17-49
+235            <meta-data
+235-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/reubenturner/.gradle/caches/transforms-3/121be736129063b141e549663f69dd61/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+236                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+236-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/reubenturner/.gradle/caches/transforms-3/121be736129063b141e549663f69dd61/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+237                android:value="androidx.startup" />
+237-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/reubenturner/.gradle/caches/transforms-3/121be736129063b141e549663f69dd61/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+238        </provider>
+239
+240        <meta-data
+240-->[com.google.android.gms:play-services-basement:18.4.0] /Users/reubenturner/.gradle/caches/transforms-3/de12915d54c3e55ce7587328c317d047/transformed/jetified-play-services-basement-18.4.0/AndroidManifest.xml:6:9-122
+241            android:name="com.google.android.gms.version"
+241-->[com.google.android.gms:play-services-basement:18.4.0] /Users/reubenturner/.gradle/caches/transforms-3/de12915d54c3e55ce7587328c317d047/transformed/jetified-play-services-basement-18.4.0/AndroidManifest.xml:6:20-65
+242            android:value="@integer/google_play_services_version" />
+242-->[com.google.android.gms:play-services-basement:18.4.0] /Users/reubenturner/.gradle/caches/transforms-3/de12915d54c3e55ce7587328c317d047/transformed/jetified-play-services-basement-18.4.0/AndroidManifest.xml:6:66-119
+243
+244        <receiver
+244-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/reubenturner/.gradle/caches/transforms-3/121be736129063b141e549663f69dd61/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+245            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+245-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/reubenturner/.gradle/caches/transforms-3/121be736129063b141e549663f69dd61/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+246            android:directBootAware="false"
+246-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/reubenturner/.gradle/caches/transforms-3/121be736129063b141e549663f69dd61/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+247            android:enabled="true"
+247-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/reubenturner/.gradle/caches/transforms-3/121be736129063b141e549663f69dd61/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+248            android:exported="true"
+248-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/reubenturner/.gradle/caches/transforms-3/121be736129063b141e549663f69dd61/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+249            android:permission="android.permission.DUMP" >
+249-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/reubenturner/.gradle/caches/transforms-3/121be736129063b141e549663f69dd61/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+250            <intent-filter>
+250-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/reubenturner/.gradle/caches/transforms-3/121be736129063b141e549663f69dd61/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+251                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+251-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/reubenturner/.gradle/caches/transforms-3/121be736129063b141e549663f69dd61/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+251-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/reubenturner/.gradle/caches/transforms-3/121be736129063b141e549663f69dd61/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+252            </intent-filter>
+253            <intent-filter>
+253-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/reubenturner/.gradle/caches/transforms-3/121be736129063b141e549663f69dd61/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+254                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+254-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/reubenturner/.gradle/caches/transforms-3/121be736129063b141e549663f69dd61/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+254-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/reubenturner/.gradle/caches/transforms-3/121be736129063b141e549663f69dd61/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+255            </intent-filter>
+256            <intent-filter>
+256-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/reubenturner/.gradle/caches/transforms-3/121be736129063b141e549663f69dd61/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+257                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+257-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/reubenturner/.gradle/caches/transforms-3/121be736129063b141e549663f69dd61/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+257-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/reubenturner/.gradle/caches/transforms-3/121be736129063b141e549663f69dd61/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+258            </intent-filter>
+259            <intent-filter>
+259-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/reubenturner/.gradle/caches/transforms-3/121be736129063b141e549663f69dd61/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+260                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+260-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/reubenturner/.gradle/caches/transforms-3/121be736129063b141e549663f69dd61/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+260-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/reubenturner/.gradle/caches/transforms-3/121be736129063b141e549663f69dd61/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
+261            </intent-filter>
+262        </receiver> <!-- The activities will be merged into the manifest of the hosting app. -->
+263        <activity
+263-->[com.google.android.play:core-common:2.0.3] /Users/reubenturner/.gradle/caches/transforms-3/4eb43cfe47405158789cb3c21d0b1a37/transformed/jetified-core-common-2.0.3/AndroidManifest.xml:14:9-18:65
+264            android:name="com.google.android.play.core.common.PlayCoreDialogWrapperActivity"
+264-->[com.google.android.play:core-common:2.0.3] /Users/reubenturner/.gradle/caches/transforms-3/4eb43cfe47405158789cb3c21d0b1a37/transformed/jetified-core-common-2.0.3/AndroidManifest.xml:15:13-93
+265            android:exported="false"
+265-->[com.google.android.play:core-common:2.0.3] /Users/reubenturner/.gradle/caches/transforms-3/4eb43cfe47405158789cb3c21d0b1a37/transformed/jetified-core-common-2.0.3/AndroidManifest.xml:16:13-37
+266            android:stateNotNeeded="true"
+266-->[com.google.android.play:core-common:2.0.3] /Users/reubenturner/.gradle/caches/transforms-3/4eb43cfe47405158789cb3c21d0b1a37/transformed/jetified-core-common-2.0.3/AndroidManifest.xml:17:13-42
+267            android:theme="@style/Theme.PlayCore.Transparent" />
+267-->[com.google.android.play:core-common:2.0.3] /Users/reubenturner/.gradle/caches/transforms-3/4eb43cfe47405158789cb3c21d0b1a37/transformed/jetified-core-common-2.0.3/AndroidManifest.xml:18:13-62
+268    </application>
+269
+270</manifest>

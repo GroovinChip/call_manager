@@ -7,13 +7,13 @@ allprojects {
 
 rootProject.buildDir = '../build'
 subprojects {
-    project.buildDir = "${rootProject.buildDir}/${project.name}"
+    project.buildDir = "${rootProject.getLayout().getBuildDirectory()}/${project.name}"
 }
 subprojects {
     project.evaluationDependsOn(':app')
 }
 subprojects {
-    project.configurations.all {
+    project.configurations.configureEach {
         resolutionStrategy.eachDependency { details ->
             if (details.requested.group == 'com.android.support'
                     && !details.requested.name.contains('multidex') ) {
@@ -24,5 +24,5 @@ subprojects {
 }
 
 tasks.register("clean", Delete) {
-    delete rootProject.buildDir
+    delete rootProject.getLayout().getBuildDirectory()
 }
